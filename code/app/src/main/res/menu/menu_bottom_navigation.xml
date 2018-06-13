@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <item
+    android:id="@+id/nav_dynamic"
+    android:icon="@drawable/ic_nav_dynamic"
+    android:title="@string/nav_dynamic" />
+
+  <item
+    android:id="@+id/nav_activity"
+    android:icon="@drawable/ic_nav_dynamic"
+    android:title="@string/nav_activity" />
+
+  <item
+    android:id="@+id/nav_community"
+    android:icon="@drawable/ic_nav_dynamic"
+    android:title="@string/nav_community" />
+
+
+  <item
+    android:id="@+id/nav_me"
+    android:icon="@drawable/ic_nav_dynamic"
+    android:title="@string/nav_me" />
+
+</menu>

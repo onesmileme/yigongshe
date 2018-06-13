@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">青年义工社</string>
+  <string name="nav_dynamic">动态</string>
+  <string name="nav_activity">活动</string>
+  <string name="nav_community">益工圈</string>
+  <string name="nav_me">我</string>
+</resources>
