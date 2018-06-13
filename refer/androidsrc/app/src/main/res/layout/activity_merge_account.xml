@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:fitsSystemWindows="true">
+
+
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_titlebar_height"
+            layout="@layout/common_title_bar"/>
+
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:text="微信账号和QQ账号绑定后，将两账号发布内容合并，登录及后续操作更便捷"
+            />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+        <LinearLayout
+                android:id="@+id/ll_weixin_merge"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_weixin_large"/>
+            <TextView
+                    android:id="@+id/tv_weixin_merge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#333333"
+                    android:text="绑定微信"
+                    />
+        </LinearLayout>
+
+        <View android:layout_width="0.5dp"
+              android:layout_height="match_parent"
+              android:background="@color/common_split_line"/>
+
+        <LinearLayout
+                android:id="@+id/ll_qq_merge"
+                android:layout_width="wrap_content"
+                android:layout_height="160dp"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_weight="1">
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_qq_large"/>
+            <TextView
+                    android:id="@+id/tv_qq_merge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="15sp"
+                    android:textColor="#333333"
+                    android:text="绑定QQ"
+                    />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

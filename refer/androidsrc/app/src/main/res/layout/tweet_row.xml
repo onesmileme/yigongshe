@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/split_common" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="14dp"
+        android:paddingTop="20dp">
+
+        <com.weikan.app.widget.roundedimageview.CircleImageView
+            android:id="@+id/avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/user_default" />
+
+        <TextView
+            android:id="@+id/nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/avatar"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/avatar"
+            android:background="@drawable/listview_nick_selector"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="昵称"
+            android:textColor="@color/wenyou_list_name_normal"
+            android:textSize="16sp" />
+
+
+        <ImageView
+            android:id="@+id/iv_v"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/nick"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@+id/nick"
+            android:src="@drawable/icon_bluev"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_tweet_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nick"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:background="@drawable/listview_nick_selector"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="啦啦啦"
+            tools:visibility="visible" />
+
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tweet_subtitle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:textColor="#111111"
+            android:textSize="16sp"
+            android:visibility="gone"
+            tools:text="啦啦啦哈哈哈收到了开发机爱上当减肥拉上代理费阿斯兰的发了撒"
+            tools:visibility="visible" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:id="@+id/pics_multi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/nick"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="8dp"
+            app:alignContent="flex_start"
+            app:alignItems="flex_start"
+            app:flexWrap="wrap"
+            app:paddingEnd="4dp"
+            app:paddingStart="4dp" />
+
+        <LinearLayout
+            android:id="@+id/ll_share_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/pics_multi"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:background="@color/background_gray"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <ImageView
+                android:id="@+id/iv_share_circle"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:visibility="gone"
+                tools:src="@drawable/ic_launcher"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_share_circle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/shizhi_title_text_color"
+                android:textSize="14dp"
+                tools:text="刘文静的分享今天做起来了刘文静的分享今天做起来了刘文静的分享今天做起来了" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/time_and_zan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_share_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@+id/avatar"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/create_at"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:textColor="#777777"
+                android:textSize="12sp"
+                tools:text="1分钟前" />
+
+            <TextView
+                android:id="@+id/tv_wenyou_item_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/create_at"
+                android:background="@drawable/wenyou_list_tag_bg"
+                android:textColor="#fc461e"
+                android:textSize="12sp"
+                tools:text="#美腿大赛" />
+
+
+            <LinearLayout
+                android:id="@+id/comment"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/dis_item_comm_selector" />
+
+                <TextView
+                    android:id="@+id/comment_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#777777"
+                    android:textSize="12sp"
+                    tools:text="0" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/like"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/comment"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:id="@+id/like_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/dis_item_zan_selector" />
+
+                <TextView
+                    android:id="@+id/like_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center_vertical"
+                    android:textColor="#777777"
+                    android:textSize="12sp"
+                    tools:text="0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/like"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:paddingTop="5dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:src="@drawable/dis_item_share_selector" />
+
+                <TextView
+                    android:id="@+id/share_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/medium"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="#777777"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <include
+            layout="@layout/discuss_bottom_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/time_and_zan"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="16dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/avatar" />
+    </RelativeLayout>
+
+
+</LinearLayout>

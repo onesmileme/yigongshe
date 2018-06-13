@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="@layout/widget_city_section_view_preview">
+    <TextView
+            android:id="@+id/tv"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:background="#f7f7f7"
+            android:paddingLeft="25dp"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:textColor="@color/more_text_deep"
+            android:textSize="14sp"
+            tools:text="C"
+            />
+
+    <View
+        android:id="@+id/v_splitter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="#eeeeee" />
+</merge>

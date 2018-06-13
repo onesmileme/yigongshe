@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/base_pull_title"
+        layout="@layout/common_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_titlebar_height" />
+
+    <TextView
+        android:id="@+id/tv_regist_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/base_pull_title"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="51dp"
+        android:text="+86"
+        android:textColor="#333333"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/et_regist_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_regist_phone"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/tv_regist_phone"
+        android:background="@null"
+        android:hint="您的手机号码"
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textColorHint="#c8c8c8"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/split1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_regist_phone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@color/background_gray" />
+
+    <TextView
+        android:id="@+id/tv_regist_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/split1"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="17dp"
+        android:text="验证码"
+        android:textColor="#333333"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/et_regist_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_regist_code"
+        android:layout_alignLeft="@+id/et_regist_phone"
+        android:layout_toLeftOf="@+id/split"
+        android:background="@null"
+        android:hint="请输入验证码"
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textColorHint="#c8c8c8"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/split"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/split1"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="120dp"
+        android:layout_marginTop="8dp"
+        android:src="@color/background_gray" />
+
+    <TextView
+        android:id="@+id/tv_timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/et_regist_code"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/et_regist_code"
+        android:gravity="center"
+        android:text="获取验证码"
+        android:textColor="#FC461E" />
+
+    <ImageView
+        android:id="@+id/split2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_regist_code"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@color/background_gray" />
+
+    <TextView
+        android:id="@+id/tv_regist_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/split2"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="17dp"
+        android:text="新密码"
+        android:textColor="#333333"
+        android:textSize="16dp" />
+
+    <EditText
+        android:id="@+id/et_regist_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_regist_pwd"
+        android:layout_alignLeft="@+id/et_regist_phone"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:hint="请输入6~16位密码"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#c8c8c8"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/split3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_regist_pwd"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@color/background_gray" />
+
+    <Button
+        android:id="@+id/btn_regist"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/split3"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_bg_red_solid_coner"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="提交"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_regist"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_deal_unclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*点击提交代表您已阅读并同意"
+            android:textColor="#c8c8c8"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/tv_deal_clickable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:text="@string/regist_deal"
+            android:textColor="#000000"
+            android:textSize="12dp"
+            android:typeface="sans" />
+    </LinearLayout>
+
+</RelativeLayout>

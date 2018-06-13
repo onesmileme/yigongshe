@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mine_item_bg_selector"
+    android:orientation="vertical">
+
+    <com.weikan.app.widget.roundedimageview.CircleImageView
+        android:id="@+id/iv_sys_msg_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/user_default" />
+
+    <RelativeLayout
+        android:id="@+id/sv_sys_msg_pic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp">
+
+        <ImageView
+            android:id="@+id/iv_sys_msg_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user_default" />
+
+        <TextView
+            android:id="@+id/tv_sys_msg_content"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:text="我觉得非常好,真的特别好，很喜欢，云云"
+            android:textColor="#999999"
+            android:textSize="13sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/tv_sys_msg_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="12dp"
+        android:layout_toLeftOf="@+id/sv_sys_msg_pic"
+        android:layout_toRightOf="@+id/iv_sys_msg_avatar"
+        android:text="我是谁"
+        android:textColor="#576b95"
+        android:textSize="14sp" />
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_sys_msg_nickname"
+        android:layout_below="@+id/tv_sys_msg_nickname"
+        android:layout_marginTop="6dp"
+        android:layout_toLeftOf="@+id/sv_sys_msg_pic">
+
+        <TextView
+            android:id="@+id/tv_sys_msg_zantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="回复了某某某"
+            android:textColor="#111111"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/iv_my_msg_zan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/dis_item_zan" />
+    </FrameLayout>
+
+
+    <TextView
+        android:id="@+id/tv_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_sys_msg_nickname"
+        android:layout_below="@+id/fl_content"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/iv_sys_msg_avatar"
+        android:text="刚刚"
+        android:textColor="#707070"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/discuss_split"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_create_time"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/split_common" />
+</RelativeLayout>

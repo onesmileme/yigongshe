@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ The MIT License (MIT)
+  ~ Copyright (c) 2014 longkai
+  ~ The software shall be used for good, not evil.
+  -->
+<resources>
+    <color name="color_33000000">#33000000</color>
+    <color name="common_title_text">#ffffff</color>
+    <color name="common_split_line">#f0f0f0</color>
+    <color name="common_button_red">#ef3911</color>
+    <color name="wenguan">#3376e0</color>
+	<color name="actionbar_background">#55acee</color>
+	<color name="menuitem_background">#83c7f8</color>
+	<color name="snowColor">#fffafa</color>
+	<color name="ivoryColor">#fffff0</color>
+	<color name="tab_selected">#99D9D9</color>
+	<color name="tab_pressed">#8099D9D9</color>
+	<color name="black25PercentColor">#404040</color>
+    <color name="commonbg">#dddddd</color>
+    <color name="list_nick_pressed">#F5F4F7</color>
+    <!-- commen color -->
+    <color name="white">#ffffff</color>
+    <color name="gray">#ebebeb</color>
+    <color name="lanjing_blue">#1c9dd6</color>
+    <color name="red">#ff0000</color>
+    <color name="light_gray_line">#DCDCDC</color>
+    <color name="background_gray">#F7F7F7</color>
+    <color name="transparent">#00000000</color>
+    <color name="light_gray">#808080</color>
+    <color name="tra">#00ffffff</color>
+    
+    
+    <!-- background color -->
+    <color name="white_smoke">#F5F5F5</color>
+     <!-- search bg -->
+    <color name="searchview_bg">#EFEFF1</color>
+
+    <!-- 文本色 -->
+    <color name="text_black">#35405d</color>
+    <color name="text_gray">#7d8892</color>
+    <color name="text_stardust">#9F9F9F</color>
+    
+    <!-- 时间轴 -->
+     <color name="time_list_line">#e4e4e4</color>
+     <color name="event_column">#90a8c9</color>
+     <color name="titlebar_bg">#1d9dd6</color>
+     
+     
+    
+    
+    <!--  信息流  -->
+    <color name="dis_list_line">#e4e4e4</color>
+    
+    <!-- 工作站 -->
+    <color name="workstation_segment_select">#0d6394</color>
+    <color name="workstation_segment_normal">#33c0d0</color>
+    
+    
+    
+         
+         <color name="fans_count_bg">#ff625c</color>
+         
+         <color name="discuss_bottom_comment_bg">#f0f0f0</color>
+         
+
+    <!-- popmenu 点击态背景色 -->
+    <color name="pop_menu_bg_click">#333333</color>
+
+    <!-- 原创 -->
+    <color name="original_title_background_color">#F2f3f5</color>
+
+    <color name="tag_text">#aaaaaa</color>
+
+    <!-- 图片编辑 -->
+    <color name="image_edit_title_bar">#1b1b1b</color>
+    <color name="image_edit_bg">#000000</color>
+    <color name="image_edit_bottom_bar">#1b1b1b</color>
+
+    <color name="black">#000000</color>
+
+    <color name="image_edit_choose_bg">#ffd200</color>
+
+
+    <color name="wenyou_list_name_normal">#576b95</color>
+    <color name="wenyou_list_name_red">#FC461E</color>
+
+    <!-- 直播 -->
+    <color name="live_online_user_count_text">#f2f2f2</color>
+
+    <!-- 直播列表默认颜色 -->
+    <color name="live_list_item_default_bg">#cccccc</color>
+
+    <!-- 新闻阅读列表  -->
+    <color name="v1_splitter_grey">#dddddd</color>
+    <color name="v1_title_text_black">#020202</color>
+    <color name="v1_author_text_black">#848282</color>
+    <color name="v1_common_transparent_black">#7f000000</color>
+
+    <color name="news_title_text_color">#020202</color>
+    <color name="news_brief_text_color">#1B1B1B</color>
+    <color name="news_author_time_text_color">#7D7D7D</color>
+
+    <!-- 市值风云列表样式 -->
+    <color name="shizhi_title_text_color">#333333</color>
+    <color name="shizhi_brief_text_color">#666666</color>
+    <color name="shizhi_author_time_text_color">#aaaaaa</color>
+    <color name="shizhi_tab_background">#f7f7f7</color>
+
+    <color name="shizhi_splitter_grey">#ebebeb</color>
+
+    <color name="more_text">#484848</color>
+    <color name="more_text_deep">#969494</color>
+    <color name="more_text_red">#e84c3d</color>
+    <color name="wenyou_group">#707070</color>
+</resources>

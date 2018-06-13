@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fitsSystemWindows="true"
+    android:background="@color/white"
+    tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry">
+
+    <com.weikan.app.common.widget.SimpleNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeftDrawable="@drawable/ic_ab_back"
+        app:navigationTitleText="身份认证"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="26dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+            style="@style/PersonalCenter_ItemTitle"
+            android:text="真实姓名*"/>
+
+        <EditText
+            android:id="@+id/et_real_name"
+            style="@style/PersonalCenter_ItemContent"
+            android:maxLength="32"
+            android:hint="注册须实名，用户名仍显示网名"
+            android:maxLines="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+            style="@style/PersonalCenter_ItemTitle"
+            android:text="认证身份*"/>
+
+        <TextView
+            android:id="@+id/tv_identify"
+            style="@style/PersonalCenter_ItemContent"
+            android:paddingRight="10dp"
+            android:textColorHint="#e84c3d"
+            android:hint="一旦选择，无法更改"
+            android:drawableRight="@drawable/icon_mine_header_right_arrow" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+            style="@style/PersonalCenter_ItemTitle"
+            android:text="所在公司*"/>
+
+        <EditText
+            android:id="@+id/et_company"
+            style="@style/PersonalCenter_ItemContent"
+            android:hint="自媒体从业者填写自媒体号名"
+            android:text=""/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_bg_settings_item">
+
+        <!-- 职务* 后面有两个全角空格，误删 -->
+        <TextView
+            style="@style/PersonalCenter_ItemTitle"
+            android:text="职务*　　"/>
+
+        <EditText
+            android:id="@+id/et_duty"
+            style="@style/PersonalCenter_ItemContent"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="horizontal"
+        android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+            style="@style/PersonalCenter_ItemTitle"
+            android:text="所在城市*"/>
+
+        <TextView
+            android:id="@+id/tv_city"
+            style="@style/PersonalCenter_ItemContent"
+            android:paddingRight="10dp"
+            android:drawableRight="@drawable/icon_mine_header_right_arrow"
+            />
+
+    </LinearLayout>
+    
+    <RelativeLayout
+        android:id="@+id/rl_upload_card"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/shape_light_gray_bg">
+
+        <ImageView
+            android:id="@+id/iv_thumb"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="2dp"/>
+
+        <TextView
+            android:id="@+id/tv_upload_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:includeFontPadding="false"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:text="上传名片、工作证"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_upload_card"
+            android:layout_marginRight="11dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_camera"
+            />
+
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/shape_confirm_button"
+        android:text="确认"
+        android:textSize="20sp"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

@@ -1,0 +1,32 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_wenyou_titlebar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+
+    <TextView
+        android:id="@+id/tv_wenyou_titlebar_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:background="@drawable/selector_wenyou_list_title_bg"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/news_titlebar_text"
+        android:textSize="16sp"
+        tools:text="标题" />
+
+    <ImageView
+        android:id="@+id/iv_wenyou_titlebar_right"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/selector_wenyou_list_title_bg"
+        android:scaleType="center"
+        android:src="@drawable/icon_title_set" />
+</RelativeLayout>

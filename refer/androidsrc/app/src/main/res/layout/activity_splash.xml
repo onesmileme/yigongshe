@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:background="@drawable/splash_bg"
+        android:fitsSystemWindows="true">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_gravity="top|center_horizontal"
+            android:scaleType="center"
+            android:src="@drawable/ic_launcher"
+            android:visibility="gone"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="30sp"
+            android:text="Copyright©2016 看看"
+            android:textColor="@color/white"
+            android:visibility="gone"
+            />
+    <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10sp"
+            android:layout_gravity="bottom|center_horizontal"
+            android:text="V1.0"
+            android:textColor="@color/white"
+            android:visibility="gone"/>
+</FrameLayout>

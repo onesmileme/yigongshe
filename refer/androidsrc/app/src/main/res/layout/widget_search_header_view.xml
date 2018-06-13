@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="7dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="4dp"
+        android:background="@drawable/original_item_bg_selector">
+
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="搜索"
+                android:textSize="14sp"
+                android:textColor="#b5b5b5"
+                android:drawablePadding="5dp"
+                android:drawableLeft="@drawable/icon_search"
+                android:gravity="center_vertical"
+                />
+
+
+</LinearLayout>

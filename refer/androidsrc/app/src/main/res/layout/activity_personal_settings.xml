@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fitsSystemWindows="true"
+              tools:ignore="RtlHardcoded,HardcodedText">
+
+    <com.weikan.app.common.widget.SimpleNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:navigationLeftDrawable="@drawable/ic_ab_back"
+            app:navigationTitleText="个人设置"
+            app:navigationRightText="保存"
+    />
+
+    <com.weikan.app.widget.roundedimageview.CircleImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            tools:src="@drawable/user_default"
+    />
+
+    <TextView
+            android:id="@+id/tv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            android:text="点击设置头像"
+            android:textColor="#666666"
+            android:textSize="16sp"
+    />
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="26dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+                style="@style/PersonalCenter_ItemTitle"
+                android:text="昵称"/>
+
+        <EditText
+                android:id="@+id/et_nick"
+                style="@style/PersonalCenter_ItemContent"
+                android:singleLine="true"
+                android:maxLength="32"
+                tools:text="辛普森爸爸"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+                style="@style/PersonalCenter_ItemTitle"
+                android:text="性别"/>
+
+        <TextView
+                android:id="@+id/tv_sex"
+                style="@style/PersonalCenter_ItemContent"
+                android:text="男"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+                style="@style/PersonalCenter_ItemTitle"
+                android:text="生日"/>
+
+        <TextView
+                android:id="@+id/tv_birth"
+                style="@style/PersonalCenter_ItemContent"
+                android:text="1900-1-1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="horizontal"
+            android:background="@drawable/shape_bg_settings_item">
+
+        <TextView
+                style="@style/PersonalCenter_ItemTitle"
+                android:text="所在城市"/>
+
+        <TextView
+                android:id="@+id/tv_city"
+                style="@style/PersonalCenter_ItemContent"
+                android:textColor="#999999"
+                android:text=""/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shape_bg_settings_item"
+    >
+
+        <TextView
+                android:id="@+id/tv_sign"
+                style="@style/PersonalCenter_ItemTitle"
+                android:paddingTop="8dp"
+                android:gravity="top"
+                android:text="个性签名"/>
+
+        <EditText
+                android:id="@+id/et_sign"
+                style="@style/PersonalCenter_ItemContent"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_toRightOf="@+id/tv_sign"
+                android:gravity="top"
+                android:hint=""
+        />
+
+        <TextView
+                android:id="@+id/tv_word_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
+                android:textColor="#666666"
+                android:textSize="10sp"
+                tools:text="30字"
+        />
+
+    </RelativeLayout>
+</LinearLayout>

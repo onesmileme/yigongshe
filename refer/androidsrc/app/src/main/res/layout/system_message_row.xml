@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/mine_item_bg_selector"
+                android:paddingBottom="10dp">
+
+    <com.weikan.app.widget.roundedimageview.CircleImageView
+            android:id="@+id/iv_sys_msg_avatar"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/user_default"/>
+
+    <ImageView
+            android:id="@+id/iv_sys_msg_pic"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/user_default"/>
+
+    <TextView
+            android:id="@+id/tv_sys_msg_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iv_sys_msg_avatar"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="我是谁"
+            android:textSize="13sp"
+            android:textColor="#333333"
+            android:ellipsize="end"/>
+    <TextView
+            android:id="@+id/tv_sys_msg_zantext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_sys_msg_nickname"
+            android:layout_toLeftOf="@+id/iv_sys_msg_pic"
+            android:layout_alignTop="@+id/tv_sys_msg_nickname"
+            android:text="评论了你的图片"
+            android:textSize="13sp"
+            android:textColor="#999999"/>
+
+
+    <TextView android:id="@+id/tv_sys_msg_content"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="10dp"
+              android:textColor="#bbbbbb"
+              android:ellipsize="end"
+              android:maxLines="2"
+              android:layout_below="@+id/tv_sys_msg_nickname"
+              android:layout_toLeftOf="@+id/iv_sys_msg_pic"
+              android:layout_alignLeft="@+id/tv_sys_msg_nickname"
+              android:layout_marginRight="10dp"
+              android:textSize="13sp"
+              android:text="我觉得非常好,真的特别好，很喜欢，云云"
+              android:background="#f5f5f5"
+              android:padding="10dp"/>
+
+
+    <TextView
+            android:id="@+id/tv_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12-19 15:27"
+            android:layout_marginRight="10dp"
+            android:layout_below="@+id/tv_sys_msg_content"
+            android:layout_alignLeft="@+id/tv_sys_msg_content"
+            android:layout_marginTop="10dp"
+            android:textSize="12sp"
+            android:textColor="#bbbbbb"/>
+</RelativeLayout>

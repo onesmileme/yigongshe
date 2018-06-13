@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.weikan.app">
+
+    <!-- 【必须】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RESTART_PACKAGES" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!-- 【可选】 信鸽SDK所需权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+
+    <!-- 极光 -->
+    <permission
+        android:name="${PACKAGE_NAME}.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+    <permission android:name="sven.android.intent.NOTIFICATION_RECEIVED" />
+    <permission android:name="sven.android.intent.NOTIFICATION_OPENED" />
+
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
+    <uses-permission android:name="${PACKAGE_NAME}.permission.JPUSH_MESSAGE" />
+    <uses-permission android:name="sven.android.intent.NOTIFICATION_RECEIVED" />
+    <uses-permission android:name="sven.android.intent.NOTIFICATION_OPENED" />
+    <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.NOTIFICATION_RECEIVED_PROXY" />
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <!--
+    &lt;!&ndash; Optional for location &ndash;&gt;
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    -->
+
+
+    <!-- 七牛直播 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:smallScreens="true" />
+
+    <application
+        android:name=".MainApplication"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name">
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="lanjing" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data
+                    android:host="app.lanjinger.com"
+                    android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <!-- 发帖页 -->
+        <activity
+            android:name=".wenyouquan.WenyouPubActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 原创详情页 -->
+        <activity
+            android:name=".original.OriginalDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 帖子编辑页 -->
+        <activity
+            android:name=".original.DetailEditActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 账号合并页 -->
+        <activity
+            android:name=".personalcenter.MergeAccountActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 微信回调页面 -->
+        <activity
+            android:name="${PACKAGE_NAME}.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <!-- 微信支付结果页 -->
+        <activity
+            android:name="${PACKAGE_NAME}.wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".widget.photoviewpager.PhotoViewPagerActivity"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".GuideActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".original.TagsListActivity"
+            android:label="看看"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!-- 我的收藏页 -->
+        <activity
+            android:name=".personalcenter.MyFavActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <!-- 分享到看吧页 -->
+        <activity
+            android:name=".personalcenter.ShareKanbarActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="com.commonlib.multi_image_selector.MultiImageSelectorActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+                android:name="com.weikan.app.personalcenter.MyAttentionActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme"/>
+        <activity
+            android:name="com.weikan.app.personalcenter.MineDealActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name="com.weikan.app.personalcenter.MineForgetActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name="com.weikan.app.personalcenter.MineRegistActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"/>
+
+
+        <activity
+                android:name="com.weikan.app.personalcenter.MyTalkListActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme"/>
+
+        <activity
+                android:name="com.weikan.app.personalcenter.TalkActivity"
+                android:label="@string/app_name"
+                android:windowSoftInputMode="adjustResize|stateHidden"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme"/>
+
+
+        <activity
+            android:name=".personalcenter.SystemMessageActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.UserHomeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.SettingActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.PersonalSettingsActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity android:name=".personalcenter.UserIdentifyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity android:name=".personalcenter.ModifyCityActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <activity
+            android:name=".personalcenter.GetVerificationCodeActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.ResetPwdActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.FeedbackActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.MyMsgActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".wenyouquan.WenyouDetailActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.MyCollectActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".wenyouquan.WenyouTopicListActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.AboutActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".WebshellActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".personalcenter.UserTopTenActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+                android:name=".personalcenter.BindPhoneActivity"
+                android:label="@string/app_name"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ShareActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom" />
+        <activity
+            android:name=".personalcenter.AppWrapDataActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".search.SearchActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".search.SearchResultActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".original.ImageEditActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <!-- 发帖选择标签 -->
+        <activity
+            android:name=".original.TagSelectActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name=".live.LivePlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".live.LiveRecordActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".live.NewLiveActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".selectimage.ImageActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".LoginAndRgistActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ShareToCircleActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".group.GroupDetailActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".group.ChooseGroupActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".group.MyFollowGroupActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".group.AllGroupActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+
+        <!-- 直播播放页面 -->
+        <activity
+            android:name=".live.LivePlayNativeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize"
+            />
+
+        <!-- #############友盟分享注册SDK使用的Activity############### -->
+        <!-- 分享编辑页 -->
+        <activity
+            android:name="com.umeng.socialize.editorpage.ShareActivity"
+            android:configChanges="orientation|keyboard"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.UMDefault"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity
+            android:name="${PACKAGE_NAME}.WBShareActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"></activity>
+
+        <activity
+            android:name="com.umeng.qq.tencent.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="tencent${QQ_SHARE_ID}" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.umeng.qq.tencent.AssistActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+
+
+        <!-- ###################添加 bugly 配置###################### -->
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
+        <!-- 配置APP渠道号 -->
+        <!--<meta-data-->
+            <!--android:name="BUGLY_APP_CHANNEL"-->
+            <!--android:value="${UMENG_VALUE}" />-->
+        <!-- ###################添加UmengAppkey###################### -->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="577f223e67e58eb7b4001626"></meta-data>
+
+        <!-- 应用标识设置 -->
+        <meta-data
+            android:name="APP_KEY"
+            android:value="${APP_KEY}" />
+
+        <!-- 自用渠道号设置 -->
+        <!--<meta-data-->
+            <!--android:name="APP_ID"-->
+            <!--android:value="${APP_VALUE}" />-->
+
+        <!-- 友盟渠道号设置 -->
+        <!--<meta-data-->
+            <!--android:name="UMENG_CHANNEL"-->
+            <!--android:value="${UMENG_VALUE}" />-->
+
+        <!-- ###################添加自有推送###################### -->
+
+        <service
+            android:name="platform.push.service.IMService"
+            android:exported="false"></service>
+        <service
+            android:name="platform.push.service.IMService$InnerService"
+            android:exported="false"></service>
+
+        <receiver android:name="platform.push.network.SPReceiver$AlermReceiver" />
+        <receiver android:name="platform.push.network.SPReceiver$ConnectionReceiver">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.wifi.STATE_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".push.SvenPushReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="sven.android.intent.NOTIFICATION_RECEIVED" />
+                <action android:name="sven.android.intent.NOTIFICATION_OPENED" />
+
+                <category android:name="${PACKAGE_NAME}" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ###################添加jpush 推送###################### -->
+
+
+        <!-- Required SDK核心功能 -->
+        <!--
+        <activity
+                android:name="cn.jpush.android.ui.PushActivity"
+                android:configChanges="orientation|keyboardHidden"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar">
+            <intent-filter>
+                <action android:name="cn.jpush.android.ui.PushActivity"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="${PACKAGE_NAME}"/>
+            </intent-filter>
+        </activity>
+        &lt;!&ndash; Required  SDK核心功能 &ndash;&gt;
+        <service
+                android:name="cn.jpush.android.service.DownloadService"
+                android:enabled="true"
+                android:exported="false">
+        </service>
+
+        &lt;!&ndash; Required SDK 核心功能 &ndash;&gt;
+        <service
+                android:name="cn.jpush.android.service.PushService"
+                android:enabled="true"
+                android:exported="false">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTER"/>
+                <action android:name="cn.jpush.android.intent.REPORT"/>
+                <action android:name="cn.jpush.android.intent.PushService"/>
+                <action android:name="cn.jpush.android.intent.PUSH_TIME"/>
+            </intent-filter>
+        </service>
+
+        &lt;!&ndash; Required SDK核心功能 &ndash;&gt;
+        <receiver
+                android:name="cn.jpush.android.service.PushReceiver"
+                android:enabled="true">
+            <intent-filter android:priority="1000">
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED_PROXY"/>
+                &lt;!&ndash; Required  显示通知栏 &ndash;&gt;
+                <category android:name="${PACKAGE_NAME}"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+            &lt;!&ndash; Optional &ndash;&gt;
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+        &lt;!&ndash; Required SDK核心功能 &ndash;&gt;
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver"/>
+
+        &lt;!&ndash; User defined.  For test only  用户自定义的广播接收器 &ndash;&gt;
+        <receiver
+                android:name="com.weikan.app.push.JPushReceiver"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.REGISTRATION"/>
+                &lt;!&ndash; Required  用户注册SDK的intent &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.UNREGISTRATION"/>
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED"/>
+                &lt;!&ndash; Required  用户接收SDK消息的intent &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED"/>
+                &lt;!&ndash; Required  用户接收SDK通知栏信息的intent &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED"/>
+                &lt;!&ndash; Required  用户打开自定义通知栏的intent &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.ACTION_RICHPUSH_CALLBACK"/>
+                &lt;!&ndash; Optional 用户接受Rich Push Javascript 回调函数的intent &ndash;&gt;
+                <action android:name="cn.jpush.android.intent.CONNECTION"/>
+                &lt;!&ndash; 接收网络变化 连接/断开 since 1.6.3 &ndash;&gt;
+                <category android:name="${PACKAGE_NAME}"/>
+            </intent-filter>
+        </receiver>
+        -->
+
+
+        <!-- Required  . Enable it you can get statistics data with channel -->
+        <meta-data
+            android:name="JPUSH_CHANNEL"
+            android:value="developer-default" />
+        <meta-data
+            android:name="JPUSH_APPKEY"
+            android:value="${JPUSH_APPKEY_VALUE}" />
+        <!-- </>值来自开发者平台取得的AppKey -->
+
+
+        <!--
+        <receiver
+                android:name=".AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
+        -->
+        <activity android:name=".live.PayMoneyActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyDialogStyleBottom"/>
+    </application>
+
+</manifest>

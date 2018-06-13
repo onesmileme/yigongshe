@@ -1,0 +1,18 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0eff4">
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_titlebar_height"
+        layout="@layout/common_title_bar" />
+
+    <TextView
+        android:id="@+id/tv_app_wrap_data"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hello_world" />
+
+</LinearLayout>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/discuss_botton"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginRight="10dp"
+              android:background="@color/discuss_bottom_comment_bg"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:id="@+id/lv_discuss_zan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="8dp">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/icon_zan_blue"/>
+
+        <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/iv_discuss_zan_names_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                app:flexWrap="wrap"
+                app:alignItems="flex_start"
+                >
+        </com.google.android.flexbox.FlexboxLayout>
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/discuss_split"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/split_common"
+            android:visibility="gone"/>
+
+    <LinearLayout
+            android:id="@+id/discuss_comment_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:paddingBottom="4dp"
+            android:orientation="vertical">
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_comment_upordown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textColor="#576b95"
+        android:drawableRight="@drawable/button_down_wenyou"
+        android:textSize="12sp"
+        android:visibility="gone"
+        android:layout_marginBottom="2dp"/>
+</LinearLayout>

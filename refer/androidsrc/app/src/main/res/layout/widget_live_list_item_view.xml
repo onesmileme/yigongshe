@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              tools:ignore="RtlHardcoded">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="75dp">
+
+        <com.weikan.app.widget.roundedimageview.CircleImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
+                tools:src="@drawable/favtag_7"
+        />
+
+        <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:maxLines="1"
+                android:includeFontPadding="false"
+                android:textColor="#2e3c4c"
+                android:textSize="15sp"
+                tools:text="风猫"
+            android:layout_toLeftOf="@+id/iv_delete"
+        />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="45dp"
+            android:scaleType="center"
+            android:src="@drawable/delete_live"
+            android:layout_height="45dp"
+            android:layout_alignParentRight="true"/>
+        <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/iv_avatar"
+                android:layout_below="@+id/tv_name"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+
+                android:includeFontPadding="false"
+                android:textColor="#a1a2a2"
+                android:textSize="12sp"
+                tools:text="直播中"
+        />
+
+        <TextView
+                android:id="@+id/tv_audience_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="16dp"
+                android:layout_marginRight="10dp"
+
+                android:includeFontPadding="false"
+                android:textColor="#a1a2a2"
+                android:textSize="12sp"
+                tools:text="9999人在观看"
+        />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.weikan.app.widget.DynamicHeightImageView
+                android:id="@+id/iv_bg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@color/live_list_item_default_bg"
+        />
+
+        <ImageView
+                android:id="@+id/iv_start_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_centerInParent="true"
+                android:src="@drawable/icon_live_play"
+                />
+
+        <TextView
+                android:id="@+id/tv_live_status"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/selector_live_status_shape"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:textColor="@color/selector_live_item_status_textcolor"
+                android:textSize="10sp"
+                tools:text="直播"
+                />
+    </RelativeLayout>
+
+    <!--<LinearLayout-->
+            <!--android:id="@+id/ll_tags"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal">-->
+
+        <!--&lt;!&ndash; 注意，下面这个TextView只是做做样子，运行时LinearLayout下所有children都会被移除 &ndash;&gt;-->
+        <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingLeft="20dp"-->
+                <!--android:paddingTop="10dp"-->
+                <!--android:paddingBottom="10dp"-->
+
+                <!--android:textColor="#6f6f6f"-->
+                <!--android:textSize="14sp"-->
+                <!--tools:text="#不一样的刘文静"-->
+        <!--/>-->
+
+    <!--</LinearLayout>-->
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#dddddd"/>
+
+</LinearLayout>

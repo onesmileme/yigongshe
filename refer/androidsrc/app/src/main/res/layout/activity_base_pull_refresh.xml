@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white"
+              android:fitsSystemWindows="true">
+
+    <View
+            android:id="@+id/status_margin"
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="@color/news_titlebar_bg"
+            android:visibility="gone"/>
+    <include
+            android:id="@+id/base_pull_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_titlebar_height"
+            layout="@layout/common_title_bar"/>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+            android:id="@+id/base_pull_list_view"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:listSelector="@android:color/transparent"/>
+
+</LinearLayout>

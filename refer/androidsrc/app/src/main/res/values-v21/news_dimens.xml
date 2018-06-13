@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="news_title_line_space_extra">5dp</dimen>
+    <dimen name="news_title_padding_bottom">10dp</dimen>
+</resources>

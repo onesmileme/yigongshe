@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="@layout/original_widget_voice_record_preview" >
+
+    <ImageView
+            android:id="@+id/iv_voice_point"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+
+            android:src="@anim/anim_voice_point" />
+
+    <TextView
+            android:id="@+id/tv_voice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_voice_point"
+            android:layout_centerVertical="true"
+            android:paddingLeft="30dp"
+            android:paddingRight="5dp"
+
+            android:gravity="center_vertical"
+            android:textSize="10sp"
+
+            android:background="@drawable/voice_bg_patch"
+            android:text="20″"
+            tools:text="20″"
+    />
+
+    <ImageView
+            android:id="@+id/iv_voice_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/iv_voice_point"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+
+            tools:src="@anim/anim_voice_play"
+    />
+
+</merge>

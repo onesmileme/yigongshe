@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ll_share_1"
+        android:background="@color/transparent" />
+
+    <LinearLayout
+        android:id="@+id/ll_share_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingBottom="36dp"
+        android:paddingTop="10dp">
+
+        <TextView
+            android:id="@+id/tv_share_kanbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/ic_launcher"
+            android:gravity="center_horizontal"
+            android:text="看吧"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_share_weixin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/weixin"
+            android:gravity="center_horizontal"
+            android:text="微信好友" />
+
+        <TextView
+            android:id="@+id/tv_share_ciclre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/friend"
+            android:gravity="center_horizontal"
+            android:text="朋友圈" />
+
+
+        <TextView
+            android:id="@+id/tv_share_sina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_share_sina"
+            android:gravity="center_horizontal"
+            android:text="微博" />
+
+        <TextView
+            android:id="@+id/tv_share_qq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_qq"
+            android:gravity="center_horizontal"
+            android:text="QQ" />
+
+        <TextView
+            android:id="@+id/tv_share_wenyouquan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/weixin"
+            android:gravity="center_horizontal"
+            android:text="@string/tabHost3Title" />
+
+        <TextView
+            android:id="@+id/tv_share_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_share_collect"
+            android:gravity="center_horizontal"
+            android:text="收藏" />
+
+        <TextView
+            android:id="@+id/tv_share_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/icon_share_tip"
+            android:gravity="center_horizontal"
+            android:text="举报" />
+
+    </LinearLayout>
+
+</RelativeLayout>

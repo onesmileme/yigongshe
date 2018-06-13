@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp">
+
+    <TextView
+            android:id="@+id/tv_partition_detail_header_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#333333"
+
+            tools:text="看看内容的标题"/>
+    <com.weikan.app.widget.DynamicHeightImageView
+            android:id="@+id/iv_partition_detail_header_pic1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_partition_detail_header_title"
+            android:layout_marginTop="15dp"
+
+            tools:background="@drawable/image_bg"/>
+
+    <LinearLayout
+            android:id="@+id/ll_partition_detail_header_voices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/iv_partition_detail_header_pic1"
+            android:layout_alignBottom="@id/iv_partition_detail_header_pic1"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical"
+            android:visibility="gone"
+
+            tools:visibility="visible">
+
+        <com.weikan.app.widget.VoiceRecordView
+                android:id="@+id/partition_detail_header_voice_0"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+
+        />
+
+        <com.weikan.app.widget.VoiceRecordView
+                android:id="@+id/partition_detail_header_voice_1"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+        />
+
+        <com.weikan.app.widget.VoiceRecordView
+                android:id="@+id/partition_detail_header_voice_2"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+        />
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/ll_modify_with_fav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_below="@id/iv_partition_detail_header_pic1"
+            android:gravity="center"
+            android:visibility="gone"
+    >
+
+        <LinearLayout
+                android:id="@+id/ll_dislike"
+                android:layout_width="90dp"
+                android:layout_height="35dp"
+                android:gravity="center"
+
+                android:background="@drawable/shape_button_bg_with_grey_board">
+
+            <ImageView
+                    android:id="@+id/iv_dislike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_dislike"/>
+
+            <TextView
+                    android:id="@+id/tv_dislike"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="3dp"
+
+                    android:text="不喜欢"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/ll_fav"
+                android:layout_width="90dp"
+                android:layout_height="35dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_marginLeft="10dp"
+
+                android:background="@drawable/shape_button_bg_with_grey_board">
+
+            <ImageView
+                    android:id="@+id/iv_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_fav_grey"
+                    android:layout_marginRight="3dp"/>
+
+            <TextView
+                    android:id="@+id/tv_fav"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="收藏"
+                    android:textSize="12sp"
+                    android:textColor="#666666"
+                    />
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/tv_modify_picture"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:gravity="center"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+
+                android:text="改图"
+                android:textSize="12sp"
+                android:textColor="#666666"
+                android:drawableLeft="@drawable/ic_gaitu"
+                android:drawablePadding="3dp"
+                android:background="@drawable/shape_button_bg_with_yellow_board"
+        />
+
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/tv_partition_detail_header_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_modify_with_fav"
+            android:layout_marginTop="15dp"
+            android:textSize="13sp"
+            android:textColor="#666666"
+
+            tools:text="看看内容的介绍"
+    />
+</RelativeLayout>

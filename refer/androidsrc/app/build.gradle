@@ -1,0 +1,471 @@
+import java.text.DateFormat
+import java.text.SimpleDateFormat
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.1.1'
+//        classpath 'com.droidtitan:lint-cleaner-plugin:0.3.0'
+    }
+}
+
+tasks.whenTaskAdded { task ->
+    if (task.name.startsWith("lint")) {
+        task.enabled = false
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+//apply plugin: 'com.droidtitan.lintcleaner'
+
+
+//apply from: "${project.rootDir}/../deploy/市值风云/factory_setting.gradle"
+//apply from: "${project.rootDir}/../deploy/wemoney/factory_setting.gradle"
+//apply from: "${project.rootDir}/../deploy/刘文静/factory_setting.gradle"
+//apply from: "${project.rootDir}/../deploy/小P理财/factory_setting.gradle"
+apply from: "${project.rootDir}/../factory_setting.gradle"
+repositories {
+    jcenter()
+}
+
+
+def testkey = "TENQMhi3X3pv2LeNvnktvLwvgXrV9wxt"
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    defaultConfig {
+        applicationId project.ext.packageName
+        setResValue "string", "app_name", "appName", "未命名"
+        setResValue "string", "tabHost3Title", "tabHost3Title", "文友圈"
+        setResValue "string", "login_text", "loginText", ""
+        setResValue "string", "login_author", "loginAuthor", ""
+        setResValue "color", "news_titlebar_bg", "appThemeColor", "#353535"
+        setResValue "color", "news_titlebar_text", "appTitleTextColor", "#ffffff"
+        setBuildConfigField "boolean","IS_LIVE_ENABLED", "isLiveEnabled", false
+        setBuildConfigField "boolean","IS_ROLE_AUTH_SUPPORT", "isRoleAuthSupport", false
+        setBuildConfigField "String","ARTICLE_TEMPLATE", "articleTemplate", "multi"
+        setBuildConfigField "boolean","IS_PHONE_LOGIN_SUPPORT", "isPhoneLoginSupport", false
+        setBuildConfigField "String","WECHAT_ID", "wechatShareId", ""
+        setBuildConfigField "String","WECHAT_KEY", "wechatShareKey", ""
+        setBuildConfigField "String","WEIBO_ID", "weiboShareId", ""
+        setBuildConfigField "String","WEIBO_KEY", "weiboShareKey", ""
+        setBuildConfigField "String","QQ_ID", "qqShareId", ""
+        setBuildConfigField "String","QQ_KEY", "qqShareKey", ""
+        manifestPlaceholders = [QQ_SHARE_ID: project.ext.qqShareId,PACKAGE_NAME: project.ext.packageName,JPUSH_APPKEY_VALUE:"123",APP_VALUE: "01",APP_KEY: project.ext.appKey, UMENG_VALUE: project.ext.appKey]
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 28
+        versionName "1.4.16"
+
+        multiDexEnabled true
+
+        replaceFile("appIcon", "${project.rootDir}/app/src/main/res/drawable-xhdpi/ic_launcher.png")
+        replaceFile("appIcon", "${project.rootDir}/app/src/main/res/drawable-hdpi/ic_launcher.png")
+        replaceFile("appIcon", "${project.rootDir}/app/src/main/res/drawable-mdpi/ic_launcher.png")
+        replaceFile("launchBg", "${project.rootDir}/app/src/main/res/drawable-xhdpi/splash_bg.png")
+        replaceFile("placeHolderNews", "${project.rootDir}/app/src/main/res/drawable-xhdpi/placeholder_news.png")
+        replaceFile("placeHolderBanner", "${project.rootDir}/app/src/main/res/drawable-xhdpi/placeholder_banner.png")
+
+        // 创建分享入口文件，这个必须放在包名路径下
+        makewxfile()
+        ndk{
+            abiFilters "armeabi"
+        }
+
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('sign/appfactory.keystore')
+            storePassword 'appfactory2016'
+            keyAlias 'appfactory'
+            keyPassword 'appfactory2016'
+        }
+    }
+
+    buildTypes {
+
+        Date date = new Date()
+        DateFormat format = new SimpleDateFormat()
+        String time = format.format(date);
+        debug {
+            buildConfigField("String","RELEASE_TIME",'"'+time+'"')
+            signingConfig signingConfigs.release
+            minifyEnabled false
+        }
+        release {
+            buildConfigField("String","RELEASE_TIME",'"'+time+'"')
+            signingConfig signingConfigs.release
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def outputFile = output.outputFile
+                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                    def outputName = outputFile.name
+                    def appName = project.ext.appKey
+                    def versionName = defaultConfig.versionName
+                    def versionCode = defaultConfig.versionCode
+
+                    def i0 = outputName.indexOf('-')
+                    def i1 = outputName.indexOf('-', i0+1)
+                    def flavor = outputName.substring(i0+1, i1)
+                    if (flavor.contains("tbase")) {
+                        appName = testkey
+                    }
+
+                    def name = "app-"
+                    def nameReplace = "$appName-$versionName-$versionCode-"
+
+                    def fileName = outputName.replace(name, nameReplace)
+                    output.outputFile = new File(outputFile.parent, fileName)
+                }
+            }
+        }
+    }
+
+    productFlavors {
+//        baidu {
+//            buildConfigField("boolean","TEST_URL","false")
+//            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_baidu", APP_VALUE: "01"]
+//        }
+////        n360 {
+////            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_360", APP_VALUE: "02"]
+////        }
+////        wandoujia {
+////            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_wandoujia", APP_VALUE: "03"]
+////        }
+////        xiaomi {
+////            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_xiaomi", APP_VALUE: "04"]
+////        }
+//        yingyongbao {
+//            buildConfigField("boolean","TEST_URL","false")
+//            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_yingyongbao", APP_VALUE: "05"]
+//        }
+//        meizu {
+//            buildConfigField("boolean","TEST_URL","false")
+//            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_meizu", APP_VALUE: "06"]
+//        }
+////        jifeng {
+////            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_jifeng", APP_VALUE: "07"]
+////        }
+////        ppzhushou {
+////            manifestPlaceholders = [UMENG_VALUE: project.ext.appKey+"_ppzhushou", APP_VALUE: "08"]
+////        }
+
+        base {
+            buildConfigField("boolean", "TEST_URL", "false")
+        }
+        tbase {
+            buildConfigField("boolean","TEST_URL","true")
+            resValue "string", "app_name", project.ext.appName+"测试"
+            manifestPlaceholders = [PACKAGE_NAME: project.ext.packageName,JPUSH_APPKEY_VALUE:"123",APP_KEY: testkey]
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'LICENSE.txt'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+//    compile 'com.alibaba:fastjson:1.1.52.android'
+    compile 'com.android.support:support-v4:23.2.1'
+    compile 'com.android.support:appcompat-v7:23.2.1'
+    compile 'com.android.support:recyclerview-v7:23.2.1'
+    compile 'com.android.support:design:23.2.1'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.google.android:flexbox:0.1.3'
+    compile 'com.qiniu:happy-dns:0.2.7'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'de.greenrobot:eventbus:2.4.0'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.1'
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'me.xiaopan:sketch:2.3.0-beta8'
+
+    compile 'com.app.thirdparty:fastjson:1.0.2'
+
+    compile 'com.app.platform:cuid:1.0.3'
+    compile 'com.app.platform:http:1.1.5'
+    compile 'com.app.platform:nanoinject:1.0.1'
+    compile 'com.app.platform:photo:1.0.0'
+    compile 'com.app.platform:push:1.2.7'
+
+    compile project(':libs:pull-to-refresh')
+    compile project(':libs:umeng-social-6.0.4')
+    compile project(':libs:multi_image_selector')
+
+    compile 'com.jakewharton:butterknife:7.0.1'
+
+    compile 'com.android.support:multidex:1.0.0'
+}
+
+
+def setResValue(field, name, value, defaultValue) {
+    if (project.hasProperty(value)) {
+        project.android.defaultConfig.resValue field, name, project.property(value)
+    } else {
+        project.android.defaultConfig.resValue field, name, defaultValue
+    }
+}
+
+def setBuildConfigField(field, name, value, defaultValue) {
+    if (project.hasProperty(value)) {
+        String realValue = project.property(value)
+        if(field.equals("String")){
+            realValue = '"' + realValue + '"'
+        }
+        project.android.defaultConfig.buildConfigField field, name, realValue
+    } else {
+        if(field.equals("String")){
+            defaultValue = '"' + defaultValue + '"'
+        }
+        project.android.defaultConfig.buildConfigField field, name, (String)defaultValue
+    }
+}
+
+
+def replaceFile(srcproperty, destpath) {
+    if(!project.hasProperty(srcproperty)){
+        return
+    }
+    def srcFile = new File((String)project.property(srcproperty))
+    def destFile = new File(destpath)
+    if (destFile.exists()){
+        destFile.delete()
+    }
+    new File(destpath).withOutputStream{
+        stream -> stream.setBytes(srcFile.getBytes())
+    }
+}
+
+tasks.assembleRelease <<{
+    cleanwxfile()
+}
+
+tasks.assembleDebug <<{
+    cleanwxfile()
+}
+
+def makewxfile() {
+    createWxEntryFile()
+    createWxPayEntryFile()
+    createWBShareActivityFile()
+}
+
+def cleanwxfile() {
+    cleanWxEntryFile()
+    cleanWxPayEntryFile()
+    cleanWBShareActivityFile()
+}
+
+def createWxPayEntryFile(){
+    def path = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/wxapi/"
+    println path
+    def pathDir = new File(path)
+    if(!pathDir.exists()){
+        pathDir.mkdirs()
+    }
+
+    def content = """
+package ${project.ext.packageName}.wxapi;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.Toast;
+
+import com.tencent.mm.sdk.constants.ConstantsAPI;
+import com.tencent.mm.sdk.modelbase.BaseReq;
+import com.tencent.mm.sdk.modelbase.BaseResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
+import com.weikan.app.Constants;
+import com.weikan.app.R;
+import com.weikan.app.base.BaseActivity;
+import com.weikan.app.wxapi.WechatPaymentEvent;
+import de.greenrobot.event.EventBus;
+
+/**
+ * Created by wutong on 1/1/16.
+ */
+public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandler {
+    private IWXAPI api;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.pay_result);
+        api = WXAPIFactory.createWXAPI(this, Constants.WECHAT_PAY_APP_ID);
+        api.handleIntent(getIntent(), this);
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        api.handleIntent(intent, this);
+    }
+
+    @Override
+    public void onReq(BaseReq req) {
+    }
+
+    @Override
+    public void onResp(BaseResp resp) {
+        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+            if (resp.errCode == 0) {
+
+                finish();
+                EventBus.getDefault().post(new WechatPaymentEvent(0));
+            } else if (resp.errCode == -2) {
+
+                finish();
+                EventBus.getDefault().post(new WechatPaymentEvent(1));
+            } else {
+                finish();
+                EventBus.getDefault().post(new WechatPaymentEvent(1));
+            }
+        }
+    }
+}
+
+"""
+
+    def wxPath = path + "WXPayEntryActivity.java"
+    println wxPath
+    def wxFile = new File(wxPath)
+    if (wxFile.exists() && wxFile.length() > 0) {
+        return
+    }
+    wxFile.withOutputStream {
+        stream -> stream.write(content.getBytes("UTF-8"))
+    }
+}
+def createWxEntryFile(){
+    def path = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/wxapi/"
+    println path
+    def pathDir = new File(path)
+    if(!pathDir.exists()){
+        pathDir.mkdirs()
+    }
+
+    def content = """
+package ${project.ext.packageName}.wxapi;
+
+import com.umeng.socialize.weixin.view.WXCallbackActivity;
+
+public class WXEntryActivity extends WXCallbackActivity{
+
+}
+"""
+
+    def wxPath = path + "WXEntryActivity.java"
+    println wxPath
+    def wxFile = new File(wxPath)
+    if (wxFile.exists() && wxFile.length() > 0) {
+        return
+    }
+    wxFile.withOutputStream {
+        stream -> stream.write(content.getBytes("UTF-8"))
+    }
+}
+
+def cleanWxEntryFile(){
+    def dirpath = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/wxapi/"
+    def filepath = path + "WXEntryActivity.java"
+
+    def file = new File(filepath)
+    if(file.exists()){
+        file.delete()
+    }
+
+    def dir = new File(dirpath)
+    if(dir.exists()){
+        dir.deleteDir()
+    }
+}
+def cleanWxPayEntryFile(){
+    def dirpath = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/wxapi/"
+    def filepath = path + "WXPayEntryActivity.java"
+
+    def file = new File(filepath)
+    if(file.exists()){
+        file.delete()
+    }
+
+    def dir = new File(dirpath)
+    if(dir.exists()){
+        dir.deleteDir()
+    }
+}
+
+def createWBShareActivityFile(){
+    def path = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/"
+    println path
+    def pathDir = new File(path)
+    if(!pathDir.exists()){
+        pathDir.mkdirs()
+    }
+
+    def content = """
+package ${project.ext.packageName};
+
+import com.umeng.socialize.media.WBShareCallBackActivity;
+
+public class WBShareActivity extends WBShareCallBackActivity{
+}
+
+"""
+
+    def wxPath = path + "WBShareActivity.java"
+    println wxPath
+    def wxFile = new File(wxPath)
+    if (wxFile.exists() && wxFile.length() > 0) {
+        return
+    }
+    wxFile.withOutputStream {
+        stream -> stream.write(content.getBytes("UTF-8"))
+    }
+}
+
+def cleanWBShareActivityFile(){
+    def dirpath = "${project.rootDir}/app/src/main/java/"+project.ext.packageName.replace(".","/")+"/"
+    def filepath = path + "WBShareActivity.java"
+
+    def file = new File(filepath)
+    if(file.exists()){
+        file.delete()
+    }
+
+    def dir = new File(dirpath)
+    if(dir.exists()){
+        dir.deleteDir()
+    }
+}

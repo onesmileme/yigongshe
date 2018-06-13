@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/base_pull_title"
+        layout="@layout/common_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_titlebar_height" />
+
+
+    <TextView
+        android:id="@+id/tv_mine_login_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/base_pull_title"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="48dp"
+        android:text="手机号"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/et_mine_login_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_mine_login_phone"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/tv_mine_login_phone"
+        android:background="@null"
+        android:hint="您的手机号码"
+        android:inputType="phone"
+        android:textColor="#000000"
+        android:textColorHint="#c8c8c8"
+        android:textSize="16sp" />
+
+    <ImageView
+        android:id="@+id/split1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_mine_login_phone"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@color/background_gray" />
+
+    <TextView
+        android:id="@+id/tv_mine_login_pwd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_mine_login_phone"
+        android:layout_below="@+id/split1"
+        android:layout_marginTop="17dp"
+        android:text="密码"
+        android:textColor="#333333"
+        android:textSize="16sp" />
+
+
+    <EditText
+        android:id="@+id/et_mine_login_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_mine_login_pwd"
+        android:layout_alignLeft="@+id/et_mine_login_phone"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@+id/tv_mine_login_pwd"
+        android:background="@null"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textColor="#000000"
+        android:textColorHint="#c8c8c8"
+        android:textSize="16sp" />
+
+
+    <ImageView
+        android:id="@+id/split2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tv_mine_login_pwd"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="17dp"
+        android:src="@color/background_gray" />
+
+    <Button
+        android:id="@+id/btn_mine_login_phone"
+        android:layout_width="331dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/split2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="112dp"
+        android:background="@drawable/shape_bg_red_solid_coner"
+        android:gravity="center"
+        android:padding="4dp"
+        android:text="登录"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_mine_login_phone"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_mine_login_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="注册账号"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/split3"
+            android:layout_width="2dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:src="#999999" />
+
+        <TextView
+            android:id="@+id/tv_mine_login_forget_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.weikan.app.widget.roundedimageview.CircleImageView
+            android:id="@+id/iv_mine_login_avatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon_share_weixin" />
+
+        <TextView
+            android:id="@+id/tv_mine_login_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="微信登陆"
+            android:textColor="#333333"
+            android:textSize="14sp" />
+    </LinearLayout>
+</RelativeLayout>

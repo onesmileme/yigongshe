@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ The MIT License (MIT)
+  ~ Copyright (c) 2014 longkai
+  ~ The software shall be used for good, not evil.
+  -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<item android:state_checked="true" android:drawable="@drawable/argee_terms_of_service_checkbox_checked" />
+	<item android:drawable="@drawable/argee_terms_of_service_checkbox_unchecked" />
+</selector>

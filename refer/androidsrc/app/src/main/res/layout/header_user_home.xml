@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:snap="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <ImageView
+            android:id="@+id/iv_mine_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/mine_bg"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.weikan.app.widget.roundedimageview.CircleImageView
+                android:id="@+id/iv_admin"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:src="@drawable/user_default"
+                tools:border_color="@color/white"
+                tools:border_width="1dp" />
+
+            <TextView
+                android:id="@+id/tv_mine_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/iv_admin"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="6dp"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                snap:text="阿斯蒂芬" />
+
+            <ImageView
+                android:id="@+id/iv_mine_v"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_mine_name"
+                android:layout_marginLeft="3dp"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@+id/tv_mine_name"
+                android:src="@drawable/icon_bluev_big"
+                android:visibility="gone"
+                snap:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/iv_mine_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/tv_mine_name"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/iv_mine_v"
+                android:src="@drawable/icon_male" />
+
+            <ImageView
+                android:id="@+id/iv_mine_cons"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_alignTop="@+id/tv_mine_name"
+                android:layout_marginLeft="6dp"
+                android:layout_marginTop="4dp"
+                android:layout_toRightOf="@+id/iv_mine_sex"
+                android:scaleType="centerInside"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/ll_plus"
+                android:layout_below="@+id/tv_mine_name"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_mine_office"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    snap:text="汇银财富资产管理有限公司 城市总监"
+                    snap:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_mine_addr"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    snap:text="新疆维吾尔自治区 克拉玛依市"
+                    snap:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_mine_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    snap:text="个性签名：无签名，不个性"
+                    snap:visibility="visible" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_user_follow"
+                    android:layout_width="58dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/shape_attention_button"
+                    android:gravity="center"
+                    android:text="+关注"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    snap:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tv_user_talk"
+                    android:layout_width="58dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/shape_attention_button"
+                    android:drawableLeft="@drawable/icon_header_userhome_talk"
+                    android:gravity="center"
+                    android:paddingLeft="5dp"
+                    android:text="私信"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    android:visibility="visible"
+                    snap:visibility="visible" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <RelativeLayout
+            android:id="@+id/rl_attention_count"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_attention_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:includeFontPadding="false"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                snap:text="32" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_attention_count"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:includeFontPadding="false"
+                android:text="关注"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#f7f7f7" />
+
+        <RelativeLayout
+            android:id="@+id/rl_fans_count"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/tv_fans_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="15dp"
+                android:includeFontPadding="false"
+                android:textColor="#333333"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                snap:text="19" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_fans_count"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="7dp"
+                android:includeFontPadding="false"
+                android:text="粉丝"
+                android:textColor="#999999"
+                android:textSize="10sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#f7f7f7" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <ImageView
+            android:id="@+id/iv_mine_header_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:src="@drawable/icon_mine_header_topic" />
+
+        <TextView
+            android:id="@+id/tv_mine_header_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/iv_mine_header_topic"
+            android:paddingLeft="10dp"
+            android:text="TA的话题"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+    </RelativeLayout>
+</LinearLayout>

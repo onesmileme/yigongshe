@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#f0eff4"
+        >
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:layout_marginLeft="10dp"
+                  android:layout_marginRight="10dp"
+                  android:layout_marginTop="5dp"
+                  android:layout_marginBottom="5dp"
+                  android:background="@color/white"
+            >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/boder">
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="10dp">
+
+                <ImageView
+                        android:id="@+id/iv_pic"
+                        android:layout_width="50dp"
+                        android:layout_height="60dp"
+                        android:layout_alignParentLeft="true"
+                        android:src="@drawable/icon_share_qq"/>
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/iv_pic"
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_centerVertical="true">
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                        <TextView
+                                android:id="@+id/tv_oa_nickname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textSize="16sp"
+                                android:text="通道大叔"/>
+
+                        <TextView
+                                android:id="@+id/tv_oa_category"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="娱乐"
+                                android:textSize="14sp"
+                                android:textColor="#999999"/>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="4dp">
+
+                        <TextView android:layout_width="wrap_content"
+                                  android:layout_height="wrap_content"
+                                  android:text="微信号："
+                                  android:textColor="#999999"
+                                android:textSize="12sp"/>
+                        <TextView
+                                android:id="@+id/tv_ofc_account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="WoShiTongDao"
+                                android:textColor="#999999"
+                                android:textSize="12sp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </RelativeLayout>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:src="#dddddd"/>
+
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center"
+                          android:orientation="horizontal">
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:orientation="vertical"
+                              android:padding="6dp">
+                    <TextView android:id="@+id/tv_order_num"
+                              android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="9"
+                              android:layout_gravity="center"
+                              android:textSize="12sp"
+                              android:textColor="#666666"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="累计接单"
+                              android:layout_gravity="center"
+                              android:textSize="10sp"
+                              android:textColor="#999999"/>
+
+
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:src="#dddddd"/>
+
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:orientation="vertical"
+                              android:padding="6dp">
+                    <TextView
+                            android:id="@+id/tv_accumulated_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9"
+                            android:layout_gravity="center"
+                            android:textSize="12sp"
+                            android:textColor="#666666"/>
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="累计收入(元)"
+                            android:layout_gravity="center"
+                            android:textSize="10sp"
+                            android:textColor="#999999"/>
+
+                </LinearLayout>
+
+                <ImageView
+                        android:layout_width="0.5dp"
+                        android:layout_height="match_parent"
+                        android:src="#dddddd"/>
+
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:layout_weight="1"
+                              android:orientation="vertical"
+                              android:padding="6dp">
+                    <TextView
+                            android:id="@+id/tv_ranking"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="9"
+                            android:layout_gravity="center"
+                            android:textSize="12sp"
+                            android:textColor="#666666"/>
+                    <TextView android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:text="商业价值排行"
+                              android:layout_gravity="center"
+                              android:textSize="10sp"
+                              android:textColor="#999999"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

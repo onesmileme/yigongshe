@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:background="@color/transparent">
+
+    <ImageView
+        android:id="@+id/iv_group_head_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_people_information" />
+
+    <com.weikan.app.widget.roundedimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher"
+        tools:border_color="@color/white"
+        tools:border_width="1dp" />
+
+    <TextView
+        android:id="@+id/tv_group_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/iv_avatar"
+        android:textColor="@color/white"
+        android:textSize="16dp"
+        tools:text="恒昌" />
+
+    <TextView
+        android:id="@+id/tv_group_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_group_name"
+        android:layout_below="@+id/tv_group_name"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        tools:text="北京" />
+
+    <TextView
+        android:id="@+id/tv_group_fen_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tv_group_name"
+        android:layout_below="@+id/tv_group_location"
+        android:layout_marginTop="8dp"
+        android:text="粉丝"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/iv_group_add"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="40dp"
+        tools:src="@drawable/icon_group_add" />
+
+    <TextView
+        android:id="@+id/tv_group_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/iv_avatar"
+        android:layout_below="@+id/iv_avatar"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="35dp"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        tools:text="简介：恒昌公司总部位于北京，是一家集财富管理、信用风险评估与管理、信用数据整合服务、小额贷款行业投资、小微贷款咨询服务与交易促成等业务于一体的综合性现代服务企业。" />
+
+    <TextView
+        android:id="@+id/tv_group_fen_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_group_fen_text"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/tv_group_fen_text"
+        android:textColor="@color/white"
+        android:textSize="12dp"
+        tools:text="123452" />
+
+</RelativeLayout>

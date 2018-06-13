@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                tools:background="#cccccc"
+                tools:ignore="RtlHardcoded"
+>
+
+    <TextView
+            android:id="@+id/tv_online_user_count"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="20dp"
+            android:gravity="center"
+            android:textColor="@color/live_online_user_count_text"
+            android:textSize="12sp"
+            android:background="@drawable/shape_live_online_user_count_bg"
+            android:includeFontPadding="false"
+
+            tools:text="在线人数：9998"
+    />
+
+    <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="28dp"
+            android:layout_height="22dp"
+            android:layout_toLeftOf="@+id/iv_exit"
+            android:layout_marginTop="37dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/camera_live_button"
+    />
+
+    <ImageView
+            android:id="@+id/iv_exit"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="37dp"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/exit_live_button"
+            />
+
+    <!-- Recycler在设计图上距上边是10dp，这里考虑到ItemView的留白，所以是5dp -->
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_online_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_below="@+id/tv_online_user_count"
+            tools:listitem="@layout/widget_live_online_user_list_item"
+    />
+
+    <ImageView
+            android:id="@+id/iv_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/message_live_button"
+    />
+
+    <ListView
+            android:id="@+id/lv_event"
+            android:layout_width="290dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="70dp"
+            android:layout_alignParentBottom="true"
+            android:scrollbars="none"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/widget_live_event_item"
+        android:listSelector="@android:color/transparent"
+    />
+<LinearLayout
+    android:id="@+id/gift"
+    android:layout_width="206dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:paddingLeft="16dp"
+    />
+</RelativeLayout>

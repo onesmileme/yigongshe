@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <include
+            android:id="@+id/base_pull_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_titlebar_height"
+            layout="@layout/common_title_bar"/>
+
+    <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/base_pull_title"
+            android:src="@drawable/mine_login_bg"
+            android:scaleType="centerCrop"/>
+
+    <RelativeLayout
+            android:layout_width="343dp"
+            android:layout_height="246dp"
+            android:layout_marginTop="100dp"
+            android:layout_centerHorizontal="true"
+            android:background="#ccffffff">
+
+        <com.weikan.app.widget.roundedimageview.CircleImageView
+                android:id="@+id/iv_mine_login_avatar"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/user_default"/>
+
+        <TextView
+                android:id="@+id/tv_mine_login_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="微信登陆"
+                android:textColor="#c40000"
+                android:textSize="16sp"
+                android:layout_below="@+id/iv_mine_login_avatar"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"/>
+
+        <TextView
+                android:id="@+id/tv_mine_login_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_text"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:layout_below="@+id/tv_mine_login_text"
+                android:layout_marginTop="24dp"
+                android:layout_marginLeft="44dp"
+                android:layout_marginRight="44dp"/>
+
+        <TextView
+                android:id="@+id/tv_mine_login_des_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/login_author"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:layout_below="@+id/tv_mine_login_des"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="44dp"/>
+    </RelativeLayout>
+
+</RelativeLayout>

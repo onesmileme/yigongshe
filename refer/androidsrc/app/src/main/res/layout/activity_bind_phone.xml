@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+        android:fitsSystemWindows="true">
+    <include
+            android:id="@+id/base_pull_title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_titlebar_height"
+            layout="@layout/common_title_bar"/>
+
+
+    <TextView
+            android:id="@+id/tv_mine_bind_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/base_pull_title"
+            android:text="手机号"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_marginTop="48dp"
+            android:layout_marginLeft="30dp"/>
+
+    <EditText
+            android:id="@+id/et_mine_bind_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_mine_bind_phone"
+            android:layout_marginLeft="30dp"
+            android:layout_alignTop="@+id/tv_mine_bind_phone"
+            android:layout_marginTop="-5dp"
+            android:padding="5dp"
+            android:inputType="phone"
+            android:hint="您的手机号码"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#c8c8c8"
+            android:background="@android:color/transparent"/>
+
+    <ImageView
+            android:id="@+id/split1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@color/background_gray"
+            android:layout_below="@+id/tv_mine_bind_phone"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+    <TextView
+            android:id="@+id/tv_mine_bind_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="验证码"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:layout_below="@+id/split1"
+            android:layout_marginTop="17dp"
+            android:layout_alignLeft="@+id/tv_mine_bind_phone"/>
+
+
+    <EditText
+            android:id="@+id/et_mine_bind_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_mine_bind_pwd"
+            android:layout_alignTop="@+id/tv_mine_bind_pwd"
+            android:layout_alignLeft="@+id/et_mine_bind_phone"
+            android:padding="5dp"
+            android:layout_marginTop="-5dp"
+            android:inputType="phone"
+            android:hint="请输入验证码"
+            android:textSize="16sp"
+            android:textColor="#333333"
+            android:textColorHint="#c8c8c8"
+            android:background="@android:color/transparent"/>
+
+    <ImageView
+            android:id="@+id/splitverify"
+            android:layout_width="1dp"
+            android:layout_height="30dp"
+            android:src="#c7c7c7"
+            android:layout_toRightOf="@+id/et_mine_bind_pwd"
+            android:layout_below="@+id/split1"
+            android:layout_marginTop="12dp"
+            android:layout_marginLeft="30dp"/>
+
+    <TextView
+            android:id="@+id/tv_mine_bind_get_verigy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:textColor="#fc461e"
+            android:textSize="16sp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/splitverify"
+            android:layout_alignTop="@+id/et_mine_bind_pwd"/>
+
+
+    <ImageView
+            android:id="@+id/split2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@color/background_gray"
+            android:layout_below="@+id/tv_mine_bind_pwd"
+            android:layout_marginTop="17dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+    <Button
+            android:id="@+id/btn_mine_bind_phone"
+            android:layout_width="331dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/split2"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:background="@drawable/shape_bg_red_solid_coner"
+            android:padding="7dp"/>
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/btn_mine_bind_phone"
+            android:layout_centerHorizontal="true">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*点击代表您已阅读并同意"
+                android:textColor="#c8c8c8"
+                android:textSize="12sp"/>
+        <TextView
+                android:id="@+id/tv_bind_phone_deal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoLink="all"
+                android:text="@string/regist_deal"
+                android:textColor="#000000"
+                android:textSize="12dp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

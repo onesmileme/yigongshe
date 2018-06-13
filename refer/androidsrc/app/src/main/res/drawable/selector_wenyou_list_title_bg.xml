@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="false">
+        <shape android:shape="rectangle" >
+            <!-- 填充的颜色 -->
+            <solid android:color="#44000000" />
+            <!-- 设置按钮的四个角为弧形 -->
+            <!-- android:radius 弧形的半径 -->
+            <corners android:radius="19dip" />
+            <padding
+                android:top="8dp"
+                android:bottom="8dp"
+                android:left="20dp"
+                android:right="20dp"/>
+        </shape>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#44000000" />
+            <corners android:radius="19dip" />
+            <padding
+                    android:top="8dp"
+                    android:bottom="8dp"
+                    android:left="20dp"
+                    android:right="20dp"/>
+        </shape>
+    </item>
+</selector>

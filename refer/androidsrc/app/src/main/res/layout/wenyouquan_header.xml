@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.weikan.app.original.widget.BannerView
+        android:id="@+id/bv_wenyou_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="vertical">
+
+    </com.weikan.app.original.widget.BannerView>
+
+    <include
+        layout="@layout/wenyouquan_header_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+    <RelativeLayout
+        android:id="@+id/rl_hot_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bv_wenyou_banner"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <View
+            android:id="@+id/split1"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/common_split_line" />
+
+        <TextView
+            android:id="@+id/tv_hot_group_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/split1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="9dp"
+            android:text="热门群组"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tv_hot_group_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/split1"
+            android:paddingBottom="9dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="9dp"
+            android:text="•••"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:id="@+id/ll_hot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_hot_group_title"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <!--注意：代码中控制宽高比-->
+            <RelativeLayout
+                android:id="@+id/ll_hot_group_1"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.weikan.app.widget.roundedimageview.RoundCornerImageView
+                    android:id="@+id/iv_hot_group_bg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_group_bg1" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_name1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="财富" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_people1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_hot_group_name1"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="1234人" />
+            </RelativeLayout>
+            <!--注意：代码中控制宽高比-->
+            <RelativeLayout
+                android:id="@+id/ll_hot_group_2"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.weikan.app.widget.roundedimageview.RoundCornerImageView
+                    android:id="@+id/iv_hot_group_bg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_group_bg2" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_name2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="财富" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_people2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_hot_group_name2"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="1234人" />
+            </RelativeLayout>
+            <!--注意：代码中控制宽高比-->
+            <RelativeLayout
+                android:id="@+id/ll_hot_group_3"
+                android:layout_width="0dp"
+                android:layout_height="58dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1">
+
+                <com.weikan.app.widget.roundedimageview.RoundCornerImageView
+                    android:id="@+id/iv_hot_group_bg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/hot_group_bg3" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_name3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="12dp"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    tools:text="财富" />
+
+                <TextView
+                    android:id="@+id/tv_hot_group_people3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_hot_group_name3"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="12sp"
+                    tools:text="1234人" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:layout_below="@+id/ll_hot"
+            android:layout_marginTop="10dp"
+            android:background="@color/common_split_line" />
+    </RelativeLayout>
+
+</RelativeLayout>

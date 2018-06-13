@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="live_text_red">#fb461e</color>
+    <color name="live_text_yellow">#fbd01e</color>
+    <color name="live_text_blue">#44e1ec</color>
+</resources>

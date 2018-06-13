@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+    <com.weikan.app.common.widget.SimpleNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationLeftDrawable="@drawable/ic_ab_back"
+        app:navigationTitleText="搜索" />
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ececec">
+
+        <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/input_bg">
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:layout_marginRight="7dp"
+
+                    android:src="@drawable/icon_search"
+                    android:layout_gravity="center_vertical"/>
+
+            <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+
+                    android:hint="搜索"
+                    android:textColorHint="#c8c7cc"
+                    android:textSize="14sp"
+                    android:singleLine="true"
+                    android:imeOptions="actionSearch"
+
+                    android:background="@color/white" />
+
+            <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="7dp"
+
+                    android:src="@drawable/icon_close"
+                    android:layout_gravity="center_vertical"
+
+                    android:visibility="gone"
+                    tools:visibility="visible"
+            />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View android:layout_width="match_parent"
+          android:layout_height="0.5dp"
+          android:background="#dcdcdc"/>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="3">
+        <TextView
+                android:id="@+id/tv_search_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_2"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="阅读量从高到低"/>
+        <TextView
+                android:id="@+id/tv_search_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_3"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="只看头条"/>
+
+        <TextView
+                android:id="@+id/tv_search_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_4"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="一周前"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            android:weightSum="3">
+
+        <TextView
+                android:id="@+id/tv_search_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_5"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="两周前"/>
+        <TextView
+                android:id="@+id/tv_search_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_6"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="一个月前"/>
+
+        <TextView
+                android:id="@+id/tv_search_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableTop="@drawable/search_filter_1"
+                android:gravity="center"
+                android:textAppearance="@style/SearchFilterTextStyle"
+                android:drawablePadding="4dp"
+                android:text="全部"
+                android:visibility="invisible"/>
+    </LinearLayout>
+
+
+</LinearLayout>

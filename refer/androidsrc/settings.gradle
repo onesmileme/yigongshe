@@ -1,0 +1,6 @@
+include ':app'
+include ':libs:pull-to-refresh'
+include ':libs:umeng-social-6.0.4'
+include ':libs:multi_image_selector'
+include ':libs:lanjinger-push'
+project(':libs:lanjinger-push').projectDir = new File(settingsDir, '../../androidlibrary/android/trunk/PlatformPush/platform-push')

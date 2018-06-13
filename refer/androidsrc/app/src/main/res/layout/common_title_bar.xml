@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/news_titlebar_bg">
+    <ImageView
+            android:id="@+id/iv_titlebar_back"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:scaleType="centerInside"
+            android:layout_alignParentLeft="true"
+            android:paddingRight="5dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_ab_back"/>
+
+    <TextView
+            android:id="@+id/tv_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/news_titlebar_text"
+            android:textSize="16sp"
+            android:singleLine="true"
+            android:layout_marginLeft="60dp"
+            android:layout_centerInParent="true"
+            android:drawablePadding="5dp"
+            android:gravity="center"/>
+
+    <TextView
+            android:id="@+id/tv_titlebar_title_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/news_titlebar_text"
+            android:textSize="11sp"
+            android:singleLine="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@+id/tv_titlebar_title"
+            android:layout_centerVertical="true"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/bg_fans_count"
+            android:visibility="gone"/>
+
+    <RadioGroup
+            android:id="@+id/navbar_radio_group"
+            android:layout_width="210dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone">
+
+        <RadioButton
+                android:id="@+id/navbar_radio_button_1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textColor="@color/navbar_radio_button_text_color"
+                android:button="@null"
+                android:background="@drawable/nav_bar_radio_1_background"/>
+
+        <RadioButton
+                android:id="@+id/navbar_radio_button_2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:gravity="center"
+                android:textSize="14dp"
+                android:textColor="@color/navbar_radio_button_text_color"
+                android:button="@null"
+                android:background="@drawable/nav_bar_radio_2_background"/>
+
+    </RadioGroup>
+
+    <ImageView
+            android:id="@+id/iv_titlebar_right"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/icon_title_set"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:scaleType="center"
+            android:visibility="gone"/>
+
+    <ImageView
+            android:id="@+id/iv_titlebar_right_2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/dis_item_pub"
+            android:layout_toLeftOf="@+id/iv_titlebar_right"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:scaleType="center"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_titlebar_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="其他"
+            android:textColor="@color/news_titlebar_text"
+            android:textSize="15sp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:layout_marginRight="16dp"
+            android:visibility="gone"
+                tools:visibility="visible"
+                tools:text="发布"/>
+
+    <com.weikan.app.widget.roundedimageview.CircleImageView
+            android:id="@+id/uv_titlebar_right"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/user_button"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:visibility="gone"/>
+
+        <com.weikan.app.widget.roundedimageview.CircleImageView
+                android:id="@+id/iv_titlebar_right_red"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:src="@drawable/icon_red"
+                android:layout_toRightOf="@+id/uv_titlebar_right"
+                android:layout_marginLeft="-10dp"
+                android:layout_marginTop="8dp"
+                app:border_color="#ffffff"
+                app:border_width="1dp"
+                android:visibility="gone"/>
+
+
+</RelativeLayout>

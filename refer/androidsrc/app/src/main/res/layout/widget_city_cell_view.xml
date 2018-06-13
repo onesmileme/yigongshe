@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="@layout/widget_city_cell_view_preview">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:maxLines="1"
+        android:paddingLeft="40dp"
+        android:textColor="@color/more_text"
+        android:textSize="17sp"
+        tools:text="呼伦贝尔市" />
+
+    <View
+        android:id="@+id/v_splitter"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:background="#eeeeee" />
+</merge>

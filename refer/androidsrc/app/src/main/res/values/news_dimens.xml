@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 新闻列表 -->
+    <dimen name="news_title_text_size">16sp</dimen>
+    <dimen name="news_brief_text_size">13sp</dimen>
+    <dimen name="news_author_time_text_size">12sp</dimen>
+
+    <!-- 5.0以下版本lineSpaceExtra在最后一行没有去掉的问题 -->
+    <dimen name="news_title_line_space_extra">5dp</dimen>
+    <dimen name="news_title_padding_bottom">5dp</dimen>
+
+    <dimen name="v1_padding">15dp</dimen>
+    <dimen name="v1_title_text_size">16sp</dimen>
+    <dimen name="v1_tag_text_size">9sp</dimen>
+    <dimen name="v1_author_text_size">13sp</dimen>
+    <dimen name="v1_details_content_text_size">18sp</dimen>
+
+    <dimen name="v1_tag_corner_radius">2dp</dimen>
+    <dimen name="v1_tip_margin_top">8dp</dimen>
+
+    <!-- 市值风云列表样式 -->
+    <dimen name="shizhi_author_time_text_size">11sp</dimen>
+</resources>

@@ -1,0 +1,4 @@
+storeFile file('sign/appfactory.keystore')
+storePassword ‘appfactory2016’
+keyAlias ‘appfactory’
+keyPassword ‘appfactory2016'

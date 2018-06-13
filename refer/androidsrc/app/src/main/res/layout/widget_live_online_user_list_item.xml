@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.weikan.app.widget.roundedimageview.RoundedImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/iv_avatar"
+        android:orientation="vertical"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="4dp"
+        tools:src="@drawable/favtag_7"
+/>

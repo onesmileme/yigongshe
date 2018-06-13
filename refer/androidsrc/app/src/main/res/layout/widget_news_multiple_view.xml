@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/v1_padding"
+    android:paddingRight="@dimen/v1_padding"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    tools:ignore="RtlHardcoded">
+
+    <LinearLayout
+        android:id="@+id/ll_pics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+
+            android:lineSpacingExtra="@dimen/news_title_line_space_extra"
+            android:maxLines="2"
+            android:paddingBottom="@dimen/news_title_padding_bottom"
+            android:textColor="@color/shizhi_title_text_color"
+            android:textSize="@dimen/news_title_text_size"
+            tools:text="在银行的“庇护”下，淘礼网能否滋润的活下去？｜电商突围" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_pic0"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/shizhi_placeholder_news" />
+
+            <ImageView
+                android:id="@+id/iv_pic1"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/shizhi_placeholder_news" />
+
+            <ImageView
+                android:id="@+id/iv_pic2"
+                android:layout_width="90dp"
+                android:layout_height="60dp"
+                android:layout_marginRight="12dp"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/shizhi_placeholder_news" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_brief"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:includeFontPadding="false"
+            android:lineSpacingExtra="4dp"
+            android:maxLines="2"
+            android:textColor="@color/shizhi_brief_text_color"
+            android:textSize="12sp"
+            tools:text="淘宝、京东等电商平台的“论谁更有钱”式营销已司空见惯，更有人戏虐称“目前中国电商的…" />
+
+        <LinearLayout
+            android:id="@+id/ll_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/shizhi_author_time_text_color"
+                android:textSize="@dimen/shizhi_author_time_text_size"
+                tools:text="作者为空" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/shizhi_author_time_text_color"
+                android:textSize="@dimen/shizhi_author_time_text_size"
+                tools:text="4月15日" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tv_read"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/shizhi_author_time_text_color"
+                android:textSize="@dimen/shizhi_author_time_text_size"
+                tools:text="阅读 12231" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

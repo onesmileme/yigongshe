@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NavigationView">
+        <attr name="navigationLeftText" format="string" />
+        <attr name="navigationLeftTextColor" format="color" />
+        <attr name="navigationLeftTextSize" format="dimension" />
+        <attr name="navigationLeftDrawable" format="reference" />
+
+        <attr name="navigationTitleText" format="string" />
+        <attr name="navigationTitleTextColor" format="color" />
+        <attr name="navigationTitleTextSize" format="dimension" />
+        <attr name="navigationTitleDrawable" format="reference" />
+
+        <attr name="navigationRightText" format="string" />
+        <attr name="navigationRightTextColor" format="color" />
+        <attr name="navigationRightTextSize" format="dimension" />
+        <attr name="navigationRightDrawable" format="reference" />
+    </declare-styleable>
+    <dimen name="navigation_default_height">50dp</dimen>
+    <dimen name="navigation_default_icon_padding">10dp</dimen>
+    <dimen name="navigation_default_text_size">14sp</dimen>
+    <dimen name="navigation_default_title_text_size">16sp</dimen>
+</resources>
