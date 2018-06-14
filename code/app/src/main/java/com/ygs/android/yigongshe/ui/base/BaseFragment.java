@@ -1,4 +1,4 @@
-package com.ygs.android.yigongshe.ui.fragment;
+package com.ygs.android.yigongshe.ui.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

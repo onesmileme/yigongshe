@@ -1,4 +1,4 @@
-package com.ygs.android.yigongshe.ui.activities.adapter;
+package com.ygs.android.yigongshe;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
