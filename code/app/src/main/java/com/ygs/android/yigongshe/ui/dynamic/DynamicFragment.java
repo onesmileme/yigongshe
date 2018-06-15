@@ -19,17 +19,21 @@ import java.util.List;
  */
 
 public class DynamicFragment extends BaseFragment {
+  private static final int PAGE_SIZE = 6;
+  private int pageCnt = 1;
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   private DynamicAdapter mAdapter;
+  private TopBannerCard mBannerCard;
 
   @Override protected void initView() {
-    mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+    //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     initAdapter();
-    //addHeadView();
-    initRefreshLayout();
-    mSwipeRefreshLayout.setRefreshing(true);
+    addHeadView();
+    //initRefreshLayout();
+    //mSwipeRefreshLayout.setRefreshing(false);
+    mSwipeRefreshLayout.setEnabled(false);
     refresh();
   }
 
@@ -52,12 +56,10 @@ public class DynamicFragment extends BaseFragment {
     });
   }
 
-  //private void addHeadView() {
-  //  View headView = getLayoutInflater().inflate(R.layout.view_top_banner,
-  //      (ViewGroup) mRecyclerView.getParent(), false);
-  //
-  //  mAdapter.addHeaderView(headView);
-  //}
+  private void addHeadView() {
+    mBannerCard = new TopBannerCard(getActivity(), mRecyclerView);
+    mAdapter.addHeaderView(mBannerCard.getView());
+  }
 
   private void initRefreshLayout() {
     mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -88,18 +90,26 @@ public class DynamicFragment extends BaseFragment {
 
   private void loadMore() {
     List<DynamicItemBean> data = new ArrayList();
-    data.add(new DynamicItemBean("ccc"));
+    if (PAGE_SIZE > pageCnt) {
+      data.add(new DynamicItemBean("ccc"));
+      data.add(new DynamicItemBean("ccc"));
+      data.add(new DynamicItemBean("ccc"));
+      data.add(new DynamicItemBean("ddd"));
+      data.add(new DynamicItemBean("ddd"));
+    }
+
     data.add(new DynamicItemBean("ddd"));
     setData(false, data);
   }
 
   private void setTopBanner(List<String> list) {
-    TopBannerCard bannerCard = new TopBannerCard(getActivity(), mRecyclerView);
-    bannerCard.initViewWithData(list);
-    mAdapter.addHeaderView(bannerCard.getView());
+    if (null != mBannerCard) {
+      mBannerCard.initViewWithData(list);
+    }
   }
 
   private void setData(boolean isRefresh, List data) {
+    pageCnt++;
     final int size = data == null ? 0 : data.size();
     if (isRefresh) {
       mAdapter.setNewData(data);
@@ -108,7 +118,7 @@ public class DynamicFragment extends BaseFragment {
         mAdapter.addData(data);
       }
     }
-    if (size < 6) {
+    if (size < PAGE_SIZE) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {
