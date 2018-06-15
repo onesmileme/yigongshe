@@ -4,13 +4,13 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
+import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class DynamicFragment extends BaseFragment {
     mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     initAdapter();
-    addHeadView();
+    //addHeadView();
     initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
     refresh();
@@ -52,11 +52,12 @@ public class DynamicFragment extends BaseFragment {
     });
   }
 
-  private void addHeadView() {
-    View headView = getLayoutInflater().inflate(R.layout.dynamic_head_view,
-        (ViewGroup) mRecyclerView.getParent(), false);
-    mAdapter.addHeaderView(headView);
-  }
+  //private void addHeadView() {
+  //  View headView = getLayoutInflater().inflate(R.layout.view_top_banner,
+  //      (ViewGroup) mRecyclerView.getParent(), false);
+  //
+  //  mAdapter.addHeaderView(headView);
+  //}
 
   private void initRefreshLayout() {
     mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -75,6 +76,11 @@ public class DynamicFragment extends BaseFragment {
     data.add(new DynamicItemBean("aaa"));
     data.add(new DynamicItemBean("bbb"));
     data.add(new DynamicItemBean("bbb"));
+    List<String> urls = new ArrayList<>();
+    urls.add("http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg");
+    urls.add(
+        "http://img.zcool.cn/community/01f09e577b85450000012e7e182cf0.jpg@1280w_1l_2o_100sh.jpg");
+    setTopBanner(urls);
     setData(true, data);
     mAdapter.setEnableLoadMore(true);
     mSwipeRefreshLayout.setRefreshing(false);
@@ -85,6 +91,12 @@ public class DynamicFragment extends BaseFragment {
     data.add(new DynamicItemBean("ccc"));
     data.add(new DynamicItemBean("ddd"));
     setData(false, data);
+  }
+
+  private void setTopBanner(List<String> list) {
+    TopBannerCard bannerCard = new TopBannerCard(getActivity(), mRecyclerView);
+    bannerCard.initViewWithData(list);
+    mAdapter.addHeaderView(bannerCard.getView());
   }
 
   private void setData(boolean isRefresh, List data) {
