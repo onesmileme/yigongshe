@@ -1,8 +1,8 @@
 package com.ygs.android.yigongshe.net.callback;
 
 import android.support.annotation.CallSuper;
-import com.homelink.android.newhouse.libcore.global.net.adapter.LinkCall;
-import com.homelink.android.newhouse.libcore.util.sys.LogUtil;
+import android.util.Log;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import java.io.IOException;
 import retrofit2.Response;
 
@@ -56,10 +56,10 @@ public class LinkCallbackAdapter<T> implements LinkCallback<T> {
   private void handleCallCancel(T entity, Response<?> response, Throwable throwable,
       LinkCall call) {
     if (throwable != null) {
-      LogUtil.e(TAG, "exception: " , throwable);
+      Log.e(TAG, "exception: ", throwable);
     }
     if (call != null && call.isCanceled()) {
-      LogUtil.e("cancel api ", "");
+      Log.e("cancel api ", "");
       return;
     } else {
       onResponse(entity, response, throwable);

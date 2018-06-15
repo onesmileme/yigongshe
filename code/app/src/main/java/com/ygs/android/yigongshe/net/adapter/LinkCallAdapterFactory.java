@@ -2,10 +2,6 @@ package com.ygs.android.yigongshe.net.adapter;
 
 import android.os.Handler;
 import android.os.Looper;
-import com.homelink.android.newhouse.libcore.global.api.bean.base.BaseResultInfo;
-import com.homelink.android.newhouse.libcore.global.net.ResponseFilterImpl;
-import com.homelink.android.newhouse.libcore.global.net.callback.ResponseFilter;
-import com.homelink.android.newhouse.libcore.global.net.util.Types;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -51,8 +47,6 @@ public class LinkCallAdapterFactory extends CallAdapter.Factory {
 
       @Override public <R> LinkCall<?> adapt(Call<R> call) {
         LinkCallAdapter adapter = new LinkCallAdapter<>(call, mainThreadExecutor);
-        ResponseFilter<BaseResultInfo> filter = new ResponseFilterImpl();
-        adapter.setFilter(filter);
         return adapter;
       }
     };

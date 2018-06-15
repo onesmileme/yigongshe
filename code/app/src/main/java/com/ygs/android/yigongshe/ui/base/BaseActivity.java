@@ -49,11 +49,12 @@ public abstract class BaseActivity extends FragmentActivity {
       Window win = getWindow();
       WindowManager.LayoutParams winParams = win.getAttributes();
       final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
-      if (on) {
-        winParams.flags |= bits;
-      } else {
-        winParams.flags &= ~bits;
-      }
+      //if (on) {
+      //  winParams.flags |= bits;
+      //} else {
+      //  winParams.flags &= ~bits;
+      //}
+      winParams.flags &= ~bits;
       win.setAttributes(winParams);
       //创建状态栏的管理实例
       SystemBarTintManager tintManager = new SystemBarTintManager(this);

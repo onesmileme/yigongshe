@@ -1,5 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+  <declare-styleable name="TitleBarTabView">
+    <!-- 定义选中文字颜色-->
+    <attr name="tabTextSelectedColor" format="color" />
+    <!-- 定义未选中文字颜色-->
+    <attr name="tabTextUnSelectedColor" format="color" />
+    <!-- 定义tabview背景色-->
+    <attr name="titleTabBackground" format="color" />
+    <!-- 定义文字字体大小-->
+    <attr name="tabTextSize" format="dimension" />
+    <!-- 定义tab之间的padding-->
+    <attr name="tabPadding" format="dimension" />
+    <!-- 定义底部menu选中颜色-->
+    <attr name="menuSelectedColor" format="color" />
+    <!-- 定义底部menu未选中颜色-->
+    <attr name="menuUnselectedColor" format="color" />
+    <!-- 定义底部下划线是否显示-->
+    <attr name="isShowUnderLine" format="boolean" />
+  </declare-styleable>
 
 </resources>
