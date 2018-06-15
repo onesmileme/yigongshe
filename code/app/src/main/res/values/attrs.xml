@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <declare-styleable name="CommonTitleBar">
-    <attr name="common_tb_title" format="reference" />
-    <attr name="common_tb_color" format="color" />
-    <attr name="common_tb_background" format="color" />
-    <attr name="common_tb_back_icon" format="reference" />
-    <attr name="common_tb_divider_visible" format="boolean" />
-  </declare-styleable>
+
 
 </resources>
