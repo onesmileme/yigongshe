@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat
 buildscript {
   repositories {
     jcenter()
+      maven {
+          url 'https://maven.google.com/'
+          name 'Google'
+      }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:3.0.1'
@@ -28,6 +32,10 @@ apply plugin: 'kotlin-android'
 //apply from: "${project.rootDir}/../factory_setting.gradle"
 repositories {
   jcenter()
+    maven {
+        url 'https://maven.google.com/'
+        name 'Google'
+    }
 }
 
 

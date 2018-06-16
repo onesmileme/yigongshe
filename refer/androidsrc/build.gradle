@@ -11,6 +11,10 @@ buildscript {
         password = 'Lanjing!23'
       }
     }
+      maven {
+          url 'https://maven.google.com/'
+          name 'Google'
+      }
   }
   dependencies {
     classpath 'com.android.tools.build:gradle:3.0.1'
