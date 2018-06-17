@@ -26,7 +26,7 @@ public class MainActivity extends BaseActivity {
 
   }
 
-  @Override protected void iniView() {
+  @Override protected void initView() {
     BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
     bottomNavigationView.setOnNavigationItemSelectedListener(
         new BottomNavigationView.OnNavigationItemSelectedListener() {

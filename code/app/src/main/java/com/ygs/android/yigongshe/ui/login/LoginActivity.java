@@ -32,7 +32,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     }
 
-    protected void iniView() {
+    protected void initView() {
 
 
         mLoginButton.setOnClickListener(this);
