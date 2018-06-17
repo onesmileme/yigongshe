@@ -8,4 +8,30 @@
   <string name="wechat">微信好友</string>
   <string name="wechat_circle">朋友圈</string>
   <string name="sinaweibo">新浪微博</string>
+
+  <string name="login">登录</string>
+  <string name="phone_num">手机号</string>
+  <string name="password">密 码</string>
+  <string name="input_phone_hint">请输入手机号</string>
+  <string name="input_password_hint">请输入密码</string>
+  
+  <string name="forget_password_tip">忘记密码？去重新设置密码</string>
+  <string name="use_official_account">使用官方认证号登录</string>
+
+  <string name="register">注册</string>
+
+  <string name="user_type">用户类型</string>
+  <string name="school">学校</string>
+  <string name="academy">院系</string>
+  <string name="enroll_year">入学年份</string>
+  <string name="captcha">验证码</string>
+  <string name="invite_code">邀请码</string>
+  <string name="send_captcha">发送验证码</string>
+
+  <string name="input_school_hint">请输入所属学校</string>
+  <string name="input_academy_hint">请输入所属院系</string>
+  <string name="input_enroll_year_hint">选择年份</string>
+  <string name="input_captcha_hint">请输入验证码</string>
+  <string name="input_optional_hint">选填</string>
+
 </resources>

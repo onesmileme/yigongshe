@@ -41,6 +41,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         ActionBar actionBar = getActionBar();
         actionBar.show();
+
+
+
+        actionBar.setCustomView(R.layout.view_register_button);
     }
 
     protected  int getLayoutResId()
@@ -51,5 +55,29 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View view){
 
+        if (view == mLoginButton){
+            tryLogin();
+        }else if (view == mOfficialLoginButton){
+            tryOfficialLogin();
+        }else if(view == mForgetButton){
+            forgetPassword();
+        }
     }
+
+    private void tryLogin(){
+
+    }
+
+    private  void tryOfficialLogin(){
+
+    }
+
+    private void forgetPassword(){
+
+    }
+
+    private void registerActoin(){
+
+    }
+
 }

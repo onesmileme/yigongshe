@@ -1,5 +1,7 @@
 package com.ygs.android.yigongshe;
 
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
@@ -10,6 +12,7 @@ import butterknife.BindView;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
+import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,9 @@ public class MainActivity extends BaseActivity {
     });
 
     setupViewPager(viewPager);
+
+
+    showLogin();
   }
 
   @Override protected int getLayoutResId() {
@@ -95,5 +101,16 @@ public class MainActivity extends BaseActivity {
         new TabFragmentPagerAdapter(getSupportFragmentManager(), list);
     viewPager.setAdapter(adapter);
     viewPager.setCurrentItem(0);
+  }
+
+
+  private void showLogin(){
+
+
+    Intent intent = new Intent(this, LoginActivity.class);
+
+    startActivity(intent);
+
+
   }
 }
