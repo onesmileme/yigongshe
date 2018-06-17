@@ -1,9 +1,14 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.database.DataSetObserver;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
@@ -16,8 +21,11 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
     @BindView(R.id.register_phone_et)
     EditText mPhoneEditText;
 
-    @BindView(R.id.register_user_type_et)
-    EditText mUserTypeEditText;
+//    @BindView(R.id.register_user_type_et)
+//    EditText mUserTypeEditText;
+
+    @BindView(R.id.register_usertype_sp)
+    Spinner mUserTypeSpinner;
 
     @BindView(R.id.register_school_et)
     EditText mSchoolEditText;
@@ -44,11 +52,27 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
     @BindView(R.id.register_register_btn)
     Button mRegisterButton;
 
+    private ArrayAdapter<String> spinnerAdapter;
+    private String mUserType = null;
+
     public void initView(){
 
         mRegisterButton.setOnClickListener(this);
         mCalendarBtn.setOnClickListener(this);
 
+        String [] mUserTypes = getResources().getStringArray(R.array.user_type_names);
+        spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,mUserTypes);
+        mUserTypeSpinner.setAdapter(spinnerAdapter);
+
+        mUserType = mUserTypes[0];
+
+        mUserTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String type = adapterView.getItemAtPosition(i).toString();
+                mUserType = type;
+            }
+        });
     }
 
     public void initIntent(){

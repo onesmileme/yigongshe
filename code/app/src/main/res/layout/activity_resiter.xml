@@ -63,15 +63,15 @@
             android:textAlignment="textEnd"
             android:layout_marginStart="20dp"
             />
-        <EditText
-            android:id="@+id/register_user_type_et"
+        <Spinner
+            android:id="@+id/register_usertype_sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="40dp"
             android:background="@color/gray"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
             android:paddingStart="10dp"
             android:paddingEnd="0dp"
             android:textSize="17sp"
