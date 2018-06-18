@@ -35,10 +35,10 @@ public class MeFragment extends BaseFragment {
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         mProfileAdapter = new MeProfileAdapter(getContext());
-        mProfileAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        mProfileAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                System.out.println("click position "+position);
                 click(position);
             }
         });

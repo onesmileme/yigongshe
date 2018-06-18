@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="75dp">
+
+<View
+    android:id="@+id/msg_red_dot"
+    android:layout_width="10dp"
+    android:layout_height="10dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    android:layout_marginLeft="10dp"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:background="@drawable/circle_10dp_ff0000"
+    />
+
+    <com.ygs.android.yigongshe.view.CircleImageView
+        android:id="@+id/msg_icon"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/msg_red_dot"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/red"/>
+
+
+    <TextView
+        android:id="@+id/msg_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toEndOf="@id/msg_icon"
+        app:layout_constraintTop_toTopOf="@id/msg_icon"
+        app:layout_constraintEnd_toStartOf="@id/msg_detail_time_tv"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/msg_detail_time_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toStartOf="@id/msg_detail_indicator"
+        android:layout_marginRight="10dp"
+        app:layout_constraintTop_toTopOf="@id/msg_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/msg_title_tv"
+        android:text="00:00"
+        android:background="@color/red"
+        />
+
+    <TextView
+        android:id="@+id/msg_sub_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="@id/msg_title_tv"
+        app:layout_constraintTop_toBottomOf="@id/msg_title_tv"
+        app:layout_constraintEnd_toStartOf="@id/msg_detail_indicator"
+        android:layout_marginRight="10dp"
+        tools:text="aaa" />
+
+    <ImageView
+        android:id="@+id/msg_detail_indicator"
+        android:layout_width="15dp"
+        android:layout_height="30dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginRight="20dp"
+        android:background="@color/red"/>
+
+
+</android.support.constraint.ConstraintLayout>

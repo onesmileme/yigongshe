@@ -6,4 +6,8 @@
     <item>关注的人</item>
 
   </string-array>
+  <string-array name="message_segs">
+    <item>私信</item>
+    <item>通知</item>
+  </string-array>
 </resources>

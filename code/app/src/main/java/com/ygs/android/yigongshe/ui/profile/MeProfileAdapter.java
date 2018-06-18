@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.MeItemBean;
+import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +61,13 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
     public Class<? extends Activity> detailClassAtPosition(int postion){
 
 
+        switch (postion){
+            case 0:{
+                return MessageActivity.class;
+            }
+            default:
+                break;
+        }
 
         return null;
     }
