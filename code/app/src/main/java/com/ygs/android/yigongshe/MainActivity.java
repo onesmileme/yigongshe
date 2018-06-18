@@ -12,6 +12,7 @@ import butterknife.BindView;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
+import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import java.util.ArrayList;
@@ -96,7 +97,8 @@ public class MainActivity extends BaseActivity {
     list.add(new DynamicFragment());
     list.add(new DynamicFragment());
     list.add(new CommunityFragment());
-    list.add(new DynamicFragment());
+    //list.add(new DynamicFragment());
+    list.add(new MeFragment());
     TabFragmentPagerAdapter adapter =
         new TabFragmentPagerAdapter(getSupportFragmentManager(), list);
     viewPager.setAdapter(adapter);

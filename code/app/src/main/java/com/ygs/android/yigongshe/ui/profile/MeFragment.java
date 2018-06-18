@@ -1,5 +1,7 @@
 package com.ygs.android.yigongshe.ui.fragment;
 
+import android.content.Intent;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -9,6 +11,10 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.ui.profile.MeProfileAdapter;
+import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
+
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -28,7 +34,14 @@ public class MeFragment extends BaseFragment {
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        mProfileAdapter = new MeProfileAdapter();
+        mProfileAdapter = new MeProfileAdapter(getContext());
+        mProfileAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                click(position);
+            }
+        });
         mRecycleView.setAdapter(mProfileAdapter);
         mRecycleView.addOnItemTouchListener(new OnItemClickListener() {
             @Override
@@ -36,6 +49,15 @@ public class MeFragment extends BaseFragment {
 
             }
         });
+
+
+
+        List<Integer> showList = new LinkedList<>();
+        showList.add(1);
+        showList.add(3);
+        showList.add(6);
+        MeSectionDecoration decoration = new MeSectionDecoration(showList,getContext());
+        mRecycleView.addItemDecoration(decoration);
     }
 
     @Override
@@ -47,4 +69,15 @@ public class MeFragment extends BaseFragment {
     public void onDestroy(){
         super.onDestroy();
     }
+
+    private void  click(int position){
+
+        Class clazz = mProfileAdapter.detailClassAtPosition(position);
+        if (clazz != null) {
+            Intent intent = new Intent(this.getActivity(),clazz);
+            startActivity(intent);
+        }
+
+    }
+
 }
