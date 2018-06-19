@@ -9,10 +9,16 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Response;
 
 /**
  * Created by ruichao on 2018/6/13.
@@ -20,11 +26,13 @@ import java.util.List;
 
 public class DynamicFragment extends BaseFragment {
   private static final int PAGE_SIZE = 6;
+  private static final int _COUNT = 20; //每页条数
   private int pageCnt = 1;
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   private DynamicAdapter mAdapter;
   private TopBannerCard mBannerCard;
+  private LinkCall<BaseResultDataInfo<DynamicListResponse>> mCall;
 
   @Override protected void initView() {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -71,6 +79,14 @@ public class DynamicFragment extends BaseFragment {
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
+    mCall = LinkCallHelper.getApiService().getDynamicLists(0, _COUNT);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>(){
+      @Override
+      public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+      }
+    });
     List<DynamicItemBean> data = new ArrayList();
     data.add(new DynamicItemBean("aaa"));
     data.add(new DynamicItemBean("aaa"));
@@ -124,5 +140,13 @@ public class DynamicFragment extends BaseFragment {
     } else {
       mAdapter.loadMoreComplete();
     }
+  }
+
+  @Override public void onDestroyView() {
+
+    if (mCall != null) {
+      mCall.cancel();
+    }
+    super.onDestroyView();
   }
 }
