@@ -20,12 +20,12 @@ public abstract class BaseActivity extends FragmentActivity {
     setContentView(getLayoutResId());
     ButterKnife.bind(this);
     initIntent();
-    iniView();
+    initView();
   }
 
   protected abstract void initIntent();
 
-  protected abstract void iniView();
+  protected abstract void initView();
 
   protected abstract int getLayoutResId();
 
