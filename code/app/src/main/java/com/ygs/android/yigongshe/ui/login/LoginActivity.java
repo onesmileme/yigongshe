@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.login;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     EditText mPasswordEditText;
 
 
+    @BindView(R.id.titlebar_backward_btn)
+    Button mNavBackButton;
+
+    @BindView(R.id.titlebar_right_btn)
+    Button mNavRightButton;
+
     protected void initIntent(){
 
     }
@@ -39,12 +46,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mOfficialLoginButton.setOnClickListener(this);
         mForgetButton.setOnClickListener(this);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.show();
 
-
-
-        actionBar.setCustomView(R.layout.view_register_button);
+        this.mNavRightButton.setText(R.string.register);
+        this.mNavRightButton.setVisibility(View.VISIBLE);
+        this.mNavRightButton.setOnClickListener(this);
     }
 
     protected  int getLayoutResId()
@@ -61,6 +66,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             tryOfficialLogin();
         }else if(view == mForgetButton){
             forgetPassword();
+        }else if(view == mNavRightButton){
+            //do register
+            doRegister();
         }
     }
 
@@ -79,5 +87,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private void registerActoin(){
 
     }
+
+    private void doRegister(){
+
+        Intent intent = new Intent(this,RegisterActivity.class);
+        startActivity(intent);
+
+    }
+
 
 }

@@ -6,11 +6,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/layout_titlebar"/>
+
     <TextView
         android:id="@+id/login_login_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="80dp"
         android:text="@string/login"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="parent"

@@ -1,0 +1,127 @@
+
+登录 path:/app/api/login
+    phone string  手机号
+    password string 密码
+退出登录 path:/app/api/login/out
+    token string
+
+注册 register
+    获取学校和角色列表 path:/app/api/register
+    
+    注册新用户 path:/app/api/register/registe
+        phone string  手机号
+        role int      角色
+        school  string 学校
+        college string 学院
+        major   string 专业
+        admission_year int 入学年份
+        invite_code string 邀请码
+        verify_code string 验证码
+
+活动 activity  path:/app/api/activity
+    获取我报名参加的活动 path:/app/api/activity/getmyregisteractivity
+        token string 
+    获取活动列表 path:/app/api/activity/getactivities 
+        page    int 页码
+        perpage int 每页条数
+    活动详情  path:/app/api/activity/detail 
+        id int 活动id
+    为活动打call path:/app/api/activity/makecall
+        token string 
+        activity_id int 活动id
+
+留言 comment path: /app/api/comment
+    获取新闻动态留言列表  path: /app/api/comment/getnewscomments
+        id      int 新闻动态id
+        page    int 页码
+        perpage int 每页条数
+
+公益记录 duration 
+    获取公益时长列表 path: /app/api/duration/getlist
+        token   string
+        page    int 页码
+        perpage int 每页条数
+    添加公益记录 path: /app/api/duration/add
+        token    string
+        duration float  时长
+        content  string 申请理由
+
+关注 followperson 
+    我关注的人  path: /app/api/followperson/getlist
+        token   string
+        page    int 页码
+        perpage int 每页条数
+    关注  path: /app/api/followperson/follow
+        token   string
+        userid  int 被关注者id
+
+消息 message
+    发送 path: /app/api/message/send
+        token       string 
+        content     string 
+        receiver_id int     接收者id
+    获取消息列表 path: /app/api/message/getmessagelist
+        other_id int    接受者id
+        token    string 
+        last_id         最后一条消息id
+
+新闻动态 news
+    获取新闻列表 path: /app/api/news/getnews
+        page    int 页码
+        perpage int 每页条数
+    获取新闻详情 path: /app/api/news/getnewsdetail
+        id      int 新闻动态ID
+        page    int 页码
+        perpage int 每页条数
+
+益公圈 pubcircle
+    获取益公圈列表 path:/app/api/pubcircle/getlist
+        page    int 页码
+        perpage int 每页条数
+    发表益公圈 path:/app/api/pubcircle/publish
+        token   string
+        topic   string 话题
+        content string 内容
+        pic     string 图片 多张图片";"分割
+
+用户 user
+    用户主页 path /app/api/user/base
+        token string 
+
+    他人主页 /app/api/user/otherInfo 
+        userid int 他人id
+
+    修改密码 /app/api/user/modifypassword 
+        token
+        new_password     string 新密码
+        confirm_password string 确认密码
+    修改用户名 /app/api/user/modifyusername
+        token
+        new_username string 新用户名
+    修改手机号 /app/api/user/modifyphone
+        token
+        new_phone  string 新手机号
+        verif_code string 验证码
+    修改头像 /app/api/user/modifyavatar
+        token
+        new_avatar string 新头像url
+    忘记密码 /app/api/user/forgetpassword
+        phone  string     手机号
+        verif_code string 验证码
+        passworc   string 新密码
+    修改学校  
+        1、/app/api/user/beforemodifyschool 修改学校之前 获取学校列表
+        2、/app/api/user/modifyschool 修改学校
+            token
+            new_school string 新学校
+
+验证码 verifcode
+    发送验证码 app/api/verifcode/sendverifcode
+        phonenum string 手机号
+
+文件上传 path /app/admin/plugs/upload/
+    file FILE 文件
+    
+
+
+

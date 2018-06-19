@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.content.Intent;
 import android.database.DataSetObserver;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -52,6 +54,12 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
     @BindView(R.id.register_register_btn)
     Button mRegisterButton;
 
+    @BindView(R.id.titlebar_backward_btn)
+    Button mNavBackButton;
+
+    @BindView(R.id.titlebar_right_btn)
+    Button mNavRightButton;
+
     private ArrayAdapter<String> spinnerAdapter;
     private String mUserType = null;
 
@@ -66,13 +74,18 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
 
         mUserType = mUserTypes[0];
 
-        mUserTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String type = adapterView.getItemAtPosition(i).toString();
-                mUserType = type;
-            }
-        });
+//        mUserTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                String type = adapterView.getItemAtPosition(i).toString();
+//                mUserType = type;
+//            }
+//        });
+
+
+        this.mNavRightButton.setText(R.string.login);
+        this.mNavRightButton.setVisibility(View.VISIBLE);
+        this.mNavRightButton.setOnClickListener(this);
     }
 
     public void initIntent(){
@@ -86,6 +99,16 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
 
     public void onClick(View view){
 
+        if (view == mNavRightButton){
+            showLogin();
+        }
+    }
+
+    private void showLogin(){
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.startActivity(intent);
     }
 
 
