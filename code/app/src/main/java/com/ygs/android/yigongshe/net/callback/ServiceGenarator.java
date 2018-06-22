@@ -1,6 +1,6 @@
 package com.ygs.android.yigongshe.net.callback;
 
-import com.ygs.android.yigongshe.net.ApiService;
+import com.ygs.android.yigongshe.net.UriUtils;
 import com.ygs.android.yigongshe.net.adapter.LinkCallAdapterFactory;
 import com.ygs.android.yigongshe.net.converter.GsonConverterFactory;
 import java.util.concurrent.TimeUnit;
@@ -29,8 +29,8 @@ public class ServiceGenarator {
   }
 
   public static <S> S createService(Class<S> serviceClass) {
-    if (retrofit == null || ApiService.BASE_URL.equals(retrofit.baseUrl().toString())) {
-      retrofit = ServiceGenarator.retrofitBuilder.baseUrl(ApiService.BASE_URL).build();
+    if (retrofit == null || UriUtils.getBaseUri().equals(retrofit.baseUrl().toString())) {
+      retrofit = ServiceGenarator.retrofitBuilder.baseUrl(UriUtils.getBaseUri()).build();
     }
     return retrofit.create(serviceClass);
   }
