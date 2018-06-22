@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.dynamic;
 
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,7 +9,6 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
@@ -25,9 +25,9 @@ import retrofit2.Response;
  */
 
 public class DynamicFragment extends BaseFragment {
-  private static final int PAGE_SIZE = 6;
+  private static final int PAGE_SIZE = 1;
   private static final int _COUNT = 20; //每页条数
-  private int pageCnt = 1;
+  private int pageCnt = 0;
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   private DynamicAdapter mAdapter;
@@ -37,6 +37,8 @@ public class DynamicFragment extends BaseFragment {
   @Override protected void initView() {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mRecyclerView.addItemDecoration(
+        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     initAdapter();
     addHeadView();
     //initRefreshLayout();
@@ -79,43 +81,42 @@ public class DynamicFragment extends BaseFragment {
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
-    mCall = LinkCallHelper.getApiService().getDynamicLists(0, _COUNT);
-    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>(){
+    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          DynamicListResponse data = entity.data;
+          pageCnt++;
+          setData(true, data.news);
+        }
       }
     });
-    List<DynamicItemBean> data = new ArrayList();
-    data.add(new DynamicItemBean("aaa"));
-    data.add(new DynamicItemBean("aaa"));
-    data.add(new DynamicItemBean("aaa"));
-    data.add(new DynamicItemBean("aaa"));
-    data.add(new DynamicItemBean("bbb"));
-    data.add(new DynamicItemBean("bbb"));
     List<String> urls = new ArrayList<>();
     urls.add("http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg");
     urls.add(
         "http://img.zcool.cn/community/01f09e577b85450000012e7e182cf0.jpg@1280w_1l_2o_100sh.jpg");
     setTopBanner(urls);
-    setData(true, data);
     mAdapter.setEnableLoadMore(true);
     mSwipeRefreshLayout.setRefreshing(false);
   }
 
   private void loadMore() {
-    List<DynamicItemBean> data = new ArrayList();
-    if (PAGE_SIZE > pageCnt) {
-      data.add(new DynamicItemBean("ccc"));
-      data.add(new DynamicItemBean("ccc"));
-      data.add(new DynamicItemBean("ccc"));
-      data.add(new DynamicItemBean("ddd"));
-      data.add(new DynamicItemBean("ddd"));
-    }
-
-    data.add(new DynamicItemBean("ddd"));
-    setData(false, data);
+    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          DynamicListResponse data = entity.data;
+          pageCnt++;
+          setData(false, data.news);
+        }
+      }
+    });
   }
 
   private void setTopBanner(List<String> list) {

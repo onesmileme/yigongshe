@@ -1,16 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="120dp"
-  >
+  android:layout_height="100dp"
+  android:layout_marginLeft="10dp"
+  android:layout_marginRight="10dp"
+  android:orientation="horizontal">
 
-  <TextView
-    android:id="@+id/tv_test"
-    android:layout_width="wrap_content"
+  <ImageView
+    android:id="@+id/img"
+    android:layout_width="100dp"
+    android:layout_height="60dp"
+    android:layout_gravity="center_vertical" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginBottom="39dp"
-    android:text="testtest" />
+    android:layout_gravity="center_vertical"
+    android:layout_marginLeft="16dp">
 
-</RelativeLayout>
+    <TextView
+      android:id="@+id/title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="title"
+      android:textSize="16dp"
+
+      />
+
+    <TextView
+      android:id="@+id/time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@id/title"
+      android:layout_alignParentRight="true"
+      android:text="2017-11-11"
+      android:textColor="#999999"
+      android:textSize="12dp" />
+
+    <TextView
+      android:id="@+id/content"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/title"
+      android:layout_marginTop="5dp"
+      android:ellipsize="end"
+      android:maxLines="2"
+      android:text="通过活动育人，建立图书室的心灵书屋，培养潜能，开发通过活动育人，建立图书室的心灵书屋，培养潜能，开发"
+      android:textColor="#999999"
+      android:textSize="12dp" />
+  </RelativeLayout>
+
+</LinearLayout>
