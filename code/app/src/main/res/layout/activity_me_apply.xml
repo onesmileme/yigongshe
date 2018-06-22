@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_titlebar"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="80dp"
+        android:id="@+id/me_apply_firstrow"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="@string/apply_duration"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            />
+        <EditText
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:id="@+id/me_apply_duration_et"
+            android:background="@color/gray"
+            android:inputType="number"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="h"
+            android:textSize="18dp"
+            android:layout_marginLeft="10dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/me_apply_firstrow"
+        android:layout_marginTop="20dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:text="@string/apply_reason"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="top"
+            android:id="@+id/me_apply_reason_tv"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="240dp"
+            android:id="@+id/me_apply_reason_et"
+            android:background="@color/gray"
+            android:inputType="number"
+            android:layout_alignLeft="@id/me_apply_reason_tv"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="20dp"
+            android:hint="@string/apply_reason_hint"
+            android:gravity="top"
+            android:textSize="18dp"
+            android:padding="5dp"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/me_apply_submit_btn"
+        android:text="@string/submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginHorizontal="20dp"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"
+        android:textSize="18dp"
+        />
+
+</android.support.constraint.ConstraintLayout>

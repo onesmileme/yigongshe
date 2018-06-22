@@ -34,4 +34,15 @@
   <string name="input_captcha_hint">请输入验证码</string>
   <string name="input_optional_hint">选填</string>
 
+  <string name="logout">退出登录</string>
+  <string name="set">设置</string>
+
+
+  <string name="apply_duration">申请时长</string>
+  <string name="apply_reason">申请理由</string>
+  <string name="apply_reason_hint">请描述您的申请理由</string>
+
+
+  <string name="submit">提交</string>
+  <string name="charity_record"></string>
 </resources>
