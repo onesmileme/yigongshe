@@ -40,9 +40,33 @@
 
   <string name="apply_duration">申请时长</string>
   <string name="apply_reason">申请理由</string>
-  <string name="apply_reason_hint">请描述您的申请理由</string>
+  <string name="apply_reason_hint">请描述您的申请理由</string>a
 
 
   <string name="submit">提交</string>
-  <string name="charity_record"></string>
+  <string name="charity_record">公益记录</string>
+  
+  <string name="association_info">社团信息</string>
+  <string name="association_name">社团名称:</string>
+  <string name="association_member">社员信息</string>
+  <string name="association_activity">社团活动</string>
+  <string name="name">姓名</string>
+  <string name="job_position">职位</string>
+
+  <string name="this_year_charity_time">本年度公益时长</string>
+  <string name="charity_time_rule">公益时间规划</string>
+  <string name="confirm_approve_charity_time">申请确认公益时长</string>
+  <string name="charity_medal">公益勋章</string>
+  <string name="my_charity_time">我的公益时间</string>
+
+  <string name="my_focus">我的关注</string>
+  <string name="my_activity">我的活动</string>
+  <string name="run_list">益行走</string>
+
+  <string name="ziliao">资料</string>
+  <string name="avatar">头像</string>
+  <string name="nickname">昵称</string>
+  <string name="cellphone">手机号</string>
+  <string name="password2">密码</string>
+  <string name="school_info">学校资料</string>
 </resources>

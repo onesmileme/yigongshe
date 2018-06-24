@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.record;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
@@ -21,6 +22,8 @@ public class MeRecordListActivity extends BaseActivity {
     @BindView(R.id.titlebar_text_title)
     TextView titleView;
 
+    @BindView(R.id.message_refresh_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     protected  void initIntent(){
 

@@ -10,4 +10,9 @@
   <color name="black">#242424</color>
   <color name="gray">#d4d4d4</color>
   <color name="red">#ff0000</color>
+  <color name="black1">#333333</color>
+  <color name="gray1">#666666</color>
+  <color name="green">#7cc576</color>
+  <color name="focus_noraml">#7cc576</color>
+  <color name="gray2">#999999</color>
 </resources>

@@ -8,17 +8,18 @@
     <include layout="@layout/layout_titlebar"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/me_focus_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/message_refresh_layout">
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/me_record_recycle_view"
-        >
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/me_focus_recycleview">
 
-    </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.RecyclerView>
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+
 </LinearLayout>

@@ -16,7 +16,7 @@ public class MeSectionDecoration extends RecyclerView.ItemDecoration {
 
     private List<Integer> mShowList ;
     private Paint paint;
-    private int sectionHight = 15;
+    private int sectionHight = 10;
 
     public MeSectionDecoration(List<Integer> showList, Context context){
         super();
@@ -32,8 +32,6 @@ public class MeSectionDecoration extends RecyclerView.ItemDecoration {
         super.getItemOffsets(outRect,view,parent,state);
 
         int pos = parent.getChildAdapterPosition(view);
-
-        System.out.println("pos is: "+pos+"  show list is: "+mShowList);
 
         if (mShowList != null && mShowList.contains(pos)){
             outRect.top = sectionHight;
@@ -59,10 +57,14 @@ public class MeSectionDecoration extends RecyclerView.ItemDecoration {
                 float bottom = view.getTop();
                 //绘制矩形
                 Rect rect = new Rect(left, (int) top, right, (int) bottom);
-                System.out.println("paint rect is: "+rect.top+" "+rect.left+" "+rect.bottom+" "+rect.right);
                 c.drawRect(rect, paint);
             }
         }
+
+    }
+
+    public void setHintHight(int height){
+        sectionHight = height;
     }
 
 

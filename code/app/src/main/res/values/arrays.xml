@@ -10,4 +10,10 @@
     <item>私信</item>
     <item>通知</item>
   </string-array>
+
+  <string-array name="activities_segs">
+    <item>已报名</item>
+    <item>已收藏</item>
+    <item>已签到</item>
+  </string-array>
 </resources>

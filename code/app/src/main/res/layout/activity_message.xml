@@ -23,13 +23,14 @@
         app:scv_TextArray="@array/message_segs"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/message_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/message_refresh_layout">
+        android:layout_height="wrap_content">
+
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/message_list">
+            android:layout_height="match_parent">
 
         </android.support.v7.widget.RecyclerView>
 
