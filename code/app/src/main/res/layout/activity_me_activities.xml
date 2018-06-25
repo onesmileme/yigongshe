@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_titlebar"/>
+
+
+    <com.ygs.android.yigongshe.view.SegmentControlView
+        android:id="@+id/my_mactivity_segment"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop = "10dp"
+        android:layout_marginBottom = "10dp"
+        app:scv_FrameCornerRadius="0dp"
+        app:scv_FrameWidth="1dp"
+        app:scv_Gradient="true"
+        app:scv_SegmentPaddingVertical="10dp"
+        app:scv_SegmentPaddingHorizontal="50dp"
+        app:scv_TextArray="@array/activities_segs"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/me_activities_recycleview"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

@@ -13,9 +13,21 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.SchoolInfoBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
+import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 
+import java.util.List;
+
 import butterknife.BindView;
+import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity  implements View.OnClickListener{
 
@@ -63,6 +75,11 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
     private ArrayAdapter<String> spinnerAdapter;
     private String mUserType = null;
 
+    private List<SchoolInfoBean> schoolRoleBeanList;
+    private LinkCall<BaseResultDataInfo<SchoolInfoListResponse>> mSchoolCall;
+
+    private LinkCall<BaseResultDataInfo<EmptyBean>> mRegisterCall;
+
     public void initView(){
 
         mRegisterButton.setOnClickListener(this);
@@ -72,15 +89,16 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
         spinnerAdapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_item,mUserTypes);
         mUserTypeSpinner.setAdapter(spinnerAdapter);
 
+//        mUserTypeSpinner.get
         mUserType = mUserTypes[0];
 
-//        mUserTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                String type = adapterView.getItemAtPosition(i).toString();
-//                mUserType = type;
-//            }
-//        });
+        mUserTypeSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String type = adapterView.getItemAtPosition(i).toString();
+                mUserType = type;
+            }
+        });
 
 
         this.mNavRightButton.setText(R.string.login);
@@ -101,6 +119,8 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
 
         if (view == mNavRightButton){
             showLogin();
+        }else if(view == mRegisterButton){
+            doRegister();
         }
     }
 
@@ -109,6 +129,40 @@ public class RegisterActivity extends BaseActivity  implements View.OnClickListe
         Intent intent = new Intent(this,LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
+    }
+
+    private void doRegister(){
+
+        String phone = mPhoneEditText.getText().toString();
+        String school = mSchoolEditText.getText().toString();
+        String academy = mAcademyEditText.getText().toString();
+        String year = mEnrollEditText.getText().toString();
+        String verifyCode = mCaptchaEditText.getText().toString();
+        String inviteCode = mInviteEditText.getText().toString();
+
+        mRegisterCall = LinkCallHelper.getApiService().postRegsiter(phone,mUserType,school,academy,year,verifyCode,inviteCode);
+        mRegisterCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+            @Override
+            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+            }
+        });
+    }
+
+    private void getSchoolRoleList(){
+
+        mSchoolCall = LinkCallHelper.getApiService().getSchoolInfoLists();
+        mSchoolCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SchoolInfoListResponse>>(){
+
+            @Override
+            public void onResponse(BaseResultDataInfo<SchoolInfoListResponse> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == ApiStatusInterface.OK){
+                    schoolRoleBeanList = entity.data.schools;
+                }
+            }
+        });
+
     }
 
 

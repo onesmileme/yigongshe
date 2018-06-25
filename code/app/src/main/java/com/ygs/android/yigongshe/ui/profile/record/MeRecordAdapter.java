@@ -2,17 +2,21 @@ package com.ygs.android.yigongshe.ui.profile.record;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.MeRecordItemBean;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class MeRecordAdapter extends BaseQuickAdapter<MeRecordItemBean,BaseViewHolder> {
 
     List<MeRecordItemBean> itemBeans;
+
+    WeakReference<SwipeRefreshLayout> swipeRefreshLayoutWeakReference;
 
     public MeRecordAdapter(Context context){
         super(R.layout.item_me_record,null);
@@ -25,6 +29,25 @@ public class MeRecordAdapter extends BaseQuickAdapter<MeRecordItemBean,BaseViewH
         helper.setText(R.id.me_record_title_tv,item.name);
         helper.setText(R.id.me_record_time_tv,item.time);
         helper.setText(R.id.me_record_duration_tv,item.duration);
+
+    }
+
+
+    public void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout){
+
+        swipeRefreshLayoutWeakReference = new WeakReference<>(swipeRefreshLayout);
+    }
+
+    public void onRefresh(){
+
+        new android.os.Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (swipeRefreshLayoutWeakReference.get() != null) {
+                    swipeRefreshLayoutWeakReference.get().setRefreshing(false);
+                }
+            }
+        },1000);
 
     }
 
