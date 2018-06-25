@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Window;
 import android.view.WindowManager;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.utils.SystemBarTintManager;
 
@@ -15,10 +17,12 @@ import com.ygs.android.yigongshe.utils.SystemBarTintManager;
  */
 
 public abstract class BaseActivity extends FragmentActivity {
+
+  private Unbinder unbinder;
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayoutResId());
-    ButterKnife.bind(this);
+    unbinder =  ButterKnife.bind(this);
     initIntent();
     initView();
   }
@@ -35,6 +39,12 @@ public abstract class BaseActivity extends FragmentActivity {
     if (openTranslucentStatus()) {
       setTranslucentStatus(true);
     }
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    unbinder.unbind();
   }
 
   protected boolean openTranslucentStatus() {
