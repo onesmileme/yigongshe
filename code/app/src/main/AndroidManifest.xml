@@ -30,6 +30,14 @@
         android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
     <activity android:name=".ui.profile.apply.MeApplyActivity"
         android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+
+    <activity android:name=".ui.profile.association.MeAssociationActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity android:name=".ui.profile.record.MeRecordListActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity android:name=".ui.profile.activity.MeActivitiesActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity android:name=".ui.profile.focus.MeFocusActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity android:name=".ui.profile.run.MeRunActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity android:name=".ui.profile.charitytime.MeCharityTimeActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+
   </application>
 
 </manifest>

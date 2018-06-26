@@ -36,4 +36,8 @@ public interface ApiService {
                                                        @Field("admission_year") String adYear,
                                                        @Field("invite_code") String inviteCode ,
                                                        @Field("verify_code") String verifyCode);
+
+
+  @POST("app/api/login")
+  LinkCall<BaseResultDataInfo<EmptyBean>>  doLogin(@Field("phone") String phone , @Field("password")String password);
 }

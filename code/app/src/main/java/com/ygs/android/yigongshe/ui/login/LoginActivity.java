@@ -5,11 +5,18 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 
 import butterknife.BindView;
+import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -28,12 +35,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.login_password_et)
     EditText mPasswordEditText;
 
-
     @BindView(R.id.titlebar_backward_btn)
     Button mNavBackButton;
 
     @BindView(R.id.titlebar_right_btn)
     Button mNavRightButton;
+
+    private LinkCall<BaseResultDataInfo<EmptyBean>> mLoginCall;
 
     protected void initIntent(){
 
@@ -41,15 +49,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     protected void initView() {
 
+        mNavBackButton.setOnClickListener(this);
+        mNavRightButton.setVisibility(View.VISIBLE);
+
+        this.mNavRightButton.setText(R.string.register);
+        this.mNavRightButton.setVisibility(View.VISIBLE);
+        this.mNavRightButton.setOnClickListener(this);
 
         mLoginButton.setOnClickListener(this);
         mOfficialLoginButton.setOnClickListener(this);
         mForgetButton.setOnClickListener(this);
 
+        setTranslucentStatus(true);
 
-        this.mNavRightButton.setText(R.string.register);
-        this.mNavRightButton.setVisibility(View.VISIBLE);
-        this.mNavRightButton.setOnClickListener(this);
     }
 
     protected  int getLayoutResId()
@@ -69,6 +81,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }else if(view == mNavRightButton){
             //do register
             doRegister();
+        }else if(view == mNavBackButton){
+            finish();
         }
     }
 
@@ -85,6 +99,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void registerActoin(){
+
+        String phone = mPhoneEditText.getText().toString();
+        String password = mPasswordEditText.getText().toString();
+
+        if (phone.length() == 0){
+            Toast.makeText(this,"请输入手机号",Toast.LENGTH_LONG);
+        }else if(password.length() == 0){
+            Toast.makeText(this,"请输入密码",Toast.LENGTH_LONG);
+        }
+
+
+        mLoginCall = LinkCallHelper.getApiService().doLogin(phone,password);
+        mLoginCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+
+            @Override
+            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+
+            }
+        });
 
     }
 
