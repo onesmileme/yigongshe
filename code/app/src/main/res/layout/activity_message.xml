@@ -6,18 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/layout_titlebar"/>
+
     <com.ygs.android.yigongshe.view.SegmentControlView
         android:id="@+id/message_segment"
         android:layout_width="wrap_content"
-        android:layout_height="45dp"
+        android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop = "16dp"
-        android:layout_marginBottom = "16dp"
-        app:scv_FrameCornerRadius="0dp"
-        app:scv_FrameWidth="1dp"
+        android:layout_marginTop = "10dp"
+        android:layout_marginBottom = "10dp"
+        app:scv_BackgroundNormalColor="@color/gray3"
+        app:scv_BackgroundSelectedColor="@color/green"
+        app:scv_FrameCornerRadius="2dp"
+        app:scv_FrameWidth="1px"
         app:scv_Gradient="true"
+        app:scv_FrameColor="@color/gray4"
         app:scv_SegmentPaddingVertical="5dp"
         app:scv_SegmentPaddingHorizontal="50dp"
         app:scv_TextArray="@array/message_segs"/>

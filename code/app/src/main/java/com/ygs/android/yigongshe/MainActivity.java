@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import butterknife.BindView;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
@@ -81,8 +82,6 @@ public class MainActivity extends BaseActivity {
     });
 
     setupViewPager(viewPager);
-
-    showLogin();
   }
 
   @Override protected int getLayoutResId() {
@@ -106,10 +105,17 @@ public class MainActivity extends BaseActivity {
     viewPager.setOffscreenPageLimit(4);
   }
 
+  @Override protected void onStart() {
+    super.onStart();
+    AccountManager accountManager = YGApplication.accountManager;
+    if (accountManager.getToken() == null) {
+      showLogin();
+    }
+  }
+
   private void showLogin() {
 
     Intent intent = new Intent(this, LoginActivity.class);
-
     startActivity(intent);
   }
 }

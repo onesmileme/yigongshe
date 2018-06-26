@@ -9,4 +9,6 @@ public class MeItemBean implements Serializable {
     public int icon;
 
     public boolean showIndicator = true;
+
+    public boolean showSplitLine = true;
 }

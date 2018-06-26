@@ -22,7 +22,7 @@ public class MeSectionDecoration extends RecyclerView.ItemDecoration {
         super();
         mShowList = showList;
         paint = new Paint();
-        paint.setColor(context.getResources().getColor(R.color.gray));
+        paint.setColor(context.getResources().getColor(R.color.gray3));
     }
 
     @Override
