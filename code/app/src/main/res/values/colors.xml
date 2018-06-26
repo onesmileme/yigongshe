@@ -17,5 +17,6 @@
   <color name="gray4">#cccccc</color>
   <color name="green">#7cc576</color>
   <color name="focus_noraml">#7cc576</color>
+  <color name="dark_red">#d63b3f</color>
 
 </resources>

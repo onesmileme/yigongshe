@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.net;
 
 import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
@@ -39,5 +40,5 @@ public interface ApiService {
 
 
   @POST("app/api/login")
-  LinkCall<BaseResultDataInfo<EmptyBean>>  doLogin(@Field("phone") String phone , @Field("password")String password);
+  LinkCall<BaseResultDataInfo<LoginBean>>  doLogin(@Field("phone") String phone , @Field("password")String password);
 }

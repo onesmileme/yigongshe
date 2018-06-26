@@ -82,7 +82,7 @@ public class MainActivity extends BaseActivity {
     setupViewPager(viewPager);
 
 
-    showLogin();
+    //showLogin();
   }
 
   @Override protected int getLayoutResId() {

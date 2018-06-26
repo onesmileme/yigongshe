@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -41,7 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @BindView(R.id.titlebar_right_btn)
     Button mNavRightButton;
 
-    private LinkCall<BaseResultDataInfo<EmptyBean>> mLoginCall;
+    private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
 
     protected void initIntent(){
 
@@ -111,10 +112,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
 
         mLoginCall = LinkCallHelper.getApiService().doLogin(phone,password);
-        mLoginCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+        mLoginCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<LoginBean>>(){
 
             @Override
-            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+            public void onResponse(BaseResultDataInfo<LoginBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
 
             }

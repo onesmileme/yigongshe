@@ -1,43 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest package="com.ygs.android.yigongshe"
-  xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ygs.android.yigongshe">
 
-  <uses-permission android:name="android.permission.INTERNET" />
-  <application
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <activity android:name=".MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:name=".YGApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-    </activity>
-    <activity android:name=".ui.login.LoginActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-        ></activity>
-    <activity android:name=".ui.login.RegisterActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-      ></activity>
-    <activity android:name=".ui.profile.message.MessageActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.login.RegisterActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.message.MessageActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
 
-    <activity android:name=".ui.profile.set.MeSetAcitivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.apply.MeApplyActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.set.MeSetAcitivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.apply.MeApplyActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
 
-    <activity android:name=".ui.profile.association.MeAssociationActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.record.MeRecordListActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.activity.MeActivitiesActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.focus.MeFocusActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.run.MeRunActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.charitytime.MeCharityTimeActivity" android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.association.MeAssociationActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.record.MeRecordListActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.activity.MeActivitiesActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.focus.MeFocusActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.run.MeRunActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+        <activity
+            android:name=".ui.profile.charitytime.MeCharityTimeActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
 
-  </application>
+    </application>
 
 </manifest>
