@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.charitytime;
 
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -30,7 +31,7 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
 
     MeCharityMedalAdapter medalAdapter;
 
-    protected void initIntent(){
+    protected void initIntent(Bundle bundle){
 
     }
 

@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.focus;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -30,7 +31,7 @@ public class MeFocusActivity extends BaseActivity {
     @BindView(R.id.me_focus_refresh_layout)
     SwipeRefreshLayout refreshLayout;
 
-    protected  void initIntent(){
+    protected  void initIntent(Bundle bundle){
 
     }
 

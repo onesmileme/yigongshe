@@ -11,7 +11,7 @@ public class DynamicItemBean implements Serializable {
     this.title = title;
   }
 
-  public int id;
+  public int newsid;
   public String title;//"第11条",
   public String desc;//"高大上发大水",
   public String pic;//"",

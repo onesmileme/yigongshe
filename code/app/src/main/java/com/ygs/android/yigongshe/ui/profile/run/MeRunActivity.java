@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.run;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -33,7 +34,7 @@ public class MeRunActivity extends BaseActivity {
 
     MeRunAdapter runAdapter;
 
-    protected void initIntent(){
+    protected void initIntent(Bundle bundle){
 
     }
 

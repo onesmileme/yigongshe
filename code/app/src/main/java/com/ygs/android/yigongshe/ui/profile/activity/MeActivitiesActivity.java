@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.activity;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class MeActivitiesActivity extends BaseActivity {
     @BindView(R.id.me_activities_recycleview)
     RecyclerView recyclerView;
 
-    protected void initIntent(){
+    protected void initIntent(Bundle bundle){
 
     }
 

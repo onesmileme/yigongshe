@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.message;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
@@ -23,7 +24,7 @@ public class MessageActivity extends BaseActivity {
 
     private MessageAdapter messageAdapter;
 
-    protected void initIntent(){
+    protected void initIntent(Bundle bundle){
 
     }
 

@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.dynamic;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
@@ -25,8 +27,8 @@ import retrofit2.Response;
  */
 
 public class DynamicFragment extends BaseFragment {
-  private static final int PAGE_SIZE = 1;
-  private static final int _COUNT = 20; //每页条数
+  private static int PAGE_SIZE = 1;
+  private static int _COUNT = 20; //每页条数
   private int pageCnt = 0;
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
@@ -61,7 +63,11 @@ public class DynamicFragment extends BaseFragment {
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        Bundle bundle = new Bundle();
+        DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
+        bundle.putInt("news_id", itemBean.newsid);
+        bundle.putString("news_title", itemBean.title);
+        goToOthers(DynamicDetailActivity.class, bundle);
       }
     });
   }
@@ -89,7 +95,8 @@ public class DynamicFragment extends BaseFragment {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           DynamicListResponse data = entity.data;
-          pageCnt++;
+          PAGE_SIZE = data.page;
+          _COUNT = data.perpage;
           setData(true, data.news);
         }
       }
@@ -112,7 +119,6 @@ public class DynamicFragment extends BaseFragment {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           DynamicListResponse data = entity.data;
-          pageCnt++;
           setData(false, data.news);
         }
       }

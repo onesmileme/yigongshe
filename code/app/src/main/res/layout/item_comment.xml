@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal">
+
+  <com.ygs.android.yigongshe.view.RoundImageView
+    android:id="@+id/createAvatar"
+    android:layout_width="30dp"
+    android:layout_height="30dp"
+    android:layout_marginLeft="14dp"
+    android:layout_marginTop="14dp"
+    android:scaleType="centerCrop" />
+
+  <RelativeLayout
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="16dp"
+    android:layout_weight="1">
+
+    <TextView
+      android:id="@+id/createName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="清华大学益工社"
+      android:textColor="@color/black1"
+      android:textSize="13dp"
+      android:textStyle="bold" />
+
+    <TextView
+      android:id="@+id/createDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/createName"
+      android:layout_alignParentRight="true"
+      android:text="2018-02-03"
+      android:textColor="#cccccc"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/content"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/createName"
+      android:layout_marginTop="18dp"
+      android:text="通过活动育人，建立图书馆的心灵书屋"
+      android:textColor="@color/black1"
+      android:textSize="12dp" />
+  </RelativeLayout>
+
+</LinearLayout>

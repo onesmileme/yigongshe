@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.association;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,7 +22,7 @@ public class MeAssociationActivity extends BaseActivity {
     @BindView(R.id.titlebar_backward_btn)
     Button backButton;
 
-    protected  void initIntent(){
+    protected  void initIntent(Bundle bundle){
 
     }
 

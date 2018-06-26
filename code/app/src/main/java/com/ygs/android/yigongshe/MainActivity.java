@@ -1,7 +1,7 @@
 package com.ygs.android.yigongshe;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import butterknife.BindView;
+import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
@@ -23,7 +24,7 @@ public class MainActivity extends BaseActivity {
   private MenuItem menuItem;
   @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavigationView;
 
-  @Override protected void initIntent() {
+  @Override protected void initIntent(Bundle bundle) {
 
   }
 
@@ -81,7 +82,6 @@ public class MainActivity extends BaseActivity {
 
     setupViewPager(viewPager);
 
-
     showLogin();
   }
 
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
     List list = new ArrayList<>();
     //        list.add(new LotteryFrag());
     list.add(new DynamicFragment());
-    list.add(new DynamicFragment());
+    list.add(new ActivityFragment());
     list.add(new CommunityFragment());
     //list.add(new DynamicFragment());
     list.add(new MeFragment());
@@ -103,16 +103,13 @@ public class MainActivity extends BaseActivity {
         new TabFragmentPagerAdapter(getSupportFragmentManager(), list);
     viewPager.setAdapter(adapter);
     viewPager.setCurrentItem(0);
+    viewPager.setOffscreenPageLimit(4);
   }
 
-
-  private void showLogin(){
-
+  private void showLogin() {
 
     Intent intent = new Intent(this, LoginActivity.class);
 
     startActivity(intent);
-
-
   }
 }

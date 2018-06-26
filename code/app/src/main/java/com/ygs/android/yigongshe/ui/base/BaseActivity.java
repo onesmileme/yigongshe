@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.base;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +9,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.utils.SystemBarTintManager;
 
@@ -19,15 +19,32 @@ import com.ygs.android.yigongshe.utils.SystemBarTintManager;
 public abstract class BaseActivity extends FragmentActivity {
 
   private Unbinder unbinder;
+  public static final String PARAM_INTENT = "intentData";
+  private Bundle intentData;
+
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayoutResId());
-    unbinder =  ButterKnife.bind(this);
-    initIntent();
+    unbinder = ButterKnife.bind(this);
+
+    if (savedInstanceState == null) {
+      intentData = getIntent().getExtras();
+    } else {
+      intentData = savedInstanceState.getBundle(PARAM_INTENT);
+    }
+    Bundle bundle =
+        intentData != null && intentData.getBundle(PARAM_INTENT) != null ? intentData.getBundle(
+            PARAM_INTENT) : intentData;
+    initIntent(bundle != null ? bundle : new Bundle());
     initView();
   }
 
-  protected abstract void initIntent();
+  protected void onSaveInstanceState(Bundle outState) {
+    outState.putBundle(PARAM_INTENT, intentData);
+    super.onSaveInstanceState(outState);
+  }
+
+  protected abstract void initIntent(Bundle bundle);
 
   protected abstract void initView();
 
@@ -41,8 +58,7 @@ public abstract class BaseActivity extends FragmentActivity {
     }
   }
 
-  @Override
-  protected void onDestroy() {
+  @Override protected void onDestroy() {
     super.onDestroy();
     unbinder.unbind();
   }
@@ -77,5 +93,11 @@ public abstract class BaseActivity extends FragmentActivity {
         tintManager.setStatusBarTintResource(R.color.transparent);
       }
     }
+  }
+
+  protected void goToOthers(Class<?> cls, Bundle bundle) {
+    Intent intent = new Intent(this, cls);
+    intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+    startActivity(intent);
   }
 }

@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.set;
 
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +28,7 @@ public class MeSetAcitivity extends BaseActivity implements View.OnClickListener
     @BindView(R.id.titlebar_text_title)
     TextView mTitleView;
 
-    protected void initIntent(){
+    protected void initIntent(Bundle bundle){
 
     }
 

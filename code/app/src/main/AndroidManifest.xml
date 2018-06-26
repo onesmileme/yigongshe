@@ -17,19 +17,26 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".ui.login.LoginActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-        ></activity>
-    <activity android:name=".ui.login.RegisterActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar"
-      ></activity>
-    <activity android:name=".ui.profile.message.MessageActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity
+      android:name=".ui.login.LoginActivity"
+      android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity
+      android:name=".ui.login.RegisterActivity"
+      android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity
+      android:name=".ui.profile.message.MessageActivity"
+      android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
 
-    <activity android:name=".ui.profile.set.MeSetAcitivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
-    <activity android:name=".ui.profile.apply.MeApplyActivity"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity
+      android:name=".ui.profile.set.MeSetAcitivity"
+      android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+    <activity
+      android:name=".ui.profile.apply.MeApplyActivity"
+      android:theme="@android:style/Theme.Holo.Light.NoActionBar"></activity>
+
+    <activity
+      android:name=".ui.dynamic.DynamicDetailActivity"
+      android:windowSoftInputMode="adjustPan|stateHidden" />
   </application>
 
 </manifest>

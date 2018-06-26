@@ -23,7 +23,7 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicItemBean, BaseViewHo
 
   @Override protected void convert(final BaseViewHolder helper, DynamicItemBean item) {
     Glide.with(mContext)
-        .load("http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg")
+        .load(item.pic)
         .transform(new GlideRoundTransform(mContext))
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,
