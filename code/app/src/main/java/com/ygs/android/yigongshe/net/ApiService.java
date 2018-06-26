@@ -2,10 +2,15 @@ package com.ygs.android.yigongshe.net;
 
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
+import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
+import com.ygs.android.yigongshe.bean.SchoolListBean;
+import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
+
+import java.util.List;
 
 import retrofit2.http.Field;
 import retrofit2.http.GET;
@@ -39,6 +44,51 @@ public interface ApiService {
                                                        @Field("verify_code") String verifyCode);
 
 
-  @POST("app/api/login")
-  LinkCall<BaseResultDataInfo<LoginBean>>  doLogin(@Field("phone") String phone , @Field("password")String password);
+  @GET("app/api/login")
+  LinkCall<BaseResultDataInfo<LoginBean>>  doLogin(@Query("phone") String phone , @Query("password") String password);
+
+
+  @POST("/app/api/login/out")
+  LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(@Field("token") String token);
+
+  @GET("/app/api/user/base")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> getUserInfo(@Query("token") String token);
+
+
+  @GET("/app/api/user/otherInfo")
+  LinkCall<BaseResultDataInfo<OtherUserInfoBean>> getOtherInfo(@Query("token") String token , @Query("userid") String userid);
+
+  @POST("/app/api/user/modifyschool")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifySchool(@Field("token") String token , @Field("new_school") String school);
+
+
+  @POST("/app/api/user/forgetpassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> forgetPassword(@Field("phone")String phone ,
+                                                         @Field("verif_code") String verifyCode ,
+                                                         @Field("password") String newPassword);
+
+  @POST("/app/api/user/modifyavatar")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyAvatar(@Field("token") String token , @Field("new_avatar") String newAvatar);
+
+
+  @POST("/app/api/user/modifyphone")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyPhone(@Field("token") String token ,
+                                                         @Field("new_phone") String newPhone,
+                                                         @Field("verif_code") String verifyCode);
+
+  @POST("/app/api/user/modifyusername")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyUsername(@Field("token") String token ,
+                                                         @Field("new_username") String newName);
+
+
+  @POST("/app/api/user/modifypassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(@Field("token")String token ,
+                                                         @Field("new_password") String newPassword ,
+                                                         @Field("confirm_password") String confirmPassword);
+
+
+
+  @GET("/app/api/user/beforemodifyschool")
+  LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolLisst();
+
 }

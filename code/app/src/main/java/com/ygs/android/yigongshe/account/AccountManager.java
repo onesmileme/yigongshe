@@ -11,7 +11,7 @@ public class AccountManager {
     private UserInfoBean userInfoBean;
 
     private static final String TOKEN_KEY = "token";
-    private static final String TOKEN_EXPIRE_KEY = "token_expire";
+    //private static final String TOKEN_EXPIRE_KEY = "token_expire";
     private static final String USER_NAME_KEY = "user_name";
     private static final String AVATAR_KEY = "avatar";
     private static final String SCHOOL_KEY = "school";
@@ -40,7 +40,7 @@ public class AccountManager {
             userInfoBean.school = sharedPreferences.getString(SCHOOL_KEY,null);
             userInfoBean.college = sharedPreferences.getString(COLLEGE_KEY,null);
             userInfoBean.major = sharedPreferences.getString(MAJOR_KEY,null);
-            userInfoBean.admission_year = sharedPreferences.getInt(ADMISSION_YEAR_KEY,0);
+            userInfoBean.admission_year = sharedPreferences.getString(ADMISSION_YEAR_KEY,null);
             userInfoBean.qq = sharedPreferences.getString(QQ_KEY,null);
             userInfoBean.mail = sharedPreferences.getString(MAIL_KEY,null);
             userInfoBean.phone = sharedPreferences.getString(PHONE_KEY,null);
@@ -60,10 +60,12 @@ public class AccountManager {
         editor.putString(SCHOOL_KEY,userInfoBean.school);
         editor.putString(COLLEGE_KEY,userInfoBean.college);
         editor.putString(MAJOR_KEY,userInfoBean.major);
-        editor.putInt(ADMISSION_YEAR_KEY,userInfoBean.admission_year);
+        editor.putString(ADMISSION_YEAR_KEY,userInfoBean.admission_year);
         editor.putString(QQ_KEY,userInfoBean.qq);
         editor.putString(PHONE_KEY,userInfoBean.phone);
         editor.putString(DESC_KEY,userInfoBean.desc);
+
+        editor.apply();
     }
 
     public void updateToken(String token , String tokenExpire){
@@ -71,5 +73,14 @@ public class AccountManager {
 
         SharedPreferences.Editor editor = mContext.getSharedPreferences("info",Context.MODE_PRIVATE).edit();
         editor.putString(TOKEN_KEY,token);
+        editor.apply();
+    }
+
+    public String getToken(){
+        return token;
+    }
+
+    public UserInfoBean getUserInfoBean() {
+        return userInfoBean;
     }
 }

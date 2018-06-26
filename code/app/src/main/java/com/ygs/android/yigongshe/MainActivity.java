@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import butterknife.BindView;
+
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
@@ -17,6 +19,7 @@ import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class MainActivity extends BaseActivity {
   @BindView(R.id.viewpager) ViewPager viewPager;
@@ -81,8 +84,6 @@ public class MainActivity extends BaseActivity {
 
     setupViewPager(viewPager);
 
-
-    //showLogin();
   }
 
   @Override protected int getLayoutResId() {
@@ -106,11 +107,18 @@ public class MainActivity extends BaseActivity {
   }
 
 
+  @Override
+  protected void onStart() {
+    super.onStart();
+    AccountManager accountManager = YGApplication.accountManager;
+    if (accountManager.getToken() == null){
+      showLogin();
+    }
+  }
+
   private void showLogin(){
 
-
     Intent intent = new Intent(this, LoginActivity.class);
-
     startActivity(intent);
 
 

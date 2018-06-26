@@ -10,12 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.MeItemBean;
+import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.activity.MeActivitiesActivity;
 import com.ygs.android.yigongshe.ui.profile.apply.MeApplyActivity;
@@ -24,6 +26,10 @@ import com.ygs.android.yigongshe.ui.profile.charitytime.MeCharityTimeActivity;
 import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
 import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 import com.ygs.android.yigongshe.utils.DensityUtil;
+import com.ygs.android.yigongshe.utils.ImageLoadUtil;
+import com.ygs.android.yigongshe.view.CircleImageView;
+
+import org.w3c.dom.Text;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +40,8 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
 
     Context mContext;
 
+    private View headView;
+
     public MeProfileAdapter(Context context){
 
         super(R.layout.item_me_profile,null);
@@ -41,11 +49,24 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
         this.setNewData(beans);
         mContext = context;
 
-        View headView  = LayoutInflater.from(context).inflate(R.layout.view_me_info,null);
+        headView  = LayoutInflater.from(context).inflate(R.layout.view_me_info,null);
         int height = DensityUtil.dp2px(context,86);
         ViewGroup.LayoutParams params =  new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
         headView.setLayoutParams(params);
         this.addHeaderView(headView);
+
+    }
+
+    public void updateUserInfo(UserInfoBean userInfoBean){
+
+        TextView nameTv = headView.findViewById(R.id.me_name_tv);
+        nameTv.setText(userInfoBean.username);
+
+        TextView phoneTv = headView.findViewById(R.id.me_phone_tv);
+        phoneTv.setText(userInfoBean.phone);
+
+        CircleImageView avatarIv = headView.findViewById(R.id.me_avatar);
+        ImageLoadUtil.loadImage(avatarIv,userInfoBean.avatar);
 
     }
 

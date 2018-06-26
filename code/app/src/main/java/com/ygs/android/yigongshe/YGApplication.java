@@ -6,13 +6,13 @@ import com.ygs.android.yigongshe.account.AccountManager;
 
 public class YGApplication extends Application {
 
-    static AccountManager instance = null;
+    public static AccountManager accountManager = null;
 
     public void onCreate(){
 
         super.onCreate();
 
-        instance = new AccountManager(getApplicationContext());
+        accountManager = new AccountManager(getApplicationContext());
     }
 
 
