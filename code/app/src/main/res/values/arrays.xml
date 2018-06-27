@@ -27,4 +27,18 @@
     <item>#公益你我他#</item>
     <item>#爱心捐赠#</item>
   </string-array>
+
+  <string-array name="activity_status">
+    <item>全部</item>
+    <item>进行中</item>
+    <item>已完成</item>
+    <item>打call失败</item>
+  </string-array>
+
+  <string-array name="activity_type">
+    <item>全部</item>
+    <item>公益</item>
+    <item>文化</item>
+    <item>创业</item>
+  </string-array>
 </resources>

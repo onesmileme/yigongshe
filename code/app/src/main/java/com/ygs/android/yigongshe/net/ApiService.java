@@ -21,7 +21,7 @@ import retrofit2.http.Query;
 
 public interface ApiService {
   /**
-   * 动态列表s
+   * 动态列表
    */
   @GET("app/api/news/getnews") LinkCall<BaseResultDataInfo<DynamicListResponse>> getDynamicLists(
       @Query("page") int page, @Query("perpage") int perpage);
@@ -29,6 +29,9 @@ public interface ApiService {
   @GET("app/api/register")
   LinkCall<BaseResultDataInfo<SchoolInfoListResponse>> getSchoolInfoLists();
 
+  /**
+   * 动态评论列表
+   */
   @GET("app/api/news/getcomments")
   LinkCall<BaseResultDataInfo<CommentListResponse>> getDynamicCommentLists(
       @Query("news_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
@@ -73,4 +76,18 @@ public interface ApiService {
 
   @GET("/app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolLisst();
+
+  /**
+   * 活动评论列表
+   */
+  @GET("app/api/activity/getcomments")
+  LinkCall<BaseResultDataInfo<CommentListResponse>> getActivityCommentLists(
+      @Query("activity_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
+
+  /**
+   * 圈子评论列表
+   */
+  @GET("app/api/pubcircle/getcomments")
+  LinkCall<BaseResultDataInfo<CommentListResponse>> getCommunityCommentLists(
+      @Query("pubcircle_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
 }
