@@ -118,4 +118,9 @@ public class MainActivity extends BaseActivity {
     Intent intent = new Intent(this, LoginActivity.class);
     startActivity(intent);
   }
+
+  //for different fragments
+  protected boolean openTranslucentStatus() {
+    return true;
+  }
 }

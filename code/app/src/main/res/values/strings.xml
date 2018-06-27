@@ -14,7 +14,7 @@
   <string name="password">密 码</string>
   <string name="input_phone_hint">请输入手机号</string>
   <string name="input_password_hint">请输入密码</string>
-  
+
   <string name="forget_password_tip">忘记密码？去重新设置密码</string>
   <string name="use_official_account">使用官方认证号登录</string>
 
@@ -45,7 +45,7 @@
 
   <string name="submit">提交</string>
   <string name="charity_record">公益记录</string>
-  
+
   <string name="association_info">社团信息</string>
   <string name="association_name">社团名称:</string>
   <string name="association_member">社员信息</string>
@@ -69,4 +69,7 @@
   <string name="cellphone">手机号</string>
   <string name="password2">密码</string>
   <string name="school_info">学校资料</string>
+
+  <string name="done">完成</string>
+  <string name="topicSelect">话题选择</string>
 </resources>

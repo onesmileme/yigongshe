@@ -16,4 +16,15 @@
     <item>已收藏</item>
     <item>已签到</item>
   </string-array>
+
+  <string-array name="community_topic_select_list">
+    <item>#公益每一天#</item>
+    <item>#公益捐助#</item>
+    <item>#救助流浪宠物#</item>
+    <item>#大学生公益组织#</item>
+    <item>#义务支教#</item>
+    <item>#公益圈义工#</item>
+    <item>#公益你我他#</item>
+    <item>#爱心捐赠#</item>
+  </string-array>
 </resources>

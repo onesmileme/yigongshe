@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     mOfficialLoginButton.setOnClickListener(this);
     mForgetButton.setOnClickListener(this);
 
-    setTranslucentStatus(true);
+    //setTranslucentStatus(true);
 
     //for test
     mPhoneEditText.setText("18993368867");

@@ -1,6 +1,5 @@
 package com.ygs.android.yigongshe.ui.dynamic;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,13 +9,13 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
+import com.ygs.android.yigongshe.ui.community.TopicSelectActivity;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
 import java.util.List;
@@ -63,11 +62,12 @@ public class DynamicFragment extends BaseFragment {
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Bundle bundle = new Bundle();
-        DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
-        bundle.putInt("news_id", itemBean.newsid);
-        bundle.putString("news_title", itemBean.title);
-        goToOthers(DynamicDetailActivity.class, bundle);
+        //Bundle bundle = new Bundle();
+        //DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
+        //bundle.putInt("news_id", itemBean.newsid);
+        //bundle.putString("news_title", itemBean.title);
+        //goToOthers(DynamicDetailActivity.class, bundle);
+        goToOthers(TopicSelectActivity.class, null);
       }
     });
   }

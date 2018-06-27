@@ -1,6 +1,9 @@
 package com.ygs.android.yigongshe.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
 /**
@@ -51,5 +54,22 @@ public class DensityUtil {
   public static int px2dp(Context context, float pxValue) {
     final float scale = context.getResources().getDisplayMetrics().density;
     return (int) (pxValue / scale + 0.5f);
+  }
+
+  public static int[] getScreenPixelSize(Context context) {
+    DisplayMetrics metrics = getDisplayMetrics(context);
+    return new int[] { metrics.widthPixels, metrics.heightPixels };
+  }
+
+  public static DisplayMetrics getDisplayMetrics(Context context) {
+    Activity activity;
+    if (!(context instanceof Activity) && context instanceof ContextWrapper) {
+      activity = (Activity) ((ContextWrapper) context).getBaseContext();
+    } else {
+      activity = (Activity) context;
+    }
+    DisplayMetrics metrics = new DisplayMetrics();
+    activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+    return metrics;
   }
 }
