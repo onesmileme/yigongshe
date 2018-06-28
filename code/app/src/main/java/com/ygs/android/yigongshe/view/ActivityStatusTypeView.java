@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import java.util.Arrays;
 import java.util.List;
@@ -23,8 +24,13 @@ public class ActivityStatusTypeView {
   @BindView(R.id.activity_status) RecyclerView mStatus;
   @BindView(R.id.activity_type) RecyclerView mType;
   private View mView;
+  private StatusSelectListener mStatusSelectListener;
+  private TypeSelectListener mTypeSelectListener;
 
-  public ActivityStatusTypeView(Context context, ViewGroup root) {
+  public ActivityStatusTypeView(Context context, ViewGroup root,
+      StatusSelectListener statusSelectListener, TypeSelectListener typeSelectListener) {
+    mStatusSelectListener = statusSelectListener;
+    mTypeSelectListener = typeSelectListener;
     initView(context, root);
   }
 
@@ -38,11 +44,21 @@ public class ActivityStatusTypeView {
     TextAdapter statusAdapter = new TextAdapter(
         Arrays.asList(context.getResources().getStringArray(R.array.activity_status)));
     mStatus.setAdapter(statusAdapter);
+    mStatus.addOnItemTouchListener(new OnItemClickListener() {
+      @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        mStatusSelectListener.OnStatusSelected((String) adapter.getItem(position));
+      }
+    });
     LinearLayoutManager layoutManager2 = new LinearLayoutManager(context);
     layoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
     mType.setLayoutManager(layoutManager2);
     mType.setAdapter(new TextAdapter(
         Arrays.asList(context.getResources().getStringArray(R.array.activity_type))));
+    mType.addOnItemTouchListener(new OnItemClickListener() {
+      @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        mTypeSelectListener.OnTypeSelected((String) adapter.getItem(position));
+      }
+    });
   }
 
   public View getView() {
@@ -58,5 +74,13 @@ public class ActivityStatusTypeView {
     @Override protected void convert(BaseViewHolder helper, String item) {
       helper.setText(R.id.tv, item);
     }
+  }
+
+  public interface StatusSelectListener {
+    void OnStatusSelected(String item);
+  }
+
+  public interface TypeSelectListener {
+    void OnTypeSelected(String item);
   }
 }

@@ -10,15 +10,13 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.bean.DynamicItemBean;
+import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
+import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
-import com.ygs.android.yigongshe.ui.dynamic.DynamicAdapter;
-import com.ygs.android.yigongshe.ui.dynamic.DynamicDetailActivity;
 import com.ygs.android.yigongshe.view.ActivityStatusTypeView;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
@@ -29,15 +27,19 @@ import retrofit2.Response;
  * Created by ruichao on 2018/6/13.
  */
 
-public class ActivityFragment extends BaseFragment {
+public class ActivityFragment extends BaseFragment
+    implements ActivityStatusTypeView.StatusSelectListener,
+    ActivityStatusTypeView.TypeSelectListener {
   private static int PAGE_SIZE = 1;
   private static int _COUNT = 20; //每页条数
   private int pageCnt = 0;
+  private String cate;//类型，公益、文化、创业等，默认为全部
+  private String progress;//状态，进行中、已完成、打call失败
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
-  private DynamicAdapter mAdapter;
+  private ActivityAdapter mAdapter;
   private TopBannerCard mBannerCard;
-  private LinkCall<BaseResultDataInfo<DynamicListResponse>> mCall;
+  private LinkCall<BaseResultDataInfo<ActivityListResponse>> mCall;
 
   @Override protected void initView() {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -57,7 +59,7 @@ public class ActivityFragment extends BaseFragment {
   }
 
   private void initAdapter() {
-    mAdapter = new DynamicAdapter();
+    mAdapter = new ActivityAdapter();
     mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
         loadMore();
@@ -67,10 +69,10 @@ public class ActivityFragment extends BaseFragment {
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
-        DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
-        bundle.putInt("news_id", itemBean.newsid);
-        bundle.putString("news_title", itemBean.title);
-        goToOthers(DynamicDetailActivity.class, bundle);
+        ActivityItemBean itemBean = ((ActivityItemBean) adapter.getItem(position));
+        bundle.putInt("activity_id", itemBean.activityid);
+        bundle.putString("activity_title", itemBean.title);
+        goToOthers(ActivityDetailActivity.class, bundle);
       }
     });
   }
@@ -79,23 +81,23 @@ public class ActivityFragment extends BaseFragment {
     mBannerCard = new TopBannerCard(getActivity(), mRecyclerView);
     mAdapter.addHeaderView(mBannerCard.getView());
     ActivityStatusTypeView activityStatusTypeView =
-        new ActivityStatusTypeView(getActivity(), mRecyclerView);
+        new ActivityStatusTypeView(getActivity(), mRecyclerView, this, this);
     mAdapter.addHeaderView(activityStatusTypeView.getView());
   }
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
-    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
-    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
+    mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
-      public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
+      public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
-          DynamicListResponse data = entity.data;
+          ActivityListResponse data = entity.data;
           PAGE_SIZE = data.page;
           _COUNT = data.perpage;
-          setData(true, data.news);
+          setData(true, data.activities);
         }
       }
     });
@@ -109,15 +111,15 @@ public class ActivityFragment extends BaseFragment {
   }
 
   private void loadMore() {
-    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
-    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
+    mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
-      public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
+      public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
-          DynamicListResponse data = entity.data;
-          setData(false, data.news);
+          ActivityListResponse data = entity.data;
+          setData(false, data.activities);
         }
       }
     });
@@ -153,5 +155,15 @@ public class ActivityFragment extends BaseFragment {
       mCall.cancel();
     }
     super.onDestroyView();
+  }
+
+  @Override public void OnStatusSelected(String item) {
+    cate = item;
+    refresh();
+  }
+
+  @Override public void OnTypeSelected(String item) {
+    progress = item;
+    refresh();
   }
 }

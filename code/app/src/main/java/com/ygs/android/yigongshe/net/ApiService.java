@@ -6,7 +6,10 @@ import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
+import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
+import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -90,4 +93,27 @@ public interface ApiService {
   @GET("app/api/pubcircle/getcomments")
   LinkCall<BaseResultDataInfo<CommentListResponse>> getCommunityCommentLists(
       @Query("pubcircle_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
+
+  /**
+   * 活动列表
+   */
+  @GET("app/api/activity/getactivities")
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getActivityLists(@Query("page") int page,
+      @Query("perpage") int perpage, @Query("cate") String cate,
+      @Query("progress") String progress);
+
+  /**
+   * 活动详情
+   */
+  @POST("app/api/activity/detail")
+  LinkCall<BaseResultDataInfo<ActivityDetailResponse>> getActivityDetail(
+      @Field("activityid") int activityid);
+
+  /**
+   * 圈子列表
+   * type	类型，全部：为空或all; 城市：city; 社团：association, 关注的人：follow	是
+   */
+  @GET("app/api/pubcircle/getlist")
+  LinkCall<BaseResultDataInfo<CommunityListResponse>> getCommunityList(@Query("page") int page,
+      @Query("perpage") int perpage, @Query("type") String type);
 }

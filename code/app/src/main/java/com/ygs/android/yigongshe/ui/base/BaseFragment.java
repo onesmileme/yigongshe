@@ -49,4 +49,22 @@ public abstract class BaseFragment extends Fragment {
     intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
     getActivity().startActivity(intent);
   }
+
+  //A-->B: A跳转到B，并且通过onActivityResult得到回传的数据
+  protected void goToOthersForResult(Class<?> cls, Bundle bundle, int requestCode) {
+    Intent intent = new Intent(getActivity(), cls);
+    intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+    startActivityForResult(intent, requestCode);
+  }
+
+  //A-->B: B回传数据给A
+  public void backForResult(Class<?> cls, Bundle bundle, int resultCode) {
+    Intent intent = new Intent();
+    if (cls != null) {
+      intent.setClass(getActivity(), cls);
+    }
+    intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+    getActivity().setResult(resultCode, intent);
+    getActivity().finish();
+  }
 }

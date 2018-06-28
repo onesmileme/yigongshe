@@ -82,6 +82,7 @@
       android:windowSoftInputMode="adjustPan|stateHidden" />
     <activity android:name=".ui.community.TopicSelectActivity" />
     <activity android:name=".ui.activity.ActivityDetailActivity" />
+    <activity android:name=".ui.community.CommunityDetailActivity" />
     <!--<receiver android:name=".receiver.LoginReceiver">-->
     <!--<intent-filter>-->
     <!--<action android:name="com.ygs.android.yigongshe.login">-->

@@ -18,7 +18,7 @@ public class DynamicDetailActivity extends BaseDetailActivity {
   @Override protected void initView() {
     super.initView();
     mTitleBar.getCenterTextView().setText(mTitle);
-    requestData(TYPE_DYNAMIC, true);
+    requestCommentData(TYPE_DYNAMIC, true);
   }
 
   @Override protected int getLayoutResId() {

@@ -72,4 +72,5 @@
 
   <string name="done">完成</string>
   <string name="topicSelect">话题选择</string>
+  <string name="dacallstatus">目前call值：%1$s   当前%2$s人为该项目应援</string>
 </resources>

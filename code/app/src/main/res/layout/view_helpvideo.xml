@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="15dp"
+  android:orientation="vertical"
+  android:padding="15dp">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="应援小视频" />
+
+  <TextView
+    android:id="@+id/whatsvideo"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:drawableLeft="@drawable/whatscall"
+    android:drawablePadding="8dp"
+    android:text="什么是视频"
+    android:textColor="@color/gray2" />
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/video_list"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal" />
+
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="5dp"
+    android:background="@drawable/bg_helpvideo"
+    android:gravity="center"
+    android:text="我也要应援"
+    android:textColor="@color/white" />
+</LinearLayout>
