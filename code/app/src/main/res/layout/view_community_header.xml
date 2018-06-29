@@ -25,6 +25,8 @@
     android:ellipsize="end"
     android:gravity="center"
     android:padding="6dp"
+    android:singleLine="true"
+    android:text="公益每一天公益每一天"
     android:textColor="@color/black1" />
 
   <TextView
@@ -43,5 +45,6 @@
     android:drawableRight="@drawable/drawdown"
     android:gravity="center"
     android:padding="6dp"
+    android:text="北京"
     android:textColor="@color/black1" />
 </LinearLayout>

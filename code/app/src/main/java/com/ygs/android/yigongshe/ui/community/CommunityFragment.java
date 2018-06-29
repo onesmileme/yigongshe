@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.community;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,7 @@ import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.view.CommunityListHeader;
@@ -74,7 +76,17 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void addHeadView() {
-    mCommunityListHeader = new CommunityListHeader(getActivity(), mRecyclerView);
+    mCommunityListHeader = new CommunityListHeader(getActivity(), mRecyclerView,
+        new CommunityListHeader.SelectBtnListener() {
+
+          @Override public void onBtnSelected(int id) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", id);
+            Intent intent = new Intent(getActivity(), TopicSelectActivity.class);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 0);
+          }
+        });
     mAdapter.addHeaderView(mCommunityListHeader.getView());
   }
 
@@ -152,6 +164,13 @@ public class CommunityFragment extends BaseFragment {
       mAdapter.loadMoreEnd(isRefresh);
     } else {
       mAdapter.loadMoreComplete();
+    }
+  }
+
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (null != data) {
+      Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+      mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
     }
   }
 }

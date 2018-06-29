@@ -9,7 +9,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.ui.community.TopicSelectActivity;
 
 /**
  * Created by ruichao on 2018/6/28.
@@ -20,9 +19,11 @@ public class CommunityListHeader {
   private Context mContext;
   @BindView(R.id.topic) TextView mTopic;
   @BindView(R.id.city) TextView mCity;
+  private SelectBtnListener mListener;
 
-  public CommunityListHeader(Context context, ViewGroup root) {
+  public CommunityListHeader(Context context, ViewGroup root, SelectBtnListener listener) {
     mContext = context;
+    mListener = listener;
     initView(context, root);
   }
 
@@ -34,14 +35,32 @@ public class CommunityListHeader {
   @OnClick({ R.id.topic, R.id.city }) public void onBtnClicked(TextView tv) {
     switch (tv.getId()) {
       case R.id.topic:
-        //mContext.startActivity(TopicSelectActivity.this);
+        mListener.onBtnSelected(0);
+
         break;
       case R.id.city:
+        mListener.onBtnSelected(1);
+        break;
+    }
+  }
+
+  public void setViewData(int id, String data) {
+    switch (id) {
+      case 0:
+        mTopic.setText(data);
+        break;
+      case 1:
+        mCity.setText(data);
         break;
     }
   }
 
   public View getView() {
     return this.mView;
+  }
+
+  public interface SelectBtnListener {
+    //0---话题；1--城市
+    void onBtnSelected(int id);
   }
 }
