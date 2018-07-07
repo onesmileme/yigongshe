@@ -205,4 +205,20 @@ public abstract class BaseActivity extends FragmentActivity {
     intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
     startActivity(intent);
   }
+
+  protected void goToOthersForResult(Class<?> cls, Bundle bundle, int requestCode) {
+    Intent intent = new Intent(this, cls);
+    intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+    startActivityForResult(intent, requestCode);
+  }
+
+  public void backForResult(Class<?> cls, Bundle bundle, int resultCode) {
+    Intent intent = new Intent();
+    if (cls != null) {
+      intent.setClass(this, cls);
+    }
+    intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+    setResult(resultCode, intent);
+    finish();
+  }
 }

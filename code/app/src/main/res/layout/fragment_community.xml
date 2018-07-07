@@ -4,6 +4,7 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+
   <com.ygs.android.yigongshe.view.TitleBarTabView
     android:id="@+id/titleBarTabView"
     android:layout_width="match_parent"

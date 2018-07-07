@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginBottom="10dp"
+  android:layout_marginLeft="14dp"
+  android:layout_marginRight="14dp"
+  android:layout_marginTop="10dp"
+  android:orientation="vertical">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:orientation="horizontal">
+
+    <ImageView
+      android:id="@+id/img"
+      android:layout_width="100dp"
+      android:layout_height="60dp"
+      android:layout_gravity="center_vertical" />
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:layout_marginLeft="16dp">
+
+      <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textSize="16dp"
+
+        />
+
+      <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/title"
+        android:layout_alignParentRight="true"
+        android:text="2017-11-11"
+        android:textColor="#999999"
+        android:textSize="12dp" />
+
+      <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="5dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="通过活动育人，建立图书室的心灵书屋，培养潜能，开发通过活动育人，建立图书室的心灵书屋，培养潜能，开发"
+        android:textColor="#999999"
+        android:textSize="12dp" />
+    </RelativeLayout>
+
+  </LinearLayout>
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ProgressBar
+      android:id="@+id/progressbar_degree"
+      style="?android:attr/progressBarStyleHorizontal"
+      android:layout_width="match_parent"
+      android:layout_height="8dp"
+      android:layout_marginTop="8dp"
+      android:max="100"
+      android:progress="10"
+      android:progressDrawable="@drawable/progressbar" />
+
+    <TextView
+      android:id="@+id/current_pro"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@id/progressbar_degree"
+      android:layout_marginLeft="10dp"
+      android:layout_marginTop="6dp"
+      android:text="300"
+      android:textColor="@color/black1"
+      android:textSize="12dp" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentLeft="true"
+      android:layout_below="@id/current_pro"
+      android:layout_marginTop="6dp"
+      android:text="当前call值"
+      android:textColor="@color/gray2"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/totalPro"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/progressbar_degree"
+      android:layout_marginRight="7dp"
+      android:layout_marginTop="6dp"
+      android:text="1000"
+      android:textColor="@color/black1"
+      android:textSize="12dp" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/totalPro"
+      android:layout_marginTop="6dp"
+      android:text="目标call值"
+      android:textColor="@color/gray2"
+      android:textSize="10dp" />
+  </RelativeLayout>
+</LinearLayout>

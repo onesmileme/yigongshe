@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.webkit.WebView;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -27,14 +28,16 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected static final int TYPE_DYNAMIC = 1;
   protected static final int TYPE_ACTIVITY = 2;
   protected static final int TYPE_COMMUNITY = 3;
+  private int mType;
+
   private static final int PAGE_SIZE = 1; //total page size
   private static final int _COUNT = 20; //每页条数
   private int pageCnt = 0;
-  @BindView(R.id.rv_list) RecyclerView mRecyclerView;
+  protected @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   public @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
 
-  private CommentAdapter mAdapter;
+  protected CommentAdapter mAdapter;
   private LinkCall<BaseResultDataInfo<CommentListResponse>> mCommentCall;
 
   protected int mId; //newsId, activityId
@@ -45,6 +48,13 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   @Override protected void initView() {
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
+        }
+      }
+    });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     mRecyclerView.addItemDecoration(
         new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -57,7 +67,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
     mAdapter = new CommentAdapter();
     mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
-        loadMore();
+        requestCommentData(mType, false);
       }
     }, mRecyclerView);
     mRecyclerView.setAdapter(mAdapter);
@@ -69,7 +79,9 @@ public abstract class BaseDetailActivity extends BaseActivity {
     mAdapter.addHeaderView(mWebView);
   }
 
-  protected void requestData(int type, boolean isRefresh) {
+  //获取评论
+  protected void requestCommentData(int type, boolean isRefresh) {
+    mType = type;
     switch (type) {
       case TYPE_DYNAMIC:
         mCommentCall = LinkCallHelper.getApiService().getDynamicCommentLists(mId, pageCnt, _COUNT);
@@ -138,5 +150,12 @@ public abstract class BaseDetailActivity extends BaseActivity {
     } else {
       mAdapter.loadMoreComplete();
     }
+  }
+
+  @Override protected void onStop() {
+    if (mCommentCall != null) {
+      mCommentCall.cancel();
+    }
+    super.onStop();
   }
 }

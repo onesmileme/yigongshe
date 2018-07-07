@@ -2,14 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="horizontal"
   android:background="#999999"
-  android:padding="10dp"
-  >
+  android:orientation="horizontal"
+  android:paddingBottom="10dp"
+  android:paddingLeft="14dp"
+  android:paddingRight="14dp"
+  android:paddingTop="10dp">
 
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
     android:text="话题" />
+
+  <TextView
+    android:id="@+id/topic"
+    android:layout_width="120dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:background="@drawable/bg_communitytopic"
+    android:drawableRight="@drawable/drawdown"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:padding="6dp"
+    android:singleLine="true"
+    android:text="公益每一天公益每一天"
+    android:textColor="@color/black1" />
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="15dp"
+    android:gravity="center_vertical"
+    android:text="城市" />
+
+  <TextView
+    android:id="@+id/city"
+    android:layout_width="60dp"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:background="@drawable/bg_communitytopic"
+    android:drawableRight="@drawable/drawdown"
+    android:gravity="center"
+    android:padding="6dp"
+    android:text="北京"
+    android:textColor="@color/black1" />
 </LinearLayout>

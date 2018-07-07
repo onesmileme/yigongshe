@@ -1,18 +1,29 @@
 package com.ygs.android.yigongshe.ui.community;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
+import com.ygs.android.yigongshe.utils.AppUtils;
+import com.ygs.android.yigongshe.view.CommunityListHeader;
 import com.ygs.android.yigongshe.view.TitleBarTabView;
-import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Response;
 
 /**
  * Created by ruichao on 2018/6/13.
@@ -23,28 +34,39 @@ public class CommunityFragment extends BaseFragment {
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   private CommunityAdapter mAdapter;
-  private static final int PAGE_SIZE = 6;
-  private int pageCnt = 1;
+  private static int PAGE_SIZE = 1;
+  private static int _COUNT = 20; //每页条数
+  private int pageCnt = 0;
+  private CommunityListHeader mCommunityListHeader;
+  private LinkCall<BaseResultDataInfo<CommunityListResponse>> mCall;
+  private String mType;//type	类型，全部：为空或all; 城市：city; 社团：association, 关注的人：follow
+  private static final String T_CITY = "city";
+  private static final String T_ASSO = "association";
+  private static final String T_FOLLOW = "follow";
+  private String[] typeList = new String[] { "", T_ASSO, T_FOLLOW };
 
   @Override protected void initView() {
-    //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     initAdapter();
     initTitleBarTabView();
     addHeadView();
-    //initRefreshLayout();
-    //mSwipeRefreshLayout.setRefreshing(false);
     mSwipeRefreshLayout.setEnabled(false);
     refresh();
   }
 
   private void initTitleBarTabView() {
+    int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
+    LinearLayout.LayoutParams params =
+        (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+    params.setMargins(0, statusBarHeight, 0, 0);
+    mTitleBarTabView.setLayoutParams(params);
     String[] tabs = getResources().getStringArray(R.array.tab_view);
     for (int i = 0; i < tabs.length; i++) {
       mTitleBarTabView.addTab(tabs[i], i);
       mTitleBarTabView.addTabCheckListener(new TitleBarTabView.TabCheckListener() {
         @Override public void onTabChecked(int var1) {
           if (var1 == mTitleBarTabView.getCurrentTabPos()) {
+            mType = typeList[var1];
             refresh();
           }
         }
@@ -54,7 +76,18 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void addHeadView() {
+    mCommunityListHeader = new CommunityListHeader(getActivity(), mRecyclerView,
+        new CommunityListHeader.SelectBtnListener() {
 
+          @Override public void onBtnSelected(int id) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("id", id);
+            Intent intent = new Intent(getActivity(), TopicSelectActivity.class);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 0);
+          }
+        });
+    mAdapter.addHeaderView(mCommunityListHeader.getView());
   }
 
   private void initAdapter() {
@@ -67,7 +100,11 @@ public class CommunityFragment extends BaseFragment {
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        Bundle bundle = new Bundle();
+        CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
+        bundle.putInt("pubcircle_id", itemBean.pubcircleid);
+        bundle.putSerializable("item", itemBean);
+        goToOthers(CommunityDetailActivity.class, bundle);
       }
     });
   }
@@ -77,31 +114,39 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void refresh() {
+    pageCnt = 0;
     mAdapter.setEnableLoadMore(false);
-    List<CommunityItemBean> data = new ArrayList();
-    data.add(new CommunityItemBean("aaa"));
-    data.add(new CommunityItemBean("aaa"));
-    data.add(new CommunityItemBean("aaa"));
-    data.add(new CommunityItemBean("aaa"));
-    data.add(new CommunityItemBean("bbb"));
-    data.add(new CommunityItemBean("bbb"));
-    setData(true, data);
+    mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          CommunityListResponse data = entity.data;
+          PAGE_SIZE = data.page;
+          _COUNT = data.perpage;
+          setData(true, data.list);
+        }
+      }
+    });
     mAdapter.setEnableLoadMore(true);
     mSwipeRefreshLayout.setRefreshing(false);
   }
 
   private void loadMore() {
-    List<CommunityItemBean> data = new ArrayList();
-    if (PAGE_SIZE > pageCnt) {
-      data.add(new CommunityItemBean("ccc"));
-      data.add(new CommunityItemBean("ccc"));
-      data.add(new CommunityItemBean("ccc"));
-      data.add(new CommunityItemBean("ddd"));
-      data.add(new CommunityItemBean("ddd"));
-    }
-
-    data.add(new CommunityItemBean("ddd"));
-    setData(false, data);
+    mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          CommunityListResponse data = entity.data;
+          setData(false, data.list);
+        }
+      }
+    });
   }
 
   private void setData(boolean isRefresh, List data) {
@@ -119,6 +164,13 @@ public class CommunityFragment extends BaseFragment {
       mAdapter.loadMoreEnd(isRefresh);
     } else {
       mAdapter.loadMoreComplete();
+    }
+  }
+
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    if (null != data) {
+      Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+      mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
     }
   }
 }

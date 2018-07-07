@@ -7,10 +7,6 @@ import java.io.Serializable;
  */
 
 public class DynamicItemBean implements Serializable {
-  public DynamicItemBean(String title) {
-    this.title = title;
-  }
-
   public int newsid;
   public String title;//"第11条",
   public String desc;//"高大上发大水",

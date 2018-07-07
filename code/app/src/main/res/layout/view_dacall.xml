@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/gray4"
+  android:orientation="vertical"
+  android:padding="15dp">
+
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:text="该项目当前call值" />
+
+  <TextView
+    android:id="@+id/whatscall"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:drawableLeft="@drawable/whatscall"
+    android:drawablePadding="8dp"
+    android:text="什么是打call"
+    android:textColor="@color/gray2" />
+
+  <TextView
+    android:id="@+id/markgood"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_dacall"
+    android:drawableTop="@drawable/markgood"
+    android:gravity="center"
+    android:text="8766"
+    android:textColor="@color/white" />
+
+  <TextView
+    android:id="@+id/callstatus"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:text="@string/dacallstatus"
+    android:textColor="@color/gray2" />
+</LinearLayout>
