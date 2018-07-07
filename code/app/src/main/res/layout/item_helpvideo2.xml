@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:paddingLeft="14dp"
+  android:paddingRight="14dp">
+
+  <include
+    layout="@layout/item_helpvideo"
+    android:layout_width="match_parent"
+    android:layout_height="160dp" />
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical">
+
+    <ImageView
+      android:id="@+id/createrAvar"
+      android:layout_width="30dp"
+      android:layout_height="30dp" />
+
+    <TextView
+      android:id="@+id/createName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="10dp"
+      android:layout_toRightOf="@id/createrAvar"
+      android:text="清华大学益工社"
+      android:textColor="@color/black1"
+      android:textSize="13dp" />
+
+    <TextView
+      android:id="@+id/createDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:text="2017-02-04"
+      android:textColor="@color/gray2"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/deleteVideo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="10dp"
+      android:layout_toLeftOf="@id/createDate"
+      android:autoLink="all"
+      android:text="删除"
+      android:textColor="@color/dark_red"
+      android:textSize="10dp" />
+  </RelativeLayout>
+</LinearLayout>

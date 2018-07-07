@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,7 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
+import com.ygs.android.yigongshe.ui.activity.HelpVideoListActivity;
+import com.ygs.android.yigongshe.ui.base.BaseActivity;
 
 /**
  * Created by ruichao on 2018/6/28.
@@ -31,7 +36,7 @@ public class HelpVideoView {
     initView(context, root);
   }
 
-  private void initView(Context context, ViewGroup root) {
+  private void initView(final Context context, ViewGroup root) {
     mView = LayoutInflater.from(context).inflate(R.layout.view_helpvideo, root, false);
     ButterKnife.bind(this, mView);
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
@@ -42,6 +47,12 @@ public class HelpVideoView {
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Intent intent = new Intent(context, HelpVideoListActivity.class);
+        Bundle bundle = new Bundle();
+        ActivityItemBean itemBean = ((ActivityItemBean) adapter.getItem(position));
+        bundle.putInt("activity_id", itemBean.activityid);
+        intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+        context.startActivity(intent);
       }
     });
   }

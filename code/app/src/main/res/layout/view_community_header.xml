@@ -38,13 +38,15 @@
 
   <TextView
     android:id="@+id/city"
-    android:layout_width="60dp"
+    android:layout_width="100dp"
     android:layout_height="wrap_content"
     android:layout_marginLeft="6dp"
     android:background="@drawable/bg_communitytopic"
     android:drawableRight="@drawable/drawdown"
+    android:ellipsize="end"
     android:gravity="center"
     android:padding="6dp"
-    android:text="北京"
+    android:singleLine="true"
+    android:text="北京市"
     android:textColor="@color/black1" />
 </LinearLayout>

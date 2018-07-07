@@ -8,9 +8,11 @@ import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
+import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
+import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import retrofit2.http.Field;
@@ -116,4 +118,16 @@ public interface ApiService {
   @GET("app/api/pubcircle/getlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getCommunityList(@Query("page") int page,
       @Query("perpage") int perpage, @Query("type") String type);
+
+  /**
+   * 视频列表
+   */
+  @POST("app/api/video/getvideolist")
+  LinkCall<BaseResultDataInfo<HelpVideoListResponse>> getHelpVideoList(@Field("page") int page,
+      @Field("perpage") int perpage, @Field("activityid") int activityid);
+
+  /**
+   * 城市选择列表
+   */
+  @POST("app/api/common/getcitylist") LinkCall<BaseResultDataInfo<CityListResponse>> getCityList();
 }
