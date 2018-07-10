@@ -29,4 +29,9 @@ public class CommunityDetailActivity extends BaseDetailActivity {
     mHeaderView.setViewData(mCommunityItemBean);
     mAdapter.addHeaderView(mHeaderView.getView());
   }
+
+  @Override protected void initView() {
+    super.initView();
+    requestCommentData(TYPE_COMMUNITY, true);
+  }
 }

@@ -178,6 +178,7 @@ public class CommunityFragment extends BaseFragment {
     if (null != data) {
       Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
       mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
+
     }
   }
 }

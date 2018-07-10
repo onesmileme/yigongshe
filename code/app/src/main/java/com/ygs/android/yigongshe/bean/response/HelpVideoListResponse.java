@@ -11,5 +11,5 @@ import java.util.List;
 public class HelpVideoListResponse implements Serializable {
   public int page;
   public int perpage;
-  public List<HelpVideoItemBean> video_lsit;//视频列表
+  public List<HelpVideoItemBean> video_list;//视频列表
 }

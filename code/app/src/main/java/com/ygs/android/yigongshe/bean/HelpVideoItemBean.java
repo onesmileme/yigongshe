@@ -7,9 +7,10 @@ import java.io.Serializable;
  */
 
 public class HelpVideoItemBean implements Serializable {
-  String title; //视频名称
-  String src;//视频url
-  String create_id;//发送者id
-  String videoid;//视频id
-  String create_name;//发送者name
+  public String title; //视频名称
+  public String src;//视频url
+  public String thumbnail;//视频缩略图
+  public String create_id;//发送者id
+  public String videoid;//视频id
+  public String create_name;//发送者name
 }

@@ -32,6 +32,10 @@ public class HelpVideoListActivity extends BaseActivity {
   private LinkCall<BaseResultDataInfo<HelpVideoListResponse>> mCall;
   private int mActivityId;
 
+  protected boolean openTranslucentStatus() {
+    return true;
+  }
+
   @Override protected void initIntent(Bundle bundle) {
     mActivityId = bundle.getInt("activityId");
   }
@@ -79,7 +83,7 @@ public class HelpVideoListActivity extends BaseActivity {
           HelpVideoListResponse data = entity.data;
           PAGE_SIZE = data.page;
           _COUNT = data.perpage;
-          setData(true, data.video_lsit);
+          setData(true, data.video_list);
         }
       }
     });
@@ -96,7 +100,7 @@ public class HelpVideoListActivity extends BaseActivity {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           HelpVideoListResponse data = entity.data;
-          setData(false, data.video_lsit);
+          setData(false, data.video_list);
         }
       }
     });
@@ -118,5 +122,12 @@ public class HelpVideoListActivity extends BaseActivity {
     } else {
       mAdapter.loadMoreComplete();
     }
+  }
+
+  @Override protected void onStop() {
+    if (mCall != null) {
+      mCall.cancel();
+    }
+    super.onStop();
   }
 }
