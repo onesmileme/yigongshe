@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.activity;
 
 import android.os.Bundle;
+import android.webkit.WebView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
@@ -20,6 +21,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   private LinkCall<BaseResultDataInfo<ActivityDetailResponse>> mCall;
   private DaCallView mDaCallView;
   private HelpVideoView mHelpVideoView;
+  private WebView mWebView;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
@@ -45,6 +47,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
         if (entity != null && entity.error == 2000) {
           ActivityDetailResponse data = entity.data;
           if (data != null) {
+            mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mDaCallView.setDacallViewData(data);
             mHelpVideoView.setHelpVideoData(data);
           }
@@ -54,6 +57,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   }
 
   protected void addHeaderView() {
+    mWebView = new WebView(this);
+    mAdapter.addHeaderView(mWebView);
     mDaCallView = new DaCallView(this, mRecyclerView);
     mAdapter.addHeaderView(mDaCallView.getView());
     mHelpVideoView = new HelpVideoView(this, mRecyclerView);

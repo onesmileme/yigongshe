@@ -6,7 +6,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.webkit.WebView;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
@@ -42,7 +41,6 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   protected int mId; //newsId, activityId
   protected String mTitle;
-  private WebView mWebView;
 
   @Override protected void initIntent(Bundle bundle) {
   }
@@ -75,8 +73,6 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   //添加很多个headerview
   protected void addHeaderView() {
-    mWebView = new WebView(this);
-    mAdapter.addHeaderView(mWebView);
   }
 
   //获取评论

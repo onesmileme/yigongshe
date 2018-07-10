@@ -11,6 +11,7 @@ import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
+import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
@@ -33,6 +34,12 @@ public interface ApiService {
 
   @GET("app/api/register")
   LinkCall<BaseResultDataInfo<SchoolInfoListResponse>> getSchoolInfoLists();
+
+  /**
+   * 动态详情
+   */
+  @GET("app/api/news/getnewsdetail")
+  LinkCall<BaseResultDataInfo<DynamicDetailResponse>> getDynamicDetail(@Query("id") int id);
 
   /**
    * 动态评论列表
