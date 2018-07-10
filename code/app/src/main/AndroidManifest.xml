@@ -77,12 +77,12 @@
       android:theme="@android:style/Theme.Holo.Light.NoActionBar">
 
     </activity>
-    <activity
-      android:name=".ui.dynamic.DynamicDetailActivity"
-      android:windowSoftInputMode="adjustPan|stateHidden" />
+    <activity android:name=".ui.dynamic.DynamicDetailActivity" />
     <activity android:name=".ui.community.TopicSelectActivity" />
     <activity android:name=".ui.activity.ActivityDetailActivity" />
     <activity android:name=".ui.community.CommunityDetailActivity" />
+    <activity android:name=".ui.community.CitySelectActivity" />
+    <activity android:name=".ui.activity.HelpVideoListActivity" />
     <!--<receiver android:name=".receiver.LoginReceiver">-->
     <!--<intent-filter>-->
     <!--<action android:name="com.ygs.android.yigongshe.login">-->

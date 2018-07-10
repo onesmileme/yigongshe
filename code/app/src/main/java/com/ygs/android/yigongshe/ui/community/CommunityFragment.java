@@ -82,7 +82,14 @@ public class CommunityFragment extends BaseFragment {
           @Override public void onBtnSelected(int id) {
             Bundle bundle = new Bundle();
             bundle.putInt("id", id);
-            Intent intent = new Intent(getActivity(), TopicSelectActivity.class);
+            Intent intent = null;
+
+            if (id == 0) {
+              intent = new Intent(getActivity(), TopicSelectActivity.class);
+            } else {
+              intent = new Intent(getActivity(), CitySelectActivity.class);
+            }
+
             intent.putExtras(bundle);
             startActivityForResult(intent, 0);
           }
@@ -171,6 +178,7 @@ public class CommunityFragment extends BaseFragment {
     if (null != data) {
       Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
       mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
+
     }
   }
 }

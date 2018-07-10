@@ -13,6 +13,8 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
+import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
+import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -40,6 +42,7 @@ public class ActivityFragment extends BaseFragment
   private ActivityAdapter mAdapter;
   private TopBannerCard mBannerCard;
   private LinkCall<BaseResultDataInfo<ActivityListResponse>> mCall;
+  private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
 
   @Override protected void initView() {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -87,6 +90,22 @@ public class ActivityFragment extends BaseFragment
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
+    mScrollPicCall = LinkCallHelper.getApiService().getScrollPicList("活动");
+    mScrollPicCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ScrollPicResponse>>() {
+      public void onResponse(BaseResultDataInfo<ScrollPicResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          ScrollPicResponse data = entity.data;
+          List<ScrollPicBean> list = data.slide_list;
+          List<String> urls = new ArrayList<>();
+          for (ScrollPicBean item : list) {
+            urls.add(item.pic);
+          }
+          setTopBanner(urls);
+        }
+      }
+    });
     mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
@@ -101,11 +120,6 @@ public class ActivityFragment extends BaseFragment
         }
       }
     });
-    List<String> urls = new ArrayList<>();
-    urls.add("http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg");
-    urls.add(
-        "http://img.zcool.cn/community/01f09e577b85450000012e7e182cf0.jpg@1280w_1l_2o_100sh.jpg");
-    setTopBanner(urls);
     mAdapter.setEnableLoadMore(true);
     mSwipeRefreshLayout.setRefreshing(false);
   }

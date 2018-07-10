@@ -32,7 +32,7 @@ public class DaCallView {
   }
 
   public void setDacallViewData(ActivityDetailResponse data) {
-    mMardgood.setText(data.cur_call_num);
+    mMardgood.setText(data.cur_call_num + "");
     mCallStatus.setText(
         StringUtil.getReleaseString(mContext.getResources().getString(R.string.dacallstatus),
             new Object[] { data.target_call_num, data.cur_call_num }));
