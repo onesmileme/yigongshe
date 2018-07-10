@@ -6,6 +6,7 @@ import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
@@ -15,8 +16,10 @@ import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
+import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -114,7 +117,7 @@ public interface ApiService {
   /**
    * 活动详情
    */
-  @POST("app/api/activity/detail")
+  @FormUrlEncoded @POST("app/api/activity/detail")
   LinkCall<BaseResultDataInfo<ActivityDetailResponse>> getActivityDetail(
       @Field("activityid") int activityid);
 
@@ -129,12 +132,40 @@ public interface ApiService {
   /**
    * 视频列表
    */
-  @POST("app/api/video/getvideolist")
+  @FormUrlEncoded @POST("app/api/video/getvideolist")
   LinkCall<BaseResultDataInfo<HelpVideoListResponse>> getHelpVideoList(@Field("page") int page,
       @Field("perpage") int perpage, @Field("activityid") int activityid);
 
   /**
    * 城市选择列表
    */
-  @POST("app/api/common/getcitylist") LinkCall<BaseResultDataInfo<CityListResponse>> getCityList();
+  @FormUrlEncoded @POST("app/api/common/getcitylist")
+  LinkCall<BaseResultDataInfo<CityListResponse>> getCityList();
+
+  /**
+   * 添加新闻评论
+   */
+  @FormUrlEncoded @POST("app/api/news/addcomment") LinkCall<BaseResultInfo> postNewsComment(
+      @Field("news_id") int news_id, @Field("content") String content,
+      @Field("token") String token);
+
+  /**
+   * 添加活动评论
+   */
+  @FormUrlEncoded @POST("app/api/activity/addcomment") LinkCall<BaseResultInfo> postActivityComment(
+      @Field("activity_id") int activity_id, @Field("content") String content,
+      @Field("token") String token);
+
+  /**
+   * 添加益工圈评论
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/addcomment")
+  LinkCall<BaseResultInfo> postCommunityComment(@Field("pubcircle_id") int pubcircle_id,
+      @Field("content") String content, @Field("token") String token);
+
+  /**
+   * 轮播图:活动、动态等
+   */
+  @FormUrlEncoded @POST("app/api/slide/getlist")
+  LinkCall<BaseResultDataInfo<ScrollPicResponse>> getScrollPicList(@Field("type") String type);
 }

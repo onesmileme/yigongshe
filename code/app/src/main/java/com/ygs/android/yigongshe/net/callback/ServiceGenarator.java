@@ -3,6 +3,7 @@ package com.ygs.android.yigongshe.net.callback;
 import com.ygs.android.yigongshe.net.UriUtils;
 import com.ygs.android.yigongshe.net.adapter.LinkCallAdapterFactory;
 import com.ygs.android.yigongshe.net.converter.GsonConverterFactory;
+import com.ygs.android.yigongshe.net.interceptor.HeaderInterceptor;
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -22,6 +23,7 @@ public class ServiceGenarator {
     httpClientBuilder.readTimeout(15000, TimeUnit.MILLISECONDS);
     httpClientBuilder.writeTimeout(15000, TimeUnit.MILLISECONDS);
 
+    //httpClientBuilder.addInterceptor(new HeaderInterceptor());
     ServiceGenarator.retrofitBuilder =
         new Retrofit.Builder().addCallAdapterFactory(LinkCallAdapterFactory.created())
             .addConverterFactory(GsonConverterFactory.create())

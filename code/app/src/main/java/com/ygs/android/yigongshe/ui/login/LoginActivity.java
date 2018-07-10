@@ -19,6 +19,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.SharedPreferenceUtils;
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {

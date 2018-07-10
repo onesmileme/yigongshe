@@ -13,6 +13,8 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
+import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
+import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -35,6 +37,7 @@ public class DynamicFragment extends BaseFragment {
   private DynamicAdapter mAdapter;
   private TopBannerCard mBannerCard;
   private LinkCall<BaseResultDataInfo<DynamicListResponse>> mCall;
+  private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
 
   @Override protected void initView() {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -87,6 +90,22 @@ public class DynamicFragment extends BaseFragment {
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
+    mScrollPicCall = LinkCallHelper.getApiService().getScrollPicList("动态");
+    mScrollPicCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ScrollPicResponse>>() {
+      public void onResponse(BaseResultDataInfo<ScrollPicResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          ScrollPicResponse data = entity.data;
+          List<ScrollPicBean> list = data.slide_list;
+          List<String> urls = new ArrayList<>();
+          for (ScrollPicBean item : list) {
+            urls.add(item.pic);
+          }
+          setTopBanner(urls);
+        }
+      }
+    });
     mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
       @Override
@@ -101,11 +120,7 @@ public class DynamicFragment extends BaseFragment {
         }
       }
     });
-    List<String> urls = new ArrayList<>();
-    urls.add("http://img1.imgtn.bdimg.com/it/u=3044191397,2911599132&fm=27&gp=0.jpg");
-    urls.add(
-        "http://img.zcool.cn/community/01f09e577b85450000012e7e182cf0.jpg@1280w_1l_2o_100sh.jpg");
-    setTopBanner(urls);
+
     mAdapter.setEnableLoadMore(true);
     mSwipeRefreshLayout.setRefreshing(false);
   }
@@ -153,6 +168,9 @@ public class DynamicFragment extends BaseFragment {
 
     if (mCall != null) {
       mCall.cancel();
+    }
+    if (mScrollPicCall != null) {
+      mScrollPicCall.cancel();
     }
     super.onDestroyView();
   }

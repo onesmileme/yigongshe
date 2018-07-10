@@ -3,7 +3,6 @@ package com.ygs.android.yigongshe.bean.base;
 /**
  * 返回基本数据
  *
- * @author hlwang
  */
 public class BaseResultInfo {
 

@@ -35,6 +35,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   @Override protected void initView() {
     super.initView();
     mTitleBar.getCenterTextView().setText(mTitle);
+    requestDetailData();
     requestCommentData(TYPE_ACTIVITY, true);
   }
 

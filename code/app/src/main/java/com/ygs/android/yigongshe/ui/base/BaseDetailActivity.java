@@ -1,15 +1,22 @@
 package com.ygs.android.yigongshe.ui.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
+import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -35,12 +42,14 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   public @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
-
   protected CommentAdapter mAdapter;
   private LinkCall<BaseResultDataInfo<CommentListResponse>> mCommentCall;
+  private LinkCall<BaseResultInfo> mAddCommendCall;
 
   protected int mId; //newsId, activityId
   protected String mTitle;
+
+  @BindView(R.id.input_comment) EditText mEditText;
 
   @Override protected void initIntent(Bundle bundle) {
   }
@@ -78,6 +87,9 @@ public abstract class BaseDetailActivity extends BaseActivity {
   //获取评论
   protected void requestCommentData(int type, boolean isRefresh) {
     mType = type;
+    if (isRefresh) {
+      pageCnt = 0;
+    }
     switch (type) {
       case TYPE_DYNAMIC:
         mCommentCall = LinkCallHelper.getApiService().getDynamicCommentLists(mId, pageCnt, _COUNT);
@@ -153,5 +165,46 @@ public abstract class BaseDetailActivity extends BaseActivity {
       mCommentCall.cancel();
     }
     super.onStop();
+  }
+
+  @OnClick(R.id.sendText) public void onSendBtnClicked() {
+    String sendText = mEditText.getText().toString();
+    switch (mType) {
+      case TYPE_DYNAMIC:
+        mAddCommendCall = LinkCallHelper.getApiService()
+            .postNewsComment(mId, sendText, YGApplication.accountManager.getToken());
+        break;
+      case TYPE_ACTIVITY:
+        mAddCommendCall = LinkCallHelper.getApiService()
+            .postActivityComment(mId, sendText, YGApplication.accountManager.getToken());
+        break;
+      case TYPE_COMMUNITY:
+        mAddCommendCall = LinkCallHelper.getApiService()
+            .postCommunityComment(mId, sendText, YGApplication.accountManager.getToken());
+        break;
+      default:
+        break;
+    }
+
+    postCommentData();
+  }
+
+  private void postCommentData() {
+    mAddCommendCall.enqueue(new LinkCallbackAdapter<BaseResultInfo>() {
+      @Override
+      public void onResponse(BaseResultInfo entity, Response<?> response, Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          mEditText.getText().clear();
+          InputMethodManager imm =
+              (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+          // 隐藏软键盘
+          imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+          requestCommentData(mType, true);
+        } else {
+          Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
   }
 }
