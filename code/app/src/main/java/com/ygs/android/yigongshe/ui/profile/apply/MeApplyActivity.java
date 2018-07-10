@@ -10,6 +10,9 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
+/**
+ * 我的申请
+ */
 public class MeApplyActivity extends BaseActivity implements View.OnClickListener {
 
   @BindView(R.id.me_apply_submit_btn) Button mSubmitButton;

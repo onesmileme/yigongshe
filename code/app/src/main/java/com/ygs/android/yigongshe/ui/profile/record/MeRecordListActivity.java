@@ -12,6 +12,9 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import butterknife.BindInt;
 import butterknife.BindView;
 
+/**
+ * 公益记录
+ */
 public class MeRecordListActivity extends BaseActivity {
 
 

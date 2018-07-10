@@ -12,6 +12,9 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 
 import butterknife.BindView;
 
+/**
+ * 我的公益时
+ */
 public class MeCharityTimeActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.me_charity_time_recycleview)

@@ -11,6 +11,9 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import butterknife.BindInt;
 import butterknife.BindView;
 
+/**
+ * 我的社团
+ */
 public class MeAssociationActivity extends BaseActivity {
 
     @BindView(R.id.me_association_recycleview)

@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@color/gray">
+            android:background="@color/gray5">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,18 +27,17 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="18dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="15dp"
                     android:text="@string/this_year_charity_time"
-                    android:textColor="@color/black"
-                    android:textSize="10dp" />
+                    android:textColor="@color/gray1"
+                    android:textSize="12dp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray" />
+                    android:background="@color/gray5"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -46,12 +45,13 @@
                     android:layout_margin="20dp">
 
                     <ImageView
-                        android:layout_width="15dp"
-                        android:layout_height="15dp"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="6dp"
                         android:layout_toLeftOf="@+id/me_charity_time_rule_tv"
-                        android:background="@color/red" />
+                        android:src="@drawable/whatscall"
+                        />
 
                     <TextView
                         android:id="@+id/me_charity_time_rule_tv"
@@ -59,24 +59,41 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:text="@string/charity_time_rule"
-                        android:textColor="@color/gray"
-                        android:textSize="15dp" />
+                        android:textColor="@color/gray2"
+                        android:textSize="10dp" />
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/me_charity_time_tv"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:text="hehe"
-                    android:textColor="@color/colorPrimary" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/me_charity_time_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="-60dp"
+                        android:textSize="40dp"
+                        android:text="hehe"
+                        android:textColor="@color/green" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/me_charity_time_tv"
+                        android:text="@string/hour"
+                        android:textSize="16dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_alignBottom="@id/me_charity_time_tv"
+                        android:textColor="@color/green"/>
+                </RelativeLayout>
 
                 <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="17dp"
                     android:background="@drawable/borderline_buttonstyle"
                     android:paddingHorizontal="35dp"
                     android:paddingVertical="15dp"
@@ -89,26 +106,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@color/white"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="18dp"
+                    android:textSize="12dp"
                     android:text="@string/charity_medal"
-                    android:textColor="@color/black"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginVertical="18dp"/>
+                    android:textColor="@color/gray1"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginVertical="12dp"/>
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/gray"/>
+                    android:background="@color/gray5"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/me_charity_time_recycleview">
+                    android:id="@+id/me_charity_time_recycleview"
+                    >
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
