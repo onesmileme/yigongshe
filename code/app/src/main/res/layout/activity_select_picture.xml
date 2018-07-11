@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white">
+
+  <com.ygs.android.yigongshe.view.CommonTitleBar
+    android:id="@+id/lyt_title_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+
+  <GridView
+    android:id="@+id/grid_picture"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/lyt_title_bar"
+    android:horizontalSpacing="4dp"
+    android:numColumns="4"
+    android:padding="4dp"
+    android:scrollbars="none"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="4dp"></GridView>
+
+</RelativeLayout>

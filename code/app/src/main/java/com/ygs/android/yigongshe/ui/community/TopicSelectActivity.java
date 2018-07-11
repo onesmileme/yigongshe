@@ -65,7 +65,11 @@ public class TopicSelectActivity extends BaseActivity {
         ((TextView) adapter.getViewByPosition(mRecyclerView, mSelectedPos,
             R.id.tv_topic)).setTextColor(getResources().getColor(R.color.green));
         String tmp = data.get(position);
-        mSelected = tmp.substring(1, tmp.length() - 1);
+        if (mId != 0) {
+          mSelected = tmp.substring(1, tmp.length() - 1);
+        } else {
+          mSelected = tmp;
+        }
       }
     });
   }

@@ -9,6 +9,7 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
@@ -62,10 +63,9 @@ public class HelpVideoListActivity extends BaseActivity {
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
-        //CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
-        //bundle.putInt("pubcircle_id", itemBean.pubcircleid);
-        //bundle.putSerializable("item", itemBean);
-        //goToOthers(CommunityDetailActivity.class, bundle);
+        HelpVideoItemBean itemBean = ((HelpVideoItemBean) adapter.getItem(position));
+        bundle.putString("src", itemBean.src);
+        goToOthers(HelpVideoDetailActivity.class, bundle);
       }
     });
   }

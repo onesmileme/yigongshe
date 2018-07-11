@@ -11,7 +11,7 @@ public class UriUtils {
     if (BuildConfig.DEBUG) {
       return "http://47.104.211.211/";
     } else {
-      return null;
+      return "http://47.104.211.211/";
     }
   }
 }

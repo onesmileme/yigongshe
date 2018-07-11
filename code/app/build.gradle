@@ -11,10 +11,24 @@ android {
     versionCode 1
     versionName "1.0"
   }
+  signingConfigs {
+    QYSConfig {
+      storeFile file("qys.keystore")
+      storePassword "123456"
+      keyAlias "ygs"
+      keyPassword "123456"
+      v2SigningEnabled true
+    }
+  }
   buildTypes {
     release {
+      signingConfig signingConfigs.QYSConfig
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+    debug {
+      signingConfig signingConfigs.QYSConfig
+      debuggable true
     }
   }
 }
@@ -35,5 +49,4 @@ dependencies {
   implementation 'com.squareup.retrofit2:retrofit:2.1.0'
   implementation 'com.squareup.okhttp3:okhttp:3.5.0'
   implementation 'com.google.code.gson:gson:2.7'
-  
 }

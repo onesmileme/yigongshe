@@ -67,7 +67,11 @@ public class ActivityDetailActivity extends BaseDetailActivity {
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
+        if (entity != null
+            && entity.error == 2000
+            && entity.data != null
+            && entity.data.video_list != null
+            && entity.data.video_list.size() > 0) {
           HelpVideoListResponse data = entity.data;
           mHelpVideoView.setVisibility(View.VISIBLE);
           mHelpVideoView.setHelpVideoData(data);

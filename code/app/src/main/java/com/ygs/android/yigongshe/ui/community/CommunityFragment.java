@@ -6,8 +6,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
@@ -56,8 +57,8 @@ public class CommunityFragment extends BaseFragment {
 
   private void initTitleBarTabView() {
     int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
-    LinearLayout.LayoutParams params =
-        (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+    RelativeLayout.LayoutParams params =
+        (RelativeLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
     params.setMargins(0, statusBarHeight, 0, 0);
     mTitleBarTabView.setLayoutParams(params);
     String[] tabs = getResources().getStringArray(R.array.tab_view);
@@ -178,7 +179,10 @@ public class CommunityFragment extends BaseFragment {
     if (null != data) {
       Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
       mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
-
     }
+  }
+
+  @OnClick(R.id.publish) public void onBtnClicked() {
+    goToOthers(PublishCommunityActivity.class, null);
   }
 }

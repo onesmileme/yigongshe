@@ -54,6 +54,7 @@ public class ActivityFragment extends BaseFragment
     //initRefreshLayout();
     //mSwipeRefreshLayout.setRefreshing(false);
     mSwipeRefreshLayout.setEnabled(false);
+    requestBannerData();
     refresh();
   }
 
@@ -90,22 +91,7 @@ public class ActivityFragment extends BaseFragment
 
   private void refresh() {
     mAdapter.setEnableLoadMore(false);
-    mScrollPicCall = LinkCallHelper.getApiService().getScrollPicList("活动");
-    mScrollPicCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ScrollPicResponse>>() {
-      public void onResponse(BaseResultDataInfo<ScrollPicResponse> entity, Response<?> response,
-          Throwable throwable) {
-        super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
-          ScrollPicResponse data = entity.data;
-          List<ScrollPicBean> list = data.slide_list;
-          List<String> urls = new ArrayList<>();
-          for (ScrollPicBean item : list) {
-            urls.add(item.pic);
-          }
-          setTopBanner(urls);
-        }
-      }
-    });
+
     mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
@@ -134,6 +120,25 @@ public class ActivityFragment extends BaseFragment
         if (entity != null && entity.error == 2000) {
           ActivityListResponse data = entity.data;
           setData(false, data.activities);
+        }
+      }
+    });
+  }
+
+  private void requestBannerData() {
+    mScrollPicCall = LinkCallHelper.getApiService().getScrollPicList("活动");
+    mScrollPicCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ScrollPicResponse>>() {
+      public void onResponse(BaseResultDataInfo<ScrollPicResponse> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == 2000) {
+          ScrollPicResponse data = entity.data;
+          List<ScrollPicBean> list = data.slide_list;
+          List<String> urls = new ArrayList<>();
+          for (ScrollPicBean item : list) {
+            urls.add(item.pic);
+          }
+          setTopBanner(urls);
         }
       }
     });
