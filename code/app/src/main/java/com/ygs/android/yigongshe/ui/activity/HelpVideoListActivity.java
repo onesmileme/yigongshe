@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -16,6 +17,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.List;
 import retrofit2.Response;
 
@@ -26,6 +28,7 @@ import retrofit2.Response;
 public class HelpVideoListActivity extends BaseActivity {
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
+  @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   private static int PAGE_SIZE = 1;
   private static int _COUNT = 20; //每页条数
   private int pageCnt = 0;
@@ -38,10 +41,17 @@ public class HelpVideoListActivity extends BaseActivity {
   }
 
   @Override protected void initIntent(Bundle bundle) {
-    mActivityId = bundle.getInt("activityId");
+    mActivityId = bundle.getInt("activity_id");
   }
 
   @Override protected void initView() {
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
+        }
+      }
+    });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     initAdapter();
     mSwipeRefreshLayout.setEnabled(false);
@@ -84,6 +94,8 @@ public class HelpVideoListActivity extends BaseActivity {
           PAGE_SIZE = data.page;
           _COUNT = data.perpage;
           setData(true, data.video_list);
+        } else {
+          Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
         }
       }
     });
@@ -116,7 +128,7 @@ public class HelpVideoListActivity extends BaseActivity {
         mAdapter.addData(data);
       }
     }
-    if (size < PAGE_SIZE) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {

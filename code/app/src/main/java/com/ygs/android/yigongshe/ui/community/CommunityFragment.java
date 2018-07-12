@@ -6,7 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,8 +57,8 @@ public class CommunityFragment extends BaseFragment {
 
   private void initTitleBarTabView() {
     int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
-    RelativeLayout.LayoutParams params =
-        (RelativeLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+    LinearLayout.LayoutParams params =
+        (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
     params.setMargins(0, statusBarHeight, 0, 0);
     mTitleBarTabView.setLayoutParams(params);
     String[] tabs = getResources().getStringArray(R.array.tab_view);
@@ -167,7 +167,7 @@ public class CommunityFragment extends BaseFragment {
         mAdapter.addData(data);
       }
     }
-    if (size < PAGE_SIZE) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {

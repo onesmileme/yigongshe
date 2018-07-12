@@ -2,6 +2,6 @@ ext.config = [applicationId    : "com.ygs.android.yigongshe",
               compileSdkVersion: 26,
               buildToolsVersion: "26.0.2",
               minSdkVersion    : 19,
-              targetSdkVersion : 26,
+              targetSdkVersion : 22,
               versionCode      : 1,
               versionName      : "1.0.0"]

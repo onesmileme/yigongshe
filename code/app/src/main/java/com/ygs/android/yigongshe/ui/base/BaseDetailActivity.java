@@ -36,8 +36,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected static final int TYPE_COMMUNITY = 3;
   private int mType;
 
-  private static final int PAGE_SIZE = 1; //total page size
-  private static final int _COUNT = 20; //每页条数
+  private static int PAGE_SIZE = 1; //total page size
+  private static int _COUNT = 20; //每页条数
   private int pageCnt = 0;
   protected @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
@@ -120,12 +120,14 @@ public abstract class BaseDetailActivity extends BaseActivity {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           CommentListResponse data = entity.data;
+          PAGE_SIZE = data.page;
+          _COUNT = data.perpage;
           setData(true, data.list);
-          mAdapter.setEnableLoadMore(true);
-          mSwipeRefreshLayout.setRefreshing(false);
         }
       }
     });
+    mAdapter.setEnableLoadMore(true);
+    mSwipeRefreshLayout.setRefreshing(false);
   }
 
   private void loadMore() {
@@ -152,10 +154,12 @@ public abstract class BaseDetailActivity extends BaseActivity {
         mAdapter.addData(data);
       }
     }
-    if (size < PAGE_SIZE) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
+      //true：加载完成，底部什么都不显示；false：loadmore的加载完成，底部显示没有更多数据
       mAdapter.loadMoreEnd(isRefresh);
     } else {
+      //本地加载结束，底部什么都不显示
       mAdapter.loadMoreComplete();
     }
   }

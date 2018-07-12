@@ -9,5 +9,7 @@ import java.util.List;
  */
 
 public class CommentListResponse implements Serializable {
+  public int page;
+  public int perpage;
   public List<CommentItemBean> list;
 }

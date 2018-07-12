@@ -33,9 +33,11 @@
       android:layout_marginTop="10dp"
       android:background="#f6f6f6"
       android:focusable="true"
+      android:gravity="top|left"
       android:hint="想说点什么..."
       android:padding="10dp"
-      android:textColorHint="@color/gray4" />
+      android:textColorHint="@color/gray4"
+      android:textSize="12dp" />
   </LinearLayout>
 
 
@@ -79,7 +81,8 @@
       android:layout_gravity="right"
       android:paddingBottom="10dp"
       android:paddingLeft="40dp"
-      android:src="@drawable/icon_edit_delete" />
+      android:src="@drawable/icon_edit_delete"
+      android:visibility="gone" />
   </RelativeLayout>
 
   <RelativeLayout
@@ -106,7 +109,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentRight="true"
-      android:layout_marginRight="20dp"
+      android:layout_marginRight="6dp"
       android:ellipsize="end"
       android:singleLine="true"
       android:text="#大学生宠物救助#"

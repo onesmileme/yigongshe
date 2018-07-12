@@ -56,6 +56,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
 
   @Override protected void initView() {
     initPopupWindow();
+
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
@@ -120,7 +121,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
       ll_popup.clearAnimation();
     } else if (id == R.id.btn_photo) {
       //Bundle mBundle = new Bundle();
-      //goToOthersForResult(PicSelectActivity.class, null, SELECT_PICS);
+      goToOthersForResult(PicSelectActivity.class, null, SELECT_PICS);
       pop.dismiss();
       ll_popup.clearAnimation();
     } else if (id == R.id.parent || id == R.id.btn_cancel) {

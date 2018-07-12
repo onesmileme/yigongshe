@@ -9,7 +9,6 @@ import com.ygs.android.yigongshe.R;
 
 public class ImageEditGridAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-  private IDeletePhotoListener deletePhotoListener;
   private Context mContext;
 
   public ImageEditGridAdapter(Context context) {
@@ -28,10 +27,5 @@ public class ImageEditGridAdapter extends BaseQuickAdapter<String, BaseViewHolde
     } else {
       holder.setVisible(R.id.iv_delete, true);
     }
-  }
-
-  public interface IDeletePhotoListener {
-
-    void deletePhotos(String item);
   }
 }

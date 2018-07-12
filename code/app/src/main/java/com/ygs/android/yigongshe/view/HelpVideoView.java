@@ -73,6 +73,8 @@ public class HelpVideoView {
       Glide.with(mContext)
           .load(item.thumbnail)
           .transform(new GlideRoundTransform(mContext))
+          .placeholder(R.drawable.loading2)
+          .fitCenter()
           .into(new SimpleTarget<GlideDrawable>() {
             @Override public void onResourceReady(GlideDrawable resource,
                 GlideAnimation<? super GlideDrawable> glideAnimation) {
