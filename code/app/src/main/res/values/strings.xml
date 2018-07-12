@@ -58,6 +58,7 @@
   <string name="confirm_approve_charity_time">申请确认公益时长</string>
   <string name="charity_medal">公益勋章</string>
   <string name="my_charity_time">我的公益时间</string>
+  <string name="hour">小时</string>
 
   <string name="my_focus">我的关注</string>
   <string name="my_activity">我的活动</string>
@@ -69,6 +70,11 @@
   <string name="cellphone">手机号</string>
   <string name="password2">密码</string>
   <string name="school_info">学校资料</string>
+
+  <string name="followed">已关注</string>
+  <string name="unfollow">取消关注</string>
+
+  <string name="my_community">我的益工圈</string>
 
   <string name="done">完成</string>
   <string name="topicSelect">话题选择</string>

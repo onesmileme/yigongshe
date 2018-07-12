@@ -13,6 +13,9 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.utils.DensityUtil;
 import com.ygs.android.yigongshe.view.SegmentControlView;
 
+/**
+ * 我的消息
+ */
 public class MessageActivity extends BaseActivity implements View.OnClickListener {
 
   @BindView(R.id.titlebar_backward_btn) Button mNavBackButton;

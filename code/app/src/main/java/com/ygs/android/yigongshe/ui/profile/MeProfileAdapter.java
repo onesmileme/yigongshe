@@ -23,6 +23,7 @@ import com.ygs.android.yigongshe.ui.profile.activity.MeActivitiesActivity;
 import com.ygs.android.yigongshe.ui.profile.apply.MeApplyActivity;
 import com.ygs.android.yigongshe.ui.profile.association.MeAssociationActivity;
 import com.ygs.android.yigongshe.ui.profile.charitytime.MeCharityTimeActivity;
+import com.ygs.android.yigongshe.ui.profile.community.MeCommunityActivity;
 import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
 import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 import com.ygs.android.yigongshe.utils.DensityUtil;
@@ -120,7 +121,7 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
             case 3://我的活动
                 return MeActivitiesActivity.class;
             case 4://我的益工圈
-                return null;
+                return MeCommunityActivity.class;
             case 5://我的公益时间
                 return MeCharityTimeActivity.class;
             case 6://我的应用

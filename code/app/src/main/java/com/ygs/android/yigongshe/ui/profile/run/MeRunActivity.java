@@ -16,6 +16,9 @@ import java.util.List;
 
 import butterknife.BindView;
 
+/**
+ * 益行走
+ */
 public class MeRunActivity extends BaseActivity {
 
 

@@ -8,14 +8,16 @@ import android.widget.TextView;
 import butterknife.BindView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 
+/**
+ * 我的申请
+ */
 public class MeApplyActivity extends BaseActivity implements View.OnClickListener {
 
   @BindView(R.id.me_apply_submit_btn) Button mSubmitButton;
 
-  @BindView(R.id.titlebar_backward_btn) Button mNavBackButton;
-
-  @BindView(R.id.titlebar_text_title) TextView mTitleView;
+  @BindView(R.id.layout_titlebar) CommonTitleBar mTitleBar;
 
   @BindView(R.id.me_apply_duration_et) EditText mDurationEditText;
 
@@ -27,10 +29,16 @@ public class MeApplyActivity extends BaseActivity implements View.OnClickListene
 
   protected void initView() {
 
-    mNavBackButton.setOnClickListener(this);
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override
+      public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+          finish();
+        }
+      }
+    });
     mSubmitButton.setOnClickListener(this);
 
-    mTitleView.setText(R.string.apply_duration);
   }
 
   protected int getLayoutResId() {
@@ -40,8 +48,6 @@ public class MeApplyActivity extends BaseActivity implements View.OnClickListene
   public void onClick(View view) {
     if (view == mSubmitButton) {
 
-    } else if (view == mNavBackButton) {
-      this.finish();
     }
   }
 }

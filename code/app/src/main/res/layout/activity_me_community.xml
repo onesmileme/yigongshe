@@ -2,18 +2,16 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
 
-    <!--<include layout="@layout/layout_titlebar"/>-->
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/layout_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        titlebar:centerText="@string/set"
+        titlebar:centerText="@string/my_community"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
         titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
@@ -21,23 +19,10 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/me_set_recycleview">
+        android:layout_height="match_parent"
+        android:id="@+id/me_community_recycleview">
 
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:id="@+id/me_set_logout_btn"
-        android:background="#d63b3f"
-        android:text="@string/logout"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="15dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="10dp"
-        />
 
 </LinearLayout>

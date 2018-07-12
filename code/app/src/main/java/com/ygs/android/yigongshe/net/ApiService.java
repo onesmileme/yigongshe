@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.net;
 
+import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
@@ -59,38 +61,84 @@ public interface ApiService {
   @GET("app/api/login") LinkCall<BaseResultDataInfo<LoginBean>> doLogin(
       @Query("phone") String phone, @Query("password") String password);
 
-  @POST("/app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
+  @POST("app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
       @Field("token") String token);
 
-  @GET("/app/api/user/base") LinkCall<BaseResultDataInfo<UserInfoBean>> getUserInfo(
+  @GET("app/api/user/base") LinkCall<BaseResultDataInfo<UserInfoBean>> getUserInfo(
       @Query("token") String token);
 
-  @GET("/app/api/user/otherInfo") LinkCall<BaseResultDataInfo<OtherUserInfoBean>> getOtherInfo(
+  @GET("app/api/user/otherInfo") LinkCall<BaseResultDataInfo<OtherUserInfoBean>> getOtherInfo(
       @Query("token") String token, @Query("userid") String userid);
 
-  @POST("/app/api/user/modifyschool") LinkCall<BaseResultDataInfo<UserInfoBean>> modifySchool(
+  @POST("app/api/user/modifyschool") LinkCall<BaseResultDataInfo<UserInfoBean>> modifySchool(
       @Field("token") String token, @Field("new_school") String school);
 
-  @POST("/app/api/user/forgetpassword") LinkCall<BaseResultDataInfo<EmptyBean>> forgetPassword(
+  @POST("app/api/user/forgetpassword") LinkCall<BaseResultDataInfo<EmptyBean>> forgetPassword(
       @Field("phone") String phone, @Field("verif_code") String verifyCode,
       @Field("password") String newPassword);
 
-  @POST("/app/api/user/modifyavatar") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyAvatar(
+  @POST("app/api/user/modifyavatar") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyAvatar(
       @Field("token") String token, @Field("new_avatar") String newAvatar);
 
-  @POST("/app/api/user/modifyphone") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyPhone(
+  @POST("app/api/user/modifyphone") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyPhone(
       @Field("token") String token, @Field("new_phone") String newPhone,
       @Field("verif_code") String verifyCode);
 
-  @POST("/app/api/user/modifyusername") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyUsername(
+  @POST("app/api/user/modifyusername") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyUsername(
       @Field("token") String token, @Field("new_username") String newName);
 
-  @POST("/app/api/user/modifypassword") LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(
+  @POST("app/api/user/modifypassword") LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(
       @Field("token") String token, @Field("new_password") String newPassword,
       @Field("confirm_password") String confirmPassword);
 
-  @GET("/app/api/user/beforemodifyschool")
+  @GET("app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolLisst();
+
+  /**
+   * 我关注的人
+   */
+  @POST("app/api/followperson/getlist")
+  LinkCall<BaseResultDataInfo<FollowPersonDataBean>> getFolloPersonList(@Field("token") String token,
+                                                                        @Field("page") int pageindex);//page index start from 1
+
+  /**
+   * 关注某人
+   */
+  @POST("app/api/followperson/follow")
+  LinkCall<BaseResultDataInfo<EmptyBean>> doFollow(@Field("token")String token , @Field("userid") String userid);
+
+  /**
+   * 取消关注某人
+   */
+  @POST("/app/api/followperson/unfollow")
+  LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(@Field("token")String token , @Field("userid") String userid);
+
+  /**
+   * 获取我报名参加的活动
+   * @param token
+   * @return
+   */
+  @POST("app/api/activity/getmyregisteractivity")
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyRegisterActivity(@Field("token") String token);
+
+  /**
+   * 获取我收藏的活动
+   */
+  @POST("app/api/activity/getmystoreactivity")
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyStoreActivity(@Field("token") String token);
+
+  /**
+   * 获取我签到的活动
+   */
+  @POST("app/api/activity/getmysigninactivity")
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMySigninActivity(@Field("token") String token);
+
+
+  /**
+   * 获取我的益公圈列表
+   */
+  @GET("app/api/pubcircle/getmylist")
+  LinkCall<BaseResultDataInfo<CommunityListResponse>> getMyCommunityList(@Query("token") String token);
 
   /**
    * 活动评论列表

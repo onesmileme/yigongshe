@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,14 +41,6 @@ public class MeFragment extends BaseFragment {
 
   @BindView(R.id.me_main_recycleview) RecyclerView mRecycleView;
 
-  //@BindView(R.id.titlebar_backward_btn)
-  //Button mNavBackButton;
-
-  //@BindView(R.id.titlebar_text_title)
-  //TextView titleView;
-
-  //@BindView(R.id.titlebar_right_btn)
-  //Button mNavRightButton;
   @BindView(R.id.layout_titlebar) CommonTitleBar mTitleBar;
 
   private MeProfileAdapter mProfileAdapter;
@@ -73,24 +66,6 @@ public class MeFragment extends BaseFragment {
     MeSectionDecoration decoration = new MeSectionDecoration(showList, getContext());
     mRecycleView.addItemDecoration(decoration);
 
-    //mNavBackButton.setVisibility(View.INVISIBLE);
-
-    //titleView.setText("我");
-
-    Drawable drawable = getContext().getResources().getDrawable(R.drawable.set);
-    //mNavRightButton.setBackground(drawable);
-    //mNavRightButton.setText(null);
-    //mNavRightButton.setVisibility(View.VISIBLE);
-    //mNavRightButton.setScaleX(0.3f);
-    //mNavRightButton.setScaleY(0.5f);
-    //mNavRightButton.setOnClickListener(new View.OnClickListener() {
-    //    @Override
-    //    public void onClick(View v) {
-    //
-    //        Intent intent = new Intent(MeFragment.this.getContext(), MeSetAcitivity.class);
-    //        MeFragment.this.getContext().startActivity(intent);
-    //    }
-    //});
 
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
@@ -100,6 +75,11 @@ public class MeFragment extends BaseFragment {
         }
       }
     });
+
+    AccountManager accountManager = YGApplication.accountManager;
+    if (accountManager.getUserInfoBean() != null){
+      mProfileAdapter.updateUserInfo(accountManager.getUserInfoBean());
+    }
   }
 
   @Override public int getLayoutResId() {
@@ -124,13 +104,11 @@ public class MeFragment extends BaseFragment {
   }
 
   @Override public void onAttach(Context context) {
-    Log.e(TAG, "onAttach: me fragment");
     super.onAttach(context);
     if (mLoginBroadcastReceiver == null) {
       addLoginReceiver(context);
     }
     AccountManager accountManager = YGApplication.accountManager;
-
     if (accountManager.getToken() != null) {
       loadUserInfo(accountManager.getToken());
     }
@@ -143,7 +121,6 @@ public class MeFragment extends BaseFragment {
     mLoginBroadcastReceiver = new BroadcastReceiver() {
       @Override public void onReceive(Context context, Intent intent) {
         String token = intent.getStringExtra("token");
-        Log.e("ME", ">>onReceive: " + token);
         if (token != null) {
           loadUserInfo(token);
         }

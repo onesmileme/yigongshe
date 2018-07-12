@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -129,7 +130,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             Intent intent = new Intent();
             intent.setAction("com.ygs.android.yigongshe.login");
             intent.putExtra("token", entity.data.token);
-            LoginActivity.this.sendBroadcast(intent);
+            LocalBroadcastManager broadcastManager =  LocalBroadcastManager.getInstance(LoginActivity.this);
+            broadcastManager.sendBroadcast(intent);
           }
           LoginActivity.this.finish();
         } else {
