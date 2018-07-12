@@ -1,6 +1,5 @@
 package com.ygs.android.yigongshe.net;
 
-import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
@@ -19,11 +18,16 @@ import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
+import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import java.util.Map;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -98,47 +102,48 @@ public interface ApiService {
    * 我关注的人
    */
   @POST("app/api/followperson/getlist")
-  LinkCall<BaseResultDataInfo<FollowPersonDataBean>> getFolloPersonList(@Field("token") String token,
-                                                                        @Field("page") int pageindex);//page index start from 1
+  LinkCall<BaseResultDataInfo<FollowPersonDataBean>> getFolloPersonList(
+      @Field("token") String token, @Field("page") int pageindex);//page index start from 1
 
   /**
    * 关注某人
    */
-  @POST("app/api/followperson/follow")
-  LinkCall<BaseResultDataInfo<EmptyBean>> doFollow(@Field("token")String token , @Field("userid") String userid);
+  @POST("app/api/followperson/follow") LinkCall<BaseResultDataInfo<EmptyBean>> doFollow(
+      @Field("token") String token, @Field("userid") String userid);
 
   /**
    * 取消关注某人
    */
-  @POST("/app/api/followperson/unfollow")
-  LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(@Field("token")String token , @Field("userid") String userid);
+  @POST("/app/api/followperson/unfollow") LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(
+      @Field("token") String token, @Field("userid") String userid);
 
   /**
    * 获取我报名参加的活动
-   * @param token
-   * @return
    */
   @POST("app/api/activity/getmyregisteractivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyRegisterActivity(@Field("token") String token);
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyRegisterActivity(
+      @Field("token") String token);
 
   /**
    * 获取我收藏的活动
    */
   @POST("app/api/activity/getmystoreactivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyStoreActivity(@Field("token") String token);
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyStoreActivity(
+      @Field("token") String token);
 
   /**
    * 获取我签到的活动
    */
   @POST("app/api/activity/getmysigninactivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMySigninActivity(@Field("token") String token);
-
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMySigninActivity(
+      @Field("token") String token);
 
   /**
    * 获取我的益公圈列表
    */
   @GET("app/api/pubcircle/getmylist")
-  LinkCall<BaseResultDataInfo<CommunityListResponse>> getMyCommunityList(@Query("token") String token);
+  LinkCall<BaseResultDataInfo<CommunityListResponse>> getMyCommunityList(
+      @Query("token") String token);
 
   /**
    * 活动评论列表
@@ -216,4 +221,11 @@ public interface ApiService {
    */
   @FormUrlEncoded @POST("app/api/slide/getlist")
   LinkCall<BaseResultDataInfo<ScrollPicResponse>> getScrollPicList(@Field("type") String type);
+
+  /**
+   * 文件上传
+   */
+  @Multipart @POST("app/api/upload")
+  LinkCall<BaseResultDataInfo<UploadImageBean>> uploadRemarkImage(
+      @PartMap Map<String, RequestBody> file, @Query("md5") String md5);
 }

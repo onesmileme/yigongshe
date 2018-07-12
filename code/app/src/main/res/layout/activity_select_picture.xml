@@ -6,7 +6,7 @@
   android:background="@color/white">
 
   <com.ygs.android.yigongshe.view.CommonTitleBar
-    android:id="@+id/lyt_title_bar"
+    android:id="@+id/titleBar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     titlebar:rightText="完成"
@@ -16,6 +16,6 @@
     android:id="@+id/grid_picture"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_below="@id/lyt_title_bar" />
+    android:layout_below="@id/titleBar" />
 
 </RelativeLayout>

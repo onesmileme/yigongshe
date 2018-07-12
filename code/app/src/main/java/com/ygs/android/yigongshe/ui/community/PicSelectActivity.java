@@ -10,11 +10,12 @@ import butterknife.BindView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ImageItem;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.HashMap;
 import java.util.List;
 
 public class PicSelectActivity extends BaseActivity
-    implements GetPhotosTask.OnPostResultListener<List<ImageItem>> {
+    implements GetPhotosTask.OnPostResultListener<List<ImageItem>>, ImageGridAdapter.CheckListener {
 
   private View ll_back, ll_send;
   private TextView btn_cancel, btn_preview, btn_send, tv_send_count;
@@ -25,6 +26,8 @@ public class PicSelectActivity extends BaseActivity
   private int picCount;
 
   private ImageGridAdapter mPicGridAdapter;
+  @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
+  private String mImageUrl;
 
   @Override protected void initIntent(Bundle bundle) {
 
@@ -35,7 +38,17 @@ public class PicSelectActivity extends BaseActivity
   }
 
   @Override protected void initView() {
-    mPicGridAdapter = new ImageGridAdapter(this);
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
+          Bundle bundle = new Bundle();
+          bundle.putString("imageurl", mImageUrl);
+          backForResult(PublishCommunityActivity.class, bundle, 0);
+          finish();
+        }
+      }
+    });
+    mPicGridAdapter = new ImageGridAdapter(this, this);
     mRecyclerVIew.setAdapter(mPicGridAdapter);
     GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 4);
     gridLayoutManager.setOrientation(GridLayout.VERTICAL);
@@ -55,5 +68,9 @@ public class PicSelectActivity extends BaseActivity
     if (result != null) {
       mPicGridAdapter.addData(result);
     }
+  }
+
+  @Override public void onCheckChanged(ImageItem imageItem) {
+    mImageUrl = imageItem.imageUrl;
   }
 }

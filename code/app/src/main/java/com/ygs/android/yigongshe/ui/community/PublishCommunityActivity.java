@@ -1,11 +1,13 @@
 package com.ygs.android.yigongshe.ui.community;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +19,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.bumptech.glide.Glide;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.UploadImageBean;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ImageUtils;
+import com.ygs.android.yigongshe.utils.PathUtils;
+import com.ygs.android.yigongshe.utils.StringUtil;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+import okhttp3.RequestBody;
+import retrofit2.Response;
 
 /**
  * Created by ruichao on 2018/7/10.
@@ -49,6 +64,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
    * 当前图片sd 路径
    */
   private File mPhotograph;
+  private String mUploadImageUrl;
 
   @Override protected void initIntent(Bundle bundle) {
 
@@ -61,6 +77,8 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
 
+        } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
         }
       }
     });
@@ -77,6 +95,9 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
         pop.showAtLocation(btn_cancel, Gravity.BOTTOM, 0, 0);
         break;
       case R.id.iv_delete:
+        mDelete.setVisibility(View.GONE);
+        mDefaultImage.setVisibility(View.VISIBLE);
+        mImage.setVisibility(View.GONE);
         break;
       case R.id.ll_select_topic:
         goToOthersForResult(TopicSelectActivity.class, null, 0);
@@ -85,9 +106,42 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   }
 
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (null != data) {
-      Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-      mSelectedTopic.setText(bundle.getString("key"));
+    switch (requestCode) {
+      case SELECT_PICS:
+        String selectPic = data.getBundleExtra(BaseActivity.PARAM_INTENT).getString("imageurl");
+        if (!TextUtils.isEmpty(selectPic)) {
+          mDefaultImage.setVisibility(View.GONE);
+          mDelete.setVisibility(View.VISIBLE);
+          mImage.setVisibility(View.VISIBLE);
+          Glide.with(this)
+              .load(selectPic)
+              .placeholder(R.drawable.loading2)
+              .centerCrop()
+              .into(mImage);
+          compressAndSendImages(selectPic);
+        }
+
+        break;
+      case TAKE_PHOTOS:
+        if (mPhotograph != null && mPhotograph.exists()) {
+          mDefaultImage.setVisibility(View.GONE);
+          mDelete.setVisibility(View.VISIBLE);
+          mImage.setVisibility(View.VISIBLE);
+          scanPhotos(mPhotograph.getAbsolutePath(), this);
+          Glide.with(this)
+              .load(mPhotograph.getAbsolutePath())
+              .placeholder(R.drawable.loading2)
+              .centerCrop()
+              .into(mImage);
+          compressAndSendImages(mPhotograph.getAbsolutePath());
+        }
+        break;
+      default:
+        if (null != data) {
+          Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+          mSelectedTopic.setText(bundle.getString("key"));
+        }
+        break;
     }
   }
 
@@ -114,7 +168,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   @Override public void onClick(View v) {
     int id = v.getId();
     if (id == R.id.btn_camera) {
-      mPhotograph = getPhotoFile();
+      mPhotograph = PathUtils.getPhotoFile();
       // 指定拍照片的文件名
       goToPhoto(mPhotograph);
       pop.dismiss();
@@ -130,18 +184,6 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
     }
   }
 
-  private File getPhotoFile() {
-    return new File(getPhoneExternalCamaraPhotosPath(), System.currentTimeMillis() + ".jpg");
-  }
-
-  private String getPhoneExternalCamaraPhotosPath() {
-    return new StringBuilder(getSDcardDir()).append("DCIM/Camera").toString();
-  }
-
-  private String getSDcardDir() {
-    return Environment.getExternalStorageDirectory().getPath() + "/";
-  }
-
   private void goToPhoto(File file) {
     try {
       Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -150,5 +192,47 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  private void scanPhotos(String filePath, Context context) {
+    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+    Uri uri = Uri.fromFile(new File(filePath));
+    intent.setData(uri);
+    context.sendBroadcast(intent);
+  }
+
+  /**
+   * 压缩图片到新的存储地址
+   */
+  @SuppressWarnings("unchecked") private void compressAndSendImages(final String selectedImage) {
+    new AsyncTask<String, Integer, String>() {
+
+      @Override protected String doInBackground(String... params) {
+        String newPath =
+            PathUtils.getChatFilePath(String.valueOf(System.currentTimeMillis())) + ".jpg";
+        return ImageUtils.compressImage(selectedImage, newPath);
+      }
+
+      @Override protected void onPostExecute(String result) {
+        uploadNoteImage(result);
+      }
+    }.
+        execute(selectedImage);
+  }
+
+  private void uploadNoteImage(String filePath) {
+    Map<String, String> maps = new HashMap<String, String>();
+    Map<String, RequestBody> params = ImageUtils.getRequestBodyParams(filePath);
+    LinkCall<BaseResultDataInfo<UploadImageBean>> upload =
+        LinkCallHelper.getApiService().uploadRemarkImage(params, StringUtil.md5(filePath));
+    upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UploadImageBean>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
+          Throwable throwable) {
+        if (entity != null && entity.error == 2000) {
+          mUploadImageUrl = entity.data.site_url;
+        }
+      }
+    });
   }
 }
