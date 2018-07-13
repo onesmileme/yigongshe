@@ -19,8 +19,10 @@ import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
+import com.ygs.android.yigongshe.bean.response.ShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.SigninResponse;
 import com.ygs.android.yigongshe.bean.response.SignupResponse;
+import com.ygs.android.yigongshe.bean.response.UnShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import okhttp3.MultipartBody;
@@ -195,8 +197,7 @@ public interface ApiService {
   /**
    * 城市选择列表
    */
-  @FormUrlEncoded @POST("app/api/common/getcitylist")
-  LinkCall<BaseResultDataInfo<CityListResponse>> getCityList();
+  @POST("app/api/common/getcitylist") LinkCall<BaseResultDataInfo<CityListResponse>> getCityList();
 
   /**
    * 添加新闻评论
@@ -254,4 +255,18 @@ public interface ApiService {
   LinkCall<BaseResultDataInfo<PublishCommunityResponse>> publishCommunity(
       @Field("token") String token, @Field("topic") String topic, @Field("content") String content,
       @Field("pic") String pic);
+
+  /**
+   * 收藏活动
+   */
+  @FormUrlEncoded @POST("app/api/activity/strore")
+  LinkCall<BaseResultDataInfo<ShoucangResponse>> restoreActivity(
+      @Field("activity_id") int activity_id, @Field("token") String token);
+
+  /**
+   * 取消收藏活动
+   */
+  @FormUrlEncoded @POST("app/api/activity/unstoractivity")
+  LinkCall<BaseResultDataInfo<UnShoucangResponse>> unrestoreActivity(
+      @Field("activity_id") int activity_id, @Field("token") String token);
 }

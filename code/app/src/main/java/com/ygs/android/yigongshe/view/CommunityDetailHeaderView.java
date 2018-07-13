@@ -43,6 +43,9 @@ public class CommunityDetailHeaderView {
   public void setViewData(CommunityItemBean item) {
     Glide.with(mContext)
         .load(item.create_avatar)
+        .placeholder(R.drawable.defalutavar)
+        .error(R.drawable.defalutavar)
+        .fallback(R.drawable.defalutavar)
         .transform(new GlideCircleTransform(mContext))
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,
@@ -54,6 +57,9 @@ public class CommunityDetailHeaderView {
     mContent.setText(item.topic + item.content);
     Glide.with(mContext)
         .load(item.pic)
+        .placeholder(R.drawable.loading2)
+        .error(R.drawable.loading2)
+        .fallback(R.drawable.loading2)
         .transform(new GlideRoundTransform(mContext))
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,

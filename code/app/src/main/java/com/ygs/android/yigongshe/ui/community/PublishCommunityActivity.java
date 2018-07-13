@@ -156,6 +156,8 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
             Glide.with(this)
                 .load(selectPic)
                 .placeholder(R.drawable.loading2)
+                .error(R.drawable.loading2)
+                .fallback(R.drawable.loading2)
                 .centerCrop()
                 .into(mImage);
             compressAndSendImages(selectPic);
@@ -172,6 +174,8 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
           Glide.with(this)
               .load(mPhotograph.getAbsolutePath())
               .placeholder(R.drawable.loading2)
+              .error(R.drawable.loading2)
+              .fallback(R.drawable.loading2)
               .centerCrop()
               .into(mImage);
           compressAndSendImages(mPhotograph.getAbsolutePath());

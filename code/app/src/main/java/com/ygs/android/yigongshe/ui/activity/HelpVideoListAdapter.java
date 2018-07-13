@@ -24,6 +24,8 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
     Glide.with(mContext)
         .load(item.thumbnail)
         .placeholder(R.drawable.loading2)
+        .error(R.drawable.loading2)
+        .fallback(R.drawable.loading2)
         .centerCrop()
         .transform(new GlideRoundTransform(mContext))
         .into(new SimpleTarget<GlideDrawable>() {
@@ -35,6 +37,9 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
 
     Glide.with(mContext)
         .load(item.avatar)
+        .placeholder(R.drawable.defalutavar)
+        .error(R.drawable.defalutavar)
+        .fallback(R.drawable.defalutavar)
         .transform(new GlideCircleTransform(mContext))
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,

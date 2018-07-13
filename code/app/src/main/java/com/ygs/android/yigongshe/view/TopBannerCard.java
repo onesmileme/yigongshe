@@ -101,7 +101,12 @@ public class TopBannerCard extends BaseCard {
     @Override public Object instantiateItem(ViewGroup container, int position) {
       ImageView iv = new ImageView(container.getContext());
       iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
-      Glide.with(mContext).load(mList.get(position)).into(iv);
+      Glide.with(mContext)
+          .load(mList.get(position))
+          .placeholder(R.drawable.loading2)
+          .error(R.drawable.loading2)
+          .fallback(R.drawable.loading2)
+          .into(iv);
       container.addView(iv);
       return iv;
     }

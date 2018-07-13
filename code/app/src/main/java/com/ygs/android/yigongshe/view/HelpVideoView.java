@@ -61,6 +61,8 @@ public class HelpVideoView {
       Glide.with(context)
           .load(data.thumbnail)
           .placeholder(R.drawable.loading2)
+          .error(R.drawable.loading2)
+          .fallback(R.drawable.loading2)
           .fitCenter()
           .into(mVideoView);
       mVideoView.setOnClickListener(new View.OnClickListener() {

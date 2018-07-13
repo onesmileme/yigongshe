@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,8 +17,10 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
+import com.ygs.android.yigongshe.bean.response.ShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.SigninResponse;
 import com.ygs.android.yigongshe.bean.response.SignupResponse;
+import com.ygs.android.yigongshe.bean.response.UnShoucangResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -39,9 +42,10 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   private RelativeLayout mRlWebview;
   private TextView mSeeFull;
   private LinkCall<BaseResultDataInfo<HelpVideoListResponse>> mHelpVideoCall;
-
+  private boolean isStore;//0没收藏1收藏
   @BindView(R.id.signup) TextView mSignup; //报名
   @BindView(R.id.signin) TextView mSignin; //签到
+  @BindView(R.id.shoucang) ImageView mShoucang;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
@@ -72,6 +76,13 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mDaCallView.setDacallViewData(data);
+            if (data.is_store == 1) {
+              isStore = true;
+              mShoucang.setImageResource(R.drawable.shoucang);
+            } else {
+              isStore = false;
+              mShoucang.setImageResource(R.drawable.shoucang);
+            }
           }
         }
       }
@@ -128,7 +139,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
     super.onStop();
   }
 
-  @OnClick({ R.id.signup, R.id.signin }) public void onBtnClicked(View view) {
+  @OnClick({ R.id.signup, R.id.signin, R.id.shoucang, R.id.share })
+  public void onBtnClicked(View view) {
     AccountManager accountManager = YGApplication.accountManager;
     if (TextUtils.isEmpty(accountManager.getToken())) {
       Toast.makeText(this, "没有登录", Toast.LENGTH_SHORT).show();
@@ -173,6 +185,46 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             }
           }
         });
+        break;
+      case R.id.shoucang:
+        if (isStore) {
+          LinkCall<BaseResultDataInfo<UnShoucangResponse>> unshoucang =
+              LinkCallHelper.getApiService().unrestoreActivity(mId, accountManager.getToken());
+          unshoucang.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UnShoucangResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<UnShoucangResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  Toast.makeText(ActivityDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                  mShoucang.setImageResource(R.drawable.shoucang);
+                } else {
+                  Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
+                      .show();
+                }
+              }
+            }
+          });
+        } else {
+          LinkCall<BaseResultDataInfo<ShoucangResponse>> shoucang =
+              LinkCallHelper.getApiService().restoreActivity(mId, accountManager.getToken());
+          shoucang.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShoucangResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<ShoucangResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  mShoucang.setImageResource(R.drawable.shoucang);
+                  Toast.makeText(ActivityDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                } else {
+                  Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
+                      .show();
+                }
+              }
+            }
+          });
+        }
+
         break;
     }
   }

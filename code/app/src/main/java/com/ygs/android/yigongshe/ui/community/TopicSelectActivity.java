@@ -25,7 +25,7 @@ public class TopicSelectActivity extends BaseActivity {
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   private String mSelected;//被选中的字串
   private int mSelectedPos;//被选中的位置
-  private int mId;//话题/城市
+  private int mId;//话题/城市 0,1
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("id");
@@ -65,7 +65,7 @@ public class TopicSelectActivity extends BaseActivity {
         ((TextView) adapter.getViewByPosition(mRecyclerView, mSelectedPos,
             R.id.tv_topic)).setTextColor(getResources().getColor(R.color.green));
         String tmp = data.get(position);
-        if (mId != 0) {
+        if (mId == 0 && mId == 1) {
           mSelected = tmp.substring(1, tmp.length() - 1);
         } else {
           mSelected = tmp;

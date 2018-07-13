@@ -22,6 +22,9 @@ public class ImageGridAdapter extends BaseQuickAdapter<ImageItem, BaseViewHolder
   @Override protected void convert(final BaseViewHolder helper, final ImageItem item) {
     Glide.with(mContext)
         .load(item.imageUrl)
+        .placeholder(R.drawable.loading2)
+        .error(R.drawable.loading2)
+        .fallback(R.drawable.loading2)
         .override(60, 60)
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,

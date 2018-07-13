@@ -23,6 +23,9 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
     Glide.with(mContext)
         .load(item.create_avatar)
         .transform(new GlideCircleTransform(mContext))
+        .placeholder(R.drawable.defalutavar)
+        .error(R.drawable.defalutavar)
+        .fallback(R.drawable.defalutavar)
         .into(new SimpleTarget<GlideDrawable>() {
           @Override public void onResourceReady(GlideDrawable resource,
               GlideAnimation<? super GlideDrawable> glideAnimation) {

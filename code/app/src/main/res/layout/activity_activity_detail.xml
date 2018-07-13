@@ -12,7 +12,9 @@
     titlebar:centerType="textView"
     titlebar:fillStatusBar="false"
     titlebar:leftType="imageButton"
-    titlebar:rightType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+    titlebar:rightType="customView"
+    titlebar:rightCustomView="@layout/titlebar_right_activitydetail"
+    />
 
 
   <android.support.v4.widget.SwipeRefreshLayout
