@@ -29,9 +29,8 @@ import retrofit2.Response;
  */
 
 public class DynamicFragment extends BaseFragment {
-  private static int PAGE_SIZE = 1;
   private static int _COUNT = 20; //每页条数
-  private int pageCnt = 0;
+  private int pageCnt = 1; //第几页
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   private DynamicAdapter mAdapter;
@@ -114,7 +113,8 @@ public class DynamicFragment extends BaseFragment {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           DynamicListResponse data = entity.data;
-          PAGE_SIZE = data.page;
+          pageCnt = data.page;
+          ++pageCnt;
           _COUNT = data.perpage;
           setData(true, data.news);
           mAdapter.setEnableLoadMore(true);
@@ -136,6 +136,8 @@ public class DynamicFragment extends BaseFragment {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           DynamicListResponse data = entity.data;
+          pageCnt = data.page;
+          ++pageCnt;
           setData(false, data.news);
         } else {
           mAdapter.loadMoreFail();
@@ -151,7 +153,6 @@ public class DynamicFragment extends BaseFragment {
   }
 
   private void setData(boolean isRefresh, List data) {
-    pageCnt++;
     final int size = data == null ? 0 : data.size();
     if (isRefresh) {
       mAdapter.setNewData(data);
@@ -160,7 +161,7 @@ public class DynamicFragment extends BaseFragment {
         mAdapter.addData(data);
       }
     }
-    if (size <= _COUNT && PAGE_SIZE == 1 ) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {

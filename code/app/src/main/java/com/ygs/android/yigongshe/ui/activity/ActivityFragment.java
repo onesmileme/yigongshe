@@ -32,9 +32,8 @@ import retrofit2.Response;
 public class ActivityFragment extends BaseFragment
     implements ActivityStatusTypeView.StatusSelectListener,
     ActivityStatusTypeView.TypeSelectListener {
-  private static int PAGE_SIZE = 1;
   private static int _COUNT = 20; //每页条数
-  private int pageCnt = 0;
+  private int pageCnt = 1;
   private String cate;//类型，公益、文化、创业等，默认为全部
   private String progress;//状态，进行中、已完成、打call失败
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
@@ -100,7 +99,8 @@ public class ActivityFragment extends BaseFragment
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           ActivityListResponse data = entity.data;
-          PAGE_SIZE = data.page;
+          pageCnt = data.page;
+          ++pageCnt;
           _COUNT = data.perpage;
           setData(true, data.activities);
           mAdapter.setEnableLoadMore(true);
@@ -122,6 +122,8 @@ public class ActivityFragment extends BaseFragment
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           ActivityListResponse data = entity.data;
+          pageCnt = data.page;
+          ++pageCnt;
           setData(false, data.activities);
         } else {
           mAdapter.loadMoreFail();
@@ -156,7 +158,6 @@ public class ActivityFragment extends BaseFragment
   }
 
   private void setData(boolean isRefresh, List data) {
-    pageCnt++;
     final int size = data == null ? 0 : data.size();
     if (isRefresh) {
       mAdapter.setNewData(data);
@@ -165,7 +166,7 @@ public class ActivityFragment extends BaseFragment
         mAdapter.addData(data);
       }
     }
-    if (size <= _COUNT && PAGE_SIZE == 1) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {

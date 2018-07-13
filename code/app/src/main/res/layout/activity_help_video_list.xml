@@ -11,7 +11,9 @@
     android:layout_height="wrap_content"
     titlebar:centerText="应援视频"
     titlebar:centerType="textView"
-    titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+    titlebar:leftType="imageButton"
+    titlebar:rightImageResource="@drawable/shoucang"
+    titlebar:rightType="imageButton" />
 
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipeLayout"

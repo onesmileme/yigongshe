@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,6 @@ import android.widget.TextView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.utils.DensityUtil;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -21,19 +21,35 @@ import java.util.List;
  */
 
 public class TitleBarTabView extends LinearLayout {
+  /** tab index 0 */
   public static final int FIRST_INDEX = 0;
+  /** tab index 1 */
   public static final int SECOND_INDEX = 1;
+  /** tab index 2 */
   public static final int THIRD_INDEX = 2;
+
+  //顶部菜单布局
   private LinearLayout mTabMenuView;
-  private int mCurrentTabPosition;
+  //tabMenuView里面选中的tab位置，-1表示未选中
+  private int mCurrentTabPosition = -1;
+
+  //tab选中颜色:green_66
   private int mTextSelectedColor;
-  private int mTextUnselectedColor;
-  private int mMenuTextSize;
+  //tab未选中颜色
+  private int mTextUnselectedColor = 0xff111111;
+
+  //tab字体大小
+  private int mMenuTextSize = 14;
+
+  //tab选中图标
   private int mMenuSelectedColor;
+  //tab未选中图标
   private int mMenuUnselectedColor;
-  private List<TabCheckListener> mListenerList;
-  private float mHeight;
+  private List<TabCheckListener> mListenerList = new ArrayList<>();
   private Context mContext;
+
+  /** 控件整体高度，默认45dp */
+  private float mHeight = 45.0f;
 
   public TitleBarTabView(Context context) {
     this(context, (AttributeSet) null, 0);
@@ -46,34 +62,32 @@ public class TitleBarTabView extends LinearLayout {
   public TitleBarTabView(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     mContext = context;
-    this.mCurrentTabPosition = -1;
-    this.mListenerList = new ArrayList();
-    this.mHeight = 45.0F;
-    this.setOrientation(LinearLayout.HORIZONTAL);
-    this.mTextSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
-    this.mTextUnselectedColor = mContext.getResources().getColor(R.color.tab_unchecked);
+    setOrientation(VERTICAL);
+    mTextSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
+    mTextUnselectedColor = mContext.getResources().getColor(R.color.tab_unchecked);
     int menuBackgroundColor = mContext.getResources().getColor(R.color.white);
-    this.mMenuTextSize = (int) mContext.getResources().getDimension(R.dimen.dimen_14dp);
-    this.mMenuSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
-    this.mMenuUnselectedColor = mContext.getResources().getColor(R.color.transparent);
+    mMenuTextSize = (int) mContext.getResources().getDimension(R.dimen.dimen_14dp);
+    mMenuSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
+    mMenuUnselectedColor = mContext.getResources().getColor(R.color.transparent);
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBarTabView);
-    this.mTextSelectedColor =
+    mTextSelectedColor =
         a.getColor(R.styleable.TitleBarTabView_tabTextSelectedColor, this.mTextSelectedColor);
-    this.mTextUnselectedColor =
+    mTextUnselectedColor =
         a.getColor(R.styleable.TitleBarTabView_tabTextUnSelectedColor, this.mTextUnselectedColor);
     menuBackgroundColor =
         a.getColor(R.styleable.TitleBarTabView_titleTabBackground, menuBackgroundColor);
-    this.mMenuTextSize =
+    mMenuTextSize =
         a.getDimensionPixelSize(R.styleable.TitleBarTabView_tabTextSize, this.mMenuTextSize);
-    this.mMenuSelectedColor =
+    mMenuSelectedColor =
         a.getColor(R.styleable.TitleBarTabView_menuSelectedColor, this.mMenuSelectedColor);
-    this.mMenuUnselectedColor =
+    mMenuUnselectedColor =
         a.getColor(R.styleable.TitleBarTabView_menuUnselectedColor, this.mMenuUnselectedColor);
     a.recycle();
-    this.mTabMenuView = new LinearLayout(context);
-    LayoutParams params = new LayoutParams(-1, -1);
-    params.gravity = 17;
-    this.mTabMenuView.setOrientation(LinearLayout.HORIZONTAL);
+    mTabMenuView = new LinearLayout(context);
+    LayoutParams params =
+        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    params.gravity = Gravity.CENTER;
+    mTabMenuView.setOrientation(HORIZONTAL);
     this.mTabMenuView.setBackgroundColor(menuBackgroundColor);
     this.mTabMenuView.setGravity(Gravity.CENTER);
     this.mTabMenuView.setLayoutParams(params);
@@ -81,108 +95,108 @@ public class TitleBarTabView extends LinearLayout {
   }
 
   public void setMenuTextSizeInPx(int menuTextSize) {
-    this.mMenuTextSize = menuTextSize;
+    mMenuTextSize = menuTextSize;
   }
 
   public void setHeight(float height) {
-    this.mHeight = height;
+    mHeight = height;
   }
 
   public int getCount() {
-    return this.mTabMenuView.getChildCount();
+    return mTabMenuView.getChildCount();
   }
 
   public void setTabView(@NonNull List<String> tabTexts) {
     for (int i = 0; i < tabTexts.size(); ++i) {
       String str = (String) tabTexts.get(i);
-      this.addTab(str, i);
+      addTab(str, i);
     }
   }
 
   public void addTab(String tabText, int index) {
-    final LinearLayout tabButton = new LinearLayout(this.getContext());
-    LayoutParams params = new LayoutParams(-2, -1);
-    tabButton.setOrientation(LinearLayout.VERTICAL);
-    params.setMargins(DensityUtil.dp2px(mContext, 10.0F), 0, DensityUtil.dp2px(mContext, 10.0F), 0);
+    final LinearLayout tabButton = new LinearLayout(getContext());
+    LayoutParams params =
+        new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    tabButton.setOrientation(VERTICAL);
+    params.setMargins(DensityUtil.dp2px(mContext, 10.0f), 0, DensityUtil.dp2px(mContext, 10.0f), 0);
     tabButton.setLayoutParams(params);
-    TextView tab = new TextView(this.getContext());
+    TextView tab = new TextView(getContext());
     tab.setSingleLine();
     tab.setEllipsize(TextUtils.TruncateAt.END);
     tab.setGravity(Gravity.CENTER);
-    tab.setTextSize(0, (float) this.mMenuTextSize);
+    tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, mMenuTextSize);
     tab.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-        DensityUtil.dp2px(mContext, this.mHeight)));
-    tab.setTextColor(this.mTextUnselectedColor);
+        DensityUtil.dp2px(mContext, mHeight)));
+    tab.setTextColor(mTextUnselectedColor);
     tab.setText(tabText);
-    View bottomView = new View(this.getContext());
+    View bottomView = new View(getContext());
     LayoutParams bottomParams =
-        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(mContext, 2.0F));
-    bottomParams.gravity = 80;
+        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(mContext, 2.0f));
+    bottomParams.gravity = Gravity.BOTTOM;
     bottomView.setLayoutParams(bottomParams);
-    bottomView.setBackgroundColor(this.mMenuUnselectedColor);
+    bottomView.setBackgroundColor(mMenuSelectedColor);
     tabButton.addView(tab);
     tabButton.addView(bottomView);
+    //添加点击事件
     tabButton.setOnClickListener(new OnClickListener() {
-      public void onClick(View v) {
-        TitleBarTabView.this.switchMenu(tabButton);
+      @Override public void onClick(View v) {
+        switchMenu(tabButton);
       }
     });
-    //this.mTabMenuView.setOnClickListener(new OnClickListener() {
-    //  public void onClick(View v) {
-    //    TitleBarTabView.this.switchMenu(tabButton);
-    //  }
-    //});
-    this.mTabMenuView.addView(tabButton, index);
+    //扩大点击事件范围
+    mTabMenuView.setOnClickListener(new OnClickListener() {
+      @Override public void onClick(View v) {
+        switchMenu(tabButton);
+      }
+    });
+    mTabMenuView.addView(tabButton, index);
   }
 
   public boolean isShowing() {
-    return this.mCurrentTabPosition != -1;
+    return mCurrentTabPosition != -1;
   }
 
   public void setCurrentTab(int mCurrentTabPosition) {
-    this.switchMenu(this.mTabMenuView.getChildAt(mCurrentTabPosition));
+    switchMenu(mTabMenuView.getChildAt(mCurrentTabPosition));
   }
 
   public void setCurrentTabWithoutListener(int mCurrentTabPosition) {
-    this.switchMenuView(this.mTabMenuView.getChildAt(mCurrentTabPosition));
+    switchMenuView(mTabMenuView.getChildAt(mCurrentTabPosition));
   }
 
   public int getCurrentTabPos() {
-    return this.mCurrentTabPosition;
+    return mCurrentTabPosition;
   }
 
   private void switchMenu(View target) {
-    this.switchMenuView(target);
-    Iterator var2 = this.mListenerList.iterator();
-
-    while (var2.hasNext()) {
-      TitleBarTabView.TabCheckListener listener = (TitleBarTabView.TabCheckListener) var2.next();
+    switchMenuView(target);
+    for (TabCheckListener listener : mListenerList) {
       if (null != listener) {
-        listener.onTabChecked(this.mCurrentTabPosition);
+        listener.onTabChecked(mCurrentTabPosition);
       }
     }
   }
 
   private void switchMenuView(View target) {
-    for (int i = 0; i < this.mTabMenuView.getChildCount(); ++i) {
-      TextView tvTab = (TextView) ((LinearLayout) this.mTabMenuView.getChildAt(i)).getChildAt(0);
-      View bottomTab = ((LinearLayout) this.mTabMenuView.getChildAt(i)).getChildAt(1);
-      if (target == this.mTabMenuView.getChildAt(i)) {
-        this.mCurrentTabPosition = i;
-        tvTab.setTextColor(this.mTextSelectedColor);
-        bottomTab.setBackgroundColor(this.mMenuSelectedColor);
+    for (int i = 0; i < mTabMenuView.getChildCount(); i++) {
+      TextView tvTab = (TextView) ((LinearLayout) mTabMenuView.getChildAt(i)).getChildAt(0);
+      View bottomTab = ((LinearLayout) mTabMenuView.getChildAt(i)).getChildAt(1);
+      if (target == mTabMenuView.getChildAt(i)) {
+        mCurrentTabPosition = i;
+        tvTab.setTextColor(mTextSelectedColor);
+        bottomTab.setBackgroundColor(mMenuSelectedColor);
       } else {
-        tvTab.setTextColor(this.mTextUnselectedColor);
-        bottomTab.setBackgroundColor(this.mMenuUnselectedColor);
+        tvTab.setTextColor(mTextUnselectedColor);
+        bottomTab.setBackgroundColor(mMenuUnselectedColor);
       }
     }
   }
 
   public void addTabCheckListener(TitleBarTabView.TabCheckListener listener) {
-    this.mListenerList.add(listener);
+    mListenerList.add(listener);
   }
 
   public interface TabCheckListener {
-    void onTabChecked(int var1);
+    void onTabChecked(int position);
   }
 }

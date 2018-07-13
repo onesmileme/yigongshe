@@ -36,9 +36,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected static final int TYPE_COMMUNITY = 3;
   private int mType;
 
-  private static int PAGE_SIZE = 1; //total page size
   private static int _COUNT = 20; //每页条数
-  private int pageCnt = 0;
+  private int pageCnt = 1;
   protected @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
   public @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
@@ -89,7 +88,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected void requestCommentData(int type, boolean isRefresh) {
     mType = type;
     if (isRefresh) {
-      pageCnt = 0;
+      pageCnt = 1;
     }
     switch (type) {
       case TYPE_DYNAMIC:
@@ -121,7 +120,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           CommentListResponse data = entity.data;
-          PAGE_SIZE = data.page;
+          pageCnt = data.page;
+          ++pageCnt;
           _COUNT = data.perpage;
           setData(true, data.list);
           mAdapter.setEnableLoadMore(true);
@@ -142,6 +142,8 @@ public abstract class BaseDetailActivity extends BaseActivity {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
           CommentListResponse data = entity.data;
+          pageCnt = data.page;
+          ++pageCnt;
           setData(false, data.list);
         } else {
           mAdapter.loadMoreFail();
@@ -151,7 +153,6 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   private void setData(boolean isRefresh, List data) {
-    pageCnt++;
     final int size = data == null ? 0 : data.size();
     if (isRefresh) {
       mAdapter.setNewData(data);
@@ -160,7 +161,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
         mAdapter.addData(data);
       }
     }
-    if (size <= _COUNT && PAGE_SIZE == 1) {
+    if (size < _COUNT) {
       //第一页如果不够一页就不显示没有更多数据布局
       //true：加载完成，底部什么都不显示；false：loadmore的加载完成，底部显示没有更多数据
       mAdapter.loadMoreEnd(isRefresh);

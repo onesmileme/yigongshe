@@ -16,6 +16,7 @@ import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
+import com.ygs.android.yigongshe.bean.response.HelpVideoResponse;
 import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
@@ -269,4 +270,12 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/activity/unstoractivity")
   LinkCall<BaseResultDataInfo<UnShoucangResponse>> unrestoreActivity(
       @Field("activity_id") int activity_id, @Field("token") String token);
+
+  /**
+   * 应援视频上传
+   */
+  @Multipart @POST("app/api/video/add")
+  LinkCall<BaseResultDataInfo<HelpVideoResponse>> uploadHelpVideo(
+      @Part("description") RequestBody description, @Part MultipartBody.Part video_path,
+      @Query("activityid") int activityid, @Query("token") String token);
 }
