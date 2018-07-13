@@ -52,7 +52,7 @@ public class ActivityFragment extends BaseFragment
     initAdapter();
     addHeadView();
     //initRefreshLayout();
-    //mSwipeRefreshLayout.setRefreshing(false);
+    mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     requestBannerData();
     refresh();
@@ -103,11 +103,14 @@ public class ActivityFragment extends BaseFragment
           PAGE_SIZE = data.page;
           _COUNT = data.perpage;
           setData(true, data.activities);
+          mAdapter.setEnableLoadMore(true);
+          mSwipeRefreshLayout.setRefreshing(false);
+        } else {
+          mAdapter.setEnableLoadMore(true);
+          mSwipeRefreshLayout.setRefreshing(false);
         }
       }
     });
-    mAdapter.setEnableLoadMore(true);
-    mSwipeRefreshLayout.setRefreshing(false);
   }
 
   private void loadMore() {
@@ -120,6 +123,8 @@ public class ActivityFragment extends BaseFragment
         if (entity != null && entity.error == 2000) {
           ActivityListResponse data = entity.data;
           setData(false, data.activities);
+        } else {
+          mAdapter.loadMoreFail();
         }
       }
     });
@@ -160,7 +165,7 @@ public class ActivityFragment extends BaseFragment
         mAdapter.addData(data);
       }
     }
-    if (size <  _COUNT) {
+    if (size <= _COUNT && PAGE_SIZE == 1) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {

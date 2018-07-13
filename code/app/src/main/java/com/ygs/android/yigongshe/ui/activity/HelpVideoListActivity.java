@@ -54,6 +54,7 @@ public class HelpVideoListActivity extends BaseActivity {
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     initAdapter();
+    mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     refresh();
   }
@@ -94,13 +95,15 @@ public class HelpVideoListActivity extends BaseActivity {
           PAGE_SIZE = data.page;
           _COUNT = data.perpage;
           setData(true, data.video_list);
+          mAdapter.setEnableLoadMore(true);
+          mSwipeRefreshLayout.setRefreshing(false);
         } else {
+          mAdapter.setEnableLoadMore(true);
+          mSwipeRefreshLayout.setRefreshing(false);
           Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
         }
       }
     });
-    mAdapter.setEnableLoadMore(true);
-    mSwipeRefreshLayout.setRefreshing(false);
   }
 
   private void loadMore() {
@@ -113,6 +116,8 @@ public class HelpVideoListActivity extends BaseActivity {
         if (entity != null && entity.error == 2000) {
           HelpVideoListResponse data = entity.data;
           setData(false, data.video_list);
+        } else {
+          mAdapter.loadMoreFail();
         }
       }
     });
@@ -128,7 +133,7 @@ public class HelpVideoListActivity extends BaseActivity {
         mAdapter.addData(data);
       }
     }
-    if (size < _COUNT) {
+    if (size <= _COUNT && PAGE_SIZE == 1) {
       //第一页如果不够一页就不显示没有更多数据布局
       mAdapter.loadMoreEnd(isRefresh);
     } else {
