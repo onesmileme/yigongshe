@@ -45,6 +45,8 @@ public class CommunityFragment extends BaseFragment {
   private static final String T_ASSO = "association";
   private static final String T_FOLLOW = "follow";
   private String[] typeList = new String[] { "", T_ASSO, T_FOLLOW };
+  private final int TOPIC_CITY_SELECT = 0;
+  private final int PUBLISH_COMMUNITY = 1;
 
   @Override protected void initView() {
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -92,7 +94,7 @@ public class CommunityFragment extends BaseFragment {
             }
 
             intent.putExtras(bundle);
-            startActivityForResult(intent, 0);
+            startActivityForResult(intent, TOPIC_CITY_SELECT);
           }
         });
     mAdapter.addHeaderView(mCommunityListHeader.getView());
@@ -176,13 +178,20 @@ public class CommunityFragment extends BaseFragment {
   }
 
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
-    if (null != data) {
-      Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-      mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
+    switch (requestCode) {
+      case TOPIC_CITY_SELECT:
+        if (null != data) {
+          Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+          mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
+        }
+        break;
+      case PUBLISH_COMMUNITY:
+        refresh();
+        break;
     }
   }
 
   @OnClick(R.id.publish) public void onBtnClicked() {
-    goToOthers(PublishCommunityActivity.class, null);
+    goToOthersForResult(PublishCommunityActivity.class, null, PUBLISH_COMMUNITY);
   }
 }

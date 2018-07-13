@@ -35,6 +35,7 @@
       android:focusable="true"
       android:gravity="top|left"
       android:hint="想说点什么..."
+      android:maxEms="512"
       android:padding="10dp"
       android:textColorHint="@color/gray4"
       android:textSize="12dp" />
@@ -54,10 +55,11 @@
   <!--android:listSelector="#00000000"-->
   <!--android:numColumns="4"-->
   <!--android:verticalSpacing="10dp"></GridView>-->
-  <RelativeLayout
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
+    android:orientation="horizontal"
     android:paddingBottom="10dp"
     android:paddingLeft="14dp"
     android:paddingRight="14dp">
@@ -68,22 +70,27 @@
       android:layout_height="60dp"
       android:src="@drawable/add_pic" />
 
-    <ImageView
-      android:id="@+id/item_image"
-      android:layout_width="60dp"
-      android:layout_height="60dp"
-      android:visibility="gone" />
-
-    <ImageView
-      android:id="@+id/iv_delete"
+    <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_gravity="right"
-      android:paddingBottom="10dp"
-      android:paddingLeft="40dp"
-      android:src="@drawable/icon_edit_delete"
-      android:visibility="gone" />
-  </RelativeLayout>
+      android:layout_marginLeft="16dp">
+
+      <ImageView
+        android:id="@+id/item_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+      <ImageView
+        android:id="@+id/iv_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingBottom="10dp"
+        android:paddingLeft="40dp"
+        android:src="@drawable/icon_edit_delete"
+        android:visibility="gone" />
+    </RelativeLayout>
+  </LinearLayout>
 
   <RelativeLayout
     android:id="@+id/ll_select_topic"
@@ -112,7 +119,6 @@
       android:layout_marginRight="6dp"
       android:ellipsize="end"
       android:singleLine="true"
-      android:text="#大学生宠物救助#"
       android:textColor="@color/green"
       android:textSize="12dp" />
   </RelativeLayout>

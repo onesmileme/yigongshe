@@ -14,6 +14,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 /**
@@ -316,8 +317,11 @@ public class ImageUtils {
    */
   public static Map<String, RequestBody> getRequestBodyParams(String path) {
     File image = new File(path);
-    RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), image);
+    MultipartBody.Builder builder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+    builder.addFormDataPart("file", image.getName(), RequestBody.create(MediaType.parse("image/jpeg"), image));
+    //RequestBody requestBody = RequestBody.create(MediaType.parse("image/jpeg"), image);
     Map<String, RequestBody> params = new HashMap<>();
+    final MultipartBody requestBody = builder.build();
     params.put("file", requestBody);
     return params;
   }

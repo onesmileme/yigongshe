@@ -17,11 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -32,8 +36,8 @@ import com.ygs.android.yigongshe.utils.PathUtils;
 import com.ygs.android.yigongshe.utils.StringUtil;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Response;
 
@@ -72,11 +76,46 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
 
   @Override protected void initView() {
     initPopupWindow();
+    mDefaultImage.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        pop.showAtLocation(btn_cancel, Gravity.BOTTOM, 0, 0);
+      }
+    });
 
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
-
+          AccountManager accountManager = YGApplication.accountManager;
+          if (TextUtils.isEmpty(accountManager.getToken())) {
+            Toast.makeText(PublishCommunityActivity.this, "没有登录", Toast.LENGTH_SHORT).show();
+            return;
+          }
+          if (TextUtils.isEmpty(mEditText.getText())) {
+            Toast.makeText(PublishCommunityActivity.this, "内容不能为空", Toast.LENGTH_SHORT).show();
+            return;
+          }
+          //else if (TextUtils.isEmpty(mSelectedTopic.getText())) {
+          //  Toast.makeText(PublishCommunityActivity.this, "话题不能为空", Toast.LENGTH_SHORT).show();
+          //  return;
+          //}
+          LinkCall<BaseResultDataInfo<PublishCommunityResponse>> pc = LinkCallHelper.getApiService()
+              .publishCommunity(accountManager.getToken(), mSelectedTopic.getText().toString(),
+                  mEditText.getText().toString(), mUploadImageUrl);
+          pc.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<PublishCommunityResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<PublishCommunityResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  Toast.makeText(PublishCommunityActivity.this, "发布成功", Toast.LENGTH_SHORT).show();
+                  finish();
+                } else {
+                  Toast.makeText(PublishCommunityActivity.this, entity.msg, Toast.LENGTH_SHORT)
+                      .show();
+                }
+              }
+            }
+          });
         } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
           finish();
         }
@@ -88,16 +127,16 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
     return R.layout.activity_publish_community;
   }
 
-  @OnClick({ R.id.item_default_image, R.id.iv_delete, R.id.ll_select_topic })
-  public void onBtnClicked(View iv) {
+  @OnClick({ R.id.iv_delete, R.id.ll_select_topic }) public void onBtnClicked(View iv) {
     switch (iv.getId()) {
-      case R.id.item_default_image:
-        pop.showAtLocation(btn_cancel, Gravity.BOTTOM, 0, 0);
-        break;
       case R.id.iv_delete:
         mDelete.setVisibility(View.GONE);
-        mDefaultImage.setVisibility(View.VISIBLE);
         mImage.setVisibility(View.GONE);
+        mDefaultImage.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View view) {
+            pop.showAtLocation(btn_cancel, Gravity.BOTTOM, 0, 0);
+          }
+        });
         break;
       case R.id.ll_select_topic:
         goToOthersForResult(TopicSelectActivity.class, null, 0);
@@ -108,23 +147,25 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
       case SELECT_PICS:
-        String selectPic = data.getBundleExtra(BaseActivity.PARAM_INTENT).getString("imageurl");
-        if (!TextUtils.isEmpty(selectPic)) {
-          mDefaultImage.setVisibility(View.GONE);
-          mDelete.setVisibility(View.VISIBLE);
-          mImage.setVisibility(View.VISIBLE);
-          Glide.with(this)
-              .load(selectPic)
-              .placeholder(R.drawable.loading2)
-              .centerCrop()
-              .into(mImage);
-          compressAndSendImages(selectPic);
+        if (data != null) {
+          String selectPic = data.getBundleExtra(BaseActivity.PARAM_INTENT).getString("imageurl");
+          if (!TextUtils.isEmpty(selectPic)) {
+            mDefaultImage.setOnClickListener(null);
+            mDelete.setVisibility(View.VISIBLE);
+            mImage.setVisibility(View.VISIBLE);
+            Glide.with(this)
+                .load(selectPic)
+                .placeholder(R.drawable.loading2)
+                .centerCrop()
+                .into(mImage);
+            compressAndSendImages(selectPic);
+          }
         }
 
         break;
       case TAKE_PHOTOS:
         if (mPhotograph != null && mPhotograph.exists()) {
-          mDefaultImage.setVisibility(View.GONE);
+          mDefaultImage.setOnClickListener(null);
           mDelete.setVisibility(View.VISIBLE);
           mImage.setVisibility(View.VISIBLE);
           scanPhotos(mPhotograph.getAbsolutePath(), this);
@@ -221,10 +262,22 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   }
 
   private void uploadNoteImage(String filePath) {
-    Map<String, String> maps = new HashMap<String, String>();
-    Map<String, RequestBody> params = ImageUtils.getRequestBodyParams(filePath);
-    LinkCall<BaseResultDataInfo<UploadImageBean>> upload =
-        LinkCallHelper.getApiService().uploadRemarkImage(params, StringUtil.md5(filePath));
+    //Map<String, String> maps = new HashMap<String, String>();
+    //Map<String, RequestBody> params = ImageUtils.getRequestBodyParams(filePath);
+    // 创建 RequestBody，用于封装构建RequestBody
+    File file = new File(filePath);
+    RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+    // MultipartBody.Part  和后端约定好Key，这里的partName是用image
+    MultipartBody.Part body =
+        MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+
+    // 添加描述
+    String descriptionString = "hello, 这是文件描述";
+    RequestBody description =
+        RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
+    LinkCall<BaseResultDataInfo<UploadImageBean>> upload = LinkCallHelper.getApiService()
+        .uploadRemarkImage(description, body, StringUtil.md5(filePath));
     upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UploadImageBean>>() {
       @Override
       public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,

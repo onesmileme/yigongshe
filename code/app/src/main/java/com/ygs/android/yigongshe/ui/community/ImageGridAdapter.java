@@ -20,12 +20,15 @@ public class ImageGridAdapter extends BaseQuickAdapter<ImageItem, BaseViewHolder
   }
 
   @Override protected void convert(final BaseViewHolder helper, final ImageItem item) {
-    Glide.with(mContext).load(item.imageUrl).into(new SimpleTarget<GlideDrawable>() {
-      @Override public void onResourceReady(GlideDrawable resource,
-          GlideAnimation<? super GlideDrawable> glideAnimation) {
-        helper.setImageDrawable(R.id.iv_pic, resource);
-      }
-    });
+    Glide.with(mContext)
+        .load(item.imageUrl)
+        .override(60, 60)
+        .into(new SimpleTarget<GlideDrawable>() {
+          @Override public void onResourceReady(GlideDrawable resource,
+              GlideAnimation<? super GlideDrawable> glideAnimation) {
+            helper.setImageDrawable(R.id.iv_pic, resource);
+          }
+        });
 
     helper.setOnCheckedChangeListener(R.id.iv_selectbox,
         new CompoundButton.OnCheckedChangeListener() {

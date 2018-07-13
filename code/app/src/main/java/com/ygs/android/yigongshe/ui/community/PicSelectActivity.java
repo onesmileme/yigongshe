@@ -17,14 +17,7 @@ import java.util.List;
 public class PicSelectActivity extends BaseActivity
     implements GetPhotosTask.OnPostResultListener<List<ImageItem>>, ImageGridAdapter.CheckListener {
 
-  private View ll_back, ll_send;
-  private TextView btn_cancel, btn_preview, btn_send, tv_send_count;
   @BindView(R.id.grid_picture) RecyclerView mRecyclerVIew;
-  private String selectedImage = null;
-  private String confirm_text;
-  private HashMap<String, Integer> mSelectedMap = null;
-  private int picCount;
-
   private ImageGridAdapter mPicGridAdapter;
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   private String mImageUrl;

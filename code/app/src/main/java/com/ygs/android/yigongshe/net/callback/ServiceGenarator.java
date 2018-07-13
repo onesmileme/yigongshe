@@ -22,7 +22,6 @@ public class ServiceGenarator {
     httpClientBuilder.connectTimeout(15000, TimeUnit.MILLISECONDS);
     httpClientBuilder.readTimeout(15000, TimeUnit.MILLISECONDS);
     httpClientBuilder.writeTimeout(15000, TimeUnit.MILLISECONDS);
-
     //httpClientBuilder.addInterceptor(new HeaderInterceptor());
     ServiceGenarator.retrofitBuilder =
         new Retrofit.Builder().addCallAdapterFactory(LinkCallAdapterFactory.created())

@@ -16,18 +16,21 @@ import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
+import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
+import com.ygs.android.yigongshe.bean.response.SigninResponse;
+import com.ygs.android.yigongshe.bean.response.SignupResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
-import java.util.Map;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PartMap;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -227,5 +230,28 @@ public interface ApiService {
    */
   @Multipart @POST("app/api/upload")
   LinkCall<BaseResultDataInfo<UploadImageBean>> uploadRemarkImage(
-      @PartMap Map<String, RequestBody> file, @Query("md5") String md5);
+      @Part("description") RequestBody description, @Part MultipartBody.Part file,
+      @Query("md5") String md5);
+
+  /**
+   * 报名活动
+   */
+  @FormUrlEncoded @POST("app/api/activity/registe")
+  LinkCall<BaseResultDataInfo<SignupResponse>> signupActivity(@Field("activity_id") int activity_id,
+      @Field("token") String token);
+
+  /**
+   * 签到
+   */
+  @FormUrlEncoded @POST("app/api/activity/signin")
+  LinkCall<BaseResultDataInfo<SigninResponse>> signinActivity(@Field("activity_id") int activity_id,
+      @Field("token") String token);
+
+  /**
+   * 发布公益圈
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/publish")
+  LinkCall<BaseResultDataInfo<PublishCommunityResponse>> publishCommunity(
+      @Field("token") String token, @Field("topic") String topic, @Field("content") String content,
+      @Field("pic") String pic);
 }

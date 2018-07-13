@@ -41,9 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/createName"
         android:layout_alignParentRight="true"
+        android:drawableLeft="@drawable/markgood"
         android:text="关注"
         android:textColor="@color/green"
-        android:drawableLeft="@drawable/markgood"
         android:textSize="10dp" />
 
       <TextView
