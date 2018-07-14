@@ -1,9 +1,8 @@
 package com.ygs.android.yigongshe.ui.profile.activity;
 
+import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
@@ -23,13 +22,8 @@ public class MeAcitivityAdapter extends BaseQuickAdapter<ActivityItemBean, BaseV
         .placeholder(R.drawable.defalutavar)
         .error(R.drawable.defalutavar)
         .fallback(R.drawable.defalutavar)
-        .transform(new GlideRoundTransform(mContext))
-        .into(new SimpleTarget<GlideDrawable>() {
-          @Override public void onResourceReady(GlideDrawable resource,
-              GlideAnimation<? super GlideDrawable> glideAnimation) {
-            helper.setImageDrawable(R.id.img, resource);
-          }
-        });
+        .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
+        .into((ImageView) helper.getView(R.id.img));
 
     helper.setText(R.id.title, item.title);
     helper.setText(R.id.time, item.create_at);

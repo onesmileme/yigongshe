@@ -1,9 +1,8 @@
 package com.ygs.android.yigongshe.ui.dynamic;
 
+import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
@@ -29,13 +28,8 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicItemBean, BaseViewHo
         .error(R.drawable.loading2)
         .fallback(R.drawable.loading2)
         .thumbnail(0.1f)
-        .transform(new GlideRoundTransform(mContext))
-        .into(new SimpleTarget<GlideDrawable>() {
-          @Override public void onResourceReady(GlideDrawable resource,
-              GlideAnimation<? super GlideDrawable> glideAnimation) {
-            helper.setImageDrawable(id.img, resource);
-          }
-        });
+        .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
+        .into((ImageView) helper.getView(id.img));
 
     helper.setText(id.title, item.title);
     helper.setText(id.time, item.create_at);

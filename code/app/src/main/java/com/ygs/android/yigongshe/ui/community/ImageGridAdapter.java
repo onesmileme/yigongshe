@@ -2,10 +2,8 @@ package com.ygs.android.yigongshe.ui.community;
 
 import android.content.Context;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
@@ -26,12 +24,7 @@ public class ImageGridAdapter extends BaseQuickAdapter<ImageItem, BaseViewHolder
         .error(R.drawable.loading2)
         .fallback(R.drawable.loading2)
         .override(60, 60)
-        .into(new SimpleTarget<GlideDrawable>() {
-          @Override public void onResourceReady(GlideDrawable resource,
-              GlideAnimation<? super GlideDrawable> glideAnimation) {
-            helper.setImageDrawable(R.id.iv_pic, resource);
-          }
-        });
+        .into((ImageView) helper.getView(R.id.iv_pic));
 
     helper.setOnCheckedChangeListener(R.id.iv_selectbox,
         new CompoundButton.OnCheckedChangeListener() {

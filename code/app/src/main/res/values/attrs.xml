@@ -126,5 +126,7 @@
     <!-- 中间自定义布局, 对应centerType_CustomView -->
     <attr name="centerCustomView" format="reference" />
   </declare-styleable>
-
+  <declare-styleable name="mydivider">
+    <attr name="mydivider" format="reference"></attr>
+  </declare-styleable>
 </resources>

@@ -9,9 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 
@@ -46,13 +44,8 @@ public class CommunityDetailHeaderView {
         .placeholder(R.drawable.defalutavar)
         .error(R.drawable.defalutavar)
         .fallback(R.drawable.defalutavar)
-        .transform(new GlideCircleTransform(mContext))
-        .into(new SimpleTarget<GlideDrawable>() {
-          @Override public void onResourceReady(GlideDrawable resource,
-              GlideAnimation<? super GlideDrawable> glideAnimation) {
-            mAvatar.setImageDrawable(resource);
-          }
-        });
+        .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
+        .into(mAvatar);
     mCreateName.setText(item.create_name);
     mContent.setText(item.topic + item.content);
     Glide.with(mContext)
@@ -60,13 +53,8 @@ public class CommunityDetailHeaderView {
         .placeholder(R.drawable.loading2)
         .error(R.drawable.loading2)
         .fallback(R.drawable.loading2)
-        .transform(new GlideRoundTransform(mContext))
-        .into(new SimpleTarget<GlideDrawable>() {
-          @Override public void onResourceReady(GlideDrawable resource,
-              GlideAnimation<? super GlideDrawable> glideAnimation) {
-            mPic.setImageDrawable(resource);
-          }
-        });
+        .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
+        .into(mPic);
     mCreateDate.setText(item.create_at);
     mTopic.setText(item.topic);
     mMarkGood.setText(item.zan + "");

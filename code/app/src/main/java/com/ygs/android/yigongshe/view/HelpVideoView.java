@@ -11,6 +11,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.ui.activity.HelpVideoDetailActivity;
@@ -63,7 +64,7 @@ public class HelpVideoView {
           .placeholder(R.drawable.loading2)
           .error(R.drawable.loading2)
           .fallback(R.drawable.loading2)
-          .fitCenter()
+          .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into(mVideoView);
       mVideoView.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {

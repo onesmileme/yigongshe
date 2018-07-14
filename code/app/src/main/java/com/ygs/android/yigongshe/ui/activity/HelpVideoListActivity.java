@@ -27,6 +27,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.utils.VideoUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+import com.ygs.android.yigongshe.view.MyDecoration;
 import java.io.File;
 import java.util.List;
 import okhttp3.MediaType;
@@ -78,6 +79,8 @@ public class HelpVideoListActivity extends BaseActivity {
       }
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mRecyclerView.addItemDecoration(
+        new MyDecoration(this, MyDecoration.VERTICAL_LIST, R.drawable.divider));
     initAdapter();
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
@@ -180,18 +183,19 @@ public class HelpVideoListActivity extends BaseActivity {
       Uri videoUri = data.getData();
       String path = VideoUtils.getPath(this, videoUri);
       File file = new File(path);
-      RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+      RequestBody requestFile =
+          RequestBody.create(MediaType.parse("application/octet-stream"), file);
 
       // MultipartBody.Part  和后端约定好Key，这里的partName是用image
-      MultipartBody.Part body =
-          MultipartBody.Part.createFormData("video_path", file.getName(), requestFile);
-
+      //MultipartBody.Part body =
+      //    MultipartBody.Part.createFormData("video_path", file.getName(), requestFile);
+      MultipartBody.Part body1 = MultipartBody.Part.create(requestFile);
       // 添加描述
       String descriptionString = "hello, 这是文件描述";
       RequestBody description =
           RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
       LinkCall<BaseResultDataInfo<HelpVideoResponse>> upload =
-          LinkCallHelper.getApiService().uploadHelpVideo(description, body, mActivityId, mToken);
+          LinkCallHelper.getApiService().uploadHelpVideo(description, body1, mActivityId, mToken);
       upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoResponse>>() {
         @Override public void onResponse(final BaseResultDataInfo<HelpVideoResponse> entity,
             Response<?> response, Throwable throwable) {
