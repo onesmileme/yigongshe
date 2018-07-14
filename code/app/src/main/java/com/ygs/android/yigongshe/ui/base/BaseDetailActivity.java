@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.comment.CommentAdapter;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.List;
 import retrofit2.Response;
@@ -47,13 +49,22 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   protected int mId; //newsId, activityId
   protected String mTitle;
-
+  private View errorView;
   @BindView(R.id.input_comment) EditText mEditText;
 
   @Override protected void initIntent(Bundle bundle) {
   }
 
   @Override protected void initView() {
+    errorView =
+        getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
+            false);
+
+    errorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        refresh();
+      }
+    });
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
@@ -112,6 +123,11 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   private void refresh() {
+    if (!NetworkUtils.isConnected(this)) {
+      mAdapter.setEmptyView(errorView);
+      return;
+    }
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
     mCommentCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommentListResponse>>() {
       @Override

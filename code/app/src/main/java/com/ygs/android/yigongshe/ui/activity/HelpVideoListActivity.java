@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -25,6 +26,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.utils.VideoUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
@@ -50,6 +52,7 @@ public class HelpVideoListActivity extends BaseActivity {
   private int mActivityId;
   private final int REQUEST_VIDEO_CAPTURE = 0;
   private String mToken;
+  private View errorView;
 
   protected boolean openTranslucentStatus() {
     return true;
@@ -60,6 +63,15 @@ public class HelpVideoListActivity extends BaseActivity {
   }
 
   @Override protected void initView() {
+    errorView =
+        getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
+            false);
+
+    errorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        refresh();
+      }
+    });
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
@@ -110,6 +122,11 @@ public class HelpVideoListActivity extends BaseActivity {
   }
 
   private void refresh() {
+    if (!NetworkUtils.isConnected(this)) {
+      mAdapter.setEmptyView(errorView);
+      return;
+    }
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService().getHelpVideoList(pageCnt, _COUNT, mActivityId);

@@ -6,6 +6,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -19,6 +20,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.ActivityStatusTypeView;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
@@ -42,8 +44,18 @@ public class ActivityFragment extends BaseFragment
   private TopBannerCard mBannerCard;
   private LinkCall<BaseResultDataInfo<ActivityListResponse>> mCall;
   private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
+  private View errorView;
 
   @Override protected void initView() {
+    errorView =
+        getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
+            false);
+
+    errorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        refresh();
+      }
+    });
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.addItemDecoration(
@@ -89,6 +101,11 @@ public class ActivityFragment extends BaseFragment
   }
 
   private void refresh() {
+    if (!NetworkUtils.isConnected(getActivity())) {
+      mAdapter.setEmptyView(errorView);
+      return;
+    }
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
 
     mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);

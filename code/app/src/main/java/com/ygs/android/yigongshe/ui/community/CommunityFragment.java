@@ -3,9 +3,11 @@ package com.ygs.android.yigongshe.ui.community;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -21,6 +23,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.AppUtils;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.CommunityListHeader;
 import com.ygs.android.yigongshe.view.TitleBarTabView;
 import java.util.List;
@@ -46,9 +49,21 @@ public class CommunityFragment extends BaseFragment {
   private String[] typeList = new String[] { "", T_ASSO, T_FOLLOW };
   private final int TOPIC_CITY_SELECT = 0;
   private final int PUBLISH_COMMUNITY = 1;
+  private View errorView;
 
   @Override protected void initView() {
+    errorView =
+        getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
+            false);
+
+    errorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        refresh();
+      }
+    });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    mRecyclerView.addItemDecoration(
+        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
     initAdapter();
     initTitleBarTabView();
     addHeadView();
@@ -125,6 +140,11 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void refresh() {
+    if (!NetworkUtils.isConnected(getActivity())) {
+      mAdapter.setEmptyView(errorView);
+      return;
+    }
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);
