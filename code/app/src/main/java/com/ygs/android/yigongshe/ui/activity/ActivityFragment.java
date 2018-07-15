@@ -105,7 +105,8 @@ public class ActivityFragment extends BaseFragment
       mAdapter.setEmptyView(errorView);
       return;
     }
-    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    pageCnt = 1;
+    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
 
     mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);

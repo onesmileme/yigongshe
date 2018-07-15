@@ -33,5 +33,5 @@
     android:layout_alignParentRight="true"
     android:layout_marginRight="15dp"
     android:layout_marginTop="30dp"
-    android:src="@drawable/topic_publish" />
+    android:src="@drawable/upload" />
 </RelativeLayout>

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="@color/gray4"
+  android:background="#f4f4f4"
   android:orientation="vertical"
   android:padding="15dp">
 
@@ -23,17 +23,28 @@
     android:text="什么是打call"
     android:textColor="@color/gray2" />
 
-  <TextView
-    android:id="@+id/markgood"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
-    android:background="@drawable/bg_dacall"
-    android:drawableTop="@drawable/markgood"
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
-    android:text="8766"
-    android:textColor="@color/white" />
+    >
+
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="@drawable/zan" />
+
+    <TextView
+      android:id="@+id/markgood"
+      android:layout_width="60dp"
+      android:layout_height="60dp"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="10dp"
+      android:gravity="center"
+      android:text="8766"
+      android:textColor="@color/white" />
+  </RelativeLayout>
+
 
   <TextView
     android:id="@+id/callstatus"

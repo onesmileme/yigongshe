@@ -20,5 +20,5 @@
     android:layout_marginLeft="15dp"
     android:layout_marginRight="12dp"
     android:layout_toRightOf="@id/shoucang"
-    android:src="@drawable/shoucang" />
+    android:src="@drawable/fenxiang" />
 </RelativeLayout>

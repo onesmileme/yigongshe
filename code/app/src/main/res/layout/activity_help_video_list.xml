@@ -12,7 +12,7 @@
     titlebar:centerText="应援视频"
     titlebar:centerType="textView"
     titlebar:leftType="imageButton"
-    titlebar:rightImageResource="@drawable/shoucang"
+    titlebar:rightImageResource="@drawable/upload"
     titlebar:rightType="imageButton" />
 
   <android.support.v4.widget.SwipeRefreshLayout

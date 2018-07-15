@@ -92,7 +92,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             mDaCallView.setDacallViewData(data);
             if (data.is_store == 1) {
               isStore = true;
-              mShoucang.setImageResource(R.drawable.shoucang);
+              mShoucang.setImageResource(R.drawable.yishoucang);
             } else {
               isStore = false;
               mShoucang.setImageResource(R.drawable.shoucang);
@@ -228,7 +228,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
               super.onResponse(entity, response, throwable);
               if (entity != null) {
                 if (entity.error == 2000) {
-                  mShoucang.setImageResource(R.drawable.shoucang);
+                  mShoucang.setImageResource(R.drawable.yishoucang);
                   Toast.makeText(ActivityDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                 } else {
                   Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)

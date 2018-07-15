@@ -36,22 +36,26 @@ public class ActivityStatusTypeView {
 
   private void initView(Context context, ViewGroup root) {
     mView = LayoutInflater.from(context).inflate(R.layout.view_status_type, root, false);
+    int spacingInPixels = context.getResources().getDimensionPixelSize(R.dimen.space);
+
     ButterKnife.bind(this, mView);
     LinearLayoutManager layoutManager = new LinearLayoutManager(context);
     layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
     mStatus.setLayoutManager(layoutManager);
-
+    mStatus.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     TextAdapter statusAdapter = new TextAdapter(
         Arrays.asList(context.getResources().getStringArray(R.array.activity_status)));
     mStatus.setAdapter(statusAdapter);
     mStatus.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+        view.setBackgroundResource(R.drawable.bg_status_checked);
         mStatusSelectListener.OnStatusSelected((String) adapter.getItem(position));
       }
     });
     LinearLayoutManager layoutManager2 = new LinearLayoutManager(context);
     layoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
     mType.setLayoutManager(layoutManager2);
+    mType.addItemDecoration(new SpaceItemDecoration(spacingInPixels));
     mType.setAdapter(new TextAdapter(
         Arrays.asList(context.getResources().getStringArray(R.array.activity_type))));
     mType.addOnItemTouchListener(new OnItemClickListener() {
