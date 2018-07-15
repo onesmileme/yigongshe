@@ -1,7 +1,6 @@
 package com.ygs.android.yigongshe.bean;
 
 public class UserInfoBean {
-    public String id;
     public String username;
     public String avatar;
     public String school;

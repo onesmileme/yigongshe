@@ -7,7 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.SparseIntArray;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -15,7 +15,6 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
@@ -23,6 +22,7 @@ import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.AttentionResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
+import com.ygs.android.yigongshe.bean.response.ListLikeResponse;
 import com.ygs.android.yigongshe.bean.response.UnAttentionResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -57,7 +57,7 @@ public class CommunityFragment extends BaseFragment {
   private final int TOPIC_CITY_SELECT = 0;
   private final int PUBLISH_COMMUNITY = 1;
   private View errorView;
-  private SparseIntArray mAttentionList = new SparseIntArray();
+  private SparseArray<Integer> mAttentionList = new SparseArray();
 
   @Override protected void initView() {
     errorView =
@@ -131,6 +131,19 @@ public class CommunityFragment extends BaseFragment {
         loadMore();
       }
     }, mRecyclerView);
+    mRecyclerView.setAdapter(mAdapter);
+    mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+      @Override public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Bundle bundle = new Bundle();
+        CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
+        bundle.putInt("pubcircle_id", itemBean.pubcircleid);
+        if (mAttentionList.get(position) != null) {
+          itemBean.is_follow = mAttentionList.get(position);
+        }
+        bundle.putSerializable("item", itemBean);
+        goToOthers(CommunityDetailActivity.class, bundle);
+      }
+    });
     mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
       @Override public void onItemChildClick(final BaseQuickAdapter adapter, final View view,
           final int position) {
@@ -141,7 +154,7 @@ public class CommunityFragment extends BaseFragment {
         }
         if (R.id.attention == view.getId()) {
           int isAttentioned;
-          if (mAttentionList.get(position) != -1) {
+          if (mAttentionList.get(position) != null) {
             isAttentioned = mAttentionList.get(position);
           } else {
             CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
@@ -153,49 +166,53 @@ public class CommunityFragment extends BaseFragment {
           if (isAttentioned == 0) {
             LinkCall<BaseResultDataInfo<AttentionResponse>> attention =
                 LinkCallHelper.getApiService()
-                    .attentionUser(accountManager.getUserInfoBean().id, accountManager.getToken());
+                    .attentionUser(accountManager.getUserid(), accountManager.getToken());
             attention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<AttentionResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<AttentionResponse> entity,
                   Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == 2000) {
                   Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
-                  adapter.getViewByPosition(position, R.id.attention)
-                      .setBackgroundResource(R.drawable.bg_attention);
+                  view.setBackgroundResource(R.drawable.bg_attention);
+                } else {
+                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                 }
               }
             });
           } else {
             LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
                 LinkCallHelper.getApiService()
-                    .unAttentionUser(accountManager.getUserInfoBean().id,
-                        accountManager.getToken());
+                    .unAttentionUser(accountManager.getUserid(), accountManager.getToken());
             unattention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UnAttentionResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<UnAttentionResponse> entity,
                   Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == 2000) {
                   Toast.makeText(getActivity(), "取消关注成功", Toast.LENGTH_SHORT).show();
-                  adapter.getViewByPosition(position, R.id.attention)
-                      .setBackgroundResource(R.drawable.bg_unattention);
+                  view.setBackgroundResource(R.drawable.bg_unattention);
+                }
+              }
+            });
+          }
+        } else if (view.getId() == R.id.iv_markgood) {
+          CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
+          if (itemBean.is_like == 0) {
+            LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
+                .likeCircle(accountManager.getUserid(), accountManager.getToken());
+            like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
+              @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
+                  Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == 2000) {
+                  Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
+                  view.setBackgroundResource(R.drawable.hasmarkgood);
+                } else {
+                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                 }
               }
             });
           }
         }
-      }
-    });
-    mRecyclerView.setAdapter(mAdapter);
-    mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-      @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-        Bundle bundle = new Bundle();
-        CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
-        bundle.putInt("pubcircle_id", itemBean.pubcircleid);
-        if (mAttentionList.get(position) != -1) {
-          itemBean.is_follow = mAttentionList.get(position);
-        }
-        bundle.putSerializable("item", itemBean);
-        goToOthers(CommunityDetailActivity.class, bundle);
       }
     });
   }
@@ -209,7 +226,7 @@ public class CommunityFragment extends BaseFragment {
       mAdapter.setEmptyView(errorView);
       return;
     }
-    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);

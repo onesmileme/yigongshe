@@ -18,6 +18,7 @@ import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoResponse;
+import com.ygs.android.yigongshe.bean.response.ListLikeResponse;
 import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
@@ -285,13 +286,20 @@ public interface ApiService {
    * 关注用户
    */
   @FormUrlEncoded @POST("app/api/followperson/follow")
-  LinkCall<BaseResultDataInfo<AttentionResponse>> attentionUser(@Field("userid") String userid,
+  LinkCall<BaseResultDataInfo<AttentionResponse>> attentionUser(@Field("userid") int userid,
       @Field("token") String token);
 
   /**
    * 取消关注用户
    */
   @FormUrlEncoded @POST("app/api/followperson/unfollow")
-  LinkCall<BaseResultDataInfo<UnAttentionResponse>> unAttentionUser(@Field("userid") String userid,
+  LinkCall<BaseResultDataInfo<UnAttentionResponse>> unAttentionUser(@Field("userid") int userid,
+      @Field("token") String token);
+
+  /**
+   * 益工圈列表页点赞
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/like")
+  LinkCall<BaseResultDataInfo<ListLikeResponse>> likeCircle(@Field("id") int id,
       @Field("token") String token);
 }

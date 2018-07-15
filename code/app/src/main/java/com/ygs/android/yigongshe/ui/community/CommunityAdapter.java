@@ -39,5 +39,17 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.topic, item.topic);
     helper.setText(R.id.markgood, item.zan + "");
+    helper.addOnClickListener(R.id.attention);
+    helper.addOnClickListener(R.id.iv_markgood);
+    if (item.is_follow == 0) {
+      helper.setBackgroundRes(R.id.attention, R.drawable.bg_unattention);
+    } else {
+      helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
+    }
+    if (item.is_like == 0) {
+      helper.setImageResource(R.id.iv_markgood, R.drawable.markgood);
+    } else {
+      helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
+    }
   }
 }

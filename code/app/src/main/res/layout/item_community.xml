@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:paddingTop="14dp"
+  android:orientation="horizontal"
   android:paddingBottom="14dp"
-  android:orientation="horizontal">
+  android:paddingTop="14dp">
 
   <ImageView
     android:id="@+id/createAvatar"
@@ -90,12 +90,19 @@
         android:textColor="@color/gray1"
         android:textSize="10dp" />
 
+      <ImageView
+        android:id="@+id/iv_markgood"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_marginRight="4dp"
+        android:layout_toLeftOf="@+id/markgood"
+        android:src="@drawable/markgood" />
+
       <TextView
         android:id="@+id/markgood"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:drawableLeft="@drawable/markgood"
         android:text="233"
         android:textColor="@color/gray2"
         android:textSize="10dp" />
