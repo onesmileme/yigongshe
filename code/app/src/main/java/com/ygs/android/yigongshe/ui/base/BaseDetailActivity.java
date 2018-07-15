@@ -7,9 +7,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -23,7 +23,6 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.comment.CommentAdapter;
-import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.List;
 import retrofit2.Response;
@@ -36,7 +35,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
   protected static final int TYPE_DYNAMIC = 1;
   protected static final int TYPE_ACTIVITY = 2;
   protected static final int TYPE_COMMUNITY = 3;
-  private int mType;
+  protected int mType;
 
   private static int _COUNT = 20; //每页条数
   private int pageCnt = 1;
@@ -49,22 +48,16 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   protected int mId; //newsId, activityId
   protected String mTitle;
-  private View errorView;
+  @BindView(R.id.errorview) protected LinearLayout mErrorView;
+  @BindView(R.id.loadingview) LinearLayout mLoadingView;
+
   @BindView(R.id.input_comment) EditText mEditText;
 
   @Override protected void initIntent(Bundle bundle) {
   }
 
   @Override protected void initView() {
-    errorView =
-        getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
-            false);
 
-    errorView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        refresh();
-      }
-    });
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
@@ -97,6 +90,9 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   //获取评论
   protected void requestCommentData(int type, boolean isRefresh) {
+    if (mCommentCall != null) {
+      mCommentCall.cancel();
+    }
     mType = type;
     if (isRefresh) {
       pageCnt = 1;
@@ -123,11 +119,6 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   private void refresh() {
-    if (!NetworkUtils.isConnected(this)) {
-      mAdapter.setEmptyView(errorView);
-      return;
-    }
-    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
     mCommentCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommentListResponse>>() {
       @Override
@@ -233,5 +224,27 @@ public abstract class BaseDetailActivity extends BaseActivity {
         }
       }
     });
+  }
+
+  protected void showLoading(boolean show) {
+    mLoadingView.setVisibility(show ? View.VISIBLE : View.GONE);
+    if (isErrorShowing()) {
+      showError(false);
+    }
+  }
+
+  protected boolean isLoadShowing() {
+    return (mLoadingView.getVisibility() == View.VISIBLE);
+  }
+
+  protected void showError(boolean show) {
+    mErrorView.setVisibility(show ? View.VISIBLE : View.GONE);
+    if (isLoadShowing()) {
+      showLoading(false);
+    }
+  }
+
+  protected boolean isErrorShowing() {
+    return (mErrorView.getVisibility() == View.VISIBLE);
   }
 }

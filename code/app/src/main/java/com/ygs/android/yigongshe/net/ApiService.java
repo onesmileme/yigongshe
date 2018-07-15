@@ -10,6 +10,7 @@ import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
+import com.ygs.android.yigongshe.bean.response.AttentionResponse;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
@@ -23,6 +24,7 @@ import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.bean.response.ShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.SigninResponse;
 import com.ygs.android.yigongshe.bean.response.SignupResponse;
+import com.ygs.android.yigongshe.bean.response.UnAttentionResponse;
 import com.ygs.android.yigongshe.bean.response.UnShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -278,4 +280,18 @@ public interface ApiService {
   LinkCall<BaseResultDataInfo<HelpVideoResponse>> uploadHelpVideo(
       @Part("description") RequestBody description, @Part MultipartBody.Part video_path,
       @Query("activityid") int activityid, @Query("token") String token);
+
+  /**
+   * 关注用户
+   */
+  @FormUrlEncoded @POST("app/api/followperson/follow")
+  LinkCall<BaseResultDataInfo<AttentionResponse>> attentionUser(@Field("userid") String userid,
+      @Field("token") String token);
+
+  /**
+   * 取消关注用户
+   */
+  @FormUrlEncoded @POST("app/api/followperson/unfollow")
+  LinkCall<BaseResultDataInfo<UnAttentionResponse>> unAttentionUser(@Field("userid") String userid,
+      @Field("token") String token);
 }

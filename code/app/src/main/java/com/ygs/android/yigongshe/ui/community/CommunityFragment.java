@@ -6,17 +6,24 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.SparseIntArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.AttentionResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
+import com.ygs.android.yigongshe.bean.response.UnAttentionResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -50,6 +57,7 @@ public class CommunityFragment extends BaseFragment {
   private final int TOPIC_CITY_SELECT = 0;
   private final int PUBLISH_COMMUNITY = 1;
   private View errorView;
+  private SparseIntArray mAttentionList = new SparseIntArray();
 
   @Override protected void initView() {
     errorView =
@@ -123,12 +131,69 @@ public class CommunityFragment extends BaseFragment {
         loadMore();
       }
     }, mRecyclerView);
+    mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+      @Override public void onItemChildClick(final BaseQuickAdapter adapter, final View view,
+          final int position) {
+        AccountManager accountManager = YGApplication.accountManager;
+        if (TextUtils.isEmpty(accountManager.getToken())) {
+          Toast.makeText(getActivity(), "没有登录", Toast.LENGTH_SHORT).show();
+          return;
+        }
+        if (R.id.attention == view.getId()) {
+          int isAttentioned;
+          if (mAttentionList.get(position) != -1) {
+            isAttentioned = mAttentionList.get(position);
+          } else {
+            CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
+            isAttentioned = itemBean.is_follow;
+            mAttentionList.put(position, isAttentioned);
+          }
+
+          //0未关注
+          if (isAttentioned == 0) {
+            LinkCall<BaseResultDataInfo<AttentionResponse>> attention =
+                LinkCallHelper.getApiService()
+                    .attentionUser(accountManager.getUserInfoBean().id, accountManager.getToken());
+            attention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<AttentionResponse>>() {
+              @Override public void onResponse(BaseResultDataInfo<AttentionResponse> entity,
+                  Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == 2000) {
+                  Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
+                  adapter.getViewByPosition(position, R.id.attention)
+                      .setBackgroundResource(R.drawable.bg_attention);
+                }
+              }
+            });
+          } else {
+            LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
+                LinkCallHelper.getApiService()
+                    .unAttentionUser(accountManager.getUserInfoBean().id,
+                        accountManager.getToken());
+            unattention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UnAttentionResponse>>() {
+              @Override public void onResponse(BaseResultDataInfo<UnAttentionResponse> entity,
+                  Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == 2000) {
+                  Toast.makeText(getActivity(), "取消关注成功", Toast.LENGTH_SHORT).show();
+                  adapter.getViewByPosition(position, R.id.attention)
+                      .setBackgroundResource(R.drawable.bg_unattention);
+                }
+              }
+            });
+          }
+        }
+      }
+    });
     mRecyclerView.setAdapter(mAdapter);
     mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
       @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
         CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
         bundle.putInt("pubcircle_id", itemBean.pubcircleid);
+        if (mAttentionList.get(position) != -1) {
+          itemBean.is_follow = mAttentionList.get(position);
+        }
         bundle.putSerializable("item", itemBean);
         goToOthers(CommunityDetailActivity.class, bundle);
       }

@@ -25,6 +25,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.DaCallView;
 import com.ygs.android.yigongshe.view.HelpVideoView;
 import retrofit2.Response;
@@ -50,6 +51,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
     mTitle = bundle.getString("activity_title");
+    mType = TYPE_ACTIVITY;
   }
 
   @Override protected int getLayoutResId() {
@@ -59,20 +61,32 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   @Override protected void initView() {
     super.initView();
     mTitleBar.getCenterTextView().setText(mTitle);
+    mErrorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        requestDetailData();
+      }
+    });
+
     requestDetailData();
     requestHelpVideoData();
-    requestCommentData(TYPE_ACTIVITY, true);
   }
 
   private void requestDetailData() {
+    if (!NetworkUtils.isConnected(this)) {
+      showError(true);
+      return;
+    }
+    showLoading(true);
     mCall = LinkCallHelper.getApiService().getActivityDetail(mId);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityDetailResponse>>() {
       @Override public void onResponse(BaseResultDataInfo<ActivityDetailResponse> entity,
           Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          showLoading(false);
           ActivityDetailResponse data = entity.data;
           if (data != null) {
+            requestCommentData(TYPE_ACTIVITY, true);
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mDaCallView.setDacallViewData(data);

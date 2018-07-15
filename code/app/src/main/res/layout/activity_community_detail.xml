@@ -65,4 +65,12 @@
       android:textSize="12dp" />
 
   </LinearLayout>
+
+  <include
+    layout="@layout/error_view"
+    android:visibility="gone" />
+
+  <include
+    layout="@layout/loading_view"
+    android:visibility="gone" />
 </RelativeLayout>

@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.ui.dynamic;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
 import android.webkit.WebView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -10,6 +11,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
+import com.ygs.android.yigongshe.utils.NetworkUtils;
 import retrofit2.Response;
 
 /**
@@ -23,13 +25,18 @@ public class DynamicDetailActivity extends BaseDetailActivity {
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("news_id");
     mTitle = bundle.getString("news_title");
+    mType = TYPE_DYNAMIC;
   }
 
   @Override protected void initView() {
     super.initView();
     mTitleBar.getCenterTextView().setText(mTitle);
+    mErrorView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View v) {
+        requestDetailData();
+      }
+    });
     requestDetailData();
-    requestCommentData(TYPE_DYNAMIC, true);
   }
 
   @Override protected int getLayoutResId() {
@@ -43,6 +50,11 @@ public class DynamicDetailActivity extends BaseDetailActivity {
   }
 
   private void requestDetailData() {
+    if (!NetworkUtils.isConnected(this)) {
+      showError(true);
+      return;
+    }
+    showLoading(true);
     mCall = LinkCallHelper.getApiService().getDynamicDetail(mId);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicDetailResponse>>() {
       @Override
@@ -50,9 +62,11 @@ public class DynamicDetailActivity extends BaseDetailActivity {
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          showLoading(false);
           DynamicDetailResponse data = entity.data;
           if (data != null && data.news_info != null && !TextUtils.isEmpty(
               data.news_info.content)) {
+            requestCommentData(TYPE_DYNAMIC, true);
             mWebView.loadDataWithBaseURL(null, data.news_info.content, "text/html", "utf-8", null);
           }
         }

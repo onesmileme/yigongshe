@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.community;
 
 import android.os.Bundle;
+import android.view.View;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
@@ -22,6 +23,7 @@ public class CommunityDetailActivity extends BaseDetailActivity {
     mId = bundle.getInt("pubcircle_id");
     mTitle = "详情";
     mCommunityItemBean = (CommunityItemBean) bundle.getSerializable("item");
+    mType = TYPE_COMMUNITY;
   }
 
   protected void addHeaderView() {

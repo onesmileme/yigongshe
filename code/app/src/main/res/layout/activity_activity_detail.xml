@@ -12,9 +12,8 @@
     titlebar:centerType="textView"
     titlebar:fillStatusBar="false"
     titlebar:leftType="imageButton"
-    titlebar:rightType="customView"
     titlebar:rightCustomView="@layout/titlebar_right_activitydetail"
-    />
+    titlebar:rightType="customView" />
 
 
   <android.support.v4.widget.SwipeRefreshLayout
@@ -98,4 +97,12 @@
       android:textColor="@color/white" />
 
   </LinearLayout>
+
+  <include
+    layout="@layout/error_view"
+    android:visibility="gone" />
+
+  <include
+    layout="@layout/loading_view"
+    android:visibility="gone" />
 </RelativeLayout>
