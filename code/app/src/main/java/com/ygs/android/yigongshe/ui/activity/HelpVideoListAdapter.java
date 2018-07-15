@@ -1,11 +1,14 @@
 package com.ygs.android.yigongshe.ui.activity;
 
+import android.text.TextUtils;
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.view.GlideCircleTransform;
 import com.ygs.android.yigongshe.view.GlideRoundTransform;
@@ -20,7 +23,7 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
   }
 
   @Override protected void convert(final BaseViewHolder helper, HelpVideoItemBean item) {
-
+    AccountManager accountManager = YGApplication.accountManager;
     Glide.with(mContext)
         .load(item.thumbnail)
         .placeholder(R.drawable.loading2)
@@ -38,5 +41,12 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
         .into((ImageView) helper.getView(R.id.createAvatar));
     helper.setText(R.id.createName, item.create_name);
     helper.setText(R.id.createDate, item.create_at);
+    if (!TextUtils.isEmpty(accountManager.getToken())
+        && item.create_id == accountManager.getUserid()) {
+      helper.setVisible(R.id.deleteVideo, true);
+      helper.addOnClickListener(R.id.deleteVideo);
+    } else {
+      helper.setVisible(R.id.deleteVideo, false);
+    }
   }
 }

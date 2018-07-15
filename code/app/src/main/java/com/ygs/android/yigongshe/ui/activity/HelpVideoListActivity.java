@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
@@ -22,6 +21,7 @@ import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoResponse;
+import com.ygs.android.yigongshe.bean.response.SignupResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -111,8 +111,30 @@ public class HelpVideoListActivity extends BaseActivity {
       }
     }, mRecyclerView);
     mRecyclerView.setAdapter(mAdapter);
-    mRecyclerView.addOnItemTouchListener(new OnItemClickListener() {
-      @Override public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+    mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+      @Override public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+        //if (view.getId() == R.id.deleteVideo) {
+        //  LinkCall<BaseResultDataInfo<SignupResponse>> signup =
+        //      LinkCallHelper.getApiService().signupActivity(mId, accountManager.getToken());
+        //  signup.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SignupResponse>>() {
+        //    @Override
+        //    public void onResponse(BaseResultDataInfo<SignupResponse> entity, Response<?> response,
+        //        Throwable throwable) {
+        //      super.onResponse(entity, response, throwable);
+        //      if (entity != null) {
+        //        if (entity.error == 2000) {
+        //          Toast.makeText(ActivityDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+        //        } else {
+        //          Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        //        }
+        //      }
+        //    }
+        //  });
+        //}
+      }
+    });
+    mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+      @Override public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
         HelpVideoItemBean itemBean = ((HelpVideoItemBean) adapter.getItem(position));
         bundle.putString("src", itemBean.src);
