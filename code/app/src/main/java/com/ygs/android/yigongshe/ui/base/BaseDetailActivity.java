@@ -16,8 +16,11 @@ import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.CommentItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
+import com.ygs.android.yigongshe.bean.response.CommentDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
@@ -82,9 +85,38 @@ public abstract class BaseDetailActivity extends BaseActivity {
       }
     }, mRecyclerView);
     mRecyclerView.setAdapter(mAdapter);
+    mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+      @Override public void onItemChildClick(final BaseQuickAdapter adapter, final View view,
+          final int position) {
+        AccountManager accountManager = YGApplication.accountManager;
+        if (view.getId() == R.id.delete) {
+          CommentItemBean itemBean = (CommentItemBean) adapter.getItem(position);
+          LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteComment =
+              LinkCallHelper.getApiService()
+                  .deleteMyComment(mId, accountManager.getToken(), itemBean.commentid);
+          deleteComment.enqueue(
+              new LinkCallbackAdapter<BaseResultDataInfo<CommentDeleteResponse>>() {
+                @Override public void onResponse(BaseResultDataInfo<CommentDeleteResponse> entity,
+                    Response<?> response, Throwable throwable) {
+                  super.onResponse(entity, response, throwable);
+                  if (entity != null) {
+                    if (entity.error == 2000) {
+                      Toast.makeText(BaseDetailActivity.this, "评论删除成功", Toast.LENGTH_SHORT).show();
+                      refresh();
+                    } else {
+                      Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
+                          .show();
+                    }
+                  }
+                }
+              });
+        }
+      }
+    });
   }
 
   //添加很多个headerview
+
   protected void addHeaderView() {
   }
 
@@ -248,3 +280,4 @@ public abstract class BaseDetailActivity extends BaseActivity {
     return (mErrorView.getVisibility() == View.VISIBLE);
   }
 }
+

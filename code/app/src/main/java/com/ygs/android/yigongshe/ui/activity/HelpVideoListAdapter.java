@@ -1,7 +1,9 @@
 package com.ygs.android.yigongshe.ui.activity;
 
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.widget.ImageView;
+import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -44,9 +46,11 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
       helper.setVisible(R.id.deleteVideo, true);
+      TextView tv = helper.getView(R.id.deleteVideo);
+      tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
       helper.addOnClickListener(R.id.deleteVideo);
     } else {
-      helper.setVisible(R.id.deleteVideo, false);
+      helper.setGone(R.id.deleteVideo, false);
     }
   }
 }

@@ -11,9 +11,8 @@ public class CommentItemBean implements Serializable {
   public String content; //留言内容
   public String pic;
   public String create_at; //创建日期
-  public String create_id;
+  public int create_id;
   public String create_name;
   public String create_avatar;
   public int is_mine; //是否是自己发表的 0：不是，1
-
 }

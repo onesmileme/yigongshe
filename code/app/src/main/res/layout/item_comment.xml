@@ -49,6 +49,19 @@
       android:text="通过活动育人，建立图书馆的心灵书屋"
       android:textColor="@color/black1"
       android:textSize="12dp" />
+
+    <TextView
+      android:id="@+id/delete"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/content"
+      android:background="@color/transparent"
+      android:paddingLeft="5dp"
+      android:paddingRight="5dp"
+      android:text="删除"
+      android:textColor="@color/dark_red"
+      android:textSize="10dp" />
   </RelativeLayout>
 
 </LinearLayout>

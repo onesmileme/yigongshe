@@ -21,6 +21,7 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.AttentionResponse;
+import com.ygs.android.yigongshe.bean.response.CircleDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.ListLikeResponse;
 import com.ygs.android.yigongshe.bean.response.UnAttentionResponse;
@@ -56,6 +57,7 @@ public class CommunityFragment extends BaseFragment {
   private String[] typeList = new String[] { "", T_ASSO, T_FOLLOW };
   private final int TOPIC_CITY_SELECT = 0;
   private final int PUBLISH_COMMUNITY = 1;
+  private final int COMMUNITY_DETAIL = 2;
   private View errorView;
   private SparseArray<Integer> mAttentionList = new SparseArray();
 
@@ -141,7 +143,7 @@ public class CommunityFragment extends BaseFragment {
           itemBean.is_follow = mAttentionList.get(position);
         }
         bundle.putSerializable("item", itemBean);
-        goToOthers(CommunityDetailActivity.class, bundle);
+        goToOthersForResult(CommunityDetailActivity.class, bundle, COMMUNITY_DETAIL);
       }
     });
     mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -212,6 +214,25 @@ public class CommunityFragment extends BaseFragment {
               }
             });
           }
+        } else if (view.getId() == R.id.delete) {
+          CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
+          LinkCall<BaseResultDataInfo<CircleDeleteResponse>> deleteCircle =
+              LinkCallHelper.getApiService()
+                  .deleteCircle(itemBean.pubcircleid, accountManager.getToken());
+          deleteCircle.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CircleDeleteResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<CircleDeleteResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+                  refresh();
+                } else {
+                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
+                }
+              }
+            }
+          });
         }
       }
     });
@@ -296,6 +317,7 @@ public class CommunityFragment extends BaseFragment {
         }
         break;
       case PUBLISH_COMMUNITY:
+      case COMMUNITY_DETAIL:
         refresh();
         break;
     }

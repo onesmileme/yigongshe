@@ -38,6 +38,6 @@ public class MeCommunityAdapter extends BaseQuickAdapter<CommunityItemBean, Base
         .into((ImageView) helper.getView(R.id.pic));
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.topic, item.topic);
-    helper.setText(R.id.markgood, item.zan + "");
+    helper.setText(R.id.markgood, item.like_num + "");
   }
 }

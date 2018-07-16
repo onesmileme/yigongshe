@@ -11,7 +11,9 @@ import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.AttentionResponse;
+import com.ygs.android.yigongshe.bean.response.CircleDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
+import com.ygs.android.yigongshe.bean.response.CommentDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
@@ -302,4 +304,19 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/pubcircle/like")
   LinkCall<BaseResultDataInfo<ListLikeResponse>> likeCircle(@Field("id") int id,
       @Field("token") String token);
+
+  /**
+   * 益工圈删除一个自己发的圈子
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/del")
+  LinkCall<BaseResultDataInfo<CircleDeleteResponse>> deleteCircle(@Field("id") int id,
+      @Field("token") String token);
+
+  /**
+   * 删除评论
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/del")
+  LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyComment(@Field("id") int id,
+      @Field("token") String token, @Field("comment_id") int comment_id);
 }
+

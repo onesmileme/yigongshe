@@ -1,7 +1,6 @@
 package com.ygs.android.yigongshe.ui.community;
 
 import android.os.Bundle;
-import android.view.View;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
@@ -27,7 +26,12 @@ public class CommunityDetailActivity extends BaseDetailActivity {
   }
 
   protected void addHeaderView() {
-    mHeaderView = new CommunityDetailHeaderView(this, mRecyclerView);
+    mHeaderView = new CommunityDetailHeaderView(this, mRecyclerView,
+        new CommunityDetailHeaderView.ItemClickListener() {
+          @Override public void onItemClicked() {
+            finish();
+          }
+        });
     mHeaderView.setViewData(mCommunityItemBean);
     mAdapter.addHeaderView(mHeaderView.getView());
   }

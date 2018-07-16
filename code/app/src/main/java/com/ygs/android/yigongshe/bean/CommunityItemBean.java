@@ -13,10 +13,9 @@ public class CommunityItemBean implements Serializable {
   public String pic;//图片url,多个图片“，”分割
   public String content;
   public String create_at;
-  public String create_id;
+  public int create_id;
   public String create_name;
   public String create_avatar;
-  public int zan;//点赞个数
   public int is_follow; //是否关注作者，0：未关注，1，已关注
   public int is_like;
   public int like_num;
