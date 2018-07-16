@@ -102,7 +102,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
                   if (entity != null) {
                     if (entity.error == 2000) {
                       Toast.makeText(BaseDetailActivity.this, "评论删除成功", Toast.LENGTH_SHORT).show();
-                      refresh();
+                      requestCommentData(mType, true);
                     } else {
                       Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
                           .show();

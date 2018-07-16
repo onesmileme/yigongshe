@@ -7,11 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
+import com.ygs.android.yigongshe.bean.LocationEvent;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
@@ -22,9 +24,13 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.ActivityStatusTypeView;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
 import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import retrofit2.Response;
 
 /**
@@ -45,8 +51,10 @@ public class ActivityFragment extends BaseFragment
   private LinkCall<BaseResultDataInfo<ActivityListResponse>> mCall;
   private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
   private View errorView;
+  @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
 
   @Override protected void initView() {
+    EventBus.getDefault().register(this);
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
@@ -198,6 +206,9 @@ public class ActivityFragment extends BaseFragment
       mCall.cancel();
     }
     super.onDestroyView();
+    if (EventBus.getDefault().isRegistered(this)) {
+      EventBus.getDefault().unregister(this);
+    }
   }
 
   @Override public void OnStatusSelected(String item) {
@@ -208,5 +219,10 @@ public class ActivityFragment extends BaseFragment
   @Override public void OnTypeSelected(String item) {
     progress = item;
     refresh();
+  }
+
+  @Subscribe(threadMode = ThreadMode.MAIN) public void Event(LocationEvent locationEvent) {
+    TextView view = (TextView) mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
+    view.setText(locationEvent.getCityname());
   }
 }
