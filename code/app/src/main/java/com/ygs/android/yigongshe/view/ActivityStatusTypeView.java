@@ -105,7 +105,13 @@ public class ActivityStatusTypeView {
     @Override protected void convert(BaseViewHolder helper, String item) {
       helper.setText(R.id.tv, item);
       helper.addOnClickListener(R.id.tv);
-      helper.setBackgroundRes(R.id.tv, R.drawable.bg_status_unchecked);
+      if ("全部".equals(item)) {
+        helper.setBackgroundRes(R.id.tv, R.drawable.bg_status_checked);
+        helper.setTextColor(R.id.tv, mContext.getResources().getColor(R.color.white));
+      } else {
+        helper.setBackgroundRes(R.id.tv, R.drawable.bg_status_unchecked);
+        helper.setTextColor(R.id.tv, mContext.getResources().getColor(R.color.gray2));
+      }
     }
   }
 

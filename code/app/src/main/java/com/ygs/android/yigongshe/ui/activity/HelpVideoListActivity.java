@@ -3,7 +3,6 @@ package com.ygs.android.yigongshe.ui.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,12 +20,13 @@ import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoResponse;
-import com.ygs.android.yigongshe.bean.response.SignupResponse;
+import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.utils.StringUtil;
 import com.ygs.android.yigongshe.utils.VideoUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
@@ -222,34 +222,46 @@ public class HelpVideoListActivity extends BaseActivity {
       Uri videoUri = data.getData();
       String path = VideoUtils.getPath(this, videoUri);
       File file = new File(path);
-      RequestBody requestFile =
-          RequestBody.create(MediaType.parse("application/octet-stream"), file);
+      RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-      // MultipartBody.Part  和后端约定好Key，这里的partName是用image
-      //MultipartBody.Part body =
-      //    MultipartBody.Part.createFormData("video_path", file.getName(), requestFile);
-      MultipartBody.Part body1 = MultipartBody.Part.create(requestFile);
+      //MultipartBody.Part  和后端约定好Key，这里的partName是用image
+      MultipartBody.Part body =
+          MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+      //MultipartBody.Part body1 = MultipartBody.Part.create(requestFile);
       // 添加描述
       String descriptionString = "hello, 这是文件描述";
       RequestBody description =
           RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
-      LinkCall<BaseResultDataInfo<HelpVideoResponse>> upload =
-          LinkCallHelper.getApiService().uploadHelpVideo(description, body1, mActivityId, mToken);
-      upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoResponse>>() {
-        @Override public void onResponse(final BaseResultDataInfo<HelpVideoResponse> entity,
-            Response<?> response, Throwable throwable) {
+      LinkCall<BaseResultDataInfo<UploadImageBean>> upload =
+          LinkCallHelper.getApiService().uploadRemarkImage(description, body, StringUtil.md5(path));
+      upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UploadImageBean>>() {
+        @Override
+        public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
+            Throwable throwable) {
           if (entity != null && entity.error == 2000) {
-            refresh();
+            String uploadUrl = entity.data.site_url;
+            uploadHelpVideo(uploadUrl);
           } else {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-              @Override public void run() {
-                Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
-              }
-            }, 2000);
+            Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
           }
         }
       });
     }
+  }
+
+  private void uploadHelpVideo(String uploadUrl) {
+    LinkCall<BaseResultDataInfo<HelpVideoResponse>> upload =
+        LinkCallHelper.getApiService().uploadHelpVideo(uploadUrl, mActivityId, mToken);
+    upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoResponse>>() {
+      @Override public void onResponse(final BaseResultDataInfo<HelpVideoResponse> entity,
+          Response<?> response, Throwable throwable) {
+        if (entity != null && entity.error == 2000) {
+          Toast.makeText(HelpVideoListActivity.this, "视频上传成功", Toast.LENGTH_SHORT).show();
+          refresh();
+        } else {
+          Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
   }
 }

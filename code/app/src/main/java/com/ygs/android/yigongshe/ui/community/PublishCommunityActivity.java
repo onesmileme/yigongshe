@@ -184,7 +184,10 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
       default:
         if (null != data) {
           Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-          mSelectedTopic.setText(bundle.getString("key"));
+          mSelectedTopic.setVisibility(View.VISIBLE);
+          mSelectedTopic.setText(
+              StringUtil.getReleaseString(getResources().getString(R.string.topicItem),
+                  new Object[] { bundle.getString("key") }));
         }
         break;
     }

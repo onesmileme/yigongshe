@@ -281,10 +281,10 @@ public interface ApiService {
   /**
    * 应援视频上传
    */
-  @Multipart @POST("app/api/video/add")
+  @FormUrlEncoded @POST("app/api/video/add")
   LinkCall<BaseResultDataInfo<HelpVideoResponse>> uploadHelpVideo(
-      @Part("description") RequestBody description, @Part MultipartBody.Part video_path,
-      @Query("activityid") int activityid, @Query("token") String token);
+      @Field("video_path") String video_path, @Query("activityid") int activityid,
+      @Query("token") String token);
 
   /**
    * 关注用户
