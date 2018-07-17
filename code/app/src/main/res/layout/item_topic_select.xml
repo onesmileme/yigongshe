@@ -11,7 +11,7 @@
   android:id="@+id/tv_topic"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:text="公益每一天"
+  android:text="@string/topicItem"
   android:textColor="@color/gray1"
   />
 </LinearLayout>

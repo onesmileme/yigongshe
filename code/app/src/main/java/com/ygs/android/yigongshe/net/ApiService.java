@@ -16,6 +16,7 @@ import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.bean.response.CommentDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.CommentListResponse;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
+import com.ygs.android.yigongshe.bean.response.DaCallResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
@@ -27,6 +28,7 @@ import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.bean.response.ShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.SigninResponse;
 import com.ygs.android.yigongshe.bean.response.SignupResponse;
+import com.ygs.android.yigongshe.bean.response.TopicListResponse;
 import com.ygs.android.yigongshe.bean.response.UnAttentionResponse;
 import com.ygs.android.yigongshe.bean.response.UnShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
@@ -318,5 +320,18 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/pubcircle/del")
   LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyComment(@Field("id") int id,
       @Field("token") String token, @Field("comment_id") int comment_id);
+
+  /**
+   * 为活动打call
+   */
+  @FormUrlEncoded @POST("app/api/activity/makecall")
+  LinkCall<BaseResultDataInfo<DaCallResponse>> daCallActivity(@Field("activity_id") int activity_id,
+      @Field("token") String token);
+
+  /**
+   * 话题列表
+   */
+  @POST("app/api/pubcircle/gettopics")
+  LinkCall<BaseResultDataInfo<TopicListResponse>> getTopicList();
 }
 

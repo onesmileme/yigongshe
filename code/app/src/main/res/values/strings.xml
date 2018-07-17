@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">青年义工社</string>
+  <string name="app_name">青年益工社</string>
   <string name="nav_dynamic">动态</string>
   <string name="nav_activity">活动</string>
   <string name="nav_community">益工圈</string>
@@ -78,5 +78,7 @@
 
   <string name="done">完成</string>
   <string name="topicSelect">话题选择</string>
+  <string name="topicItem">##%1s##</string>
   <string name="dacallstatus">目前call值：%1$s   当前%2$s人为该项目应援</string>
+  <string name="publishtime">%1$s 发布</string>
 </resources>

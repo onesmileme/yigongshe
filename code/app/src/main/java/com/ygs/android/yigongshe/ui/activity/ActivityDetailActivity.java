@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,10 +24,14 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
+import com.ygs.android.yigongshe.utils.DensityUtil;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.DaCallView;
 import com.ygs.android.yigongshe.view.HelpVideoView;
+import com.ygs.android.yigongshe.view.MyWebView;
 import retrofit2.Response;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * Created by ruichao on 2018/6/27.
@@ -38,9 +41,10 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   private LinkCall<BaseResultDataInfo<ActivityDetailResponse>> mCall;
   private DaCallView mDaCallView;
   private HelpVideoView mHelpVideoView;
-  private WebView mWebView;
-  private WebView mWebview2;
-  private RelativeLayout mRlWebview;
+  private MyWebView mWebView;
+  private MyWebView mWebview2;
+  private RelativeLayout mRlWebview1;
+  private RelativeLayout mRlWebview2;
   private TextView mSeeFull;
   private LinkCall<BaseResultDataInfo<HelpVideoListResponse>> mHelpVideoCall;
   private boolean isStore;//0没收藏1收藏
@@ -126,21 +130,34 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   }
 
   protected void addHeaderView() {
-    mWebView = new WebView(this);
-    mAdapter.addHeaderView(mWebView);
-    mWebView.setVisibility(View.GONE);
-    mRlWebview = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
-    mAdapter.addHeaderView(mRlWebview);
-    mRlWebview.setVisibility(View.VISIBLE);
-    mSeeFull = mRlWebview.findViewById(R.id.seefull);
-    mWebview2 = mRlWebview.findViewById(R.id.webview);
+    //bg
+    mRlWebview1 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
+    mAdapter.addHeaderView(mRlWebview1);
+    mWebView = mRlWebview1.findViewById(R.id.webview);
+
+    mWebView.setMaxHeight(MATCH_PARENT);
+    mRlWebview1.setVisibility(View.GONE);
+    //fg
+    mRlWebview2 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
+    mAdapter.addHeaderView(mRlWebview2);
+    mWebview2 = mRlWebview2.findViewById(R.id.webview);
+    mWebview2.setMaxHeight(DensityUtil.dp2px(this, 360));
+    mRlWebview2.setVisibility(View.VISIBLE);
+    mSeeFull = mRlWebview2.findViewById(R.id.seefull);
+    //if (mWebview2.getMeasuredHeight() < mWebview2.getMaxHeight()) {
+    //  mSeeFull.setVisibility(View.GONE);
+    //} else {
+    mSeeFull.setVisibility(View.VISIBLE);
     mSeeFull.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        mWebView.setVisibility(View.VISIBLE);
-        mRlWebview.setVisibility(View.GONE);
+        mRlWebview1.setVisibility(View.VISIBLE);
+        mRlWebview2.setVisibility(View.GONE);
+        mSeeFull.setVisibility(View.GONE);
       }
     });
-    mDaCallView = new DaCallView(this, mRecyclerView);
+    //}
+
+    mDaCallView = new DaCallView(this, mRecyclerView, mId);
     mAdapter.addHeaderView(mDaCallView.getView());
     mHelpVideoView = new HelpVideoView(this, mRecyclerView, mId);
     mAdapter.addHeaderView(mHelpVideoView.getView());

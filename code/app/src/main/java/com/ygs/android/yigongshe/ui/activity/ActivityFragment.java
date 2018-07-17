@@ -222,7 +222,8 @@ public class ActivityFragment extends BaseFragment
   }
 
   @Subscribe(threadMode = ThreadMode.MAIN) public void Event(LocationEvent locationEvent) {
-    TextView view = (TextView) mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
+    TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
+
     view.setText(locationEvent.getCityname());
   }
 }

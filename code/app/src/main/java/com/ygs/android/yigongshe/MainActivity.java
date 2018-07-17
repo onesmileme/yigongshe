@@ -201,7 +201,11 @@ public class MainActivity extends BaseActivity {
     @Override public void onReceiveLocation(BDLocation bdLocation) {
       if (null != bdLocation && bdLocation.getLocType() != BDLocation.TypeServerError) {
         mCityName = bdLocation.getCity();
-        initCityListData();
+        if (sourceDateList != null && sourceDateList.size() > 0) {
+          selectData();
+        } else {
+          initCityListData();
+        }
       }
     }
   };
@@ -224,23 +228,26 @@ public class MainActivity extends BaseActivity {
           // 根据a-z进行排序源数据
           pinyinComparator = new PinyinComparator();
           Collections.sort(sourceDateList, pinyinComparator);
-          Iterator iterator = sourceDateList.iterator();
-          while (iterator.hasNext()) {
-            SortModel sortModel = (SortModel) iterator.next();
-            if (TextUtils.isEmpty(mCityName)) {
-              mCityName = "全国";
-              EventBus.getDefault().post(new LocationEvent(mCityName));
-              return;
-            } else if (mCityName.equals(sortModel.getName())) {
-              EventBus.getDefault().post(new LocationEvent(mCityName));
-              return;
-            }
-          }
-
+          selectData();
           //放到文件中
         }
       }
     });
+  }
+
+  private void selectData() {
+    Iterator iterator = sourceDateList.iterator();
+    while (iterator.hasNext()) {
+      SortModel sortModel = (SortModel) iterator.next();
+      if (TextUtils.isEmpty(mCityName)) {
+        mCityName = "全国";
+        EventBus.getDefault().post(new LocationEvent(mCityName));
+        return;
+      } else if (mCityName.equals(sortModel.getName())) {
+        EventBus.getDefault().post(new LocationEvent(mCityName));
+        return;
+      }
+    }
   }
 
   /**
