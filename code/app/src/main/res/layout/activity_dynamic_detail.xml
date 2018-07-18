@@ -12,6 +12,7 @@
     titlebar:centerType="textView"
     titlebar:fillStatusBar="false"
     titlebar:leftType="imageButton"
+    titlebar:rightImageResource="@drawable/fenxiang"
     titlebar:rightType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
 

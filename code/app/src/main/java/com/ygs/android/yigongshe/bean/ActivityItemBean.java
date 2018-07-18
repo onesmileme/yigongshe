@@ -20,4 +20,5 @@ public class ActivityItemBean implements Serializable {
   public String progress;//活动进程
   public String create_at;//"2018-05-01",创建时间
   public String create_name;//"admin",创建者姓名
+  public String link;//跳转链接
 }

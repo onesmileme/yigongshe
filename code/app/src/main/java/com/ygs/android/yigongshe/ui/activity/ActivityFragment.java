@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.LocationEvent;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
@@ -95,6 +96,8 @@ public class ActivityFragment extends BaseFragment
         ActivityItemBean itemBean = ((ActivityItemBean) adapter.getItem(position));
         bundle.putInt("activity_id", itemBean.activityid);
         bundle.putString("activity_title", itemBean.title);
+        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, "www.baidu.com");
+        bundle.putSerializable("shareBean", shareBean);
         goToOthers(ActivityDetailActivity.class, bundle);
       }
     });

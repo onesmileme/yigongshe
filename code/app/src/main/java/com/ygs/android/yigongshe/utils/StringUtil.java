@@ -5,6 +5,8 @@ import android.text.Spanned;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+import static android.text.TextUtils.isEmpty;
+
 /**
  * Created by ruichao on 2018/6/28.
  */
@@ -43,5 +45,9 @@ public class StringUtil {
       localNoSuchAlgorithmException.printStackTrace();
     }
     return "";
+  }
+
+  public static String trim(String text) {
+    return isEmpty(text) ? "" : text.trim();
   }
 }

@@ -5,13 +5,16 @@ import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicDetailResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
+import com.ygs.android.yigongshe.ui.share.ShareUtils;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import retrofit2.Response;
 
 /**
@@ -21,16 +24,25 @@ import retrofit2.Response;
 public class DynamicDetailActivity extends BaseDetailActivity {
   private WebView mWebView;
   private LinkCall<BaseResultDataInfo<DynamicDetailResponse>> mCall;
+  private ShareBean mShareBean;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("news_id");
     mTitle = bundle.getString("news_title");
     mType = TYPE_DYNAMIC;
+    mShareBean = (ShareBean) bundle.getSerializable("shareBean");
   }
 
   @Override protected void initView() {
     super.initView();
     mTitleBar.getCenterTextView().setText(mTitle);
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
+          ShareUtils.getInstance().shareTo(DynamicDetailActivity.this, mShareBean);
+        }
+      }
+    });
     mErrorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         requestDetailData();

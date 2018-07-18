@@ -13,6 +13,7 @@ import butterknife.OnClick;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityDetailResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
@@ -24,6 +25,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
+import com.ygs.android.yigongshe.ui.share.ShareUtils;
 import com.ygs.android.yigongshe.utils.DensityUtil;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.DaCallView;
@@ -51,11 +53,13 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   @BindView(R.id.signup) TextView mSignup; //报名
   @BindView(R.id.signin) TextView mSignin; //签到
   @BindView(R.id.shoucang) ImageView mShoucang;
+  private ShareBean mShareBean;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
     mTitle = bundle.getString("activity_title");
     mType = TYPE_ACTIVITY;
+    mShareBean = (ShareBean) bundle.getSerializable("shareBean");
   }
 
   @Override protected int getLayoutResId() {
@@ -256,6 +260,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
           });
         }
 
+        break;
+      case R.id.share:
+        ShareUtils.getInstance().shareTo(this, mShareBean);
         break;
     }
   }

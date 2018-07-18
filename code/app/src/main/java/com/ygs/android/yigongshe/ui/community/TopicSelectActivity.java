@@ -52,7 +52,7 @@ public class TopicSelectActivity extends BaseActivity {
         refresh();
       }
     });
-    mTitleBar.getCenterTextView().setText(getResources().getString(R.string.topicSelect));
+    mTitleBar.getCenterTextView().setText("话题选择");
     mTitleBar.getRightTextView().setText(getResources().getString(R.string.done));
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {

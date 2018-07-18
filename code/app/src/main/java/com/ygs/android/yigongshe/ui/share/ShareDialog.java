@@ -2,10 +2,11 @@ package com.ygs.android.yigongshe.ui.share;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
-import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.ygs.android.yigongshe.R;
 
@@ -14,23 +15,20 @@ import com.ygs.android.yigongshe.R;
  */
 
 public class ShareDialog extends Dialog {
-  @BindView(R.id.ll_wechat) LinearLayout ll_wechat;
-  @BindView(R.id.ll_wechat_circle) LinearLayout ll_wechat_circle;
-  @BindView(R.id.ll_sinaweibo) LinearLayout ll_sinaweibo;
   private ShareListener shareListener;
 
   public ShareDialog(@NonNull Context context, ShareListener shareListener) {
     super(context, R.style.dialog_bottom);
     this.shareListener = shareListener;
-  }
-
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.dialog_share);
+    View view = View.inflate(context, R.layout.dialog_share, null);
+    Window window = this.getWindow();
+    window.setContentView(view);
+    ButterKnife.bind(this, view);
   }
 
   @OnClick({ R.id.ll_wechat, R.id.ll_wechat_circle, R.id.ll_sinaweibo })
   public void shareTo(LinearLayout ll) {
+    dismiss();
     switch (ll.getId()) {
       case R.id.ll_wechat:
         shareListener.shareToWechat();

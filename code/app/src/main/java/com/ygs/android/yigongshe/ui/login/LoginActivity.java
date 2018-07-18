@@ -2,6 +2,8 @@ package com.ygs.android.yigongshe.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +22,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.share.ShareUtils;
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -41,6 +44,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
   private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
 
   protected void initIntent(Bundle bundle) {
+  }
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    ShareUtils.getInstance().regToWx();
+    ShareUtils.getInstance().regToWeibo();
   }
 
   protected void initView() {

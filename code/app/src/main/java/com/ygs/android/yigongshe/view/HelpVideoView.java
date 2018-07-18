@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
+import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.HelpVideoDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.HelpVideoListActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
@@ -73,7 +75,7 @@ public class HelpVideoView {
           Intent intent = new Intent(context, HelpVideoDetailActivity.class);
           intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
 
-          context.startActivity(intent);
+          ((Activity)context).startActivity(intent);
         }
       });
     }

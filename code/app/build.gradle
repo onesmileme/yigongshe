@@ -57,4 +57,8 @@ dependencies {
   implementation 'com.google.code.gson:gson:2.7'
   //
   implementation 'org.greenrobot:eventbus:3.0.0'
+  //微信分享
+  implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+  //微博分享
+  implementation 'com.sina.weibo.sdk:core:4.1.0:openDefaultRelease@aar'
 }

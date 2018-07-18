@@ -81,4 +81,5 @@
   <string name="topicItem">#%1s#</string>
   <string name="dacallstatus">目前call值：%1$s   当前%2$s人为该项目应援</string>
   <string name="publishtime">%1$s 发布</string>
+  <string name="weibosdk_demo_share_text_template">我正在使用微博客户端发博器分享文字</string>
 </resources>

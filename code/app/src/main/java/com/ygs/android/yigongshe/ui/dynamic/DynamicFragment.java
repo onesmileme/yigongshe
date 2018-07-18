@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.DynamicListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
@@ -81,6 +82,8 @@ public class DynamicFragment extends BaseFragment {
         DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
         bundle.putInt("news_id", itemBean.newsid);
         bundle.putString("news_title", itemBean.title);
+        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, "www.baidu.com");
+        bundle.putSerializable("shareBean", shareBean);
         goToOthers(DynamicDetailActivity.class, bundle);
       }
     });
