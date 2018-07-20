@@ -118,7 +118,7 @@ public class TitleBarTabView extends LinearLayout {
     LayoutParams params =
         new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
     tabButton.setOrientation(VERTICAL);
-    params.setMargins(DensityUtil.dp2px(mContext, 10.0f), 0, DensityUtil.dp2px(mContext, 10.0f), 0);
+    params.setMargins(DensityUtil.dp2px(mContext, 17.0f), 0, DensityUtil.dp2px(mContext, 17.0f), 0);
     tabButton.setLayoutParams(params);
     TextView tab = new TextView(getContext());
     tab.setSingleLine();
@@ -131,7 +131,7 @@ public class TitleBarTabView extends LinearLayout {
     tab.setText(tabText);
     View bottomView = new View(getContext());
     LayoutParams bottomParams =
-        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(mContext, 2.0f));
+        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(mContext, 3.0f));
     bottomParams.gravity = Gravity.BOTTOM;
     bottomView.setLayoutParams(bottomParams);
     bottomView.setBackgroundColor(mMenuSelectedColor);

@@ -23,6 +23,7 @@ import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
 import com.ygs.android.yigongshe.utils.CharacterParser;
 import com.ygs.android.yigongshe.utils.PinyinComparator;
 import com.ygs.android.yigongshe.utils.PinyinUtils;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.SideBar;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -43,12 +44,20 @@ public class CitySelectActivity extends BaseActivity {
   private PinyinComparator pinyinComparator;
   private LinkCall<BaseResultDataInfo<CityListResponse>> mCall;
   private int mId;//话题/城市
+  @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("id");
   }
 
   @Override protected void initView() {
+    mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
+        }
+      }
+    });
     initCityList();
     initData();
   }

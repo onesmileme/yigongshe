@@ -13,7 +13,9 @@
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
-    android:text="话题" />
+    android:text="话题"
+    android:textColor="@color/black1"
+    android:textSize="12dp" />
 
   <TextView
     android:id="@+id/topic"
@@ -26,15 +28,18 @@
     android:gravity="center"
     android:padding="6dp"
     android:singleLine="true"
-    android:text="公益每一天公益每一天"
-    android:textColor="@color/black1" />
+    android:text="公益每一天"
+    android:textColor="@color/gray1"
+    android:textSize="12dp" />
 
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_marginLeft="15dp"
     android:gravity="center_vertical"
-    android:text="城市" />
+    android:text="城市"
+    android:textColor="@color/black1"
+    android:textSize="12dp" />
 
   <TextView
     android:id="@+id/city"
@@ -48,5 +53,6 @@
     android:padding="6dp"
     android:singleLine="true"
     android:text="北京市"
-    android:textColor="@color/black1" />
+    android:textColor="@color/gray1"
+    android:textSize="12dp" />
 </LinearLayout>

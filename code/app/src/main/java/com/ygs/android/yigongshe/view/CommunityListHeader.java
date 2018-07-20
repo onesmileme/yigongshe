@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,9 @@ public class CommunityListHeader {
   }
 
   public void setViewData(int id, String data) {
+    if (TextUtils.isEmpty(data)) {
+      return;
+    }
     switch (id) {
       case 0:
         mTopic.setText(data);

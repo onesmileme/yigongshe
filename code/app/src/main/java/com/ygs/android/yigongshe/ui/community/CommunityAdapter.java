@@ -34,7 +34,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
         .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
         .into((ImageView) helper.getView(R.id.createAvatar));
     helper.setText(R.id.createName, item.create_name);
-    helper.setText(R.id.content, item.topic + item.content);
+    helper.setText(R.id.content, item.content);
     if (TextUtils.isEmpty(item.pic)) {
       helper.setGone(R.id.pic, false);
     } else {
@@ -47,7 +47,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into((ImageView) helper.getView(R.id.pic));
     }
-
+    helper.setText(R.id.topic1, item.topic);
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.topic, item.topic);
     helper.setText(R.id.markgood, item.like_num + "");
