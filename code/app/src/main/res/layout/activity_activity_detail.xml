@@ -68,14 +68,15 @@
   </LinearLayout>
 
   <LinearLayout
+    android:id="@+id/status_on"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="20dp"
     android:layout_alignParentRight="true"
     android:layout_below="@id/titleBar"
-    android:layout_marginRight="15dp"
+    android:layout_marginRight="14dp"
     android:layout_marginTop="10dp"
     android:orientation="horizontal"
-    android:padding="15dp">
+    android:padding="5dp">
 
     <TextView
       android:id="@+id/signup"
@@ -84,7 +85,8 @@
       android:background="@drawable/bg_signup"
       android:gravity="center"
       android:text="报名"
-      android:textColor="@color/white" />
+      android:textColor="@color/white"
+      android:textSize="10dp" />
 
     <TextView
       android:id="@+id/signin"
@@ -94,9 +96,41 @@
       android:background="@drawable/bg_signup"
       android:gravity="center"
       android:text="签到"
-      android:textColor="@color/white" />
+      android:textColor="@color/white"
+      android:textSize="10dp" />
 
   </LinearLayout>
+
+  <RelativeLayout
+    android:id="@+id/status_finish"
+    android:layout_width="120dp"
+    android:layout_height="20dp"
+    android:layout_alignParentRight="true"
+    android:layout_below="@id/titleBar"
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_activity_status"
+    android:gravity="center"
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="已结束，共有   人参加"
+      android:textColor="@color/gray1"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/people_num"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="42dp"
+      android:text="5"
+      android:textColor="@color/green"
+      android:textSize="10dp" />
+  </RelativeLayout>
 
   <include
     layout="@layout/error_view"

@@ -27,5 +27,6 @@ public class ActivityDetailResponse implements Serializable {
   public int is_signin;//是否签到
   public int is_like; //是否点赞
   public int is_store;//是否收藏
+  public int is_end;//活动是否结束
   public List<String> videos;//应援小视频
 }

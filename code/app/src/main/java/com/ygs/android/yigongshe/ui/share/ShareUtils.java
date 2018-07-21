@@ -58,7 +58,7 @@ public class ShareUtils {
   }
 
   public void shareTo(final Context context, final ShareBean shareBean) {
-    new ShareDialog(context, new ShareListener() {
+    ShareDialog dialog = new ShareDialog(context, new ShareListener() {
       @Override public void shareToWechat() {
         shareWebpageToWechat(shareBean, false);
       }
@@ -70,7 +70,9 @@ public class ShareUtils {
       @Override public void shareToWeibo() {
         shareToWeiBo(context, shareBean);
       }
-    }).show();
+    });
+    //dialog.setCanceledOnTouchOutside(true);
+    dialog.show();
   }
 
   /**

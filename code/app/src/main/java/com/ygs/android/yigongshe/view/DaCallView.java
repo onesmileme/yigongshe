@@ -73,7 +73,7 @@ public class DaCallView {
 
   public void setDacallViewData(ActivityDetailResponse data) {
     mMardgood.setText(data.cur_call_num + "");
-    if (data.is_like == 0) {
+    if (data.is_call == 0) {
       mIvMarkgood.setImageResource(R.drawable.zan);
     } else {
       mIvMarkgood.setImageResource(R.drawable.yizan);

@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   @BindView(R.id.signin) TextView mSignin; //签到
   @BindView(R.id.shoucang) ImageView mShoucang;
   private ShareBean mShareBean;
+  @BindView(R.id.status_on) LinearLayout mStatusOn;
+  @BindView(R.id.status_finish) RelativeLayout mStatusFinish;
+  @BindView(R.id.people_num) TextView mPeopleNum;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
@@ -104,6 +108,14 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             } else {
               isStore = false;
               mShoucang.setImageResource(R.drawable.shoucang);
+            }
+            if (data.is_end == 1) {
+              mStatusOn.setVisibility(View.GONE);
+              mStatusFinish.setVisibility(View.VISIBLE);
+              mPeopleNum.setText("");
+            } else {
+              mStatusOn.setVisibility(View.VISIBLE);
+              mStatusFinish.setVisibility(View.GONE);
             }
           }
         }
