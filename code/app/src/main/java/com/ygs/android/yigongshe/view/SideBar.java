@@ -50,7 +50,7 @@ public class SideBar extends View {
     int width = getWidth();
     // 获取每一个字母的高度
     int singleHeight = height / letter.length;
-    int textSize = DensityUtil.dp2px(getContext(), 14);
+    int textSize = DensityUtil.dp2px(getContext(), 12);
     int normalColor = ContextCompat.getColor(getContext(), R.color.gray4);
     int selectColor = ContextCompat.getColor(getContext(), R.color.white);
     for (int i = 0; i < letter.length; i++) {

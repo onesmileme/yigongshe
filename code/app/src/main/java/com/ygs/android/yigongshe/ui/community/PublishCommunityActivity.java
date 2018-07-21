@@ -59,6 +59,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   @BindView(R.id.item_default_image) ImageView mDefaultImage;
   @BindView(R.id.item_image) ImageView mImage;
   @BindView(R.id.selected_topic) TextView mSelectedTopic;
+  private String mSelectedTopicStr;
   private PopupWindow pop;
   private LinearLayout ll_popup;
   private TextView btn_cancel;
@@ -99,7 +100,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
           //  return;
           //}
           LinkCall<BaseResultDataInfo<PublishCommunityResponse>> pc = LinkCallHelper.getApiService()
-              .publishCommunity(accountManager.getToken(), mSelectedTopic.getText().toString(),
+              .publishCommunity(accountManager.getToken(), mSelectedTopicStr,
                   mEditText.getText().toString(), mUploadImageUrl);
           pc.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<PublishCommunityResponse>>() {
             @Override public void onResponse(BaseResultDataInfo<PublishCommunityResponse> entity,
@@ -184,10 +185,15 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
       default:
         if (null != data) {
           Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-          mSelectedTopic.setVisibility(View.VISIBLE);
-          mSelectedTopic.setText(
-              StringUtil.getReleaseString(getResources().getString(R.string.topicItem),
-                  new Object[] { bundle.getString("key") }));
+          mSelectedTopicStr = bundle.getString("key");
+          if (!TextUtils.isEmpty(mSelectedTopicStr)) {
+            mSelectedTopic.setVisibility(View.VISIBLE);
+            mSelectedTopic.setText(
+                StringUtil.getReleaseString(getResources().getString(R.string.topicItem),
+                    new Object[] { mSelectedTopicStr }));
+          } else {
+            mSelectedTopic.setVisibility(View.GONE);
+          }
         }
         break;
     }

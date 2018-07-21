@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.CityItemBean;
 import com.ygs.android.yigongshe.bean.SortModel;
@@ -45,6 +46,7 @@ public class CitySelectActivity extends BaseActivity {
   private LinkCall<BaseResultDataInfo<CityListResponse>> mCall;
   private int mId;//话题/城市
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
+  private String mString;//准备发起查询的字串
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("id");
@@ -105,6 +107,7 @@ public class CitySelectActivity extends BaseActivity {
       }
 
       @Override public void afterTextChanged(Editable s) {
+        mString = s.toString();
       }
     });
   }
@@ -180,5 +183,13 @@ public class CitySelectActivity extends BaseActivity {
     // 排序
     Collections.sort(filterDateList, pinyinComparator);
     adapter.updateListView(filterDateList);
+  }
+
+  protected boolean openTranslucentStatus() {
+    return true;
+  }
+
+  @OnClick(R.id.search) public void onBtnClicked() {
+    filterData(mString);
   }
 }
