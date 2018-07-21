@@ -96,7 +96,7 @@ public class ActivityFragment extends BaseFragment
         ActivityItemBean itemBean = ((ActivityItemBean) adapter.getItem(position));
         bundle.putInt("activity_id", itemBean.activityid);
         bundle.putString("activity_title", itemBean.title);
-        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, "www.baidu.com");
+        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
         bundle.putSerializable("shareBean", shareBean);
         goToOthers(ActivityDetailActivity.class, bundle);
       }

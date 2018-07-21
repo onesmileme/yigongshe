@@ -36,7 +36,6 @@ public class ShareDialog extends Dialog {
 
   @OnClick({ R.id.ll_wechat, R.id.ll_wechat_circle, R.id.ll_sinaweibo })
   public void shareTo(View ll) {
-    dismiss();
     switch (ll.getId()) {
       case R.id.ll_wechat:
         shareListener.shareToWechat();

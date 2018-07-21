@@ -30,7 +30,7 @@ import com.ygs.android.yigongshe.utils.StringUtil;
 
 public class ShareUtils {
   public static final String WX_APP_ID = "wx397a918840390b93";
-  public static final String WeiBo_APP_ID = "3718455954";
+  public static final String WeiBo_APP_ID = "3718455954"; //App Key
   public static final String WeiBo_APP_SECRET = "5474c77225cfb99fadc866a2eb5e59b0";
   private IWXAPI mIWXAPI;
   private Context mContext;
@@ -54,7 +54,8 @@ public class ShareUtils {
   }
 
   public void regToWeibo() {
-    WbSdk.install(mContext, new AuthInfo(mContext, WeiBo_APP_ID, null, null));
+    WbSdk.install(mContext,
+        new AuthInfo(mContext, WeiBo_APP_ID, "https://api.weibo.com/oauth2/default.html", null));
   }
 
   public void shareTo(final Context context, final ShareBean shareBean) {
@@ -87,6 +88,7 @@ public class ShareUtils {
    */
   private void shareWebpageToWechat(ShareBean shareBean, boolean isCircle) {
     if (TextUtils.isEmpty(shareBean.url)) {
+      Toast.makeText(mContext, "分享链接为空", Toast.LENGTH_SHORT).show();
       return;
     }
 
@@ -130,20 +132,18 @@ public class ShareUtils {
 
   private void shareToWeiBo(Context context, ShareBean shareBean) {
     //微博
+    regToWeibo();
     shareHandler = new WbShareHandler((Activity) context);
     shareHandler.registerApp();
-    sendMultiMessage(shareBean, true, false);
+    sendMultiMessage(shareBean);
   }
 
-  private void sendMultiMessage(ShareBean shareBean, boolean hasText, boolean hasImage) {
-
+  private void sendMultiMessage(ShareBean shareBean) {
+    //分享带连接的微博
     WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
-    if (hasText) {
-      weiboMessage.textObject = getTextObj(shareBean);
-    }
-    if (hasImage) {
-      weiboMessage.imageObject = getImageObj();
-    }
+    //weiboMessage.textObject = getTextObj(shareBean);
+    ///weiboMessage.imageObject = getImageObj();
+    weiboMessage.mediaObject = getWebpageObj(shareBean);
     shareHandler.shareMessage(weiboMessage, false);
   }
 
@@ -165,7 +165,7 @@ public class ShareUtils {
   private TextObject getTextObj(ShareBean shareBean) {
     TextObject textObject = new TextObject();
     textObject.text = getSharedText();
-    textObject.title = shareBean.title;
+    textObject.title = shareBean.title + shareBean.url;
     textObject.actionUrl = shareBean.url;
     return textObject;
   }
@@ -188,17 +188,16 @@ public class ShareUtils {
    *
    * @return 多媒体（网页）消息对象。
    */
-  private WebpageObject getWebpageObj() {
+  private WebpageObject getWebpageObj(ShareBean shareBean) {
     WebpageObject mediaObject = new WebpageObject();
     mediaObject.identify = Utility.generateGUID();
-    mediaObject.title = "测试title";
-    mediaObject.description = "测试描述";
+    mediaObject.title = shareBean.title + shareBean.url;
+    mediaObject.description = shareBean.description;
     Bitmap bitmap =
         BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_launcher_background);
     // 设置 Bitmap 类型的图片到视频对象里         设置缩略图。 注意：最终压缩过的缩略图大小不得超过 32kb。
     mediaObject.setThumbImage(bitmap);
-    mediaObject.actionUrl = "http://news.sina.com.cn/c/2013-10-22/021928494669.shtml";
-    mediaObject.defaultText = "Webpage 默认文案";
+    mediaObject.actionUrl = shareBean.url;
     return mediaObject;
   }
 }

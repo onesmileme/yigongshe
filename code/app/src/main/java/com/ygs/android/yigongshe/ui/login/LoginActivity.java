@@ -48,8 +48,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    ShareUtils.getInstance().regToWx();
-    ShareUtils.getInstance().regToWeibo();
+    //ShareUtils.getInstance().regToWx();
+    //ShareUtils.getInstance().regToWeibo();
   }
 
   protected void initView() {
