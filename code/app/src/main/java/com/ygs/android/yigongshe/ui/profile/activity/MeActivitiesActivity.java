@@ -16,6 +16,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.SegmentControlView;
 
 import java.util.List;
@@ -25,8 +26,11 @@ import retrofit2.Response;
 
 public class MeActivitiesActivity extends BaseActivity implements SegmentControlView.OnSegmentChangedListener {
 
-    @BindView(R.id.titlebar_text_title)
-    TextView titleView;
+//    @BindView(R.id.titlebar_text_title)
+//    TextView titleView;
+
+    @BindView(R.id.titleBar)
+    CommonTitleBar titleBar;
 
     @BindView(R.id.my_mactivity_segment)
     SegmentControlView segmentControlView;
@@ -45,8 +49,6 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     }
 
     protected void initView(){
-
-        titleView.setText(R.string.my_activity);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         mActivityAdapter = new MeAcitivityAdapter();

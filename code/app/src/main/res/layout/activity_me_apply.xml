@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/apply_container_layout">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/layout_titlebar"

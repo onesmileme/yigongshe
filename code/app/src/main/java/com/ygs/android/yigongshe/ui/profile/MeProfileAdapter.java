@@ -20,6 +20,7 @@ import com.ygs.android.yigongshe.bean.MeItemBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.activity.MeActivitiesActivity;
+import com.ygs.android.yigongshe.ui.profile.app.MeMyAppActivity;
 import com.ygs.android.yigongshe.ui.profile.apply.MeApplyActivity;
 import com.ygs.android.yigongshe.ui.profile.association.MeAssociationActivity;
 import com.ygs.android.yigongshe.ui.profile.charitytime.MeCharityTimeActivity;
@@ -112,7 +113,8 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
 
         switch (postion){
             case 0:{//message
-                return MessageActivity.class;
+                return MeApplyActivity.class;
+//                return MessageActivity.class;
             }
             case 1://我的关注
                 return MeFocusActivity.class;
@@ -125,7 +127,7 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean,BaseViewHolder
             case 5://我的公益时间
                 return MeCharityTimeActivity.class;
             case 6://我的应用
-                return MeApplyActivity.class;
+                return MeMyAppActivity.class;
 
             default:
                 break;

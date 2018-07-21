@@ -46,6 +46,7 @@
   <string name="submit">提交</string>
   <string name="charity_record">公益记录</string>
 
+  <string name="association">社团</string>
   <string name="association_info">社团信息</string>
   <string name="association_name">社团名称:</string>
   <string name="association_member">社员信息</string>
@@ -75,6 +76,7 @@
   <string name="unfollow">取消关注</string>
 
   <string name="my_community">我的益工圈</string>
+  <string name="my_app">我的应用</string>
 
   <string name="done">完成</string>
   <string name="topicSelect">#%1s#</string>
