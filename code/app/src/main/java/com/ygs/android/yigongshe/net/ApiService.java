@@ -1,9 +1,11 @@
 package com.ygs.android.yigongshe.net;
 
+import com.ygs.android.yigongshe.bean.CharityDurationBean;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
+import com.ygs.android.yigongshe.bean.RunListBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -127,8 +129,33 @@ public interface ApiService {
   /**
    * 取消关注某人
    */
-  @POST("/app/api/followperson/unfollow") LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(
+  @POST("app/api/followperson/unfollow") LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(
       @Field("token") String token, @Field("userid") String userid);
+
+
+  /**
+   * /app/api/duration/getduration
+   获取年度公益时长
+   */
+  @POST("app/api/duration/getduration")
+  LinkCall<BaseResultDataInfo<CharityDurationBean>> getCharityDuration(@Field("token") String token);
+
+  /**
+   * 添加公益记录
+   * /
+   */
+  @POST("app/api/duration/add")
+  LinkCall<BaseResultDataInfo<EmptyBean>> addCharityDuration(@Field("duration") float duration ,
+                                                             @Field("content") String content);
+
+  /**
+   * /app/api/step/getranklist
+   获取排行列表
+   */
+  @POST("app/api/step/getranklist")
+  LinkCall<BaseResultDataInfo<RunListBean>> getRankList(@Field("token") String token ,
+                                                        @Field("page") int page ,
+                                                        @Field("perpage") int perpage);
 
   /**
    * 获取我报名参加的活动
