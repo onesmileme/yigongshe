@@ -124,6 +124,7 @@ public class TopicSelectActivity extends BaseActivity {
 
   private void setData(boolean isRefresh, List data) {
     final int size = data == null ? 0 : data.size();
+    data.add(0, "全部");
     if (isRefresh) {
       mAdapter.setNewData(data);
     } else {

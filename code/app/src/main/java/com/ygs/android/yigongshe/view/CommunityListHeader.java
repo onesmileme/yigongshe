@@ -21,6 +21,7 @@ public class CommunityListHeader {
   @BindView(R.id.topic) TextView mTopic;
   @BindView(R.id.city) TextView mCity;
   private SelectBtnListener mListener;
+  private String mTopicString, mCityString;
 
   public CommunityListHeader(Context context, ViewGroup root, SelectBtnListener listener) {
     mContext = context;

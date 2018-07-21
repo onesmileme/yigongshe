@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity {
     return true;
   }
 
-  private String mCityName = "全国";
+  public static String mCityName = "全国";
   private BDAbstractLocationListener mLocationListener = new BDAbstractLocationListener() {
     @Override public void onReceiveLocation(BDLocation bdLocation) {
       if (null != bdLocation && bdLocation.getLocType() != BDLocation.TypeServerError) {

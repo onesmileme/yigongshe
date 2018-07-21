@@ -1,23 +1,30 @@
 package com.ygs.android.yigongshe.bean;
 
 public class SortModel {
+  public SortModel() {
+  }
 
-    private String name;
-    private String sortLetters;
+  public SortModel(String name, String sortLetters) {
+    this.name = name;
+    this.sortLetters = sortLetters;
+  }
 
-    public String getName() {
-        return name;
-    }
+  public String name;
+  public String sortLetters;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public String getSortLetters() {
-        return sortLetters;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setSortLetters(String sortLetters) {
-        this.sortLetters = sortLetters;
-    }
+  public String getSortLetters() {
+    return sortLetters;
+  }
+
+  public void setSortLetters(String sortLetters) {
+    this.sortLetters = sortLetters;
+  }
 }

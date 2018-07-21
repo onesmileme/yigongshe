@@ -188,12 +188,13 @@ public interface ApiService {
       @Field("activityid") int activityid);
 
   /**
-   * 圈子列表
-   * type	类型，全部：为空或all; 城市：city; 社团：association, 关注的人：follow	是
+   * 益工圈列表
+   * type	类型，全部：为空或all; 社团：association, 关注的人：follow	是
    */
   @GET("app/api/pubcircle/getlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getCommunityList(@Query("page") int page,
-      @Query("perpage") int perpage, @Query("type") String type);
+      @Query("perpage") int perpage, @Query("type") String type, @Query("city") String city,
+      @Query("topic") String topic);
 
   /**
    * 视频列表
@@ -262,7 +263,7 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/pubcircle/publish")
   LinkCall<BaseResultDataInfo<PublishCommunityResponse>> publishCommunity(
       @Field("token") String token, @Field("topic") String topic, @Field("content") String content,
-      @Field("pic") String pic);
+      @Field("pic") String pic, @Field("city") String city);
 
   /**
    * 收藏活动

@@ -60,6 +60,7 @@ public class CommunityFragment extends BaseFragment {
   private final int COMMUNITY_DETAIL = 2;
   private View errorView;
   private SparseArray<Integer> mAttentionList = new SparseArray();
+  private String mTopicStr, mCityStr;
 
   @Override protected void initView() {
     errorView =
@@ -250,7 +251,8 @@ public class CommunityFragment extends BaseFragment {
     //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
-    mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);
+    mCall = LinkCallHelper.getApiService()
+        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
@@ -273,7 +275,8 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void loadMore() {
-    mCall = LinkCallHelper.getApiService().getCommunityList(pageCnt, _COUNT, mType);
+    mCall = LinkCallHelper.getApiService()
+        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
@@ -313,7 +316,23 @@ public class CommunityFragment extends BaseFragment {
       case TOPIC_CITY_SELECT:
         if (null != data) {
           Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-          mCommunityListHeader.setViewData(bundle.getInt("id"), bundle.getString("key"));
+          int id = bundle.getInt("id");
+          String key = bundle.getString("key");
+          if (id == 0) { //topic
+            if ("全部".equals(key)) {
+              mTopicStr = "";
+            } else {
+              mTopicStr = key;
+            }
+          } else if (id == 1) {
+            if ("全部".equals(key)) {
+              mCityStr = "";
+            } else {
+              mCityStr = key;
+            }
+          }
+          mCommunityListHeader.setViewData(id, key);
+          refresh();
         }
         break;
       case PUBLISH_COMMUNITY:

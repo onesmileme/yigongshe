@@ -182,6 +182,7 @@ public class CitySelectActivity extends BaseActivity {
     }
     // 排序
     Collections.sort(filterDateList, pinyinComparator);
+    filterDateList.add(0, new SortModel("全部", "a"));
     adapter.updateListView(filterDateList);
   }
 

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.bumptech.glide.Glide;
+import com.ygs.android.yigongshe.MainActivity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
@@ -101,7 +102,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
           //}
           LinkCall<BaseResultDataInfo<PublishCommunityResponse>> pc = LinkCallHelper.getApiService()
               .publishCommunity(accountManager.getToken(), mSelectedTopicStr,
-                  mEditText.getText().toString(), mUploadImageUrl);
+                  mEditText.getText().toString(), mUploadImageUrl, MainActivity.mCityName);
           pc.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<PublishCommunityResponse>>() {
             @Override public void onResponse(BaseResultDataInfo<PublishCommunityResponse> entity,
                 Response<?> response, Throwable throwable) {
