@@ -134,8 +134,7 @@ public interface ApiService {
 
 
   /**
-   * /app/api/duration/getduration
-   获取年度公益时长
+   * 获取年度公益时长
    */
   @POST("app/api/duration/getduration")
   LinkCall<BaseResultDataInfo<CharityDurationBean>> getCharityDuration(@Field("token") String token);
@@ -156,6 +155,12 @@ public interface ApiService {
   LinkCall<BaseResultDataInfo<RunListBean>> getRankList(@Field("token") String token ,
                                                         @Field("page") int page ,
                                                         @Field("perpage") int perpage);
+
+  /**
+   *
+   * 发送验证码
+   */
+  LinkCall<BaseResultDataInfo<EmptyBean>> sendVerifycode(@Field("phonenum") String phonenum);
 
   /**
    * 获取我报名参加的活动

@@ -87,6 +87,20 @@ public class AccountManager {
     editor.apply();
   }
 
+  public void updateUserName(String username){
+    userInfoBean.username = username;
+    updateUserInfo(userInfoBean);
+  }
+
+//  public void updatePassword(String password){
+//
+//  }
+
+  public void updatePhone(String phone){
+    userInfoBean.phone = phone;
+    updateUserInfo(userInfoBean);
+  }
+
   public String getToken() {
     return token;
   }
