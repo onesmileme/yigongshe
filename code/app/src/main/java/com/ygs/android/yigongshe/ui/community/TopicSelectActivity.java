@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
@@ -37,6 +38,7 @@ public class TopicSelectActivity extends BaseActivity {
   private LinkCall<BaseResultDataInfo<TopicListResponse>> mCall;
   private TopicSelectAdapter mAdapter;
   private View errorView;
+  @BindView(R.id.finish) TextView mFinish;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("id");
@@ -53,11 +55,10 @@ public class TopicSelectActivity extends BaseActivity {
       }
     });
     mTitleBar.getCenterTextView().setText("话题选择");
-    mTitleBar.getRightTextView().setText(getResources().getString(R.string.done));
+    //mTitleBar.getRightTextView().setText(getResources().getString(R.string.done));
     mTitleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
       @Override public void onClicked(View v, int action, String extra) {
-        if (action == CommonTitleBar.ACTION_LEFT_BUTTON
-            || action == CommonTitleBar.ACTION_RIGHT_TEXT) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
           Bundle bundle = new Bundle();
           bundle.putString("key", mSelected);
           bundle.putInt("id", mId);
@@ -126,7 +127,6 @@ public class TopicSelectActivity extends BaseActivity {
 
   private void setData(boolean isRefresh, List data) {
     final int size = data == null ? 0 : data.size();
-    data.add(0, "全部");
     if (isRefresh) {
       mAdapter.setNewData(data);
     } else {
@@ -135,5 +135,20 @@ public class TopicSelectActivity extends BaseActivity {
       }
     }
     mAdapter.loadMoreEnd(isRefresh);
+  }
+
+  @OnClick({ R.id.finish, R.id.choose_all }) public void onBtnClicked(View v) {
+    switch (v.getId()) {
+      case R.id.finish:
+        Bundle bundle = new Bundle();
+        bundle.putString("key", mSelected);
+        bundle.putInt("id", mId);
+        backForResult(BaseDetailActivity.class, bundle, 100);
+        finish();
+        break;
+      case R.id.choose_all:
+        mSelected = "全部";
+        break;
+    }
   }
 }

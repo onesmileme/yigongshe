@@ -1,15 +1,19 @@
 package com.ygs.android.yigongshe.ui.base;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.ygs.android.yigongshe.R;
@@ -119,86 +123,88 @@ public abstract class BaseActivity extends FragmentActivity {
         ViewCompat.setFitsSystemWindows(mChildView, false);
         ViewCompat.requestApplyInsets(mChildView);
       }
+    } else {
+      Window window = getWindow();
+      //设置Window为全透明
+      window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+      ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
+      //获取父布局
+      View mContentChild = mContentView.getChildAt(0);
+      //获取状态栏高度
+      int statusBarHeight = AppUtils.getStatusBarHeight(this);
+
+      //如果已经存在假状态栏则移除，防止重复添加
+      removeFakeStatusBarViewIfExist(this);
+      //添加一个View来作为状态栏的填充
+      addFakeStatusBarView(this, getResources().getColor(R.color.white), statusBarHeight);
+      //  //设置子控件到状态栏的间距
+      addMarginTopToContentChild(mContentChild, statusBarHeight);
+      //  //不预留系统栏位置
+      if (mContentChild != null) {
+        ViewCompat.setFitsSystemWindows(mContentChild, false);
+      }
+      //  //如果在Activity中使用了ActionBar则需要再将布局与状态栏的高度跳高一个ActionBar的高度，否则内容会被ActionBar遮挡
+      int action_bar_id = getResources().getIdentifier("action_bar", "id", getPackageName());
+      View view = findViewById(action_bar_id);
+      if (view != null) {
+        TypedValue typedValue = new TypedValue();
+        if (getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
+          int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,
+              getResources().getDisplayMetrics());
+          setContentTopPadding(this, actionBarHeight);
+        }
+      }
     }
-    //else {
-    //  Window window = getWindow();
-    //  //设置Window为全透明
-    //  window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-    //
-    //  ViewGroup mContentView = (ViewGroup) window.findViewById(Window.ID_ANDROID_CONTENT);
-    //  //获取父布局
-    //  View mContentChild = mContentView.getChildAt(0);
-    //  //获取状态栏高度
-    //  int statusBarHeight = AppUtils.getStatusBarHeight(this);
-    //
-    //  //如果已经存在假状态栏则移除，防止重复添加
-    //  removeFakeStatusBarViewIfExist(this);
-    //  //添加一个View来作为状态栏的填充
-    //  addFakeStatusBarView(this, getResources().getColor(R.color.white), statusBarHeight);
-    //  //设置子控件到状态栏的间距
-    //  addMarginTopToContentChild(mContentChild, statusBarHeight);
-    //  //不预留系统栏位置
-    //  if (mContentChild != null) {
-    //    ViewCompat.setFitsSystemWindows(mContentChild, false);
-    //  }
-    //  //如果在Activity中使用了ActionBar则需要再将布局与状态栏的高度跳高一个ActionBar的高度，否则内容会被ActionBar遮挡
-    //  int action_bar_id = getResources().getIdentifier("action_bar", "id", getPackageName());
-    //  View view = findViewById(action_bar_id);
-    //  if (view != null) {
-    //    TypedValue typedValue = new TypedValue();
-    //    if (getTheme().resolveAttribute(R.attr.actionBarSize, typedValue, true)) {
-    //      int actionBarHeight = TypedValue.complexToDimensionPixelSize(typedValue.data,
-    //          getResources().getDisplayMetrics());
-    //      setContentTopPadding(this, actionBarHeight);
-    //    }
-    //  }
-    //}
   }
 
-  //private static void removeFakeStatusBarViewIfExist(Activity activity) {
-  //  Window window = activity.getWindow();
-  //  ViewGroup mDecorView = (ViewGroup) window.getDecorView();
+  private static void removeFakeStatusBarViewIfExist(Activity activity) {
+    Window window = activity.getWindow();
+    ViewGroup mDecorView = (ViewGroup) window.getDecorView();
+
+    View fakeView = mDecorView.findViewWithTag("statusBarView");
+    if (fakeView != null) {
+      mDecorView.removeView(fakeView);
+    }
+  }
+
   //
-  //  View fakeView = mDecorView.findViewWithTag(TAG_FAKE_STATUS_BAR_VIEW);
-  //  if (fakeView != null) {
-  //    mDecorView.removeView(fakeView);
-  //  }
-  //}
+  private static View addFakeStatusBarView(Activity activity, int statusBarColor,
+      int statusBarHeight) {
+    Window window = activity.getWindow();
+    ViewGroup mDecorView = (ViewGroup) window.getDecorView();
+
+    View mStatusBarView = new View(activity);
+    FrameLayout.LayoutParams layoutParams =
+        new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
+    layoutParams.gravity = Gravity.TOP;
+    mStatusBarView.setLayoutParams(layoutParams);
+    mStatusBarView.setBackgroundColor(statusBarColor);
+    mStatusBarView.setTag("statusBarView");
+
+    mDecorView.addView(mStatusBarView);
+    return mStatusBarView;
+  }
+
   //
-  //private static View addFakeStatusBarView(Activity activity, int statusBarColor,
-  //    int statusBarHeight) {
-  //  Window window = activity.getWindow();
-  //  ViewGroup mDecorView = (ViewGroup) window.getDecorView();
+  private static void addMarginTopToContentChild(View mContentChild, int statusBarHeight) {
+    if (mContentChild == null) {
+      return;
+    }
+    if (!"marginAdded".equals(mContentChild.getTag())) {
+      FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mContentChild.getLayoutParams();
+      lp.topMargin += statusBarHeight;
+      mContentChild.setLayoutParams(lp);
+      mContentChild.setTag("marginAdded");
+    }
+  }
+
   //
-  //  View mStatusBarView = new View(activity);
-  //  FrameLayout.LayoutParams layoutParams =
-  //      new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, statusBarHeight);
-  //  layoutParams.gravity = Gravity.TOP;
-  //  mStatusBarView.setLayoutParams(layoutParams);
-  //  mStatusBarView.setBackgroundColor(statusBarColor);
-  //  mStatusBarView.setTag(TAG_FAKE_STATUS_BAR_VIEW);
-  //
-  //  mDecorView.addView(mStatusBarView);
-  //  return mStatusBarView;
-  //}
-  //
-  //private static void addMarginTopToContentChild(View mContentChild, int statusBarHeight) {
-  //  if (mContentChild == null) {
-  //    return;
-  //  }
-  //  if (!TAG_MARGIN_ADDED.equals(mContentChild.getTag())) {
-  //    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mContentChild.getLayoutParams();
-  //    lp.topMargin += statusBarHeight;
-  //    mContentChild.setLayoutParams(lp);
-  //    mContentChild.setTag(TAG_MARGIN_ADDED);
-  //  }
-  //}
-  //
-  //static void setContentTopPadding(Activity activity, int padding) {
-  //  ViewGroup mContentView =
-  //      (ViewGroup) activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT);
-  //  mContentView.setPadding(0, padding, 0, 0);
-  //}
+  static void setContentTopPadding(Activity activity, int padding) {
+    ViewGroup mContentView =
+        (ViewGroup) activity.getWindow().findViewById(Window.ID_ANDROID_CONTENT);
+    mContentView.setPadding(0, padding, 0, 0);
+  }
 
   protected void goToOthers(Class<?> cls, Bundle bundle) {
     Intent intent = new Intent(this, cls);

@@ -57,6 +57,12 @@ public class CitySelectActivity extends BaseActivity {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
           finish();
+        } else if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
+          Bundle bundle = new Bundle();
+          bundle.putString("key", "全部");
+          bundle.putInt("id", mId);
+          backForResult(BaseDetailActivity.class, bundle, 100);
+          finish();
         }
       }
     });
@@ -88,12 +94,10 @@ public class CitySelectActivity extends BaseActivity {
 
       @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         String cityName = ((SortModel) adapter.getItem(position)).getName();
-        Intent intent = new Intent();
         Bundle bundle = new Bundle();
         bundle.putString("key", cityName);
         bundle.putInt("id", mId);
         backForResult(BaseDetailActivity.class, bundle, 100);
-
         finish();
       }
     });
@@ -182,7 +186,6 @@ public class CitySelectActivity extends BaseActivity {
     }
     // 排序
     Collections.sort(filterDateList, pinyinComparator);
-    filterDateList.add(0, new SortModel("全部", "a"));
     adapter.updateListView(filterDateList);
   }
 

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="match_parent">
+
+
+  <TextView
+    android:id="@+id/finish"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:gravity="center_vertical"
+    android:layout_marginRight="12dp"
+    android:text="完成"
+    android:textColor="@color/green"
+    android:textSize="12dp" />
+
+  <TextView
+    android:id="@+id/choose_all"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:layout_marginRight="12dp"
+    android:layout_toLeftOf="@id/finish"
+    android:text="选择全部"
+    android:textColor="@color/green"
+    android:textSize="12dp" />
+</RelativeLayout>

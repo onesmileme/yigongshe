@@ -12,7 +12,8 @@
     titlebar:centerType="textView"
     titlebar:fillStatusBar="false"
     titlebar:leftType="imageButton"
-    titlebar:rightType="textView"></com.ygs.android.yigongshe.view.CommonTitleBar>
+    titlebar:rightCustomView="@layout/titlebar_right_text"
+    titlebar:rightType="customView"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rv_list"
