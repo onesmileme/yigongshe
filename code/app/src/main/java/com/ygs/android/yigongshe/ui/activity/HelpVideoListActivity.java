@@ -112,7 +112,7 @@ public class HelpVideoListActivity extends BaseActivity {
     int statusBarHeight = AppUtils.getStatusBarHeight(this);
     LinearLayout.LayoutParams params =
         (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
-    params.setMargins(0, statusBarHeight, 0, 0);
+    params.setMargins(0, 0, 0, 0);
     mTitleBarTabView.setLayoutParams(params);
     String[] tabs = getResources().getStringArray(R.array.video_tab_view);
     for (int i = 0; i < tabs.length; i++) {
@@ -216,7 +216,7 @@ public class HelpVideoListActivity extends BaseActivity {
       mAdapter.setEmptyView(errorView);
       return;
     }
-    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService()

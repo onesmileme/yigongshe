@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -15,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
-import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.HelpVideoDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.HelpVideoListActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
@@ -68,19 +69,26 @@ public class HelpVideoView {
           .fallback(R.drawable.loading2)
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into(mVideoView);
-      mVideoView.setOnClickListener(new View.OnClickListener() {
-        @Override public void onClick(View view) {
+    } else {
+      mVideoView.setImageResource(R.drawable.loading2);
+    }
+    mVideoView.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        if (null != data && !TextUtils.isEmpty(data.src)) {
           Bundle bundle = new Bundle();
           bundle.putString("src", data.src);
           Intent intent = new Intent(context, HelpVideoDetailActivity.class);
           intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
 
-          ((Activity)context).startActivity(intent);
+          ((Activity) context).startActivity(intent);
+        } else {
+          Toast.makeText(context, "没有视频，请点击更多视频去添加视频", Toast.LENGTH_SHORT).show();
         }
-      });
-    }
-    //mAdapter.setNewData(data.video_list);
+      }
+    });
   }
+  //mAdapter.setNewData(data.video_list);
+  //}
 
   //public class HelpVideoAdapter extends BaseQuickAdapter<HelpVideoItemBean, BaseViewHolder> {
   //

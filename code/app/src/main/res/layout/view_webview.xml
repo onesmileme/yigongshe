@@ -3,33 +3,108 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <LinearLayout
+  <com.ygs.android.yigongshe.view.MyWebView
+    android:id="@+id/webview2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:visibility="gone" />
 
-    <com.ygs.android.yigongshe.view.MyWebView
-      android:id="@+id/webview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content" />
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <View
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="15dp"
-      android:background="@color/white" />
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+      <com.ygs.android.yigongshe.view.MyWebView
+        android:id="@+id/webview1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+      <View
+        android:id="@+id/webview1holder"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/white" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/seefull"
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:layout_alignParentBottom="true"
+      android:background="@color/white1"
+      android:drawableRight="@color/green"
+      android:gravity="center"
+      android:text="点击查看全文   >"
+      android:textColor="@color/green"
+      android:visibility="gone" />
+  </RelativeLayout>
+
+  <LinearLayout
+    android:id="@+id/status_on"
+    android:layout_width="wrap_content"
+    android:layout_height="20dp"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="10dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+    <TextView
+      android:id="@+id/signup"
+      android:layout_width="50dp"
+      android:layout_height="20dp"
+      android:background="@drawable/bg_signup"
+      android:gravity="center"
+      android:text="报名"
+      android:textColor="@color/white"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/signin"
+      android:layout_width="50dp"
+      android:layout_height="20dp"
+      android:layout_marginLeft="10dp"
+      android:background="@drawable/bg_signup"
+      android:gravity="center"
+      android:text="签到"
+      android:textColor="@color/white"
+      android:textSize="10dp" />
+
   </LinearLayout>
 
-  <TextView
-    android:id="@+id/seefull"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:layout_alignParentBottom="true"
-    android:background="@color/white1"
-    android:drawableRight="@color/green"
+  <RelativeLayout
+    android:id="@+id/status_finish"
+    android:layout_width="120dp"
+    android:layout_height="20dp"
+    android:layout_alignParentRight="true"
+    android:layout_marginRight="14dp"
+    android:layout_marginTop="10dp"
+    android:background="@drawable/bg_activity_status"
     android:gravity="center"
-    android:text="点击查看全文   >"
-    android:textColor="@color/green"
-    android:visibility="gone" />
+    android:orientation="horizontal">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:text="已结束，共有   人参加"
+      android:textColor="@color/gray1"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/people_num"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_marginRight="42dp"
+      android:text="5"
+      android:textColor="@color/green"
+      android:textSize="10dp" />
+  </RelativeLayout>
 </RelativeLayout>
 
   <!--<?xml version="1.0" encoding="utf-8"?>--><!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"--><!--android:layout_width="match_parent"--><!--android:layout_height="match_parent"--><!--android:padding="10dp">-->

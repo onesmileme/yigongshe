@@ -104,7 +104,7 @@ public class TopicSelectActivity extends BaseActivity {
       mAdapter.setEmptyView(errorView);
       return;
     }
-    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService().getTopicList();
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<TopicListResponse>>() {

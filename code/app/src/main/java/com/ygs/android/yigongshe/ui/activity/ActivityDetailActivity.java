@@ -47,17 +47,22 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   private MyWebView mWebView;
   private MyWebView mWebview2;
   private RelativeLayout mRlWebview1;
-  private RelativeLayout mRlWebview2;
+  //private RelativeLayout mRlWebview2;
   private TextView mSeeFull;
   private LinkCall<BaseResultDataInfo<HelpVideoListResponse>> mHelpVideoCall;
   private boolean isStore;//0没收藏1收藏
-  @BindView(R.id.signup) TextView mSignup; //报名
-  @BindView(R.id.signin) TextView mSignin; //签到
+  //@BindView(R.id.signup) TextView mSignup; //报名
+  //@BindView(R.id.signin) TextView mSignin; //签到
   @BindView(R.id.shoucang) ImageView mShoucang;
   private ShareBean mShareBean;
-  @BindView(R.id.status_on) LinearLayout mStatusOn;
-  @BindView(R.id.status_finish) RelativeLayout mStatusFinish;
-  @BindView(R.id.people_num) TextView mPeopleNum;
+  //@BindView(R.id.status_on) LinearLayout mStatusOn;
+  //@BindView(R.id.status_finish) RelativeLayout mStatusFinish;
+  //@BindView(R.id.people_num) TextView mPeopleNum;
+
+  LinearLayout mStatusOn;
+  RelativeLayout mStatusFinish;
+  TextView mPeopleNum;
+  AccountManager accountManager = YGApplication.accountManager;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
@@ -136,67 +141,31 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             && entity.data.video_list != null
             && entity.data.video_list.size() > 0) {
           HelpVideoListResponse data = entity.data;
-          mHelpVideoView.setVisibility(View.VISIBLE);
+          //mHelpVideoView.setVisibility(View.VISIBLE);
           mHelpVideoView.setHelpVideoData(ActivityDetailActivity.this, data.video_list.get(0));
         } else {
-          mHelpVideoView.setVisibility(View.GONE);
+          //mHelpVideoView.setVisibility(View.GONE);
+          mHelpVideoView.setHelpVideoData(ActivityDetailActivity.this, null);
         }
       }
     });
   }
 
   protected void addHeaderView() {
-    //bg
+    //fg
     mRlWebview1 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
     mAdapter.addHeaderView(mRlWebview1);
-    mWebView = mRlWebview1.findViewById(R.id.webview);
-
-    mWebView.setMaxHeight(MATCH_PARENT);
-    mRlWebview1.setVisibility(View.GONE);
-    //fg
-    mRlWebview2 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
-    mAdapter.addHeaderView(mRlWebview2);
-    mWebview2 = mRlWebview2.findViewById(R.id.webview);
-    mWebview2.setMaxHeight(DensityUtil.dp2px(this, 360));
-    mRlWebview2.setVisibility(View.VISIBLE);
-    mSeeFull = mRlWebview2.findViewById(R.id.seefull);
-    //if (mWebview2.getMeasuredHeight() < mWebview2.getMaxHeight()) {
-    //  mSeeFull.setVisibility(View.GONE);
-    //} else {
-    mSeeFull.setVisibility(View.VISIBLE);
-    mSeeFull.setOnClickListener(new View.OnClickListener() {
+    mWebView = mRlWebview1.findViewById(R.id.webview1);
+    mWebView.setMaxHeight(DensityUtil.dp2px(this, 360));
+    mSeeFull = mRlWebview1.findViewById(R.id.seefull);
+    final View webview1holder = mRlWebview1.findViewById(R.id.webview1holder);
+    mStatusOn = mRlWebview1.findViewById(R.id.status_on);
+    mStatusFinish = mRlWebview1.findViewById(R.id.status_finish);
+    mPeopleNum = mRlWebview1.findViewById(R.id.people_num);
+    TextView signup = mRlWebview1.findViewById(R.id.signup);
+    TextView signin = mRlWebview1.findViewById(R.id.signin);
+    signup.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        mRlWebview1.setVisibility(View.VISIBLE);
-        mRlWebview2.setVisibility(View.GONE);
-        mSeeFull.setVisibility(View.GONE);
-      }
-    });
-    //}
-
-    mDaCallView = new DaCallView(this, mRecyclerView, mId);
-    mAdapter.addHeaderView(mDaCallView.getView());
-    mHelpVideoView = new HelpVideoView(this, mRecyclerView, mId);
-    mAdapter.addHeaderView(mHelpVideoView.getView());
-  }
-
-  @Override protected void onStop() {
-    if (mCall != null) {
-      mCall.cancel();
-    }
-    super.onStop();
-  }
-
-  @OnClick({ R.id.signup, R.id.signin, R.id.shoucang, R.id.share })
-  public void onBtnClicked(View view) {
-    AccountManager accountManager = YGApplication.accountManager;
-    if (TextUtils.isEmpty(accountManager.getToken())) {
-      Toast.makeText(this, "没有登录", Toast.LENGTH_SHORT).show();
-      return;
-    }
-
-    switch (view.getId()) {
-      //报名
-      case R.id.signup:
         LinkCall<BaseResultDataInfo<SignupResponse>> signup =
             LinkCallHelper.getApiService().signupActivity(mId, accountManager.getToken());
         signup.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SignupResponse>>() {
@@ -213,9 +182,10 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             }
           }
         });
-        break;
-      //签到
-      case R.id.signin:
+      }
+    });
+    signin.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
         LinkCall<BaseResultDataInfo<SigninResponse>> signin =
             LinkCallHelper.getApiService().signinActivity(mId, accountManager.getToken());
         signin.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SigninResponse>>() {
@@ -232,7 +202,59 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             }
           }
         });
-        break;
+      }
+    });
+    //bg
+    //mRlWebview2 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
+    //mAdapter.addHeaderView(mRlWebview2);
+    mWebview2 = mRlWebview1.findViewById(R.id.webview2);
+    mWebview2.setMaxHeight(MATCH_PARENT);
+
+    //if (mWebview2.getMeasuredHeight() < mWebview2.getMaxHeight()) {
+    //  mSeeFull.setVisibility(View.GONE);
+    //} else {
+    mSeeFull.setVisibility(View.VISIBLE);
+    mSeeFull.setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        mSeeFull.setVisibility(View.GONE);
+        mWebView.setVisibility(View.GONE);
+        webview1holder.setVisibility(View.GONE);
+        mWebview2.setVisibility(View.VISIBLE);
+      }
+    });
+
+    mDaCallView = new
+
+        DaCallView(this, mRecyclerView, mId);
+    mAdapter.addHeaderView(mDaCallView.getView());
+    mHelpVideoView = new
+
+        HelpVideoView(this, mRecyclerView, mId);
+    mAdapter.addHeaderView(mHelpVideoView.getView());
+  }
+
+  @Override protected void onStop() {
+    if (mCall != null) {
+      mCall.cancel();
+    }
+    super.onStop();
+  }
+
+  @OnClick({ R.id.shoucang, R.id.share }) public void onBtnClicked(View view) {
+    if (TextUtils.isEmpty(accountManager.getToken())) {
+      Toast.makeText(this, "没有登录", Toast.LENGTH_SHORT).show();
+      return;
+    }
+
+    switch (view.getId()) {
+      //报名
+      //case R.id.signup:
+
+      //break;
+      //签到
+      //case R.id.signin:
+
+      // break;
       case R.id.shoucang:
         if (isStore) {
           LinkCall<BaseResultDataInfo<UnShoucangResponse>> unshoucang =
