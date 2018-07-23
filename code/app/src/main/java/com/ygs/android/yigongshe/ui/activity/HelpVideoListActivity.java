@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -18,18 +19,22 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.HelpVideoItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.CircleDeleteResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoListResponse;
 import com.ygs.android.yigongshe.bean.response.HelpVideoResponse;
+import com.ygs.android.yigongshe.bean.response.ListLikeResponse;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.utils.StringUtil;
 import com.ygs.android.yigongshe.utils.VideoUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
+import com.ygs.android.yigongshe.view.TitleBarTabView;
 import java.io.File;
 import java.util.List;
 import okhttp3.MediaType;
@@ -53,6 +58,9 @@ public class HelpVideoListActivity extends BaseActivity {
   private final int REQUEST_VIDEO_CAPTURE = 0;
   private String mToken;
   private View errorView;
+  @BindView(R.id.titleBarTabView) TitleBarTabView mTitleBarTabView;
+  private String mType;//按时间，按点赞数
+  private String mOrder;//排序规则，升序：ASC，降序：DESC
 
   protected boolean openTranslucentStatus() {
     return true;
@@ -90,6 +98,7 @@ public class HelpVideoListActivity extends BaseActivity {
         }
       }
     });
+    initTitleBarTabView();
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     mRecyclerView.addItemDecoration(
         new MyDecoration(this, MyDecoration.VERTICAL_LIST, R.drawable.divider));
@@ -97,6 +106,34 @@ public class HelpVideoListActivity extends BaseActivity {
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     refresh();
+  }
+
+  private void initTitleBarTabView() {
+    int statusBarHeight = AppUtils.getStatusBarHeight(this);
+    LinearLayout.LayoutParams params =
+        (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+    params.setMargins(0, statusBarHeight, 0, 0);
+    mTitleBarTabView.setLayoutParams(params);
+    String[] tabs = getResources().getStringArray(R.array.video_tab_view);
+    for (int i = 0; i < tabs.length; i++) {
+      mTitleBarTabView.addTab(tabs[i], i);
+    }
+    mTitleBarTabView.setCurrentTab(0);
+
+    mTitleBarTabView.addTabCheckListener(new TitleBarTabView.TabCheckListener() {
+      @Override public void onTabChecked(int position) {
+        if (position == mTitleBarTabView.getCurrentTabPos()) {
+          if (position == 0) {
+            mType = "create_at";
+            mOrder = "DESC";
+          } else {
+            mType = "like_num";
+            mOrder = "";
+          }
+          refresh();
+        }
+      }
+    });
   }
 
   @Override protected int getLayoutResId() {
@@ -112,28 +149,59 @@ public class HelpVideoListActivity extends BaseActivity {
     }, mRecyclerView);
     mRecyclerView.setAdapter(mAdapter);
     mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-      @Override public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-        //if (view.getId() == R.id.deleteVideo) {
-        //  LinkCall<BaseResultDataInfo<SignupResponse>> signup =
-        //      LinkCallHelper.getApiService().signupActivity(mId, accountManager.getToken());
-        //  signup.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SignupResponse>>() {
-        //    @Override
-        //    public void onResponse(BaseResultDataInfo<SignupResponse> entity, Response<?> response,
-        //        Throwable throwable) {
-        //      super.onResponse(entity, response, throwable);
-        //      if (entity != null) {
-        //        if (entity.error == 2000) {
-        //          Toast.makeText(ActivityDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
-        //        } else {
-        //          Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
-        //        }
-        //      }
-        //    }
-        //  });
-        //}
+      @Override
+      public void onItemChildClick(BaseQuickAdapter adapter, final View view, int position) {
+        AccountManager accountManager = YGApplication.accountManager;
+        if (TextUtils.isEmpty(accountManager.getToken())) {
+          Toast.makeText(HelpVideoListActivity.this, "没有登录", Toast.LENGTH_SHORT).show();
+          return;
+        }
+        if (view.getId() == R.id.iv_markgood) {
+          HelpVideoItemBean itemBean = (HelpVideoItemBean) adapter.getItem(position);
+          if (itemBean.is_like == 0) {
+            LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
+                .likeVideo(accountManager.getUserid(), accountManager.getToken());
+            like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
+              @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
+                  Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null) {
+                  if (entity.error == 2000) {
+                    Toast.makeText(HelpVideoListActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
+                    view.setBackgroundResource(R.drawable.hasmarkgood);
+                  } else {
+                    Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT)
+                        .show();
+                  }
+                }
+              }
+            });
+          }
+        } else if (view.getId() == R.id.delete) {
+          HelpVideoItemBean itemBean = (HelpVideoItemBean) adapter.getItem(position);
+          LinkCall<BaseResultDataInfo<CircleDeleteResponse>> deleteCircle =
+              LinkCallHelper.getApiService()
+                  .deleteVideo(itemBean.videoid, accountManager.getToken());
+          deleteCircle.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CircleDeleteResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<CircleDeleteResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  Toast.makeText(HelpVideoListActivity.this, "删除成功", Toast.LENGTH_SHORT).show();
+                  refresh();
+                } else {
+                  Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+                }
+              }
+            }
+          });
+        }
       }
     });
-    mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+    mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener()
+
+    {
       @Override public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
         HelpVideoItemBean itemBean = ((HelpVideoItemBean) adapter.getItem(position));
@@ -151,43 +219,49 @@ public class HelpVideoListActivity extends BaseActivity {
     mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
-    mCall = LinkCallHelper.getApiService().getHelpVideoList(pageCnt, _COUNT, mActivityId);
+    mCall = LinkCallHelper.getApiService()
+        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
-          HelpVideoListResponse data = entity.data;
-          pageCnt = data.page;
-          ++pageCnt;
-          _COUNT = data.perpage;
-          setData(true, data.video_list);
-          mAdapter.setEnableLoadMore(true);
-          mSwipeRefreshLayout.setRefreshing(false);
-        } else {
-          mAdapter.setEnableLoadMore(true);
-          mSwipeRefreshLayout.setRefreshing(false);
-          Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        if (entity != null) {
+          if (entity.error == 2000) {
+            HelpVideoListResponse data = entity.data;
+            pageCnt = data.page;
+            ++pageCnt;
+            _COUNT = data.perpage;
+            setData(true, data.video_list);
+            mAdapter.setEnableLoadMore(true);
+            mSwipeRefreshLayout.setRefreshing(false);
+          } else {
+            mAdapter.setEnableLoadMore(true);
+            mSwipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+          }
         }
       }
     });
   }
 
   private void loadMore() {
-    mCall = LinkCallHelper.getApiService().getHelpVideoList(pageCnt, _COUNT, mActivityId);
+    mCall = LinkCallHelper.getApiService()
+        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
-          HelpVideoListResponse data = entity.data;
-          pageCnt = data.page;
-          ++pageCnt;
-          setData(false, data.video_list);
-        } else {
-          mAdapter.loadMoreFail();
+        if (entity != null) {
+          if (entity.error == 2000) {
+            HelpVideoListResponse data = entity.data;
+            pageCnt = data.page;
+            ++pageCnt;
+            setData(false, data.video_list);
+          } else {
+            mAdapter.loadMoreFail();
+          }
         }
       }
     });
@@ -238,11 +312,13 @@ public class HelpVideoListActivity extends BaseActivity {
         @Override
         public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
             Throwable throwable) {
-          if (entity != null && entity.error == 2000) {
-            String uploadUrl = entity.data.site_url;
-            uploadHelpVideo(uploadUrl);
-          } else {
-            Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+          if (entity != null) {
+            if (entity.error == 2000) {
+              String uploadUrl = entity.data.site_url;
+              uploadHelpVideo(uploadUrl);
+            } else {
+              Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+            }
           }
         }
       });
@@ -255,11 +331,13 @@ public class HelpVideoListActivity extends BaseActivity {
     upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoResponse>>() {
       @Override public void onResponse(final BaseResultDataInfo<HelpVideoResponse> entity,
           Response<?> response, Throwable throwable) {
-        if (entity != null && entity.error == 2000) {
-          Toast.makeText(HelpVideoListActivity.this, "视频上传成功", Toast.LENGTH_SHORT).show();
-          refresh();
-        } else {
-          Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        if (entity != null) {
+          if (entity.error == 2000) {
+            Toast.makeText(HelpVideoListActivity.this, "视频上传成功", Toast.LENGTH_SHORT).show();
+            refresh();
+          } else {
+            Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+          }
         }
       }
     });

@@ -124,7 +124,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   }
 
   private void requestHelpVideoData() {
-    mHelpVideoCall = LinkCallHelper.getApiService().getHelpVideoList(0, 20, mId);
+    mHelpVideoCall = LinkCallHelper.getApiService().getHelpVideoList(0, 20, mId, "", "");
     mHelpVideoCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,

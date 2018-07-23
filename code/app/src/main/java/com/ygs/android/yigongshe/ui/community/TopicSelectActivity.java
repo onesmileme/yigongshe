@@ -112,11 +112,13 @@ public class TopicSelectActivity extends BaseActivity {
       public void onResponse(BaseResultDataInfo<TopicListResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
-          TopicListResponse data = entity.data;
-          setData(true, data.topics);
-        } else {
-          Toast.makeText(TopicSelectActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        if (entity != null) {
+          if (entity.error == 2000) {
+            TopicListResponse data = entity.data;
+            setData(true, data.topics);
+          } else {
+            Toast.makeText(TopicSelectActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+          }
         }
       }
     });

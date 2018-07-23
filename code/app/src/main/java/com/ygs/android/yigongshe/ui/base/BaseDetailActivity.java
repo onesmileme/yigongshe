@@ -244,15 +244,17 @@ public abstract class BaseDetailActivity extends BaseActivity {
       @Override
       public void onResponse(BaseResultInfo entity, Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == 2000) {
-          mEditText.getText().clear();
-          InputMethodManager imm =
-              (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-          // 隐藏软键盘
-          imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-          requestCommentData(mType, true);
-        } else {
-          Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        if (entity != null) {
+          if (entity.error == 2000) {
+            mEditText.getText().clear();
+            InputMethodManager imm =
+                (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            // 隐藏软键盘
+            imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+            requestCommentData(mType, true);
+          } else {
+            Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+          }
         }
       }
     });

@@ -201,7 +201,15 @@ public interface ApiService {
    */
   @FormUrlEncoded @POST("app/api/video/getvideolist")
   LinkCall<BaseResultDataInfo<HelpVideoListResponse>> getHelpVideoList(@Field("page") int page,
-      @Field("perpage") int perpage, @Field("activityid") int activityid);
+      @Field("perpage") int perpage, @Field("activityid") int activityid,
+      @Field("order_target") String order_target, @Field("order") String order);
+
+  /**
+   * 视频列表页点赞
+   */
+  @FormUrlEncoded @POST("app/api/video/like")
+  LinkCall<BaseResultDataInfo<ListLikeResponse>> likeVideo(@Field("videoid") int videoid,
+      @Field("token") String token);
 
   /**
    * 城市选择列表
@@ -321,6 +329,13 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/pubcircle/del")
   LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyComment(@Field("id") int id,
       @Field("token") String token, @Field("comment_id") int comment_id);
+
+  /**
+   * 删除视频
+   */
+  @FormUrlEncoded @POST("app/api/video/del")
+  LinkCall<BaseResultDataInfo<CircleDeleteResponse>> deleteVideo(@Field("videoid") int videoid,
+      @Field("token") String token);
 
   /**
    * 为活动打call

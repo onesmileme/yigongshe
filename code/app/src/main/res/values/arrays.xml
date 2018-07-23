@@ -41,4 +41,9 @@
     <item>文化</item>
     <item>创业</item>
   </string-array>
+
+  <string-array name="video_tab_view">
+    <item>按时间</item>
+    <item>按点赞数</item>
+  </string-array>
 </resources>

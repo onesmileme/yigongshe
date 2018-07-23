@@ -66,7 +66,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     } else {
       helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
     }
-
+    helper.addOnClickListener(R.id.iv_markgood);
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
       helper.setVisible(R.id.delete, true);

@@ -174,11 +174,14 @@ public class CommunityFragment extends BaseFragment {
               @Override public void onResponse(BaseResultDataInfo<AttentionResponse> entity,
                   Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == 2000) {
-                  Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
-                  view.setBackgroundResource(R.drawable.bg_attention);
-                } else {
-                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
+                if (entity != null) {
+
+                  if (entity.error == 2000) {
+                    Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
+                    view.setBackgroundResource(R.drawable.bg_attention);
+                  } else {
+                    Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
+                  }
                 }
               }
             });
@@ -206,11 +209,13 @@ public class CommunityFragment extends BaseFragment {
               @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
                   Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == 2000) {
-                  Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
-                  view.setBackgroundResource(R.drawable.hasmarkgood);
-                } else {
-                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
+                if (entity != null) {
+                  if (entity.error == 2000) {
+                    Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
+                    view.setBackgroundResource(R.drawable.hasmarkgood);
+                  } else {
+                    Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
+                  }
                 }
               }
             });

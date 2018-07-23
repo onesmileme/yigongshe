@@ -15,6 +15,11 @@
     titlebar:rightImageResource="@drawable/upload"
     titlebar:rightType="imageButton" />
 
+  <com.ygs.android.yigongshe.view.TitleBarTabView
+    android:id="@+id/titleBarTabView"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dimen_48dp" />
+
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"

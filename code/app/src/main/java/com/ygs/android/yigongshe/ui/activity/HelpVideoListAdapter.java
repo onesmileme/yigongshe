@@ -43,14 +43,20 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
         .into((ImageView) helper.getView(R.id.createAvatar));
     helper.setText(R.id.createName, item.create_name);
     helper.setText(R.id.createDate, item.create_at);
+    if (item.is_like == 0) {
+      helper.setImageResource(R.id.iv_markgood, R.drawable.markgood);
+    } else {
+      helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
+    }
+    helper.addOnClickListener(R.id.iv_markgood);
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
-      helper.setVisible(R.id.deleteVideo, true);
-      TextView tv = helper.getView(R.id.deleteVideo);
+      helper.setVisible(R.id.delete, true);
+      TextView tv = helper.getView(R.id.delete);
       tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-      helper.addOnClickListener(R.id.deleteVideo);
+      helper.addOnClickListener(R.id.delete);
     } else {
-      helper.setGone(R.id.deleteVideo, false);
+      helper.setGone(R.id.delete, false);
     }
   }
 }
