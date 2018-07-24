@@ -11,7 +11,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:text="应援小视频" />
+    android:text="应援小视频"
+    android:textColor="@color/black1"
+    android:textSize="14dp" />
 
   <TextView
     android:id="@+id/whatsvideo"
@@ -21,6 +23,7 @@
     android:layout_marginTop="10dp"
     android:drawableLeft="@drawable/whatscall"
     android:drawablePadding="8dp"
+    android:textSize="11dp"
     android:text="什么是视频"
     android:textColor="@color/gray2" />
 
@@ -54,5 +57,6 @@
     android:background="@drawable/bg_helpvideo"
     android:gravity="center"
     android:text="更多视频"
-    android:textColor="@color/white" />
+    android:textColor="@color/white"
+    android:textSize="14dp" />
 </LinearLayout>

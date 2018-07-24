@@ -78,7 +78,7 @@ public abstract class BaseActivity extends FragmentActivity {
   // true:沉浸式
   //false:非沉浸式，然后将状态栏默认设置为白色
   protected boolean openTranslucentStatus() {
-    return false;
+    return true;
   }
 
   /**

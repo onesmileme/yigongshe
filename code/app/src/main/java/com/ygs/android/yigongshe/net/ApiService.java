@@ -185,7 +185,7 @@ public interface ApiService {
    */
   @FormUrlEncoded @POST("app/api/activity/detail")
   LinkCall<BaseResultDataInfo<ActivityDetailResponse>> getActivityDetail(
-      @Field("activityid") int activityid);
+      @Field("activityid") int activityid, @Field("token") String token);
 
   /**
    * 益工圈列表
@@ -194,7 +194,7 @@ public interface ApiService {
   @GET("app/api/pubcircle/getlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getCommunityList(@Query("page") int page,
       @Query("perpage") int perpage, @Query("type") String type, @Query("city") String city,
-      @Query("topic") String topic);
+      @Query("topic") String topic, @Query("token") String token);
 
   /**
    * 视频列表

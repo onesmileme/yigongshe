@@ -6,10 +6,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -59,8 +60,10 @@ public class CommunityFragment extends BaseFragment {
   private final int PUBLISH_COMMUNITY = 1;
   private final int COMMUNITY_DETAIL = 2;
   private View errorView;
-  private SparseArray<Integer> mAttentionList = new SparseArray();
+  //private SparseArray<Integer> mAttentionList = new SparseArray();
+  private List<CommunityItemBean> mList;
   private String mTopicStr, mCityStr;
+  AccountManager accountManager = YGApplication.accountManager;
 
   @Override protected void initView() {
     errorView =
@@ -140,9 +143,6 @@ public class CommunityFragment extends BaseFragment {
         Bundle bundle = new Bundle();
         CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
         bundle.putInt("pubcircle_id", itemBean.pubcircleid);
-        if (mAttentionList.get(position) != null) {
-          itemBean.is_follow = mAttentionList.get(position);
-        }
         bundle.putSerializable("item", itemBean);
         goToOthersForResult(CommunityDetailActivity.class, bundle, COMMUNITY_DETAIL);
       }
@@ -150,26 +150,17 @@ public class CommunityFragment extends BaseFragment {
     mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
       @Override public void onItemChildClick(final BaseQuickAdapter adapter, final View view,
           final int position) {
-        AccountManager accountManager = YGApplication.accountManager;
         if (TextUtils.isEmpty(accountManager.getToken())) {
           Toast.makeText(getActivity(), "没有登录", Toast.LENGTH_SHORT).show();
           return;
         }
         if (R.id.attention == view.getId()) {
-          int isAttentioned;
-          if (mAttentionList.get(position) != null) {
-            isAttentioned = mAttentionList.get(position);
-          } else {
-            CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
-            isAttentioned = itemBean.is_follow;
-            mAttentionList.put(position, isAttentioned);
-          }
-
+          final CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
           //0未关注
-          if (isAttentioned == 0) {
+          if (itemBean.is_follow == 0) {
             LinkCall<BaseResultDataInfo<AttentionResponse>> attention =
                 LinkCallHelper.getApiService()
-                    .attentionUser(accountManager.getUserid(), accountManager.getToken());
+                    .attentionUser(itemBean.create_id, accountManager.getToken());
             attention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<AttentionResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<AttentionResponse> entity,
                   Response<?> response, Throwable throwable) {
@@ -179,6 +170,7 @@ public class CommunityFragment extends BaseFragment {
                   if (entity.error == 2000) {
                     Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
                     view.setBackgroundResource(R.drawable.bg_attention);
+                    updateDataList(itemBean.create_id, 1);
                   } else {
                     Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                   }
@@ -188,7 +180,7 @@ public class CommunityFragment extends BaseFragment {
           } else {
             LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
                 LinkCallHelper.getApiService()
-                    .unAttentionUser(accountManager.getUserid(), accountManager.getToken());
+                    .unAttentionUser(itemBean.create_id, accountManager.getToken());
             unattention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UnAttentionResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<UnAttentionResponse> entity,
                   Response<?> response, Throwable throwable) {
@@ -196,15 +188,16 @@ public class CommunityFragment extends BaseFragment {
                 if (entity != null && entity.error == 2000) {
                   Toast.makeText(getActivity(), "取消关注成功", Toast.LENGTH_SHORT).show();
                   view.setBackgroundResource(R.drawable.bg_unattention);
+                  updateDataList(itemBean.create_id, 0);
                 }
               }
             });
           }
         } else if (view.getId() == R.id.iv_markgood) {
-          CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
+          final CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
           if (itemBean.is_like == 0) {
             LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
-                .likeCircle(accountManager.getUserid(), accountManager.getToken());
+                .likeCircle(itemBean.pubcircleid, accountManager.getToken());
             like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
                   Response<?> response, Throwable throwable) {
@@ -212,7 +205,13 @@ public class CommunityFragment extends BaseFragment {
                 if (entity != null) {
                   if (entity.error == 2000) {
                     Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
-                    view.setBackgroundResource(R.drawable.hasmarkgood);
+                    mList.get(position).is_like = 1;
+                    mList.get(position).like_num = itemBean.like_num + 1;
+                    ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
+                    TextView tv = (TextView) adapter.getViewByPosition(mRecyclerView, position,
+                        R.id.markgood);
+                    tv.setTextColor(getResources().getColor(R.color.green));
+                    tv.setText(mList.get(position).like_num + "");
                   } else {
                     Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                   }
@@ -257,7 +256,7 @@ public class CommunityFragment extends BaseFragment {
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService()
-        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr);
+        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr, accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
@@ -268,6 +267,7 @@ public class CommunityFragment extends BaseFragment {
           pageCnt = data.page;
           ++pageCnt;
           _COUNT = data.perpage;
+          mList = data.list;
           setData(true, data.list);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
@@ -281,7 +281,7 @@ public class CommunityFragment extends BaseFragment {
 
   private void loadMore() {
     mCall = LinkCallHelper.getApiService()
-        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr);
+        .getCommunityList(pageCnt, _COUNT, mType, mCityStr, mTopicStr, accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
@@ -291,6 +291,7 @@ public class CommunityFragment extends BaseFragment {
           CommunityListResponse data = entity.data;
           pageCnt = data.page;
           ++pageCnt;
+          mList.addAll(data.list);
           setData(false, data.list);
         } else {
           mAdapter.loadMoreFail();
@@ -345,6 +346,15 @@ public class CommunityFragment extends BaseFragment {
         refresh();
         break;
     }
+  }
+
+  private void updateDataList(int createId, int isFollow) {
+    for (int i = 0; i < mList.size(); i++) {
+      if (mList.get(i).create_id == createId) {
+        mList.get(i).is_follow = isFollow;
+      }
+    }
+    setData(true, mList);
   }
 
   @OnClick(R.id.publish) public void onBtnClicked() {

@@ -62,8 +62,10 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
       helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
     }
     if (item.is_like == 0) {
+      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.gray2));
       helper.setImageResource(R.id.iv_markgood, R.drawable.markgood);
     } else {
+      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.green));
       helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
     }
     helper.addOnClickListener(R.id.iv_markgood);

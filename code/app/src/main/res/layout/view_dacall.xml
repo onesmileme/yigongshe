@@ -10,18 +10,21 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:text="该项目当前call值" />
+    android:text="该项目当前call值"
+    android:textColor="@color/black1"
+    android:textSize="14dp" />
 
   <TextView
     android:id="@+id/whatscall"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:drawableLeft="@drawable/whatscall"
     android:drawablePadding="8dp"
     android:text="什么是打call"
-    android:textColor="@color/gray2" />
+    android:textColor="@color/gray2"
+    android:textSize="11dp" />
 
   <RelativeLayout
     android:layout_width="match_parent"
@@ -39,10 +42,11 @@
       android:layout_width="60dp"
       android:layout_height="60dp"
       android:layout_gravity="center_horizontal"
-      android:layout_marginTop="10dp"
+      android:layout_marginTop="11dp"
       android:gravity="center"
       android:text="8766"
-      android:textColor="@color/white" />
+      android:textColor="@color/white"
+      android:textSize="10dp" />
   </RelativeLayout>
 
 
@@ -51,7 +55,8 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="6dp"
     android:text="@string/dacallstatus"
-    android:textColor="@color/gray2" />
+    android:textColor="@color/gray2"
+    android:textSize="11dp" />
 </LinearLayout>

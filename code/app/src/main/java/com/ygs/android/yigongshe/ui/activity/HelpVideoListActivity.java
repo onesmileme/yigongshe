@@ -10,7 +10,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -149,18 +151,18 @@ public class HelpVideoListActivity extends BaseActivity {
     }, mRecyclerView);
     mRecyclerView.setAdapter(mAdapter);
     mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-      @Override
-      public void onItemChildClick(BaseQuickAdapter adapter, final View view, int position) {
+      @Override public void onItemChildClick(final BaseQuickAdapter adapter, final View view,
+          final int position) {
         AccountManager accountManager = YGApplication.accountManager;
         if (TextUtils.isEmpty(accountManager.getToken())) {
           Toast.makeText(HelpVideoListActivity.this, "没有登录", Toast.LENGTH_SHORT).show();
           return;
         }
         if (view.getId() == R.id.iv_markgood) {
-          HelpVideoItemBean itemBean = (HelpVideoItemBean) adapter.getItem(position);
+          final HelpVideoItemBean itemBean = (HelpVideoItemBean) adapter.getItem(position);
           if (itemBean.is_like == 0) {
             LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
-                .likeVideo(accountManager.getUserid(), accountManager.getToken());
+                .likeVideo(itemBean.videoid, accountManager.getToken());
             like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
               @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
                   Response<?> response, Throwable throwable) {
@@ -168,7 +170,11 @@ public class HelpVideoListActivity extends BaseActivity {
                 if (entity != null) {
                   if (entity.error == 2000) {
                     Toast.makeText(HelpVideoListActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
-                    view.setBackgroundResource(R.drawable.hasmarkgood);
+                    ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
+                    TextView tv = (TextView) adapter.getViewByPosition(mRecyclerView, position,
+                        R.id.markgood);
+                    tv.setText(itemBean.like_num + 1 + "");
+                    tv.setTextColor(getResources().getColor(R.color.green));
                   } else {
                     Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT)
                         .show();

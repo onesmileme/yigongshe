@@ -83,13 +83,12 @@ public class CommunityDetailHeaderView {
 
     mCreateDate.setText(item.create_at);
     mTopic.setText(item.topic);
-    mMarkGood.setText(item.like_num + "");
     if (item.is_follow == 0) {
       mAttention.setBackgroundResource(R.drawable.bg_unattention);
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<AttentionResponse>> attention = LinkCallHelper.getApiService()
-              .attentionUser(accountManager.getUserid(), accountManager.getToken());
+              .attentionUser(item.create_id, accountManager.getToken());
           attention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<AttentionResponse>>() {
             @Override public void onResponse(BaseResultDataInfo<AttentionResponse> entity,
                 Response<?> response, Throwable throwable) {
@@ -98,6 +97,7 @@ public class CommunityDetailHeaderView {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
                   mAttention.setBackgroundResource(R.drawable.bg_attention);
+                  item.is_follow = 1;
                 } else {
                   Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
                 }
@@ -112,7 +112,7 @@ public class CommunityDetailHeaderView {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
               LinkCallHelper.getApiService()
-                  .unAttentionUser(accountManager.getUserid(), accountManager.getToken());
+                  .unAttentionUser(item.create_id, accountManager.getToken());
           unattention.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UnAttentionResponse>>() {
             @Override public void onResponse(BaseResultDataInfo<UnAttentionResponse> entity,
                 Response<?> response, Throwable throwable) {
@@ -120,21 +120,21 @@ public class CommunityDetailHeaderView {
               if (entity != null && entity.error == 2000) {
                 Toast.makeText(mContext, "取消关注成功", Toast.LENGTH_SHORT).show();
                 mAttention.setBackgroundResource(R.drawable.bg_unattention);
+                item.is_follow = 0;
               }
             }
           });
         }
       });
     }
+    mMarkGood.setText(item.like_num + "");
 
-    if (item.is_like == 0)
-
-    {
+    if (item.is_like == 0) {
       mIvMarkGoodk.setImageResource(R.drawable.markgood);
-    } else
-
-    {
+      mMarkGood.setTextColor(mContext.getResources().getColor(R.color.gray2));
+    } else {
       mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
+      mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
     }
     mIvMarkGoodk.setOnClickListener(new View.OnClickListener()
 
@@ -142,7 +142,7 @@ public class CommunityDetailHeaderView {
       @Override public void onClick(View view) {
         if (item.is_like == 0) {
           LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
-              .likeCircle(accountManager.getUserid(), accountManager.getToken());
+              .likeCircle(item.pubcircleid, accountManager.getToken());
           like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
             @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
                 Response<?> response, Throwable throwable) {
@@ -150,7 +150,10 @@ public class CommunityDetailHeaderView {
               if (entity != null) {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
-                  mIvMarkGoodk.setBackgroundResource(R.drawable.hasmarkgood);
+                  mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
+                  mMarkGood.setText(item.like_num + "");
+                  mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
+                  item.is_like = 1;
                 } else {
                   Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
                 }

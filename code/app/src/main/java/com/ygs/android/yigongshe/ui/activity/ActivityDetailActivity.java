@@ -94,7 +94,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
       return;
     }
     showLoading(true);
-    mCall = LinkCallHelper.getApiService().getActivityDetail(mId);
+    mCall = LinkCallHelper.getApiService().getActivityDetail(mId,accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityDetailResponse>>() {
       @Override public void onResponse(BaseResultDataInfo<ActivityDetailResponse> entity,
           Response<?> response, Throwable throwable) {

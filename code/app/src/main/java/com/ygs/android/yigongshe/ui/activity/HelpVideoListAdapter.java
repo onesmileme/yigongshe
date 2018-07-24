@@ -43,10 +43,13 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
         .into((ImageView) helper.getView(R.id.createAvatar));
     helper.setText(R.id.createName, item.create_name);
     helper.setText(R.id.createDate, item.create_at);
+    helper.setText(R.id.markgood, item.like_num + "");
     if (item.is_like == 0) {
       helper.setImageResource(R.id.iv_markgood, R.drawable.markgood);
+      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.gray2));
     } else {
       helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
+      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.green));
     }
     helper.addOnClickListener(R.id.iv_markgood);
     if (!TextUtils.isEmpty(accountManager.getToken())
