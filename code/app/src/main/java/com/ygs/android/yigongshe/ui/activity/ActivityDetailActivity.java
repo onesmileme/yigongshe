@@ -267,6 +267,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
                 if (entity.error == 2000) {
                   Toast.makeText(ActivityDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
                   mShoucang.setImageResource(R.drawable.shoucang);
+                  isStore = false;
                 } else {
                   Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
                       .show();
@@ -285,6 +286,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
                 if (entity.error == 2000) {
                   mShoucang.setImageResource(R.drawable.yishoucang);
                   Toast.makeText(ActivityDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                  isStore = true;
                 } else {
                   Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT)
                       .show();

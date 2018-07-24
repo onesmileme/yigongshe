@@ -27,6 +27,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.comment.CommentAdapter;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import java.util.List;
 import retrofit2.Response;
 
@@ -70,7 +71,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     mRecyclerView.addItemDecoration(
-        new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
     initAdapter();
     addHeaderView();
     mSwipeRefreshLayout.setRefreshing(true);

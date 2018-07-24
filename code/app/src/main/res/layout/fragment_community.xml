@@ -22,7 +22,8 @@
       <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/white" />
     </android.support.v4.widget.SwipeRefreshLayout>
   </LinearLayout>
 
@@ -32,6 +33,6 @@
     android:layout_height="30dp"
     android:layout_alignParentRight="true"
     android:layout_marginRight="15dp"
-    android:layout_marginTop="30dp"
+    android:layout_marginTop="10dp"
     android:src="@drawable/upload" />
 </RelativeLayout>

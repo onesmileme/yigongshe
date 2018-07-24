@@ -2,8 +2,10 @@ package com.ygs.android.yigongshe.ui.dynamic;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -57,8 +59,10 @@ public class DynamicDetailActivity extends BaseDetailActivity {
 
   //添加很多个headerview
   protected void addHeaderView() {
-    mWebView = new WebView(this);
-    mAdapter.addHeaderView(mWebView);
+    LinearLayout linearLayout =
+        (LinearLayout) LayoutInflater.from(this).inflate(R.layout.view_webviewwithholder, null);
+    mWebView = linearLayout.findViewById(R.id.webview);
+    mAdapter.addHeaderView(linearLayout);
   }
 
   private void requestDetailData() {

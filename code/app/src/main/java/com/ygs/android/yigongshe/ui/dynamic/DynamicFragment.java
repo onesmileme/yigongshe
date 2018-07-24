@@ -2,7 +2,6 @@ package com.ygs.android.yigongshe.ui.dynamic;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class DynamicFragment extends BaseFragment {
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.addItemDecoration(
-        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
     initAdapter();
     addHeadView();
     //initRefreshLayout();
@@ -90,7 +90,7 @@ public class DynamicFragment extends BaseFragment {
   }
 
   private void addHeadView() {
-    mBannerCard = new TopBannerCard(getActivity(), mRecyclerView);
+    mBannerCard = new TopBannerCard(getActivity(), mRecyclerView, 0);
     mAdapter.addHeaderView(mBannerCard.getView());
   }
 

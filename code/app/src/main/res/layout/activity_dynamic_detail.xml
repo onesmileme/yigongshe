@@ -34,31 +34,34 @@
   <LinearLayout
     android:id="@+id/commentBar"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="wrap_content"
     android:layout_alignParentBottom="true"
     android:background="@color/white"
-    android:orientation="horizontal"
-    android:paddingBottom="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
-    android:paddingTop="10dp">
+    android:orientation="horizontal">
 
     <EditText
       android:id="@+id/input_comment"
       android:layout_width="0dp"
       android:layout_height="30dp"
+      android:layout_marginBottom="10dp"
+      android:layout_marginLeft="14dp"
+      android:layout_marginTop="10dp"
       android:layout_weight="1"
       android:background="#f6f6f6"
       android:focusable="true"
-      android:gravity="center_vertical"
-      android:paddingLeft="5dp"
-      android:paddingRight="5dp" />
+      android:gravity="top|left"
+      android:maxEms="512"
+      android:padding="5dp"
+      android:textSize="12dp" />
 
     <TextView
       android:id="@+id/sendText"
       android:layout_width="50dp"
       android:layout_height="30dp"
+      android:layout_marginBottom="10dp"
       android:layout_marginLeft="10dp"
+      android:layout_marginRight="14dp"
+      android:layout_marginTop="10dp"
       android:background="@color/colorPrimary"
       android:gravity="center"
       android:text="发送"

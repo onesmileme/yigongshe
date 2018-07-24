@@ -27,12 +27,12 @@ public class TopBannerCard extends BaseCard {
   @BindView(R.id.rg_point) RadioGroup mRg;
   private Context mContext;
 
-  public TopBannerCard(Context context, @NonNull ViewGroup root) {
-    this(context, root, false);
+  public TopBannerCard(Context context, @NonNull ViewGroup root, int type) {
+    this(context, root, false, type);
   }
 
-  public TopBannerCard(Context context, @NonNull ViewGroup root, boolean attachToRoot) {
-    super(context, root, attachToRoot);
+  public TopBannerCard(Context context, @NonNull ViewGroup root, boolean attachToRoot, int type) {
+    super(context, root, attachToRoot, type);
     mContext = context;
   }
 
@@ -41,7 +41,11 @@ public class TopBannerCard extends BaseCard {
   }
 
   @Override protected int onBindLayoutId() {
-    return R.layout.view_top_banner;
+    if (mType == 0) {
+      return R.layout.view_top_banner;
+    } else {
+      return R.layout.view_top_banner2;
+    }
   }
 
   public void initViewWithData(final List<String> list) {

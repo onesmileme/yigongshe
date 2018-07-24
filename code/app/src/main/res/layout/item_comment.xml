@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:background="@color/white"
   android:orientation="horizontal">
 
   <ImageView
@@ -45,7 +46,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_below="@id/createName"
-      android:layout_marginTop="18dp"
+      android:layout_marginTop="8dp"
       android:text="通过活动育人，建立图书馆的心灵书屋"
       android:textColor="@color/black1"
       android:textSize="12dp" />

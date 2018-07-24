@@ -15,13 +15,15 @@ import android.view.ViewGroup;
 public abstract class BaseCard {
   private Context mContext;
   private View mView;
+  protected int mType;
 
-  public BaseCard(Context context, @NonNull ViewGroup root) {
-    this(context, root, false);
+  public BaseCard(Context context, @NonNull ViewGroup root, int type) {
+    this(context, root, false, type);
   }
 
-  public BaseCard(Context context, @NonNull ViewGroup root, boolean attachToRoot) {
+  public BaseCard(Context context, @NonNull ViewGroup root, boolean attachToRoot, int type) {
     this.mContext = context;
+    this.mType = type;
     this.createView(context, root, attachToRoot);
   }
 

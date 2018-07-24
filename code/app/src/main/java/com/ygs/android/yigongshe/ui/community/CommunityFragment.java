@@ -3,7 +3,6 @@ package com.ygs.android.yigongshe.ui.community;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -33,6 +32,7 @@ import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.CommunityListHeader;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TitleBarTabView;
 import java.util.List;
 import retrofit2.Response;
@@ -74,7 +74,7 @@ public class CommunityFragment extends BaseFragment {
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     mRecyclerView.addItemDecoration(
-        new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
     initAdapter();
     initTitleBarTabView();
     addHeadView();
@@ -87,7 +87,7 @@ public class CommunityFragment extends BaseFragment {
     int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
     LinearLayout.LayoutParams params =
         (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
-    params.setMargins(0, statusBarHeight, 0, 0);
+    params.setMargins(0, 0, 0, 0);
     mTitleBarTabView.setLayoutParams(params);
     String[] tabs = getResources().getStringArray(R.array.tab_view);
     for (int i = 0; i < tabs.length; i++) {

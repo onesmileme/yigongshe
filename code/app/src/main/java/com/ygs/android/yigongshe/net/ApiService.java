@@ -276,14 +276,14 @@ public interface ApiService {
   /**
    * 收藏活动
    */
-  @FormUrlEncoded @POST("app/api/activity/strore")
+  @FormUrlEncoded @POST("app/api/activity/store")
   LinkCall<BaseResultDataInfo<ShoucangResponse>> restoreActivity(
       @Field("activity_id") int activity_id, @Field("token") String token);
 
   /**
    * 取消收藏活动
    */
-  @FormUrlEncoded @POST("app/api/activity/unstoractivity")
+  @FormUrlEncoded @POST("app/api/activity/unstoreactivity")
   LinkCall<BaseResultDataInfo<UnShoucangResponse>> unrestoreActivity(
       @Field("activity_id") int activity_id, @Field("token") String token);
 
