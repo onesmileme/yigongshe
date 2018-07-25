@@ -148,6 +148,8 @@ public class TopicSelectActivity extends BaseActivity {
         break;
       case R.id.choose_all:
         mSelected = "全部";
+        mAdapter.notifyDataSetChanged();
+
         break;
     }
   }

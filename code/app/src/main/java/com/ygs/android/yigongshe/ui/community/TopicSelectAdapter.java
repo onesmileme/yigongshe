@@ -22,5 +22,6 @@ public class TopicSelectAdapter extends BaseQuickAdapter<String, BaseViewHolder>
     helper.setText(R.id.tv_topic,
         StringUtil.getReleaseString(mContext.getResources().getString(R.string.topicItem),
             new Object[] { item }));
+    helper.setTextColor(R.id.tv_topic, mContext.getResources().getColor(R.color.gray1));
   }
 }
