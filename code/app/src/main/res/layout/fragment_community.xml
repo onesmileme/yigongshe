@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:orientation="vertical">
 
-  <LinearLayout
+  <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
 
     <com.ygs.android.yigongshe.view.TitleBarTabView
       android:id="@+id/titleBarTabView"
       android:layout_width="match_parent"
       android:layout_height="@dimen/dimen_48dp" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-      android:id="@+id/swipeLayout"
+    <ImageView
+      android:id="@+id/publish"
+      android:layout_width="30dp"
+      android:layout_height="30dp"
+      android:layout_alignBottom="@id/titleBarTabView"
+      android:layout_alignParentRight="true"
+      android:layout_marginBottom="10dp"
+      android:layout_marginRight="15dp"
+      android:src="@drawable/upload" />
+  </RelativeLayout>
+
+  <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_list"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:orientation="vertical">
+      android:background="@color/white" />
+  </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>
 
-      <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white" />
-    </android.support.v4.widget.SwipeRefreshLayout>
-  </LinearLayout>
-
-  <ImageView
-    android:id="@+id/publish"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_alignParentRight="true"
-    android:layout_marginRight="15dp"
-    android:layout_marginTop="10dp"
-    android:src="@drawable/upload" />
-</RelativeLayout>

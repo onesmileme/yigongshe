@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         titlebar:centerType="textView"
-        titlebar:fillStatusBar="false"
+        titlebar:fillStatusBar="true"
         titlebar:leftType="imageButton"
         ></com.ygs.android.yigongshe.view.CommonTitleBar>
 

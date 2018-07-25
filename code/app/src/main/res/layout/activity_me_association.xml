@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         titlebar:centerText="@string/association"
         titlebar:centerType="textView"
-        titlebar:fillStatusBar="false"
+        titlebar:fillStatusBar="true"
         titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
     <android.support.v4.widget.SwipeRefreshLayout

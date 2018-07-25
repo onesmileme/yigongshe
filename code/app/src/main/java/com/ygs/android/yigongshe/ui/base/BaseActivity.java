@@ -60,7 +60,6 @@ public abstract class BaseActivity extends FragmentActivity {
 
   @Override public void onAttachedToWindow() {
     super.onAttachedToWindow();
-
     if (!openTranslucentStatus()) {
       setTranslucentStatus();
     } else {

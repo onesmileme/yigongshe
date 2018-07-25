@@ -294,6 +294,7 @@ import com.ygs.android.yigongshe.utils.ScreenUtils;
       mainParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
     }
 
+
     // 计算主布局高度
     if (showBottomLine) {
       mainParams.height = titleBarHeight - Math.max(1, DensityUtil.dp2px(context, 0.4f));

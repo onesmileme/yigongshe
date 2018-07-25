@@ -2,6 +2,8 @@ package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.AttributeSet;
@@ -10,11 +12,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.DensityUtil;
 import java.util.ArrayList;
 import java.util.List;
+
+import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 /**
  * Created by ruichao on 2018/6/15.
@@ -29,7 +35,7 @@ public class TitleBarTabView extends LinearLayout {
   public static final int THIRD_INDEX = 2;
 
   //顶部菜单布局
-  private LinearLayout mTabMenuView;
+  private LinearLayout mTabMenuView; //主视图
   //tabMenuView里面选中的tab位置，-1表示未选中
   private int mCurrentTabPosition = -1;
 
@@ -51,6 +57,10 @@ public class TitleBarTabView extends LinearLayout {
   /** 控件整体高度，默认45dp */
   private float mHeight = 45.0f;
 
+  private boolean fillStatusBar;                      // 是否撑起状态栏, true时,标题栏浸入状态栏
+  private View viewStatusBarFill;                     // 状态栏填充视图
+  private int statusBarColor;                         // 状态栏颜色
+
   public TitleBarTabView(Context context) {
     this(context, (AttributeSet) null, 0);
   }
@@ -63,6 +73,7 @@ public class TitleBarTabView extends LinearLayout {
     super(context, attrs, defStyleAttr);
     mContext = context;
     setOrientation(VERTICAL);
+
     mTextSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
     mTextUnselectedColor = mContext.getResources().getColor(R.color.tab_unchecked);
     int menuBackgroundColor = mContext.getResources().getColor(R.color.white);
@@ -70,6 +81,12 @@ public class TitleBarTabView extends LinearLayout {
     mMenuSelectedColor = mContext.getResources().getColor(R.color.tab_checked);
     mMenuUnselectedColor = mContext.getResources().getColor(R.color.transparent);
     TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.TitleBarTabView);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+      // notice 未引入沉浸式标题栏之前,隐藏标题栏撑起布局
+      fillStatusBar = a.getBoolean(R.styleable.CommonTitleBar_fillStatusBar, true);
+    }
+    statusBarColor =
+        a.getColor(R.styleable.CommonTitleBar_statusBarColor, Color.parseColor("#ffffff"));
     mTextSelectedColor =
         a.getColor(R.styleable.TitleBarTabView_tabTextSelectedColor, this.mTextSelectedColor);
     mTextUnselectedColor =
@@ -83,15 +100,43 @@ public class TitleBarTabView extends LinearLayout {
     mMenuUnselectedColor =
         a.getColor(R.styleable.TitleBarTabView_menuUnselectedColor, this.mMenuUnselectedColor);
     a.recycle();
+    //
+    // 构建标题栏填充视图
+    //boolean supportStatusBarLightMode = false;
+    //try {
+    //  supportStatusBarLightMode = AppUtils.supportStatusBarLightMode(getContext());
+    //} catch (ClassCastException e) {
+    //  e.printStackTrace();
+    //}
+    //if (fillStatusBar && supportStatusBarLightMode) {
+    //  int statusBarHeight = AppUtils.getStatusBarHeight(context);
+    //  viewStatusBarFill = new View(context);
+    //  viewStatusBarFill.setId(AppUtils.generateViewId());
+    //  viewStatusBarFill.setBackgroundColor(statusBarColor);
+    //  RelativeLayout.LayoutParams statusBarParams =
+    //      new RelativeLayout.LayoutParams(MATCH_PARENT, statusBarHeight);
+    //  statusBarParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+    //  addView(viewStatusBarFill, statusBarParams);
+    //}
+    //构建主视图
+    //RelativeLayout root = new RelativeLayout(context);
+    //RelativeLayout.LayoutParams mainParams =
+    //    new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
+
     mTabMenuView = new LinearLayout(context);
-    LayoutParams params =
-        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    LayoutParams params = new LayoutParams(MATCH_PARENT, MATCH_PARENT);
     params.gravity = Gravity.CENTER;
     mTabMenuView.setOrientation(HORIZONTAL);
-    this.mTabMenuView.setBackgroundColor(menuBackgroundColor);
-    this.mTabMenuView.setGravity(Gravity.CENTER);
-    this.mTabMenuView.setLayoutParams(params);
-    this.addView(this.mTabMenuView, 0);
+    mTabMenuView.setBackgroundColor(menuBackgroundColor);
+    mTabMenuView.setGravity(Gravity.CENTER);
+    mTabMenuView.setLayoutParams(params);
+    addView(mTabMenuView, 0);
+    //root.addView(mTabMenuView);
+    //if (fillStatusBar && supportStatusBarLightMode) {
+    //  mainParams.addRule(RelativeLayout.BELOW, viewStatusBarFill.getId());
+    //} else {
+    //  mainParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+    //}
   }
 
   public void setMenuTextSizeInPx(int menuTextSize) {
@@ -115,8 +160,7 @@ public class TitleBarTabView extends LinearLayout {
 
   public void addTab(String tabText, int index) {
     final LinearLayout tabButton = new LinearLayout(getContext());
-    LayoutParams params =
-        new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+    LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, MATCH_PARENT);
     tabButton.setOrientation(VERTICAL);
     params.setMargins(DensityUtil.dp2px(mContext, 17.0f), 0, DensityUtil.dp2px(mContext, 17.0f), 0);
     tabButton.setLayoutParams(params);
@@ -130,8 +174,7 @@ public class TitleBarTabView extends LinearLayout {
     tab.setTextColor(mTextUnselectedColor);
     tab.setText(tabText);
     View bottomView = new View(getContext());
-    LayoutParams bottomParams =
-        new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, DensityUtil.dp2px(mContext, 3.0f));
+    LayoutParams bottomParams = new LayoutParams(MATCH_PARENT, DensityUtil.dp2px(mContext, 3.0f));
     bottomParams.gravity = Gravity.BOTTOM;
     bottomView.setLayoutParams(bottomParams);
     bottomView.setBackgroundColor(mMenuSelectedColor);

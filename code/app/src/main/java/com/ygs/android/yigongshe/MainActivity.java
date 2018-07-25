@@ -33,6 +33,7 @@ import com.ygs.android.yigongshe.ui.community.CommunityFragment;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
 import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
+import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import com.ygs.android.yigongshe.utils.LocationService;
 import com.ygs.android.yigongshe.utils.PinyinComparator;
@@ -66,15 +67,19 @@ public class MainActivity extends BaseActivity {
             switch (item.getItemId()) {
               case R.id.nav_dynamic:
                 viewPager.setCurrentItem(0);
+                changeStatusBarTextDark(false);
                 break;
               case R.id.nav_activity:
                 viewPager.setCurrentItem(1);
+                changeStatusBarTextDark(true);
                 break;
               case R.id.nav_community:
                 viewPager.setCurrentItem(2);
+                changeStatusBarTextDark(true);
                 break;
               case R.id.nav_me:
                 viewPager.setCurrentItem(3);
+                changeStatusBarTextDark(true);
                 break;
             }
             return false;
@@ -131,7 +136,28 @@ public class MainActivity extends BaseActivity {
         new TabFragmentPagerAdapter(getSupportFragmentManager(), list);
     viewPager.setAdapter(adapter);
     viewPager.setCurrentItem(0);
+    changeStatusBarTextDark(false);
     viewPager.setOffscreenPageLimit(4);
+  }
+
+  private void changeStatusBarTextDark(boolean toDark) {
+    boolean supportStatusBarLightMode = false;
+    try {
+      supportStatusBarLightMode = AppUtils.supportStatusBarLightMode(this);
+    } catch (ClassCastException e) {
+      e.printStackTrace();
+    }
+    if (supportStatusBarLightMode) {
+      if (toDark) {
+        getWindow().getDecorView()
+            .setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+      } else {
+        getWindow().getDecorView()
+            .setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+      }
+    }
   }
 
   @Override protected void onStart() {

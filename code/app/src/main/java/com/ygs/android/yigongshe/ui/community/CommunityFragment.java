@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.BindView;
@@ -87,11 +87,19 @@ public class CommunityFragment extends BaseFragment {
   }
 
   private void initTitleBarTabView() {
+    boolean supportStatusBarLightMode = false;
+    try {
+      supportStatusBarLightMode = AppUtils.supportStatusBarLightMode(getContext());
+    } catch (ClassCastException e) {
+      e.printStackTrace();
+    }
+    if (supportStatusBarLightMode) {
     int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
-    LinearLayout.LayoutParams params =
-        (LinearLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
-    params.setMargins(0, 0, 0, 0);
+    RelativeLayout.LayoutParams params =
+        (RelativeLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+    params.setMargins(0, statusBarHeight, 0, 0);
     mTitleBarTabView.setLayoutParams(params);
+     }
     String[] tabs = getResources().getStringArray(R.array.tab_view);
     for (int i = 0; i < tabs.length; i++) {
       mTitleBarTabView.addTab(tabs[i], i);

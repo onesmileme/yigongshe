@@ -13,7 +13,7 @@
     android:background="@color/white"
     titlebar:centerText="发布公益圈"
     titlebar:centerType="textView"
-    titlebar:fillStatusBar="false"
+    titlebar:fillStatusBar="true"
     titlebar:leftType="imageButton"
     titlebar:rightText="发送"
     titlebar:rightType="textView" />
