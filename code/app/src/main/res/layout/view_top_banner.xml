@@ -18,7 +18,7 @@
   <com.ygs.android.yigongshe.view.AutoScrollViewPager
     android:id="@+id/banner"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="160dp"
     android:layout_below="@id/title"
     android:layout_marginBottom="7dp"
     android:layout_marginTop="12dp"

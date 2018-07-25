@@ -42,6 +42,8 @@ public class DynamicDetailActivity extends BaseDetailActivity {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
           ShareUtils.getInstance().shareTo(DynamicDetailActivity.this, mShareBean);
+        } else if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
         }
       }
     });
