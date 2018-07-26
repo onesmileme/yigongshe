@@ -357,5 +357,12 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/association/getinfo")
   LinkCall<BaseResultDataInfo<MeCorporationBean>> getMeCorporationInfo(
       @Field("token") String token);
+
+  /**
+   * 我的社团中的社团活动
+   */
+  @FormUrlEncoded @POST("app/api/association/getactivities")
+  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMeCorporationActivities(
+      @Field("token") String token);
 }
 

@@ -22,6 +22,7 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CityItemBean;
 import com.ygs.android.yigongshe.bean.LocationEvent;
 import com.ygs.android.yigongshe.bean.SortModel;
+import com.ygs.android.yigongshe.bean.UpdateEvent;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
@@ -68,18 +69,22 @@ public class MainActivity extends BaseActivity {
               case R.id.nav_dynamic:
                 viewPager.setCurrentItem(0);
                 changeStatusBarTextDark(false);
+                //EventBus.getDefault().post(new UpdateEvent(0));
                 break;
               case R.id.nav_activity:
                 viewPager.setCurrentItem(1);
                 changeStatusBarTextDark(true);
+                //EventBus.getDefault().post(new UpdateEvent(1));
                 break;
               case R.id.nav_community:
                 viewPager.setCurrentItem(2);
                 changeStatusBarTextDark(true);
+                EventBus.getDefault().post(new UpdateEvent(2));
                 break;
               case R.id.nav_me:
                 viewPager.setCurrentItem(3);
                 changeStatusBarTextDark(true);
+                //EventBus.getDefault().post(new UpdateEvent(3));
                 break;
             }
             return false;

@@ -13,6 +13,7 @@ public class MeCorporationBean implements Serializable {
   public static final int TYPE_ITEM_1 = 1; //一组文字
   public static final int TYPE_ITEM_2 = 2; //2组文字
   public static final int TYPE_ITEM_3 = 3; //3组文字
+  public static final int TYPE_ITEM_4 = 4; //图文组合
   public String assciation_name;
   public String assciation_desc;
   public List<UserInfo> user_list;
@@ -74,6 +75,25 @@ public class MeCorporationBean implements Serializable {
 
     @Override public int getItemType() {
       return TYPE_ITEM_3;
+    }
+  }
+
+  public static class MeCorporationTransItemBean4 implements MultiItemEntity {
+    public int activityid;
+    public String title;//"第11条",
+    public String desc;//活动描述
+    public String pic;//"",
+    public String create_at;//"2018-05-01",创建时间
+
+    public MeCorporationTransItemBean4(ActivityItemBean bean) {
+      this.title = bean.title;
+      this.desc = bean.desc;
+      this.pic = bean.pic;
+      this.create_at = bean.create_at;
+    }
+
+    @Override public int getItemType() {
+      return TYPE_ITEM_4;
     }
   }
 }

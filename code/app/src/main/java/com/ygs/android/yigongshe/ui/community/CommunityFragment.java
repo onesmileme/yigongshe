@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -94,12 +95,12 @@ public class CommunityFragment extends BaseFragment {
       e.printStackTrace();
     }
     if (supportStatusBarLightMode) {
-    int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
-    RelativeLayout.LayoutParams params =
-        (RelativeLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
-    params.setMargins(0, statusBarHeight, 0, 0);
-    mTitleBarTabView.setLayoutParams(params);
-     }
+      int statusBarHeight = AppUtils.getStatusBarHeight(getActivity());
+      RelativeLayout.LayoutParams params =
+          (RelativeLayout.LayoutParams) mTitleBarTabView.getLayoutParams();
+      params.setMargins(0, statusBarHeight, 0, 0);
+      mTitleBarTabView.setLayoutParams(params);
+    }
     String[] tabs = getResources().getStringArray(R.array.tab_view);
     for (int i = 0; i < tabs.length; i++) {
       mTitleBarTabView.addTab(tabs[i], i);
@@ -368,4 +369,5 @@ public class CommunityFragment extends BaseFragment {
   @OnClick(R.id.publish) public void onBtnClicked() {
     goToOthersForResult(PublishCommunityActivity.class, null, PUBLISH_COMMUNITY);
   }
+
 }

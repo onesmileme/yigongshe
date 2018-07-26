@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.bean.response;
 
+import com.google.gson.annotations.SerializedName;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import java.io.Serializable;
 import java.util.List;
@@ -11,5 +12,6 @@ import java.util.List;
 public class ActivityListResponse implements Serializable {
   public int page;
   public int perpage;
+  @SerializedName(value = "activities", alternate = { "activity_list" })
   public List<ActivityItemBean> activities;
 }

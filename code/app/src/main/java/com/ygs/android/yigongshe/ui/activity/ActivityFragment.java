@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
+import com.ygs.android.yigongshe.bean.BaseEvent;
 import com.ygs.android.yigongshe.bean.LocationEvent;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -224,9 +225,14 @@ public class ActivityFragment extends BaseFragment
     refresh();
   }
 
-  @Subscribe(threadMode = ThreadMode.MAIN) public void Event(LocationEvent locationEvent) {
-    TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
+  @Subscribe(threadMode = ThreadMode.MAIN) public void Event(BaseEvent event) {
+    if (event instanceof LocationEvent) {
+      TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
 
-    view.setText(locationEvent.getCityname());
+      view.setText(((LocationEvent) event).getCityname());
+    }
+    //else if (event instanceof UpdateEvent && ((UpdateEvent) event).getPage() == 1) {
+    //  refresh();
+    //}
   }
 }

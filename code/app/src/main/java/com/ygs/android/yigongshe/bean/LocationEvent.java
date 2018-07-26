@@ -4,7 +4,7 @@ package com.ygs.android.yigongshe.bean;
  * Created by ruichao on 2018/7/17.
  */
 
-public class LocationEvent {
+public class LocationEvent extends BaseEvent {
   private String cityname;
 
   public LocationEvent(String cityname) {

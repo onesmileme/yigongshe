@@ -10,8 +10,10 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.MeCorporationBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -30,6 +32,7 @@ public class MeCorporationActivity extends BaseActivity {
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   private MeCorporationAdapter mAdapter;
   private LinkCall<BaseResultDataInfo<MeCorporationBean>> mCall;
+  private LinkCall<BaseResultDataInfo<ActivityListResponse>> mCall2;
   private List<MultiItemEntity> mList;
 
   @Override protected void initIntent(Bundle bundle) {
@@ -51,7 +54,7 @@ public class MeCorporationActivity extends BaseActivity {
   }
 
   private void requestData() {
-    AccountManager accountManager = YGApplication.accountManager;
+    final AccountManager accountManager = YGApplication.accountManager;
     mCall = LinkCallHelper.getApiService().getMeCorporationInfo(accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MeCorporationBean>>() {
       @Override
@@ -59,12 +62,23 @@ public class MeCorporationActivity extends BaseActivity {
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
-          if (entity.data != null) {
-            transData(entity.data);
-          }
+          transData(entity.data);
+          mCall2 =
+              LinkCallHelper.getApiService().getMeCorporationActivities(accountManager.getToken());
+          mCall2.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<ActivityListResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null && entity.error == 2000) {
+                if (entity.data != null) {
+                  transActivityData(entity.data.activities);
+                  mAdapter = new MeCorporationAdapter(mList);
+                  mRecyclerView.setAdapter(mAdapter);
+                }
+              }
+            }
+          });
         }
-        mAdapter = new MeCorporationAdapter(mList);
-        mRecyclerView.setAdapter(mAdapter);
       }
     });
   }
@@ -82,6 +96,14 @@ public class MeCorporationActivity extends BaseActivity {
       }
       mList.add(new MeCorporationBean.MeCorporationTransItemBean0());
       mList.add(new MeCorporationBean.MeCorporationTransItemBean1("社团活动"));
+    }
+  }
+
+  private void transActivityData(List<ActivityItemBean> datas) {
+    if (datas != null && datas.size() > 0) {
+      for (ActivityItemBean bean : datas) {
+        mList.add(new MeCorporationBean.MeCorporationTransItemBean4(bean));
+      }
     }
   }
 
