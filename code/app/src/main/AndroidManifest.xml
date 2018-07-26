@@ -123,6 +123,8 @@
       android:name=".wxapi.WXEntryActivity"
       android:exported="true"
       android:label="@string/app_name" />
+    <activity android:name=".ui.profile.corporation.MeCorporationActivity" />
+
     <meta-data
       android:name="WEIBO_APPKEY"
       android:value="3718455954" />

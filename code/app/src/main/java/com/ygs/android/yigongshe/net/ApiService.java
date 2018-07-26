@@ -3,6 +3,7 @@ package com.ygs.android.yigongshe.net;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
+import com.ygs.android.yigongshe.bean.MeCorporationBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
@@ -349,5 +350,12 @@ public interface ApiService {
    */
   @POST("app/api/pubcircle/gettopics")
   LinkCall<BaseResultDataInfo<TopicListResponse>> getTopicList();
+
+  /**
+   * 我的社团
+   */
+  @FormUrlEncoded @POST("app/api/association/getinfo")
+  LinkCall<BaseResultDataInfo<MeCorporationBean>> getMeCorporationInfo(
+      @Field("token") String token);
 }
 
