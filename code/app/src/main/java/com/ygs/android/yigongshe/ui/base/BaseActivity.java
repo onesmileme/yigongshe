@@ -47,6 +47,7 @@ public abstract class BaseActivity extends FragmentActivity {
     initView();
   }
 
+  @Override
   protected void onSaveInstanceState(Bundle outState) {
     outState.putBundle(PARAM_INTENT, intentData);
     super.onSaveInstanceState(outState);

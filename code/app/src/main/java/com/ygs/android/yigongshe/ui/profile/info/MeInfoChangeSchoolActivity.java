@@ -10,9 +10,9 @@ import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
 
-public class MeInfoChanageSchoolActivity extends BaseActivity {
+public class MeInfoChangeSchoolActivity extends BaseActivity {
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
 
@@ -22,12 +22,13 @@ public class MeInfoChanageSchoolActivity extends BaseActivity {
     @BindView(R.id.school_sp)
     Spinner schoolSpinner;
 
+    @Override
     protected void initIntent(Bundle bundle){
 
     }
 
+    @Override
     protected void initView(){
-
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
             @Override
@@ -39,6 +40,7 @@ public class MeInfoChanageSchoolActivity extends BaseActivity {
         });
     }
 
+    @Override
     protected int getLayoutResId(){
         return R.layout.activity_meinfo_change_school;
     }

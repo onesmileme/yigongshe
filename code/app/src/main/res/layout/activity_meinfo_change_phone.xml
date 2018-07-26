@@ -50,17 +50,18 @@
 
             <EditText
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:paddingLeft="10dp"
+                android:id="@+id/phone_et"
                 android:hint="@string/input_phone_hint"
                 android:textSize="13dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
-                android:layout_alignLeft="@id/countdown_tv"
                 android:layout_marginRight="10dp"
-                android:id="@+id/phone_et"
-                android:inputType="phone"
+                android:layout_alignLeft="@id/countdown_tv"
+                android:inputType="number"
+                android:background="@color/gray5"
                 />
 
             <TextView
@@ -102,7 +103,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:hint="@string/input_captcha_hint"
             android:textSize="13dp"
             android:id="@+id/input_captcha_et"

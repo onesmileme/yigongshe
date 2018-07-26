@@ -32,7 +32,7 @@
         android:text="xixi"
         />
 
-    <ImageView
+    <com.ygs.android.yigongshe.view.CircleImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:id="@+id/me_info_avatar_iv"

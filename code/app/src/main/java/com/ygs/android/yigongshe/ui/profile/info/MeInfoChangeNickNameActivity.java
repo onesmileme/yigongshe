@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.info;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,7 @@ import retrofit2.Response;
 
 public class MeInfoChangeNickNameActivity extends BaseActivity {
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
     @BindView(R.id.change_nickname_et)
@@ -31,8 +32,13 @@ public class MeInfoChangeNickNameActivity extends BaseActivity {
     @BindView(R.id.change_nickname_btn)
     Button submitButton;
 
+
+    LinkCall<BaseResultDataInfo<UserInfoBean>> mCall;
+
+    @Override
     protected void initIntent(Bundle bundle){}
 
+    @Override
     protected void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -47,20 +53,28 @@ public class MeInfoChangeNickNameActivity extends BaseActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 submit();
             }
         });
 
     }
 
+    @Override
     protected int getLayoutResId(){return R.layout.activity_meinfo_change_nickname;}
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mCall != null && !mCall.isCanceled()){
+            mCall.cancel();
+        }
+    }
 
     private void submit(){
 
         final String nickname = editText.getText().toString();
         if (nickname.length() == 0){
-            Toast.makeText(this,"请输入昵称",Toast.LENGTH_SHORT);
+            Toast.makeText(this,"请输入昵称",Toast.LENGTH_SHORT).show();
             return;
         }
         String token = YGApplication.accountManager.getToken();
@@ -71,10 +85,13 @@ public class MeInfoChangeNickNameActivity extends BaseActivity {
                 super.onResponse(entity, response, throwable);
 
                 if (entity.error == ApiStatusInterface.OK){
-                    Toast.makeText(MeInfoChangeNickNameActivity.this,"修改昵称成功",Toast.LENGTH_SHORT);
                     YGApplication.accountManager.updateUserName(nickname);
+                    Intent intent = new Intent();
+                    intent.putExtra("name",nickname);
+                    setResult(1,intent);
+                    finish();
                 }else{
-                    Toast.makeText(MeInfoChangeNickNameActivity.this,entity.msg,Toast.LENGTH_SHORT);
+                    Toast.makeText(MeInfoChangeNickNameActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
 
             }

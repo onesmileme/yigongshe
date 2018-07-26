@@ -22,13 +22,13 @@
         android:layout_marginTop="40dp"
         android:orientation="vertical">
 
-        <ImageView
+        <com.ygs.android.yigongshe.view.CircleImageView
             android:layout_width="173dp"
             android:layout_height="173dp"
             android:id="@+id/avatar_iv"
             android:layout_gravity="center_horizontal"
             android:contentDescription="avatar"
-            android:background="@color/red"/>
+            />
         
         <Button
             android:layout_width="match_parent"

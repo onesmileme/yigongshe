@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.info;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -47,13 +48,12 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
 
     String phoneNum;
 
+    @Override
     protected void initIntent(Bundle bundle){
-
         phoneNum = bundle.getString("phone");
-
     }
 
-
+    @Override
     protected void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -80,7 +80,7 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
         });
 
         refreshCountdownTv(0);
-
+        tipTextView.setText(null);
     }
 
     private void startCountdown(){
@@ -116,13 +116,14 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
         }
     }
 
+    @Override
     protected int getLayoutResId(){
-        return R.layout.activity_meinfo_chane_phone;
+        return R.layout.activity_meinfo_change_phone;
     }
 
 
     private void updateTip(){
-        String tip = "验证码已发至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7);
+        String tip = "验证码已发至"+phoneNum.substring(0,3)+"****"+phoneNum.substring(7)+"，请注意查收";
         tipTextView.setText(tip);
     }
 
@@ -138,7 +139,7 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
             tip = "请输入验证码";
         }
         if (tip != null){
-            Toast.makeText(this,tip,Toast.LENGTH_SHORT);
+            Toast.makeText(this,tip,Toast.LENGTH_SHORT).show();
             return;
         }
         String token = YGApplication.accountManager.getToken();
@@ -149,8 +150,12 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatusInterface.OK){
                     YGApplication.accountManager.updatePhone(phone);
+                    Intent intent = new Intent();
+                    intent.putExtra("phone",phone);
+                    setResult(1,intent);
+                    finish();
                 }else {
-                    Toast.makeText(MeInfoChangePhoneActivity.this,entity.msg,Toast.LENGTH_SHORT);
+                    Toast.makeText(MeInfoChangePhoneActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                     return;
                 }
             }
@@ -159,6 +164,12 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
     }
 
     private void sendCaptcha(){
+
+        phoneNum = phoneEt.getText().toString();
+        if (phoneNum.length() == 0 || phoneNum.length() != 11){
+            Toast.makeText(this,"请输入正确的手机号",Toast.LENGTH_LONG).show();
+            return;
+        }
 
         LinkCall<BaseResultDataInfo<EmptyBean>> call = LinkCallHelper.getApiService().sendVerifycode(phoneNum);
         call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
@@ -169,7 +180,7 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
                     startCountdown();
                     updateTip();
                 }else{
-                    Toast.makeText(MeInfoChangePhoneActivity.this,entity.msg,Toast.LENGTH_SHORT);
+                    Toast.makeText(MeInfoChangePhoneActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });

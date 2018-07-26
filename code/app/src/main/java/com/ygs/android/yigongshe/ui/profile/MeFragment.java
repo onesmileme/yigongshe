@@ -25,6 +25,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.ui.profile.MeProfileAdapter;
 import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
+import com.ygs.android.yigongshe.ui.profile.info.MeInfoActivity;
 import com.ygs.android.yigongshe.ui.profile.set.MeSetAcitivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ import retrofit2.Response;
  * Created by ruichao on 2018/6/13.
  */
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseFragment implements View.OnClickListener {
 
   private static final String TAG = "ME";
 
@@ -47,11 +48,12 @@ public class MeFragment extends BaseFragment {
 
   private BroadcastReceiver mLoginBroadcastReceiver;
 
+  @Override
   public void initView() {
 
     mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-    mProfileAdapter = new MeProfileAdapter(getContext());
+    mProfileAdapter = new MeProfileAdapter(getContext(),this);
     mProfileAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
       @Override public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         click(position);
@@ -86,12 +88,20 @@ public class MeFragment extends BaseFragment {
     return R.layout.fragment_me;
   }
 
+  @Override
   public void onDestroy() {
     super.onDestroy();
     if (mLoginBroadcastReceiver != null) {
       LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
       broadcastManager.unregisterReceiver(mLoginBroadcastReceiver);
     }
+  }
+
+  @Override
+  public void onResume() {
+    super.onResume();
+    AccountManager accountManager = YGApplication.accountManager;
+    mProfileAdapter.updateUserInfo(accountManager.getUserInfoBean());
   }
 
   private void click(int position) {
@@ -101,6 +111,13 @@ public class MeFragment extends BaseFragment {
       Intent intent = new Intent(this.getActivity(), clazz);
       startActivity(intent);
     }
+  }
+
+  @Override
+  public void onClick(View vew){
+
+    Intent intent = new Intent(getActivity(), MeInfoActivity.class);
+    startActivity(intent);
   }
 
   @Override public void onAttach(Context context) {

@@ -92,6 +92,12 @@
       android:theme="@android:style/Theme.Holo.Light.NoActionBar">
 
     </activity>
+    <activity android:name=".ui.profile.info.MeInfoActivity" />
+      <activity android:name=".ui.profile.info.MeInfoChangeNickNameActivity"/>
+      <activity android:name=".ui.profile.info.MeInfoChangePhoneActivity"/>
+      <activity android:name=".ui.profile.info.MeInfoChangePasswordActivity"/>
+      <activity android:name=".ui.profile.info.MeInfoChangeSchoolActivity"/>
+      <activity android:name=".ui.profile.info.MeInfoChangeAvatarActivity"/>
     <activity android:name=".ui.profile.app.MeMyAppActivity"/>
     <activity android:name=".ui.dynamic.DynamicDetailActivity" />
     <activity android:name=".ui.community.TopicSelectActivity" />

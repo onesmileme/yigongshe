@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class MeInfoChangePasswordActivity extends BaseActivity {
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
     @BindView(R.id.change_password_et)
@@ -34,10 +34,12 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
     @BindView(R.id.change_password_btn)
     Button submitButton;
 
+    @Override
     protected void initIntent(Bundle bundle){
 
     }
 
+    @Override
     protected void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -58,6 +60,7 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
 
     }
 
+    @Override
     protected int getLayoutResId(){
         return R.layout.activity_meinfo_change_password;
     }
@@ -85,7 +88,8 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatusInterface.OK){
-                    Toast.makeText(MeInfoChangePasswordActivity.this,"修改密码成功",Toast.LENGTH_SHORT);
+                    setResult(1,null);
+                    finish();
                 }else {
                     Toast.makeText(MeInfoChangePasswordActivity.this,entity.msg,Toast.LENGTH_SHORT);
                 }

@@ -10,6 +10,7 @@
     <item name="colorPrimary">@color/white</item>
     <!-- Status bar color 顶部状态栏 -->
     <item name="colorPrimaryDark">@color/transparent</item>
+
   </style>
 
 

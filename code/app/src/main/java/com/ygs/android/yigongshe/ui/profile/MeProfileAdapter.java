@@ -33,7 +33,7 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
 
   private View headView;
 
-  public MeProfileAdapter(Context context) {
+  public MeProfileAdapter(Context context,View.OnClickListener headerListener) {
 
     super(R.layout.item_me_profile, null);
     initBeans();
@@ -46,6 +46,8 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, height);
     headView.setLayoutParams(params);
     this.addHeaderView(headView);
+
+    headView.setOnClickListener(headerListener);
   }
 
   public void updateUserInfo(UserInfoBean userInfoBean) {
