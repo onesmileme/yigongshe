@@ -226,4 +226,8 @@ public abstract class BaseActivity extends FragmentActivity {
     setResult(resultCode, intent);
     finish();
   }
+
+  @Override protected void onStop() {
+    super.onStop();
+  }
 }

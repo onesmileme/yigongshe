@@ -88,4 +88,11 @@ public class MeCorporationActivity extends BaseActivity {
   @Override protected int getLayoutResId() {
     return R.layout.me_activity_corporation;
   }
+
+  @Override protected void onStop() {
+    if (!mCall.isCanceled()) {
+      mCall.cancel();
+    }
+    super.onStop();
+  }
 }
