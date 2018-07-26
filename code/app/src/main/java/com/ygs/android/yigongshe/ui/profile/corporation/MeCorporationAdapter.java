@@ -61,6 +61,7 @@ public class MeCorporationAdapter
         helper.setText(R.id.title, itemBean4.title);
         helper.setText(R.id.time, itemBean4.create_at);
         helper.setText(R.id.content, itemBean4.desc);
+        helper.addOnClickListener(R.id.container);
         break;
     }
   }

@@ -6,17 +6,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.entity.MultiItemEntity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.MeCorporationBean;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.ActivityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.ArrayList;
@@ -74,6 +77,22 @@ public class MeCorporationActivity extends BaseActivity {
                   transActivityData(entity.data.activities);
                   mAdapter = new MeCorporationAdapter(mList);
                   mRecyclerView.setAdapter(mAdapter);
+                  mAdapter.setOnItemChildClickListener(
+                      new BaseQuickAdapter.OnItemChildClickListener() {
+                        @Override public void onItemChildClick(BaseQuickAdapter adapter, View view,
+                            int position) {
+                          Bundle bundle = new Bundle();
+                          MeCorporationBean.MeCorporationTransItemBean4 itemBean =
+                              ((MeCorporationBean.MeCorporationTransItemBean4) adapter.getItem(
+                                  position));
+                          bundle.putInt("activity_id", itemBean.activityid);
+                          bundle.putString("activity_title", itemBean.title);
+                          ShareBean shareBean =
+                              new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
+                          bundle.putSerializable("shareBean", shareBean);
+                          goToOthers(ActivityDetailActivity.class, bundle);
+                        }
+                      });
                 }
               }
             }

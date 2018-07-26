@@ -84,12 +84,15 @@ public class MeCorporationBean implements Serializable {
     public String desc;//活动描述
     public String pic;//"",
     public String create_at;//"2018-05-01",创建时间
+    public String link;
 
     public MeCorporationTransItemBean4(ActivityItemBean bean) {
+      this.activityid = bean.activityid;
       this.title = bean.title;
       this.desc = bean.desc;
       this.pic = bean.pic;
       this.create_at = bean.create_at;
+      this.link = bean.link;
     }
 
     @Override public int getItemType() {
