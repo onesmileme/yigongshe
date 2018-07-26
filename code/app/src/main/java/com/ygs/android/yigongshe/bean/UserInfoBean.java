@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.bean;
 
-public class UserInfoBean {
+import java.io.Serializable;
+
+public class UserInfoBean implements Serializable{
     public String username;
     public String avatar;
     public String school;

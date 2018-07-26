@@ -22,6 +22,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import org.w3c.dom.Text;
 
@@ -36,11 +37,8 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
     @BindView(R.id.me_focus_recycleview)
     RecyclerView recyclerView;
 
-    @BindView(R.id.titlebar_text_title)
-    TextView titleView;
-
-    @BindView(R.id.titlebar_backward_btn)
-    Button backButton;
+    @BindView(R.id.titleBar)
+    CommonTitleBar titleBar;
 
     MeFocusAdapter focusAdapter;
 
@@ -57,14 +55,14 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
     protected  void initView(){
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+                    finish();
+                }
             }
         });
-
-        titleView.setText(R.string.my_focus);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.charitytime;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +9,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.CharityDurationBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
+import retrofit2.Response;
 
 /**
  * 我的公益时
@@ -26,13 +37,14 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.me_charity_confirm_btn)
     Button charityConfirmButton;
 
-    @BindView(R.id.titlebar_text_title)
-    TextView titleView;
-
-    @BindView(R.id.titlebar_backward_btn)
-    Button backButton;
+    @BindView(R.id.titleBar)
+    CommonTitleBar titleBar;
 
     MeCharityMedalAdapter medalAdapter;
+
+    LinkCall<BaseResultDataInfo<CharityDurationBean>> mCall;
+
+    CharityDurationBean mCharityDurationBean;
 
     protected void initIntent(Bundle bundle){
 
@@ -40,15 +52,25 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
 
     protected  void initView(){
 
-        backButton.setOnClickListener(this);
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+                    finish();
+                }
+            }
+        });
+
+
         charityConfirmButton.setOnClickListener(this);
-        titleView.setText(R.string.my_charity_time);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(gridLayoutManager);
-
         medalAdapter = new MeCharityMedalAdapter();
         recyclerView.setAdapter(medalAdapter);
+
+
+        loadData();
 
     }
 
@@ -59,8 +81,25 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view){
         if (view == charityConfirmButton){
 
-        }else if(view == backButton){
-
         }
     }
+
+
+    private void loadData(){
+
+        AccountManager accountManager = YGApplication.accountManager;
+        mCall = LinkCallHelper.getApiService().getCharityDuration(accountManager.getToken());
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CharityDurationBean>>(){
+            @Override
+            public void onResponse(BaseResultDataInfo<CharityDurationBean> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == ApiStatusInterface.OK){
+                    mCharityDurationBean = entity.data;
+                    charityTimeTextView.setText(mCharityDurationBean.duration+"");
+                    medalAdapter.setNewData(mCharityDurationBean.achievements);
+                }
+            }
+        });
+    }
+
 }
