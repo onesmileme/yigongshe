@@ -6,28 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/layout_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        titlebar:centerText="@string/my_focus"
+        titlebar:centerText="@string/ziliao"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
         titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/me_focus_refresh_layout"
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/me_focus_recycleview">
-
-        </android.support.v7.widget.RecyclerView>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
+        android:layout_height="match_parent"
+        android:id="@+id/my_info_recycleview"
+        ></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

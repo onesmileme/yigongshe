@@ -10,11 +10,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import butterknife.BindView;
+import retrofit2.Response;
+
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
+import java.io.IOException;
 import java.util.zip.Inflater;
 
 /**
@@ -93,7 +104,51 @@ public class MeApplyActivity extends BaseActivity implements View.OnClickListene
 
   private void submit(){
 
+
+
+    String duration = mDurationEditText.getText().toString();
+    String content = mReasonEditText.getText().toString();
+
+    String tip = null;
+    if (duration.length() == 0){
+      tip = "请输入申请时长";
+    }else if(content.length() == 0){
+      tip = "请输入申请内容";
+    }
+    if (tip != null){
+      Toast.makeText(this,tip,Toast.LENGTH_SHORT);
+      return;
+    }
+
+    float durationValue = 0;
+    try{
+      durationValue = Float.valueOf(duration);
+    }catch (Exception e){
+      e.printStackTrace();
+      Toast.makeText(this,"请输入正确的内容",Toast.LENGTH_SHORT);
+      return;
+    }
+
     showLoading();
+    LinkCall<BaseResultDataInfo<EmptyBean>> call = LinkCallHelper.getApiService().addCharityDuration(durationValue,content);
+    call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+      @Override
+      public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        hideLoading();
+        if (entity != null && entity.error == ApiStatusInterface.OK){
+          Toast.makeText(MeApplyActivity.this,"申请成功",Toast.LENGTH_SHORT);
+          mDurationEditText.setText("");
+          mReasonEditText.setText("");
+        }
+      }
+
+      @Override
+      public void networkError(IOException e, LinkCall call) {
+        super.networkError(e, call);
+        hideLoading();
+      }
+    });
 
 
   }

@@ -78,6 +78,23 @@
   <string name="my_community">我的益工圈</string>
   <string name="my_app">我的应用</string>
 
+  <string name="change_nickname">修改昵称</string>
+  <string name="nickname2">昵      称</string>
+  <string name="input_nickname">请输入昵称</string>
+  <string name="change_password">修改密码</string>
+  <string name="password3">密      码</string>
+  <string name="reinput_password">重复密码</string>
+  <string name="reinput_password_hint">请再次输入密码</string>
+  <string name="cell_phone_2">手 机 号</string>
+  <string name="captcha_code">验 证 码</string>
+  <string name="input_captcha_2_hint">请再次输入验证码</string>
+  <string name="change_phone">修改手机号</string>
+  <string name="change_avatar">修改头像</string>
+  <string name="modify">修改</string>
+  <string name="change_school">修改学校</string>
+  <string name="city1">城   市</string>
+  <string name="school1">学   校</string>
+
   <string name="done">完成</string>
   <string name="topicSelect">#%1s#</string>
   <string name="topicItem">#%1s#</string>
