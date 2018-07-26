@@ -69,7 +69,7 @@ public class MeCorporationBean implements Serializable {
     public MeCorporationTransItemBean3(UserInfo userInfo) {
       this.name1 = userInfo.username;
       this.name2 = userInfo.school;
-      this.name3 = userInfo.school;
+      this.name3 = userInfo.role;
     }
 
     @Override public int getItemType() {
