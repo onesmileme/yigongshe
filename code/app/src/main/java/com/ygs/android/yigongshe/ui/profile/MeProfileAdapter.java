@@ -52,11 +52,15 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
 
   public void updateUserInfo(UserInfoBean userInfoBean) {
 
+    if (userInfoBean == null){
+      return;
+    }
+
     TextView nameTv = headView.findViewById(R.id.me_name_tv);
-    nameTv.setText(userInfoBean.username);
+    nameTv.setText(userInfoBean.username != null?userInfoBean.username:"");
 
     TextView phoneTv = headView.findViewById(R.id.me_phone_tv);
-    phoneTv.setText(userInfoBean.phone);
+    phoneTv.setText(userInfoBean.phone != null?userInfoBean.phone:"--");
 
     CircleImageView avatarIv = headView.findViewById(R.id.me_avatar);
     ImageLoadUtil.loadImage(avatarIv, userInfoBean.avatar);

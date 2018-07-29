@@ -23,6 +23,8 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.share.ShareUtils;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
+
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -37,12 +39,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @BindView(R.id.login_password_et) EditText mPasswordEditText;
 
-  @BindView(R.id.titlebar_backward_btn) Button mNavBackButton;
+  @BindView(R.id.titlebar)
+  CommonTitleBar titleBar;
 
-  @BindView(R.id.titlebar_right_btn) Button mNavRightButton;
 
   private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
 
+  @Override
   protected void initIntent(Bundle bundle) {
   }
 
@@ -52,14 +55,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     //ShareUtils.getInstance().regToWeibo();
   }
 
+  @Override
   protected void initView() {
 
-    mNavBackButton.setOnClickListener(this);
-    mNavRightButton.setVisibility(View.VISIBLE);
+    titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override
+      public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+          finish();
+        }else if(action == CommonTitleBar.ACTION_RIGHT_TEXT || action == CommonTitleBar.ACTION_RIGHT_BUTTON){
+          doRegister();
+        }
+      }
+    });
 
-    this.mNavRightButton.setText(R.string.register);
-    this.mNavRightButton.setVisibility(View.VISIBLE);
-    this.mNavRightButton.setOnClickListener(this);
 
     mLoginButton.setOnClickListener(this);
     mOfficialLoginButton.setOnClickListener(this);
@@ -72,6 +81,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     mPasswordEditText.setText("admin");
   }
 
+  @Override
   protected int getLayoutResId() {
     return R.layout.activity_login;
   }
@@ -84,21 +94,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       tryOfficialLogin();
     } else if (view == mForgetButton) {
       forgetPassword();
-    } else if (view == mNavRightButton) {
-      //do register
-      doRegister();
-    } else if (view == mNavBackButton) {
-      finish();
     }
   }
 
   private void tryLogin() {
 
     if (mPhoneEditText.getText().length() == 0) {
-      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG);
+      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
       return;
     } else if (mPasswordEditText.getText().length() == 0) {
-      Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG);
+      Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
       return;
     }
     loginAction();
@@ -118,9 +123,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     String password = mPasswordEditText.getText().toString();
 
     if (phone.length() == 0) {
-      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG);
+      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
     } else if (password.length() == 0) {
-      Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG);
+      Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
     }
 
     mLoginCall = LinkCallHelper.getApiService().doLogin(phone, password);
@@ -129,12 +134,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       @Override public void onResponse(BaseResultDataInfo<LoginBean> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity.error == ApiStatusInterface.OK) {
+        if (entity != null && entity.error == ApiStatusInterface.OK) {
           Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
           AccountManager accountManager = YGApplication.accountManager;
           if (accountManager != null) {
             accountManager.updateToken(entity.data.token, entity.data.token_expire);
-            //                        LoginActivity.this.loadUserInfo(entity.data.token);
             accountManager.updateUserId(entity.data.userid);
             Intent intent = new Intent();
             intent.setAction("com.ygs.android.yigongshe.login");
@@ -145,7 +149,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
           }
           LoginActivity.this.finish();
         } else {
-          Toast.makeText(LoginActivity.this, entity.msg, Toast.LENGTH_LONG);
+          Toast.makeText(LoginActivity.this, entity.msg, Toast.LENGTH_LONG).show();
         }
       }
     });

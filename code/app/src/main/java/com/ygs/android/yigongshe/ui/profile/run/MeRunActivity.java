@@ -57,10 +57,12 @@ public class MeRunActivity extends BaseActivity {
     private int currentPage = 0;
     private static final int PER_PAGE = 20;
 
+    @Override
     protected void initIntent(Bundle bundle){
 
     }
 
+    @Override
     protected void initView(){
 
 
@@ -106,6 +108,7 @@ public class MeRunActivity extends BaseActivity {
         runAdapter.setEnableLoadMore(true);
     }
 
+    @Override
     protected int getLayoutResId(){
         return R.layout.activity_me_run;
     }

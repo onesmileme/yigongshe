@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.charitytime;
 
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -20,7 +21,8 @@ public class MeCharityMedalAdapter extends BaseQuickAdapter<CharityAchievementBe
 
         helper.setText(R.id.me_medal_name_tv,item.title);
         ImageView imageView = helper.getView(R.id.me_medal_icon_iv);
-        ImageLoadUtil.loadImage(imageView,item.icon);
+        Drawable loading = imageView.getContext().getResources().getDrawable(R.drawable.loading2);
+        ImageLoadUtil.loadImage(imageView,item.icon,loading);
     }
 
 

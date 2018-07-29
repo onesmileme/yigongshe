@@ -19,9 +19,10 @@ public class MeAcitivityAdapter extends BaseQuickAdapter<ActivityItemBean, BaseV
 
     Glide.with(mContext)
         .load(item.pic)
-        .placeholder(R.drawable.defalutavar)
-        .error(R.drawable.defalutavar)
-        .fallback(R.drawable.defalutavar)
+        .placeholder(R.drawable.loading2)
+        .error(R.drawable.loading2)
+        .fallback(R.drawable.loading2)
+        .thumbnail(0.1f)
         .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
         .into((ImageView) helper.getView(R.id.img));
 

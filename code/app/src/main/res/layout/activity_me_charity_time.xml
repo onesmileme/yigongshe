@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
-        android:id="@+id/layout_titlebar"
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         titlebar:centerText="@string/my_charity_time"
@@ -93,6 +93,7 @@
                         android:textSize="16dp"
                         android:layout_marginLeft="10dp"
                         android:layout_alignBottom="@id/me_charity_time_tv"
+                        android:paddingBottom="8dp"
                         android:textColor="@color/green"/>
                 </RelativeLayout>
 
@@ -103,10 +104,9 @@
                     android:layout_marginBottom="30dp"
                     android:layout_marginTop="17dp"
                     android:background="@drawable/borderline_buttonstyle"
-                    android:paddingHorizontal="35dp"
-                    android:paddingVertical="15dp"
+                    android:textSize="14dp"
                     android:text="@string/confirm_approve_charity_time"
-                    android:textColor="@color/colorPrimary"
+                    android:textColor="@color/green"
                     android:id="@+id/me_charity_confirm_btn"/>
 
             </LinearLayout>

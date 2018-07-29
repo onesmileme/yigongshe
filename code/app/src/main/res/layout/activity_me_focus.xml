@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
-        android:id="@+id/layout_titlebar"
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         titlebar:centerText="@string/my_focus"

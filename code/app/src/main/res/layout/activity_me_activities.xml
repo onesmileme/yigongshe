@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/layout_titlebar"/>
+    <com.ygs.android.yigongshe.view.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:centerText="@string/my_activity"
+        titlebar:centerType="textView"
+        titlebar:leftDrawable="@drawable/arrow_back"
+        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
 
     <com.ygs.android.yigongshe.view.SegmentControlView
@@ -12,20 +21,33 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop = "10dp"
-        android:layout_marginBottom = "10dp"
-        android:layout_marginHorizontal="45dp"
-        app:scv_FrameCornerRadius="0dp"
+        app:scv_BackgroundNormalColor="@color/gray4"
+        app:scv_BackgroundSelectedColor="@color/green"
+        app:scv_FrameColor="#c1c1c1"
+        app:scv_FrameCornerRadius="2dp"
         app:scv_FrameWidth="1dp"
-        app:scv_Gradient="true"
-        app:scv_SegmentPaddingVertical="10dp"
         app:scv_SegmentPaddingHorizontal="50dp"
-        app:scv_TextArray="@array/activities_segs"/>
+        app:scv_SegmentPaddingVertical="10dp"
+        app:scv_TextArray="@array/activities_segs"
+        app:scv_TextNormalColor="@color/gray2"
+        app:scv_TextSelectedColor="@color/white"
+        app:scv_TextSize="12dp" />
 
-    <android.support.v7.widget.RecyclerView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/me_activities_recycleview"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlebar"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/me_activities_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>
