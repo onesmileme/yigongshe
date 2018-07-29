@@ -97,6 +97,8 @@ public class CommunityDetailHeaderView {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
                   mAttention.setBackgroundResource(R.drawable.bg_attention);
+                  mAttention.setText("已关注");
+                  mAttention.setTextColor(mContent.getResources().getColor(R.color.white));
                   item.is_follow = 1;
                 } else {
                   Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
@@ -119,6 +121,8 @@ public class CommunityDetailHeaderView {
               super.onResponse(entity, response, throwable);
               if (entity != null && entity.error == 2000) {
                 Toast.makeText(mContext, "取消关注成功", Toast.LENGTH_SHORT).show();
+                mAttention.setText("+关注");
+                mAttention.setTextColor(mContent.getResources().getColor(R.color.green));
                 mAttention.setBackgroundResource(R.drawable.bg_unattention);
                 item.is_follow = 0;
               }

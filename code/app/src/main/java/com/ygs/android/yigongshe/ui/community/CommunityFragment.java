@@ -6,7 +6,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -179,6 +178,8 @@ public class CommunityFragment extends BaseFragment {
                   if (entity.error == 2000) {
                     Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
                     view.setBackgroundResource(R.drawable.bg_attention);
+                    ((TextView) view).setText("已关注");
+                    ((TextView) view).setTextColor(getResources().getColor(R.color.white));
                     updateDataList(itemBean.create_id, 1);
                   } else {
                     Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
@@ -197,6 +198,8 @@ public class CommunityFragment extends BaseFragment {
                 if (entity != null && entity.error == 2000) {
                   Toast.makeText(getActivity(), "取消关注成功", Toast.LENGTH_SHORT).show();
                   view.setBackgroundResource(R.drawable.bg_unattention);
+                  ((TextView) view).setText("+关注");
+                  ((TextView) view).setTextColor(getResources().getColor(R.color.green));
                   updateDataList(itemBean.create_id, 0);
                 }
               }
@@ -369,5 +372,4 @@ public class CommunityFragment extends BaseFragment {
   @OnClick(R.id.publish) public void onBtnClicked() {
     goToOthersForResult(PublishCommunityActivity.class, null, PUBLISH_COMMUNITY);
   }
-
 }

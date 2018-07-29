@@ -4,16 +4,17 @@
   android:layout_height="210dp"
   android:background="@color/green">
 
-  <TextView
-    android:id="@+id/title"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="20dp"
-    android:layout_marginTop="30dp"
-    android:text="青|年|益|工|社"
-    android:textColor="@color/white"
-    android:textSize="20dp"
-    android:textStyle="bold" />
+  <!--<TextView-->
+  <!--android:id="@+id/title"-->
+  <!--android:layout_width="match_parent"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:layout_marginLeft="20dp"-->
+  <!--android:layout_marginTop="30dp"-->
+  <!--android:text="青|年|益|工|社"-->
+  <!--android:textColor="@color/white"-->
+  <!--android:textSize="20dp"-->
+  <!--android:textStyle="bold" />-->
+
   <!--banner-->
   <com.ygs.android.yigongshe.view.AutoScrollViewPager
     android:id="@+id/banner"
@@ -34,5 +35,11 @@
     android:layout_marginBottom="10dp"
     android:orientation="horizontal" />
 
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="30dp"
+    android:src="@drawable/topbannertitle" />
 
 </RelativeLayout>

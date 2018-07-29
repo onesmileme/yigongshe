@@ -23,7 +23,7 @@
     android:layout_marginTop="10dp"
     android:drawableLeft="@drawable/whatscall"
     android:drawablePadding="8dp"
-    android:textSize="11dp"
+    android:textSize="10dp"
     android:text="什么是视频"
     android:textColor="@color/gray2" />
 
@@ -53,7 +53,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     android:background="@drawable/bg_helpvideo"
     android:gravity="center"
     android:text="更多视频"
