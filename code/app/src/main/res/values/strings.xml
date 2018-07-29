@@ -94,6 +94,11 @@
   <string name="change_school">修改学校</string>
   <string name="city1">城   市</string>
   <string name="school1">学   校</string>
+  <string name="other_home">个人主页</string>
+  <string name="ta_activity">TA的活动</string>
+  <string name="ta_yidong_circle">TA的益工圈</string>
+  <string name="send_msg">发消息</string>
+  <string name="follow">关注</string>
 
   <string name="done">完成</string>
   <string name="topicSelect">#%1s#</string>

@@ -40,11 +40,7 @@
 
     </activity>
 
-    <activity
-      android:name=".ui.login.RegisterActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-
-    </activity>
+    <activity android:name=".ui.login.RegisterActivity"/>
     <activity
       android:name=".ui.profile.message.MessageActivity"
       android:theme="@android:style/Theme.Holo.Light.NoActionBar">
@@ -98,6 +94,8 @@
       <activity android:name=".ui.profile.info.MeInfoChangePasswordActivity"/>
       <activity android:name=".ui.profile.info.MeInfoChangeSchoolActivity"/>
       <activity android:name=".ui.profile.info.MeInfoChangeAvatarActivity"/>
+    <activity android:name=".ui.profile.community.MeCommunityActivity" />
+    <activity android:name=".ui.otherhomepage.OtherHomePageActivity"/>
     <activity android:name=".ui.profile.app.MeMyAppActivity"/>
     <activity android:name=".ui.dynamic.DynamicDetailActivity" />
     <activity android:name=".ui.community.TopicSelectActivity" />

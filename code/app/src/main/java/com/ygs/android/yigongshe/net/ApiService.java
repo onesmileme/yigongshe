@@ -1,10 +1,12 @@
 package com.ygs.android.yigongshe.net;
 
 import com.ygs.android.yigongshe.bean.CharityDurationBean;
+import com.ygs.android.yigongshe.bean.CharityRecordBean;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.MeCorporationBean;
+import com.ygs.android.yigongshe.bean.MyActivityBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.RunListBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
@@ -119,8 +121,9 @@ public interface ApiService {
       @Field("token") String token, @Field("new_password") String newPassword,
       @Field("confirm_password") String confirmPassword);
 
-  @GET("app/api/user/beforemodifyschool")
-  LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolLisst();
+  @FormUrlEncoded
+  @POST("app/api/user/beforemodifyschool")
+  LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolList(@Field("token") String token);
 
   /**
    * 我关注的人
@@ -162,6 +165,15 @@ public interface ApiService {
                                                              @Field("content") String content);
 
   /**
+   *获取公益时长列表
+   */
+  @FormUrlEncoded
+  @POST("app/api/duration/getlist")
+  LinkCall<BaseResultDataInfo<CharityRecordBean>> getCharityRecrodList(@Field("token")String token ,
+                                                                       @Field("page") int page,
+                                                                       @Field("perpage") int perpage);
+
+  /**
    * /app/api/step/getranklist
    获取排行列表
    */
@@ -184,7 +196,7 @@ public interface ApiService {
    */
   @FormUrlEncoded
   @POST("app/api/activity/getmyregisteractivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyRegisterActivity(
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyRegisterActivity(
       @Field("token") String token);
 
   /**
@@ -192,7 +204,7 @@ public interface ApiService {
    */
   @FormUrlEncoded
   @POST("app/api/activity/getmystoreactivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMyStoreActivity(
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyStoreActivity(
       @Field("token") String token);
 
   /**
@@ -200,7 +212,7 @@ public interface ApiService {
    */
   @FormUrlEncoded
   @POST("app/api/activity/getmysigninactivity")
-  LinkCall<BaseResultDataInfo<ActivityListResponse>> getMySigninActivity(
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(
       @Field("token") String token);
 
   /**
@@ -209,6 +221,13 @@ public interface ApiService {
   @GET("app/api/pubcircle/getmylist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getMyCommunityList(
       @Query("token") String token);
+
+  /**
+   * 获取我的或他人的益公圈列表
+   */
+  @GET("app/api/pubcircle/getuserlist")
+  LinkCall<BaseResultDataInfo<CommunityListResponse>> getUserCommunityList(
+      @Query("token") String token , @Query("other_id") String userId);
 
   /**
    * 活动评论列表
