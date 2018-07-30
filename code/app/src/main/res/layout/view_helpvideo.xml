@@ -23,9 +23,9 @@
     android:layout_marginTop="10dp"
     android:drawableLeft="@drawable/whatscall"
     android:drawablePadding="8dp"
-    android:textSize="10dp"
     android:text="什么是视频"
-    android:textColor="@color/gray2" />
+    android:textColor="@color/gray2"
+    android:textSize="10dp" />
 
   <!--<android.support.v7.widget.RecyclerView-->
   <!--android:id="@+id/video_list"-->
@@ -56,6 +56,8 @@
     android:layout_marginTop="10dp"
     android:background="@drawable/bg_helpvideo"
     android:gravity="center"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
     android:text="更多视频"
     android:textColor="@color/white"
     android:textSize="14dp" />

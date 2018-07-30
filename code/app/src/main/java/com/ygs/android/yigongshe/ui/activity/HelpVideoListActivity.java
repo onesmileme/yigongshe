@@ -86,7 +86,7 @@ public class HelpVideoListActivity extends BaseActivity {
       @Override public void onClicked(View v, int action, String extra) {
         if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
           finish();
-        } else if (action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
+        } else if (action == CommonTitleBar.ACTION_RIGHT_TEXT) {
           AccountManager accountManager = YGApplication.accountManager;
           mToken = accountManager.getToken();
           if (TextUtils.isEmpty(mToken)) {
@@ -299,35 +299,37 @@ public class HelpVideoListActivity extends BaseActivity {
 
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     if (requestCode == REQUEST_VIDEO_CAPTURE) {
-      Uri videoUri = data.getData();
-      String path = VideoUtils.getPath(this, videoUri);
-      File file = new File(path);
-      RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+      if (data != null) {
+        Uri videoUri = data.getData();
+        String path = VideoUtils.getPath(this, videoUri);
+        File file = new File(path);
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
 
-      //MultipartBody.Part  和后端约定好Key，这里的partName是用image
-      MultipartBody.Part body =
-          MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-      //MultipartBody.Part body1 = MultipartBody.Part.create(requestFile);
-      // 添加描述
-      String descriptionString = "hello, 这是文件描述";
-      RequestBody description =
-          RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
-      LinkCall<BaseResultDataInfo<UploadImageBean>> upload =
-          LinkCallHelper.getApiService().uploadRemarkImage(description, body, StringUtil.md5(path));
-      upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UploadImageBean>>() {
-        @Override
-        public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
-            Throwable throwable) {
-          if (entity != null) {
-            if (entity.error == 2000) {
-              String uploadUrl = entity.data.site_url;
-              uploadHelpVideo(uploadUrl);
-            } else {
-              Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+        //MultipartBody.Part  和后端约定好Key，这里的partName是用image
+        MultipartBody.Part body =
+            MultipartBody.Part.createFormData("file", file.getName(), requestFile);
+        //MultipartBody.Part body1 = MultipartBody.Part.create(requestFile);
+        // 添加描述
+        String descriptionString = "hello, 这是文件描述";
+        RequestBody description =
+            RequestBody.create(MediaType.parse("multipart/form-data"), descriptionString);
+        LinkCall<BaseResultDataInfo<UploadImageBean>> upload = LinkCallHelper.getApiService()
+            .uploadRemarkImage(description, body, StringUtil.md5(path));
+        upload.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UploadImageBean>>() {
+          @Override
+          public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
+              Throwable throwable) {
+            if (entity != null) {
+              if (entity.error == 2000) {
+                String uploadUrl = entity.data.site_url;
+                uploadHelpVideo(uploadUrl);
+              } else {
+                Toast.makeText(HelpVideoListActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
+              }
             }
           }
-        }
-      });
+        });
+      }
     }
   }
 

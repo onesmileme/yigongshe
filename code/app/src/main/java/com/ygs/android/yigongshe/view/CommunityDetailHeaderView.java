@@ -85,6 +85,8 @@ public class CommunityDetailHeaderView {
     mTopic.setText(item.topic);
     if (item.is_follow == 0) {
       mAttention.setBackgroundResource(R.drawable.bg_unattention);
+      mAttention.setTextColor(mContext.getResources().getColor(R.color.green));
+      mAttention.setText("+关注");
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<AttentionResponse>> attention = LinkCallHelper.getApiService()
@@ -110,6 +112,8 @@ public class CommunityDetailHeaderView {
       });
     } else {
       mAttention.setBackgroundResource(R.drawable.bg_attention);
+      mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
+      mAttention.setText("已关注");
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
