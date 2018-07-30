@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app = "http://schemas.android.com/apk/res-auto"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -8,7 +10,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <include layout="@layout/layout_titlebar" />
+        <com.ygs.android.yigongshe.view.CommonTitleBar
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            titlebar:leftDrawable="@drawable/arrow_back"
+            titlebar:leftType="imageButton"
+            titlebar:rightType="textView"
+            titlebar:rightText="@string/login"
+            titlebar:rightTextColor="@color/green"
+            titlebar:rightTextSize="12dp"
+            ></com.ygs.android.yigongshe.view.CommonTitleBar>
 
         <TextView
             android:layout_width="match_parent"
@@ -273,6 +285,69 @@
                 android:textColorHint="@color/gray4"
                 android:textSize="12dp" />
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/password"
+                android:textAlignment="textEnd"
+                android:textColor="@color/gray2"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/register_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/register_round_bg"
+                android:hint="@string/input_password_hint"
+                android:inputType="text"
+                android:paddingEnd="0dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/black1"
+                android:textColorHint="@color/gray4"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:text="@string/reinput_password"
+                android:textAlignment="textEnd"
+                android:textColor="@color/gray2"
+                android:textSize="12dp" />
+
+            <EditText
+                android:id="@+id/register_reinput_password_et"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/register_round_bg"
+                android:hint="@string/reinput_password_hint"
+                android:inputType="text"
+                android:paddingEnd="0dp"
+                android:paddingStart="10dp"
+                android:textColor="@color/black1"
+                android:textColorHint="@color/gray4"
+                android:textSize="12dp" />
+        </LinearLayout>
+
 
         <Button
             android:id="@+id/register_register_btn"

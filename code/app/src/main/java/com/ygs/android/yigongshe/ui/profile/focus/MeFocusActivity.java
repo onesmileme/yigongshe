@@ -23,6 +23,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 
 import org.w3c.dom.Text;
 
@@ -37,7 +38,7 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
     @BindView(R.id.me_focus_recycleview)
     RecyclerView recyclerView;
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
     MeFocusAdapter focusAdapter;
@@ -49,10 +50,12 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
     private LinkCall<BaseResultDataInfo<FollowPersonDataBean>> mCall;
 
+    @Override
     protected  void initIntent(Bundle bundle){
 
     }
 
+    @Override
     protected  void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -69,29 +72,35 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
         focusAdapter = new MeFocusAdapter(this,this);
         recyclerView.setAdapter(focusAdapter);
 
-        focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
-                                               @Override
-                                               public void onLoadMoreRequested() {
-                                                   loadMore();
-                                               }
-                                           }
-        ,recyclerView);
+        recyclerView.addItemDecoration(
+            new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
 
+        //focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
+        //                                       @Override
+        //                                       public void onLoadMoreRequested() {
+        //                                           loadMore();
+        //                                       }
+        //                                   }
+        //,recyclerView);
+
+        //focusAdapter.disableLoadMoreIfNotFullPage();
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 loadData(true);
             }
         });
+
+        loadData(true);
     }
 
+    @Override
     protected  int getLayoutResId(){
         return R.layout.activity_me_focus;
     }
 
     private void loadData(final boolean isRefresh){
 
-        focusAdapter.setEnableLoadMore(false);
         if (isRefresh){
             mPageIndex= 0;
         }
@@ -104,9 +113,14 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 if (entity.error == ApiStatusInterface.OK){
                     addData(isRefresh,entity.data);
                 }
+                if (isRefresh){
+                    refreshLayout.setRefreshing(false);
+                }else{
+                    focusAdapter.setEnableLoadMore(false);
+                }
             }
         });
-        focusAdapter.setEnableLoadMore(true);
+
     }
 
     private void loadMore(){
@@ -117,6 +131,8 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
         if (isRefresh){
             focusAdapter.setNewData(followPersonDataBean.list);
+        }else{
+            focusAdapter.addData(followPersonDataBean.list);
         }
 
     }

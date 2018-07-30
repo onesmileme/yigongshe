@@ -37,7 +37,7 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
     @BindView(R.id.me_charity_confirm_btn)
     Button charityConfirmButton;
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
     MeCharityMedalAdapter medalAdapter;
@@ -46,56 +46,58 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
 
     CharityDurationBean mCharityDurationBean;
 
-    protected void initIntent(Bundle bundle){
+    @Override
+    protected void initIntent(Bundle bundle) {
 
     }
 
-    protected  void initView(){
+    @Override
+    protected void initView() {
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
             @Override
             public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                     finish();
                 }
             }
         });
 
-
         charityConfirmButton.setOnClickListener(this);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,3,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager);
         medalAdapter = new MeCharityMedalAdapter();
         recyclerView.setAdapter(medalAdapter);
-
 
         loadData();
 
     }
 
-    protected  int getLayoutResId(){
+    @Override
+    protected int getLayoutResId() {
         return R.layout.activity_me_charity_time;
     }
 
-    public void onClick(View view){
-        if (view == charityConfirmButton){
+    @Override
+    public void onClick(View view) {
+        if (view == charityConfirmButton) {
 
         }
     }
 
-
-    private void loadData(){
+    private void loadData() {
 
         AccountManager accountManager = YGApplication.accountManager;
         mCall = LinkCallHelper.getApiService().getCharityDuration(accountManager.getToken());
-        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CharityDurationBean>>(){
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CharityDurationBean>>() {
             @Override
-            public void onResponse(BaseResultDataInfo<CharityDurationBean> entity, Response<?> response, Throwable throwable) {
+            public void onResponse(BaseResultDataInfo<CharityDurationBean> entity, Response<?> response,
+                                   Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatusInterface.OK) {
                     mCharityDurationBean = entity.data;
-                    charityTimeTextView.setText(mCharityDurationBean.duration+"");
+                    charityTimeTextView.setText(mCharityDurationBean.duration + "");
                     medalAdapter.setNewData(mCharityDurationBean.achievements);
                 }
             }

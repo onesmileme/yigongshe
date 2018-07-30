@@ -100,6 +100,14 @@ public class AccountManager {
     userInfoBean.phone = phone;
     updateUserInfo(userInfoBean);
   }
+  public void updateAvatar(String avatar){
+    userInfoBean.avatar = avatar;
+    updateUserInfo(userInfoBean);
+  }
+  public void updateSchool(String school){
+    userInfoBean.school = school;
+    updateUserInfo(userInfoBean);
+  }
 
   public String getToken() {
     return token;

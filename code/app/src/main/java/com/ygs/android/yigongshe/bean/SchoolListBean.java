@@ -5,5 +5,6 @@ import java.util.List;
 
 public class SchoolListBean implements Serializable {
 
+    public String cur_school;
     public List<SchoolInfoBean> school_list;
 }
