@@ -12,8 +12,8 @@
     titlebar:centerText="应援视频"
     titlebar:centerType="textView"
     titlebar:leftType="imageButton"
-    titlebar:rightImageResource="@drawable/upload"
-    titlebar:rightType="imageButton" />
+    titlebar:rightText="+"
+    titlebar:rightType="textView" />
 
   <com.ygs.android.yigongshe.view.TitleBarTabView
     android:id="@+id/titleBarTabView"

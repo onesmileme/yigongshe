@@ -58,8 +58,13 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
 
     if (item.is_follow == 0) {
       helper.setBackgroundRes(R.id.attention, R.drawable.bg_unattention);
+      helper.setText(R.id.attention, "+关注");
+      helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.green));
     } else {
       helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
+
+      helper.setText(R.id.attention, "已关注");
+      helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.white));
     }
     if (item.is_like == 0) {
       helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.gray2));

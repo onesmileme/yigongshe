@@ -85,6 +85,8 @@ public class CommunityDetailHeaderView {
     mTopic.setText(item.topic);
     if (item.is_follow == 0) {
       mAttention.setBackgroundResource(R.drawable.bg_unattention);
+      mAttention.setTextColor(mContext.getResources().getColor(R.color.green));
+      mAttention.setText("+关注");
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<AttentionResponse>> attention = LinkCallHelper.getApiService()
@@ -97,6 +99,8 @@ public class CommunityDetailHeaderView {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
                   mAttention.setBackgroundResource(R.drawable.bg_attention);
+                  mAttention.setText("已关注");
+                  mAttention.setTextColor(mContent.getResources().getColor(R.color.white));
                   item.is_follow = 1;
                 } else {
                   Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
@@ -108,6 +112,8 @@ public class CommunityDetailHeaderView {
       });
     } else {
       mAttention.setBackgroundResource(R.drawable.bg_attention);
+      mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
+      mAttention.setText("已关注");
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
           LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
@@ -119,6 +125,8 @@ public class CommunityDetailHeaderView {
               super.onResponse(entity, response, throwable);
               if (entity != null && entity.error == 2000) {
                 Toast.makeText(mContext, "取消关注成功", Toast.LENGTH_SHORT).show();
+                mAttention.setText("+关注");
+                mAttention.setTextColor(mContent.getResources().getColor(R.color.green));
                 mAttention.setBackgroundResource(R.drawable.bg_unattention);
                 item.is_follow = 0;
               }
