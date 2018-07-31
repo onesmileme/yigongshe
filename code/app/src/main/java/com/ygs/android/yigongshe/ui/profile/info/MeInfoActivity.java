@@ -26,7 +26,7 @@ import butterknife.BindView;
 
 public class MeInfoActivity extends BaseActivity {
 
-    @BindView(R.id.titleBar)
+    @BindView(R.id.titlebar)
     CommonTitleBar titleBar;
 
     @BindView(R.id.my_info_recycleview)

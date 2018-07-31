@@ -14,6 +14,6 @@ public class ImageLoadUtil {
     }
 
     public static void loadImage(ImageView imageView , String imgUrl , Drawable placeHolder){
-        Glide.with(imageView.getContext()).load(imgUrl).placeholder(placeHolder).into(imageView);
+        Glide.with(imageView.getContext()).load(imgUrl).placeholder(placeHolder).fallback(placeHolder).into(imageView);
     }
 }

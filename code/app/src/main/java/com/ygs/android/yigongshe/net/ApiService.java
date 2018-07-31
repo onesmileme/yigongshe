@@ -6,10 +6,12 @@ import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.MeCorporationBean;
+import com.ygs.android.yigongshe.bean.MsgListBean;
 import com.ygs.android.yigongshe.bean.MyActivityBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.RunListBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
+import com.ygs.android.yigongshe.bean.TalkListItemBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
@@ -228,6 +230,35 @@ public interface ApiService {
   @GET("app/api/pubcircle/getuserlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getUserCommunityList(
       @Query("token") String token , @Query("other_id") String userId);
+
+  /**
+   * 获取消息列表
+   */
+  @FormUrlEncoded
+  @POST("app/api/message/getmessages")
+  LinkCall<BaseResultDataInfo<MsgListBean>> getMessageList(@Field("token") String token,
+                                                           @Field("type") String type);
+
+  /**
+   * /app/api/message/getmessagelist
+      获取某一发送者的聊天记录
+   */
+  @FormUrlEncoded
+  @POST("app/api/message/getmessagelist")
+  LinkCall<BaseResultDataInfo<TalkListItemBean>> getTalkList(@Field("message_key") String messageKey,
+                                                             @Field("other_id") String otherId,
+                                                             @Field("token") String token,
+                                                             @Field("type") String type,
+                                                             @Field("last_id") String lastId);
+
+  /**
+   * 发送 消息
+   */
+  @FormUrlEncoded
+  @POST("app/api/message/send")
+  LinkCall<BaseResultDataInfo<EmptyBean>> sendTalkItem(@Field("token") String token ,
+                                                       @Field("content") String content,
+                                                       @Field("receiver_id") String receiverId);
 
   /**
    * 活动评论列表

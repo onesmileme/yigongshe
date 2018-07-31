@@ -2,15 +2,27 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <include layout="@layout/layout_titlebar"/>
+    <com.ygs.android.yigongshe.view.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:centerText="@string/message"
+        titlebar:centerType="textView"
+        titlebar:leftDrawable="@drawable/arrow_back"
+        titlebar:rightType="textView"
+        titlebar:rightText="@string/operate"
+        titlebar:rightTextColor="@color/gray2"
+        titlebar:rightTextSize="12dp"
+        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
     <com.ygs.android.yigongshe.view.SegmentControlView
         android:id="@+id/message_segment"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="30dp"
         android:layout_gravity="center_horizontal"
         android:paddingLeft="10dp"
@@ -19,12 +31,14 @@
         android:layout_marginBottom = "10dp"
         app:scv_BackgroundNormalColor="@color/gray3"
         app:scv_BackgroundSelectedColor="@color/green"
+        app:scv_FrameColor="#c1c1c1"
         app:scv_FrameCornerRadius="2dp"
-        app:scv_FrameWidth="1px"
-        app:scv_Gradient="true"
-        app:scv_FrameColor="@color/gray4"
-        app:scv_SegmentPaddingVertical="5dp"
+        app:scv_FrameWidth="1dp"
         app:scv_SegmentPaddingHorizontal="50dp"
+        app:scv_SegmentPaddingVertical="10dp"
+        app:scv_TextNormalColor="@color/gray2"
+        app:scv_TextSelectedColor="@color/white"
+        app:scv_TextSize="12dp"
         app:scv_TextArray="@array/message_segs"/>
 
     <android.support.v4.widget.SwipeRefreshLayout

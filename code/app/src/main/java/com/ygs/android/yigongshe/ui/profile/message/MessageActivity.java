@@ -1,28 +1,38 @@
 package com.ygs.android.yigongshe.ui.profile.message;
 
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.Toast;
+
 import butterknife.BindView;
+import retrofit2.Response;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.bean.MsgItemBean;
+import com.ygs.android.yigongshe.bean.MsgListBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
-import com.ygs.android.yigongshe.utils.DensityUtil;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.SegmentControlView;
+
+import java.util.List;
 
 /**
  * 我的消息
  */
-public class MessageActivity extends BaseActivity implements View.OnClickListener {
+public class MessageActivity extends BaseActivity {
 
-  @BindView(R.id.titlebar_backward_btn) Button mNavBackButton;
-
-  @BindView(R.id.titlebar_right_btn) Button mNavRightButton;
-
-  @BindView(R.id.titlebar_text_title) TextView mTitleView;
+  @BindView(R.id.titlebar) CommonTitleBar titleBar;
 
   @BindView(R.id.message_segment) SegmentControlView segmentControlView;
 
@@ -32,50 +42,143 @@ public class MessageActivity extends BaseActivity implements View.OnClickListene
 
   private MessageAdapter messageAdapter;
 
+  private List<MsgItemBean> privateMsgList;
+  private List<MsgItemBean> noticeMsgList;
+
+  private LinkCall<BaseResultDataInfo<MsgListBean>> mCall;
+
+  @Override
   protected void initIntent(Bundle bundle) {
+
 
   }
 
+  @Override
   protected void initView() {
 
-    mNavBackButton.setOnClickListener(this);
-    mNavRightButton.setText("操作");
+    titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override
+      public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+          finish();
+        }else if(action == CommonTitleBar.ACTION_RIGHT_TEXT || action == CommonTitleBar.ACTION_RIGHT_BUTTON){
+          doOperate();
+        }
+      }
+    });
 
-    mNavRightButton.setTextColor(getResources().getColor(R.color.gray1));
-    mNavRightButton.setVisibility(View.VISIBLE);
-    mNavRightButton.setOnClickListener(this);
-
-    mTitleView.setText("消息");
-
-    messageAdapter = new MessageAdapter();
-    segmentControlView.setTextSize(DensityUtil.dp2px(this, 12));
-    int norColor = getResources().getColor(R.color.gray2);
-    int selColor = Color.WHITE;
-    segmentControlView.setTextColor(norColor, selColor);
     segmentControlView.setOnSegmentChangedListener(
         new SegmentControlView.OnSegmentChangedListener() {
           @Override public void onSegmentChanged(int newSelectedIndex) {
             changeSegment(newSelectedIndex);
           }
         });
-    swipeRefreshLayout.setOnRefreshListener(messageAdapter);
-    messageAdapter.setSwipeRefreshLayout(swipeRefreshLayout);
+    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        loadMessage(false);
+      }
+    });
+    messageAdapter = new MessageAdapter(this);
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.setAdapter(messageAdapter);
+    messageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+      @Override
+      public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        showTalk(position);
+      }
+    });
+
+    loadMessage(true);
   }
 
+  @Override
   protected int getLayoutResId() {
     return R.layout.activity_message;
   }
 
   private void changeSegment(int position) {
 
-  }
-
-  public void onClick(View view) {
-
-    if (mNavBackButton == view) {
-      finish();
-    } else if (mNavRightButton == view) {
-
+    switch (position){
+      case 0:{
+        if (privateMsgList == null || privateMsgList.size() == 0){
+          loadMessage(true);
+        }else{
+          messageAdapter.setNewData(privateMsgList);
+        }
+        break;
+      }
+      case 1:{
+        if (noticeMsgList == null || noticeMsgList.size() == 0){
+          loadMessage(true);
+        }else{
+          messageAdapter.setNewData(noticeMsgList);
+        }
+        break;
+      }
     }
+
   }
+
+  private void doOperate(){
+
+  }
+
+  private void loadMessage(boolean showRefresh){
+
+    if (showRefresh){
+      swipeRefreshLayout.setRefreshing(true);
+    }
+
+    final boolean isPrivateMsg = segmentControlView.getSelectedIndex() == 0;
+    String type = isPrivateMsg ? "message" : "notice";
+
+    String token = YGApplication.accountManager.getToken();
+
+    mCall =  LinkCallHelper.getApiService().getMessageList(token,type);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MsgListBean>>(){
+      @Override
+      public void onResponse(BaseResultDataInfo<MsgListBean> entity, Response<?> response, Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == ApiStatusInterface.OK){
+
+          if (isPrivateMsg){
+            privateMsgList = entity.data.list;
+          }else{
+            noticeMsgList = entity.data.list;
+          }
+          messageAdapter.setNewData(entity.data.list);
+
+        }else{
+          String msg = "请求消息失败";
+          if (entity != null){
+            msg += "("+entity.msg+")";
+          }
+          Toast.makeText(MessageActivity.this,msg,Toast.LENGTH_SHORT).show();
+        }
+        swipeRefreshLayout.setRefreshing(false);
+      }
+    });
+  }
+
+  private void showTalk(int index){
+    MsgItemBean itemBean = null;
+    if (segmentControlView.getSelectedIndex() == 0){
+      itemBean = privateMsgList.get(index);
+    }else{
+      itemBean = noticeMsgList.get(index);
+    }
+
+    Intent intent = new Intent(this,MsgTalkActivity.class);
+    if (itemBean.other_id != null){
+      intent.putExtra("otherUid",itemBean.other_id);
+    }
+    if (itemBean.message_key != null){
+      intent.putExtra("messageKey",itemBean.message_key);
+    }
+
+    startActivity(intent);
+
+  }
+
 }

@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.profile;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,7 @@ import com.ygs.android.yigongshe.ui.profile.charitytime.MeCharityTimeActivity;
 import com.ygs.android.yigongshe.ui.profile.community.MeCommunityActivity;
 import com.ygs.android.yigongshe.ui.profile.corporation.MeCorporationActivity;
 import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
+import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 import com.ygs.android.yigongshe.utils.DensityUtil;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.view.CircleImageView;
@@ -63,7 +65,8 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
     phoneTv.setText(userInfoBean.phone != null?userInfoBean.phone:"--");
 
     CircleImageView avatarIv = headView.findViewById(R.id.me_avatar);
-    ImageLoadUtil.loadImage(avatarIv, userInfoBean.avatar);
+    Drawable defaultAvatar = mContext.getResources().getDrawable(R.drawable.defalutavar);
+    ImageLoadUtil.loadImage(avatarIv, userInfoBean.avatar,defaultAvatar);
   }
 
   private void initBeans() {
@@ -106,8 +109,8 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
 
     switch (postion) {
       case 0: {//message
-        return MeApplyActivity.class;
-        //                return MessageActivity.class;
+        //return MeApplyActivity.class;
+        return MessageActivity.class;
       }
       case 1://我的关注
         return MeFocusActivity.class;

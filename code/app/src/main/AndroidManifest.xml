@@ -42,37 +42,17 @@
 
     <activity android:name=".ui.login.RegisterActivity"/>
     <activity
-      android:name=".ui.profile.message.MessageActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-
-    </activity>
-
-    <activity
       android:name=".ui.profile.set.MeSetAcitivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+      />
 
-    </activity>
-    <activity
-      android:name=".ui.profile.apply.MeApplyActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+    <activity android:name=".ui.profile.apply.MeApplyActivity" />
+    <activity android:name=".ui.profile.association.MeAssociationActivity" />
 
-    </activity>
+    <activity android:name=".ui.profile.record.MeRecordListActivity"/>
 
     <activity
-      android:name=".ui.profile.association.MeAssociationActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+      android:name=".ui.profile.activity.MeActivitiesActivity" />
 
-    </activity>
-    <activity
-      android:name=".ui.profile.record.MeRecordListActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-
-    </activity>
-    <activity
-      android:name=".ui.profile.activity.MeActivitiesActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
-
-    </activity>
     <activity
       android:name=".ui.profile.focus.MeFocusActivity"
       android:theme="@android:style/Theme.Holo.Light.NoActionBar">
@@ -95,6 +75,8 @@
       <activity android:name=".ui.profile.info.MeInfoChangeSchoolActivity"/>
       <activity android:name=".ui.profile.info.MeInfoChangeAvatarActivity"/>
     <activity android:name=".ui.profile.community.MeCommunityActivity" />
+    <activity android:name=".ui.profile.message.MessageActivity" />
+    <activity android:name=".ui.profile.message.MsgTalkActivity" />
     <activity android:name=".ui.otherhomepage.OtherHomePageActivity"/>
     <activity android:name=".ui.profile.app.MeMyAppActivity"/>
     <activity android:name=".ui.dynamic.DynamicDetailActivity" />
