@@ -76,7 +76,7 @@ public class MessageActivity extends BaseActivity {
     swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override
       public void onRefresh() {
-        loadMessage(false);
+        loadMessage(false , segmentControlView.getSelectedIndex() == 0);
       }
     });
     messageAdapter = new MessageAdapter(this);
@@ -89,7 +89,7 @@ public class MessageActivity extends BaseActivity {
       }
     });
 
-    loadMessage(true);
+    loadMessage(true , segmentControlView.getSelectedIndex() == 0);
   }
 
   @Override
@@ -98,22 +98,20 @@ public class MessageActivity extends BaseActivity {
   }
 
   private void changeSegment(int position) {
-
     switch (position){
       case 0:{
         if (privateMsgList == null || privateMsgList.size() == 0){
-          loadMessage(true);
-        }else{
-          messageAdapter.setNewData(privateMsgList);
+          loadMessage(true , true);
         }
+        messageAdapter.setNewData(privateMsgList);
+
         break;
       }
       case 1:{
         if (noticeMsgList == null || noticeMsgList.size() == 0){
-          loadMessage(true);
-        }else{
-          messageAdapter.setNewData(noticeMsgList);
+          loadMessage(true,false);
         }
+        messageAdapter.setNewData(noticeMsgList);
         break;
       }
     }
@@ -124,13 +122,14 @@ public class MessageActivity extends BaseActivity {
 
   }
 
-  private void loadMessage(boolean showRefresh){
+  private void loadMessage(boolean showRefresh, final boolean isPrivateMsg){
 
     if (showRefresh){
       swipeRefreshLayout.setRefreshing(true);
     }
 
-    final boolean isPrivateMsg = segmentControlView.getSelectedIndex() == 0;
+
+    //final boolean isPrivateMsg = segmentControlView.getSelectedIndex() == 0;
     String type = isPrivateMsg ? "message" : "notice";
 
     String token = YGApplication.accountManager.getToken();
@@ -163,10 +162,13 @@ public class MessageActivity extends BaseActivity {
 
   private void showTalk(int index){
     MsgItemBean itemBean = null;
+    String type ;
     if (segmentControlView.getSelectedIndex() == 0){
       itemBean = privateMsgList.get(index);
+      type = "message";
     }else{
       itemBean = noticeMsgList.get(index);
+      type = "notice";
     }
 
     Intent intent = new Intent(this,MsgTalkActivity.class);
@@ -176,6 +178,12 @@ public class MessageActivity extends BaseActivity {
     if (itemBean.message_key != null){
       intent.putExtra("messageKey",itemBean.message_key);
     }
+
+    if (itemBean.username != null){
+      intent.putExtra("name",itemBean.username);
+    }
+
+    intent.putExtra("type",type);
 
     startActivity(intent);
 

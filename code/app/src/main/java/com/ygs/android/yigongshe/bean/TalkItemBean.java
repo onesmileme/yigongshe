@@ -13,5 +13,5 @@ public class TalkItemBean implements Serializable {
     public String is_read;
     public String content;
     public String create_at;
-    public String avatar;
+    public String sender_avatar;
 }

@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.ui.base;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,6 +34,7 @@ public abstract class BaseActivity extends FragmentActivity {
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayoutResId());
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     unbinder = ButterKnife.bind(this);
 
     if (savedInstanceState == null) {

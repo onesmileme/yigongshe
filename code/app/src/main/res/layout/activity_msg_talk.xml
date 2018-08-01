@@ -8,7 +8,7 @@
 
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
-        android:id="@+id/titlebarar"
+        android:id="@+id/titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         titlebar:centerText="@string/message"
@@ -42,7 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_weight="1"
-            android:hint="Type something here"
+            android:hint="请输入~"
             android:maxLines="1"
             android:background="@drawable/bg_round_input"
             android:layout_marginLeft="15dp"

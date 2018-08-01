@@ -149,7 +149,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
           }
           LoginActivity.this.finish();
         } else {
-          Toast.makeText(LoginActivity.this, entity.msg, Toast.LENGTH_LONG).show();
+          String msg = "登录失败";
+          if (entity != null && entity.msg != null){
+            msg += "("+entity.msg+")";
+          }
+          Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
         }
       }
     });
