@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
@@ -22,10 +23,13 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Response;
@@ -148,7 +152,16 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == ApiStatusInterface.OK){
                     focusBean.unfollowed = true;
-                    focusAdapter.notifyDataSetChanged();
+                    List<FollowPersonItemBean> list = focusAdapter.getData();
+                    list.remove(focusBean);
+                    focusAdapter.setNewData(list);
+                    Toast.makeText(MeFocusActivity.this,"取消关注成功",Toast.LENGTH_SHORT).show();
+                }else{
+                    String msg = "取消关注失败";
+                    if (entity != null && entity.msg != null){
+                        msg += "("+entity.msg+")";
+                    }
+                    Toast.makeText(MeFocusActivity.this,msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -166,6 +179,12 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 if (entity != null && entity.error == ApiStatusInterface.OK){
                     focusBean.unfollowed = false;
                     focusAdapter.notifyDataSetChanged();
+                }else{
+                    String msg = "关注失败";
+                    if (entity != null && entity.msg != null){
+                        msg += "("+entity.msg+")";
+                    }
+                    Toast.makeText(MeFocusActivity.this,msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });
