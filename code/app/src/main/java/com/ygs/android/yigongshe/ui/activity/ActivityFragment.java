@@ -57,13 +57,16 @@ public class ActivityFragment extends BaseFragment
   private View errorView;
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   AccountManager mAccountManager = YGApplication.accountManager;
+  private View noDataView;
 
   @Override protected void initView() {
     EventBus.getDefault().register(this);
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
-
+    noDataView =
+        getLayoutInflater().inflate(R.layout.view_nodata, (ViewGroup) mRecyclerView.getParent(),
+            false);
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         refresh();
@@ -137,6 +140,9 @@ public class ActivityFragment extends BaseFragment
           ++pageCnt;
           _COUNT = data.perpage;
           setData(true, data.activities);
+          if (data.activities == null || data.activities.size() == 0) {
+            mAdapter.setEmptyView(noDataView);
+          }
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {

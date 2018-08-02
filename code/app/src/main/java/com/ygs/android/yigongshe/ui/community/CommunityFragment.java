@@ -64,12 +64,15 @@ public class CommunityFragment extends BaseFragment {
   private List<CommunityItemBean> mList;
   private String mTopicStr, mCityStr;
   AccountManager accountManager = YGApplication.accountManager;
+  private View noDataView;
 
   @Override protected void initView() {
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
-
+    noDataView =
+        getLayoutInflater().inflate(R.layout.view_nodata, (ViewGroup) mRecyclerView.getParent(),
+            false);
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         refresh();
@@ -281,6 +284,9 @@ public class CommunityFragment extends BaseFragment {
           _COUNT = data.perpage;
           mList = data.list;
           setData(true, data.list);
+          if (mList == null || mList.size() == 0) {
+            mAdapter.setEmptyView(noDataView);
+          }
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {
