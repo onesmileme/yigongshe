@@ -72,13 +72,17 @@ public class DynamicDetailActivity extends BaseDetailActivity {
       showError(true);
       return;
     }
+    if (TextUtils.isEmpty(mAccountManager.getToken())) {
+      return;
+    }
     showLoading(true);
-    mCall = LinkCallHelper.getApiService().getDynamicDetail(mId);
+    mCall = LinkCallHelper.getApiService().getDynamicDetail(mId, mAccountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicDetailResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<DynamicDetailResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
+        showLoading(false);
         if (entity != null && entity.error == 2000) {
           showLoading(false);
           DynamicDetailResponse data = entity.data;

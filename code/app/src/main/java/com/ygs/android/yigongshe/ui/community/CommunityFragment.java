@@ -264,7 +264,7 @@ public class CommunityFragment extends BaseFragment {
       mAdapter.setEmptyView(errorView);
       return;
     }
-    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService()
@@ -284,6 +284,7 @@ public class CommunityFragment extends BaseFragment {
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {
+          mAdapter.setEmptyView(errorView);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         }

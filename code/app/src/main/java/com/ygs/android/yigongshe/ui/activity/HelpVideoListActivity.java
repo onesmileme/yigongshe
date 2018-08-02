@@ -63,6 +63,7 @@ public class HelpVideoListActivity extends BaseActivity {
   @BindView(R.id.titleBarTabView) TitleBarTabView mTitleBarTabView;
   private String mType;//按时间，按点赞数
   private String mOrder;//排序规则，升序：ASC，降序：DESC
+  AccountManager mAccountManager = YGApplication.accountManager;
 
   protected boolean openTranslucentStatus() {
     return true;
@@ -226,7 +227,7 @@ public class HelpVideoListActivity extends BaseActivity {
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
     mCall = LinkCallHelper.getApiService()
-        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder);
+        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder, mAccountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,
@@ -253,7 +254,7 @@ public class HelpVideoListActivity extends BaseActivity {
 
   private void loadMore() {
     mCall = LinkCallHelper.getApiService()
-        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder);
+        .getHelpVideoList(pageCnt, _COUNT, mActivityId, mType, mOrder, mAccountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,

@@ -59,7 +59,7 @@ public interface ApiService {
    * 动态列表
    */
   @GET("app/api/news/getnews") LinkCall<BaseResultDataInfo<DynamicListResponse>> getDynamicLists(
-      @Query("page") int page, @Query("perpage") int perpage);
+      @Query("page") int page, @Query("perpage") int perpage, @Query("token") String token);
 
   @GET("app/api/register")
   LinkCall<BaseResultDataInfo<SchoolInfoListResponse>> getSchoolInfoLists();
@@ -68,17 +68,18 @@ public interface ApiService {
    * 动态详情
    */
   @GET("app/api/news/getnewsdetail")
-  LinkCall<BaseResultDataInfo<DynamicDetailResponse>> getDynamicDetail(@Query("id") int id);
+  LinkCall<BaseResultDataInfo<DynamicDetailResponse>> getDynamicDetail(@Query("id") int id,
+      @Query("token") String token);
 
   /**
    * 动态评论列表
    */
   @GET("app/api/news/getcomments")
   LinkCall<BaseResultDataInfo<CommentListResponse>> getDynamicCommentLists(
-      @Query("news_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
+      @Query("news_id") int news_id, @Query("page") int page, @Query("perpage") int perpage,
+      @Query("token") String token);
 
-  @FormUrlEncoded
-  @POST("app/api/register") LinkCall<BaseResultDataInfo<EmptyBean>> postRegsiter(
+  @FormUrlEncoded @POST("app/api/register") LinkCall<BaseResultDataInfo<EmptyBean>> postRegsiter(
       @Field("phone") String name, @Field("role") String role, @Field("school") String school,
       @Field("college") String college, @Field("admission_year") String adYear,
       @Field("invite_code") String inviteCode, @Field("verify_code") String verifyCode);
@@ -86,8 +87,7 @@ public interface ApiService {
   @GET("app/api/login") LinkCall<BaseResultDataInfo<LoginBean>> doLogin(
       @Query("phone") String phone, @Query("password") String password);
 
-  @FormUrlEncoded
-  @POST("app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
+  @FormUrlEncoded @POST("app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
       @Field("token") String token);
 
   @GET("app/api/user/base") LinkCall<BaseResultDataInfo<UserInfoBean>> getUserInfo(
@@ -96,126 +96,107 @@ public interface ApiService {
   @GET("app/api/user/otherInfo") LinkCall<BaseResultDataInfo<OtherUserInfoBean>> getOtherInfo(
       @Query("token") String token, @Query("userid") String userid);
 
-  @FormUrlEncoded
-  @POST("app/api/user/modifyschool") LinkCall<BaseResultDataInfo<UserInfoBean>> modifySchool(
-      @Field("token") String token, @Field("new_school") String school);
+  @FormUrlEncoded @POST("app/api/user/modifyschool")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifySchool(@Field("token") String token,
+      @Field("new_school") String school);
 
-  @FormUrlEncoded
-  @POST("app/api/user/forgetpassword") LinkCall<BaseResultDataInfo<EmptyBean>> forgetPassword(
-      @Field("phone") String phone, @Field("verif_code") String verifyCode,
-      @Field("password") String newPassword);
+  @FormUrlEncoded @POST("app/api/user/forgetpassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> forgetPassword(@Field("phone") String phone,
+      @Field("verif_code") String verifyCode, @Field("password") String newPassword);
 
-  @FormUrlEncoded
-  @POST("app/api/user/modifyavatar") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyAvatar(
-      @Field("token") String token, @Field("new_avatar") String newAvatar);
+  @FormUrlEncoded @POST("app/api/user/modifyavatar")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyAvatar(@Field("token") String token,
+      @Field("new_avatar") String newAvatar);
 
-  @FormUrlEncoded
-  @POST("app/api/user/modifyphone") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyPhone(
-      @Field("token") String token, @Field("new_phone") String newPhone,
-      @Field("verif_code") String verifyCode);
+  @FormUrlEncoded @POST("app/api/user/modifyphone")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyPhone(@Field("token") String token,
+      @Field("new_phone") String newPhone, @Field("verif_code") String verifyCode);
 
-  @FormUrlEncoded
-  @POST("app/api/user/modifyusername") LinkCall<BaseResultDataInfo<UserInfoBean>> modifyUsername(
-      @Field("token") String token, @Field("new_username") String newName);
+  @FormUrlEncoded @POST("app/api/user/modifyusername")
+  LinkCall<BaseResultDataInfo<UserInfoBean>> modifyUsername(@Field("token") String token,
+      @Field("new_username") String newName);
 
-  @FormUrlEncoded
-  @POST("app/api/user/modifypassword") LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(
-      @Field("token") String token, @Field("new_password") String newPassword,
-      @Field("confirm_password") String confirmPassword);
+  @FormUrlEncoded @POST("app/api/user/modifypassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(@Field("token") String token,
+      @Field("new_password") String newPassword, @Field("confirm_password") String confirmPassword);
 
-  @FormUrlEncoded
-  @POST("app/api/user/beforemodifyschool")
+  @FormUrlEncoded @POST("app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolList(@Field("token") String token);
 
   /**
    * 我关注的人
    */
-  @FormUrlEncoded
-  @POST("app/api/followperson/getlist")
+  @FormUrlEncoded @POST("app/api/followperson/getlist")
   LinkCall<BaseResultDataInfo<FollowPersonDataBean>> getFolloPersonList(
       @Field("token") String token, @Field("page") int pageindex);//page index start from 1
 
   /**
    * 关注某人
    */
-  @FormUrlEncoded
-  @POST("app/api/followperson/follow") LinkCall<BaseResultDataInfo<EmptyBean>> doFollow(
-      @Field("token") String token, @Field("userid") String userid);
+  @FormUrlEncoded @POST("app/api/followperson/follow")
+  LinkCall<BaseResultDataInfo<EmptyBean>> doFollow(@Field("token") String token,
+      @Field("userid") String userid);
 
   /**
    * 取消关注某人
    */
-  @FormUrlEncoded
-  @POST("app/api/followperson/unfollow") LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(
-      @Field("token") String token, @Field("userid") String userid);
-
+  @FormUrlEncoded @POST("app/api/followperson/unfollow")
+  LinkCall<BaseResultDataInfo<EmptyBean>> unFollow(@Field("token") String token,
+      @Field("userid") String userid);
 
   /**
    * 获取年度公益时长
    */
-  @FormUrlEncoded
-  @POST("app/api/duration/getduration")
-  LinkCall<BaseResultDataInfo<CharityDurationBean>> getCharityDuration(@Field("token") String token);
+  @FormUrlEncoded @POST("app/api/duration/getduration")
+  LinkCall<BaseResultDataInfo<CharityDurationBean>> getCharityDuration(
+      @Field("token") String token);
 
   /**
    * 添加公益记录
    * /
    */
-  @FormUrlEncoded
-  @POST("app/api/duration/add")
-  LinkCall<BaseResultDataInfo<EmptyBean>> addCharityDuration(@Field("duration") float duration ,
-                                                             @Field("content") String content);
+  @FormUrlEncoded @POST("app/api/duration/add")
+  LinkCall<BaseResultDataInfo<EmptyBean>> addCharityDuration(@Field("duration") float duration,
+      @Field("content") String content);
 
   /**
-   *获取公益时长列表
+   * 获取公益时长列表
    */
-  @FormUrlEncoded
-  @POST("app/api/duration/getlist")
-  LinkCall<BaseResultDataInfo<CharityRecordBean>> getCharityRecrodList(@Field("token")String token ,
-                                                                       @Field("page") int page,
-                                                                       @Field("perpage") int perpage);
+  @FormUrlEncoded @POST("app/api/duration/getlist")
+  LinkCall<BaseResultDataInfo<CharityRecordBean>> getCharityRecrodList(@Field("token") String token,
+      @Field("page") int page, @Field("perpage") int perpage);
 
   /**
    * /app/api/step/getranklist
-   获取排行列表
+   * 获取排行列表
    */
-  @FormUrlEncoded
-  @POST("app/api/step/getranklist")
-  LinkCall<BaseResultDataInfo<RunListBean>> getRankList(@Field("token") String token ,
-                                                        @Field("page") int page ,
-                                                        @Field("perpage") int perpage);
+  @FormUrlEncoded @POST("app/api/step/getranklist")
+  LinkCall<BaseResultDataInfo<RunListBean>> getRankList(@Field("token") String token,
+      @Field("page") int page, @Field("perpage") int perpage);
 
   /**
-   *
    * 发送验证码
    */
-  @FormUrlEncoded
-  @POST("app/api/verifcode/sendverifcode")
+  @FormUrlEncoded @POST("app/api/verifcode/sendverifcode")
   LinkCall<BaseResultDataInfo<EmptyBean>> sendVerifycode(@Field("phonenum") String phonenum);
 
   /**
    * 获取我报名参加的活动
    */
-  @FormUrlEncoded
-  @POST("app/api/activity/getmyregisteractivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyRegisterActivity(
-      @Field("token") String token);
+  @FormUrlEncoded @POST("app/api/activity/getmyregisteractivity")
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyRegisterActivity(@Field("token") String token);
 
   /**
    * 获取我收藏的活动
    */
-  @FormUrlEncoded
-  @POST("app/api/activity/getmystoreactivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyStoreActivity(
-      @Field("token") String token);
+  @FormUrlEncoded @POST("app/api/activity/getmystoreactivity")
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyStoreActivity(@Field("token") String token);
 
   /**
    * 获取我签到的活动
    */
-  @FormUrlEncoded
-  @POST("app/api/activity/getmysigninactivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(
-      @Field("token") String token);
+  @FormUrlEncoded @POST("app/api/activity/getmysigninactivity")
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(@Field("token") String token);
 
   /**
    * 获取我的益公圈列表
@@ -229,58 +210,54 @@ public interface ApiService {
    */
   @GET("app/api/pubcircle/getuserlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getUserCommunityList(
-      @Query("token") String token , @Query("other_id") String userId);
+      @Query("token") String token, @Query("other_id") String userId);
 
   /**
    * 获取消息列表
    */
-  @FormUrlEncoded
-  @POST("app/api/message/getmessages")
+  @FormUrlEncoded @POST("app/api/message/getmessages")
   LinkCall<BaseResultDataInfo<MsgListBean>> getMessageList(@Field("token") String token,
-                                                           @Field("type") String type);
+      @Field("type") String type);
 
   /**
    * /app/api/message/getmessagelist
-      获取某一发送者的聊天记录
+   * 获取某一发送者的聊天记录
    */
-  @FormUrlEncoded
-  @POST("app/api/message/getmessagelist")
-  LinkCall<BaseResultDataInfo<TalkListItemBean>> getTalkList(@Field("message_key") String messageKey,
-                                                             @Field("other_id") String otherId,
-                                                             @Field("token") String token,
-                                                             @Field("type") String type,
-                                                             @Field("last_id") String lastId);
+  @FormUrlEncoded @POST("app/api/message/getmessagelist")
+  LinkCall<BaseResultDataInfo<TalkListItemBean>> getTalkList(
+      @Field("message_key") String messageKey, @Field("other_id") String otherId,
+      @Field("token") String token, @Field("type") String type, @Field("last_id") String lastId);
 
   /**
    * 发送 消息
    */
-  @FormUrlEncoded
-  @POST("app/api/message/send")
-  LinkCall<BaseResultDataInfo<EmptyBean>> sendTalkItem(@Field("token") String token ,
-                                                       @Field("content") String content,
-                                                       @Field("receiver_id") String receiverId);
+  @FormUrlEncoded @POST("app/api/message/send")
+  LinkCall<BaseResultDataInfo<EmptyBean>> sendTalkItem(@Field("token") String token,
+      @Field("content") String content, @Field("receiver_id") String receiverId);
 
   /**
    * 活动评论列表
    */
   @GET("app/api/activity/getcomments")
   LinkCall<BaseResultDataInfo<CommentListResponse>> getActivityCommentLists(
-      @Query("activity_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
+      @Query("activity_id") int news_id, @Query("page") int page, @Query("perpage") int perpage,
+      @Query("token") String token);
 
   /**
    * 圈子评论列表
    */
   @GET("app/api/pubcircle/getcomments")
   LinkCall<BaseResultDataInfo<CommentListResponse>> getCommunityCommentLists(
-      @Query("pubcircle_id") int news_id, @Query("page") int page, @Query("perpage") int perpage);
+      @Query("pubcircle_id") int news_id, @Query("page") int page, @Query("perpage") int perpage,
+      @Query("token") String token);
 
   /**
    * 活动列表
    */
   @GET("app/api/activity/getactivities")
   LinkCall<BaseResultDataInfo<ActivityListResponse>> getActivityLists(@Query("page") int page,
-      @Query("perpage") int perpage, @Query("cate") String cate,
-      @Query("progress") String progress);
+      @Query("perpage") int perpage, @Query("cate") String cate, @Query("progress") String progress,
+      @Query("token") String token);
 
   /**
    * 活动详情
@@ -304,7 +281,8 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/video/getvideolist")
   LinkCall<BaseResultDataInfo<HelpVideoListResponse>> getHelpVideoList(@Field("page") int page,
       @Field("perpage") int perpage, @Field("activityid") int activityid,
-      @Field("order_target") String order_target, @Field("order") String order);
+      @Field("order_target") String order_target, @Field("order") String order,
+      @Field("token") String token);
 
   /**
    * 视频列表页点赞

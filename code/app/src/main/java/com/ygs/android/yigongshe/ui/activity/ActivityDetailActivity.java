@@ -63,6 +63,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   RelativeLayout mStatusFinish;
   TextView mPeopleNum;
   AccountManager accountManager = YGApplication.accountManager;
+  private TextView signup;
+  private TextView signin;
 
   @Override protected void initIntent(Bundle bundle) {
     mId = bundle.getInt("activity_id");
@@ -94,11 +96,12 @@ public class ActivityDetailActivity extends BaseDetailActivity {
       return;
     }
     showLoading(true);
-    mCall = LinkCallHelper.getApiService().getActivityDetail(mId,accountManager.getToken());
+    mCall = LinkCallHelper.getApiService().getActivityDetail(mId, accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityDetailResponse>>() {
       @Override public void onResponse(BaseResultDataInfo<ActivityDetailResponse> entity,
           Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
+        showLoading(false);
         if (entity != null && entity.error == 2000) {
           showLoading(false);
           ActivityDetailResponse data = entity.data;
@@ -117,10 +120,24 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             if (data.is_end == 1) {
               mStatusOn.setVisibility(View.GONE);
               mStatusFinish.setVisibility(View.VISIBLE);
-              mPeopleNum.setText("");
+              mPeopleNum.setText(data.participate_count + "");
             } else {
               mStatusOn.setVisibility(View.VISIBLE);
               mStatusFinish.setVisibility(View.GONE);
+              if (data.is_register == 1) {//报名
+                signup.setTextColor(getResources().getColor(R.color.black1));
+                signup.setBackgroundResource(R.drawable.bg_hassignup);
+              } else {
+                signup.setTextColor(getResources().getColor(R.color.white));
+                signup.setBackgroundResource(R.drawable.bg_signup);
+              }
+              if (data.is_signin == 1) {
+                signin.setTextColor(getResources().getColor(R.color.black1));
+                signin.setBackgroundResource(R.drawable.bg_hassignin);
+              } else {
+                signin.setTextColor(getResources().getColor(R.color.white));
+                signin.setBackgroundResource(R.drawable.bg_signup);
+              }
             }
           }
         }
@@ -129,7 +146,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   }
 
   private void requestHelpVideoData() {
-    mHelpVideoCall = LinkCallHelper.getApiService().getHelpVideoList(0, 20, mId, "", "");
+    mHelpVideoCall = LinkCallHelper.getApiService()
+        .getHelpVideoList(0, 20, mId, "", "", mAccountManager.getToken());
     mHelpVideoCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<HelpVideoListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<HelpVideoListResponse> entity, Response<?> response,
@@ -162,10 +180,10 @@ public class ActivityDetailActivity extends BaseDetailActivity {
     mStatusOn = mRlWebview1.findViewById(R.id.status_on);
     mStatusFinish = mRlWebview1.findViewById(R.id.status_finish);
     mPeopleNum = mRlWebview1.findViewById(R.id.people_num);
-    TextView signup = mRlWebview1.findViewById(R.id.signup);
-    TextView signin = mRlWebview1.findViewById(R.id.signin);
+    signup = mRlWebview1.findViewById(R.id.signup);
+    signin = mRlWebview1.findViewById(R.id.signin);
     signup.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override public void onClick(final View view) {
         LinkCall<BaseResultDataInfo<SignupResponse>> signup =
             LinkCallHelper.getApiService().signupActivity(mId, accountManager.getToken());
         signup.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SignupResponse>>() {
@@ -176,6 +194,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             if (entity != null) {
               if (entity.error == 2000) {
                 Toast.makeText(ActivityDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
+                ((TextView) view).setTextColor(getResources().getColor(R.color.black1));
+                view.setBackgroundResource(R.drawable.bg_hassignup);
               } else {
                 Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
               }
@@ -185,7 +205,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
       }
     });
     signin.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
+      @Override public void onClick(final View view) {
         LinkCall<BaseResultDataInfo<SigninResponse>> signin =
             LinkCallHelper.getApiService().signinActivity(mId, accountManager.getToken());
         signin.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<SigninResponse>>() {
@@ -196,6 +216,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             if (entity != null) {
               if (entity.error == 2000) {
                 Toast.makeText(ActivityDetailActivity.this, "签到成功", Toast.LENGTH_SHORT).show();
+                ((TextView) view).setTextColor(getResources().getColor(R.color.black1));
+                view.setBackgroundResource(R.drawable.bg_hassignin);
               } else {
                 Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
               }

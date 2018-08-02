@@ -11,6 +11,8 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.BaseEvent;
 import com.ygs.android.yigongshe.bean.LocationEvent;
@@ -54,6 +56,7 @@ public class ActivityFragment extends BaseFragment
   private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
   private View errorView;
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
+  AccountManager mAccountManager = YGApplication.accountManager;
 
   @Override protected void initView() {
     EventBus.getDefault().register(this);
@@ -118,10 +121,11 @@ public class ActivityFragment extends BaseFragment
       return;
     }
     pageCnt = 1;
-    //mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
+    mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
 
-    mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
+    mCall = LinkCallHelper.getApiService()
+        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,
@@ -136,6 +140,7 @@ public class ActivityFragment extends BaseFragment
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {
+          mAdapter.setEmptyView(errorView);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -144,7 +149,8 @@ public class ActivityFragment extends BaseFragment
   }
 
   private void loadMore() {
-    mCall = LinkCallHelper.getApiService().getActivityLists(pageCnt, _COUNT, cate, progress);
+    mCall = LinkCallHelper.getApiService()
+        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,

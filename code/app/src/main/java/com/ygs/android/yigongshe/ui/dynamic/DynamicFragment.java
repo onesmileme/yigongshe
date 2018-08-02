@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -41,12 +44,16 @@ public class DynamicFragment extends BaseFragment {
   private LinkCall<BaseResultDataInfo<DynamicListResponse>> mCall;
   private LinkCall<BaseResultDataInfo<ScrollPicResponse>> mScrollPicCall;
   private View errorView;
+  private View noDataView;
+  AccountManager accountManager = YGApplication.accountManager;
 
   @Override protected void initView() {
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
-
+    noDataView =
+        getLayoutInflater().inflate(R.layout.view_nodata, (ViewGroup) mRecyclerView.getParent(),
+            false);
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         refresh();
@@ -127,7 +134,12 @@ public class DynamicFragment extends BaseFragment {
         }
       }
     });
-    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
+
+    if (TextUtils.isEmpty(accountManager.getToken())) {
+      return;
+    }
+    mCall =
+        LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT, accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
@@ -150,7 +162,8 @@ public class DynamicFragment extends BaseFragment {
   }
 
   private void loadMore() {
-    mCall = LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT);
+    mCall =
+        LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT, accountManager.getToken());
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,

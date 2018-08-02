@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -52,6 +53,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
 
   protected int mId; //newsId, activityId
   protected String mTitle;
+  protected AccountManager mAccountManager = YGApplication.accountManager;
   @BindView(R.id.errorview) protected LinearLayout mErrorView;
   @BindView(R.id.loadingview) LinearLayout mLoadingView;
 
@@ -126,20 +128,23 @@ public abstract class BaseDetailActivity extends BaseActivity {
     if (mCommentCall != null) {
       mCommentCall.cancel();
     }
+    if (TextUtils.isEmpty(mAccountManager.getToken())) {
+      return;
+    }
     mType = type;
     if (isRefresh) {
       pageCnt = 1;
     }
     switch (type) {
       case TYPE_DYNAMIC:
-        mCommentCall = LinkCallHelper.getApiService().getDynamicCommentLists(mId, pageCnt, _COUNT);
+        mCommentCall = LinkCallHelper.getApiService().getDynamicCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
         break;
       case TYPE_ACTIVITY:
-        mCommentCall = LinkCallHelper.getApiService().getActivityCommentLists(mId, pageCnt, _COUNT);
+        mCommentCall = LinkCallHelper.getApiService().getActivityCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
         break;
       case TYPE_COMMUNITY:
         mCommentCall =
-            LinkCallHelper.getApiService().getCommunityCommentLists(mId, pageCnt, _COUNT);
+            LinkCallHelper.getApiService().getCommunityCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
         break;
       default:
         break;
