@@ -11,6 +11,7 @@ import com.ygs.android.yigongshe.bean.MyActivityBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.RunListBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
+import com.ygs.android.yigongshe.bean.TalkItemBean;
 import com.ygs.android.yigongshe.bean.TalkListItemBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -231,8 +232,9 @@ public interface ApiService {
   /**
    * 发送 消息
    */
+
   @FormUrlEncoded @POST("app/api/message/send")
-  LinkCall<BaseResultDataInfo<EmptyBean>> sendTalkItem(@Field("token") String token,
+  LinkCall<BaseResultDataInfo<TalkItemBean>> sendTalkItem(@Field("token") String token,
       @Field("content") String content, @Field("receiver_id") String receiverId);
 
   /**

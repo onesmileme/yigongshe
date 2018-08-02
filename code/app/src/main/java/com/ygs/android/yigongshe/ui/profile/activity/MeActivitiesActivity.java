@@ -179,7 +179,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == ApiStatusInterface.OK){
                     mRegisterActivities = entity.data.activities;
-                    if (segmentControlView.getSelectedIndex() == 0){
+                    if (segmentControlView == null ||  segmentControlView.getSelectedIndex() == 0){
                         mActivityAdapter.setNewData(mRegisterActivities);
                     }
                 }else {

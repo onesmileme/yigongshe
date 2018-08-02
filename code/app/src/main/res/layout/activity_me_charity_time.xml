@@ -82,7 +82,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginLeft="-60dp"
                         android:textSize="40dp"
-                        android:text="hehe"
+                        android:text="--"
                         android:textColor="@color/green" />
 
                     <TextView

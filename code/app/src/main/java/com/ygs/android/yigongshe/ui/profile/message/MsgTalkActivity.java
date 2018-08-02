@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
@@ -21,6 +23,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -35,6 +38,9 @@ public class MsgTalkActivity extends BaseActivity {
     private String otherUid;
     private String type;
     private String messageKey;
+    private String name;
+
+    @BindView(R.id.titlebar) CommonTitleBar titleBar;
 
     @BindView(R.id.input_text) EditText editText;
 
@@ -49,7 +55,7 @@ public class MsgTalkActivity extends BaseActivity {
     private List<TalkItemBean> talkItemBeans;
 
     private LinkCall<BaseResultDataInfo<TalkListItemBean>> talksCall;
-    private LinkCall<BaseResultDataInfo<EmptyBean>> sendCall;
+    private LinkCall<BaseResultDataInfo<TalkItemBean>> sendCall;
 
     @Override
     protected  void initIntent(Bundle bundle){
@@ -60,26 +66,37 @@ public class MsgTalkActivity extends BaseActivity {
         if (type == null){
             type = "message";
         }
+        name = bundle.getString("name");
     }
-
 
     @Override
     protected void initView(){
 
+        if (name != null){
+            TextView titleView = titleBar.getCenterTextView();
+            titleView.setText(name);
+        }
 
         talkAdapter = new MsgTalkAdapter(this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(talkAdapter);
-
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadTalks();
+                loadTalks(true);
+            }
+        });
+        talkAdapter.enableLoadMoreEndClick(false);
+
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendTalk(editText.getText().toString());
             }
         });
 
-        talkAdapter.enableLoadMoreEndClick(false);
-
+        swipeRefreshLayout.setRefreshing(true);
+        loadTalks(false);
     }
 
     @Override
@@ -105,19 +122,28 @@ public class MsgTalkActivity extends BaseActivity {
         if (otherUid != null){
             return;
         }
+        String otherName = null;
         String myuid = YGApplication.accountManager.getUserid()+"";
         for (TalkItemBean item:talkItemBeans) {
             if (myuid.equals(item.sender_id)){
                 otherUid = item.receiver_id;
+                otherName = item.receiver_name;
                 break;
             }else if(myuid.equals(item.receiver_id)){
                 otherUid = item.sender_id;
+                otherName = item.sender_name;
                 break;
             }
         }
+
+        if (name == null){
+            name = otherName;
+            TextView titleView = titleBar.getCenterTextView();
+            titleView.setText(name);
+        }
     }
 
-    private void loadTalks( ){
+    private void loadTalks(final boolean loadHistory ){
 
         String token = YGApplication.accountManager.getToken();
         String lastId = null;
@@ -139,6 +165,9 @@ public class MsgTalkActivity extends BaseActivity {
                         talkItemBeans.addAll(talkAdapter.getData());
                         talkAdapter.setNewData(talkItemBeans);
                         tryGetOtherId();
+                        if (loadHistory){
+                            recyclerView.scrollToPosition(0);
+                        }
                     }
 
                 }else{
@@ -148,6 +177,7 @@ public class MsgTalkActivity extends BaseActivity {
                     }
                     Toast.makeText(MsgTalkActivity.this,msg,Toast.LENGTH_SHORT).show();
                 }
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -163,13 +193,18 @@ public class MsgTalkActivity extends BaseActivity {
 
         String token = YGApplication.accountManager.getToken();
         sendCall = LinkCallHelper.getApiService().sendTalkItem(token,content,otherUid);
-        sendCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+        sendCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<TalkItemBean>>(){
             @Override
-            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+            public void onResponse(BaseResultDataInfo<TalkItemBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == ApiStatusInterface.OK){
                     //append to last
-
+                    if (entity.data != null) {
+                        talkItemBeans.add(entity.getData());
+                        talkAdapter.setNewData(talkItemBeans);
+                        recyclerView.scrollToPosition(talkItemBeans.size() - 1);
+                        editText.setText(null);
+                    }
                 }else{
                     String msg = "发送失败";
                     if (entity != null && entity.msg != null){
@@ -185,7 +220,6 @@ public class MsgTalkActivity extends BaseActivity {
 
     public void hideSoftKeyboard() {
         // 隐藏软键盘
-
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
         if (imm != null && editText != null && imm.isActive(editText)) {

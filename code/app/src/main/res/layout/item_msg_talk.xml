@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_marginRight="50dp"
         android:layout_height="match_parent">
-        <com.weikan.app.widget.roundedimageview.CircleImageView
+        <com.ygs.android.yigongshe.view.CircleImageView
             android:id="@+id/iv_talk_item_header_left"
             android:layout_marginTop="10dp"
             android:clickable="true"
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.weikan.app.widget.roundedimageview.CircleImageView
+        <com.ygs.android.yigongshe.view.CircleImageView
             android:id="@+id/iv_talk_item_header_right"
             android:layout_marginTop="10dp"
             android:clickable="true"
