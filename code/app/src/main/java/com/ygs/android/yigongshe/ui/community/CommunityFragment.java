@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -278,15 +279,16 @@ public class CommunityFragment extends BaseFragment {
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          ((FrameLayout) mAdapter.getEmptyView()).removeAllViews();
           CommunityListResponse data = entity.data;
           pageCnt = data.page;
           ++pageCnt;
           _COUNT = data.perpage;
           mList = data.list;
           setData(true, data.list);
-          if (mList == null || mList.size() == 0) {
-            mAdapter.setEmptyView(noDataView);
-          }
+          //if (mList == null || mList.size() == 0) {
+          //  mAdapter.setEmptyView(noDataView);
+          //}
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {

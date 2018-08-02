@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -57,16 +58,14 @@ public class ActivityFragment extends BaseFragment
   private View errorView;
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   AccountManager mAccountManager = YGApplication.accountManager;
-  private View noDataView;
+  //private View noDataView;
 
   @Override protected void initView() {
     EventBus.getDefault().register(this);
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
-    noDataView =
-        getLayoutInflater().inflate(R.layout.view_nodata, (ViewGroup) mRecyclerView.getParent(),
-            false);
+    //noDataView = getLayoutInflater().inflate(R.layout.view_nodata, mRecyclerView, false);
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         refresh();
@@ -135,14 +134,15 @@ public class ActivityFragment extends BaseFragment
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          ((FrameLayout) mAdapter.getEmptyView()).removeAllViews();
           ActivityListResponse data = entity.data;
           pageCnt = data.page;
           ++pageCnt;
           _COUNT = data.perpage;
           setData(true, data.activities);
-          if (data.activities == null || data.activities.size() == 0) {
-            mAdapter.setEmptyView(noDataView);
-          }
+          //if (data.activities == null || data.activities.size() == 0) {
+          //  mAdapter.setEmptyView(noDataView);
+          //}
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {

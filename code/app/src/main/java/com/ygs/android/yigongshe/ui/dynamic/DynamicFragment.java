@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -122,6 +123,7 @@ public class DynamicFragment extends BaseFragment {
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          ((FrameLayout) mAdapter.getEmptyView()).removeAllViews();
           ScrollPicResponse data = entity.data;
           List<ScrollPicBean> list = data.slide_list;
           List<String> urls = new ArrayList<>();
