@@ -120,4 +120,21 @@ public class AccountManager {
   public int getUserid() {
     return userid;
   }
+
+  public void logout(){
+    userInfoBean = new UserInfoBean();
+
+    SharedPreferences.Editor editor =
+        mContext.getSharedPreferences("info", Context.MODE_PRIVATE).edit();
+
+    editor.remove(USER_NAME_KEY);
+    editor.remove(AVATAR_KEY);
+    editor.remove(SCHOOL_KEY);
+    editor.remove(COLLEGE_KEY);
+    editor.remove(MAJOR_KEY);
+    editor.remove(ADMISSION_YEAR_KEY);
+    editor.remove(QQ_KEY);
+    editor.remove(PHONE_KEY);
+    editor.remove(DESC_KEY);
+  }
 }

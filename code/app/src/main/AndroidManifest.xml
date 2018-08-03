@@ -30,9 +30,16 @@
     <activity android:name=".MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
+        <category android:name="android.intent.category.BROWSABLE"></category>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+
+        <data
+          android:host="dynamicdetail"
+          android:scheme="yigongshe" />
       </intent-filter>
+
     </activity>
     <activity
       android:name=".ui.login.LoginActivity"
@@ -40,18 +47,15 @@
 
     </activity>
 
-    <activity android:name=".ui.login.RegisterActivity"/>
-    <activity
-      android:name=".ui.profile.set.MeSetAcitivity"
-      />
+    <activity android:name=".ui.login.RegisterActivity" />
+    <activity android:name=".ui.profile.set.MeSetAcitivity" />
 
     <activity android:name=".ui.profile.apply.MeApplyActivity" />
     <activity android:name=".ui.profile.association.MeAssociationActivity" />
 
-    <activity android:name=".ui.profile.record.MeRecordListActivity"/>
+    <activity android:name=".ui.profile.record.MeRecordListActivity" />
 
-    <activity
-      android:name=".ui.profile.activity.MeActivitiesActivity" />
+    <activity android:name=".ui.profile.activity.MeActivitiesActivity" />
 
     <activity
       android:name=".ui.profile.focus.MeFocusActivity"
@@ -69,17 +73,19 @@
 
     </activity>
     <activity android:name=".ui.profile.info.MeInfoActivity" />
-      <activity android:name=".ui.profile.info.MeInfoChangeNickNameActivity"/>
-      <activity android:name=".ui.profile.info.MeInfoChangePhoneActivity"/>
-      <activity android:name=".ui.profile.info.MeInfoChangePasswordActivity"/>
-      <activity android:name=".ui.profile.info.MeInfoChangeSchoolActivity"/>
-      <activity android:name=".ui.profile.info.MeInfoChangeAvatarActivity"/>
+    <activity android:name=".ui.profile.info.MeInfoChangeNickNameActivity" />
+    <activity android:name=".ui.profile.info.MeInfoChangePhoneActivity" />
+    <activity android:name=".ui.profile.info.MeInfoChangePasswordActivity" />
+    <activity android:name=".ui.profile.info.MeInfoChangeSchoolActivity" />
+    <activity android:name=".ui.profile.info.MeInfoChangeAvatarActivity" />
     <activity android:name=".ui.profile.community.MeCommunityActivity" />
     <activity android:name=".ui.profile.message.MessageActivity" />
     <activity android:name=".ui.profile.message.MsgTalkActivity" />
-    <activity android:name=".ui.otherhomepage.OtherHomePageActivity"/>
-    <activity android:name=".ui.profile.app.MeMyAppActivity"/>
-    <activity android:name=".ui.dynamic.DynamicDetailActivity" />
+    <activity android:name=".ui.otherhomepage.OtherHomePageActivity" />
+    <activity android:name=".ui.profile.app.MeMyAppActivity" />
+    <activity android:name=".ui.dynamic.DynamicDetailActivity">
+
+    </activity>
     <activity android:name=".ui.community.TopicSelectActivity" />
     <activity android:name=".ui.activity.ActivityDetailActivity" />
     <activity android:name=".ui.community.CommunityDetailActivity" />
@@ -105,6 +111,7 @@
     <meta-data
       android:name="com.baidu.lbsapi.API_KEY"
       android:value="mRMIheIiwjt1WCAg4YDwGhx8UF22slTd" />
+
     <activity
       android:name=".wxapi.WXEntryActivity"
       android:exported="true"

@@ -33,6 +33,7 @@ import com.ygs.android.yigongshe.bean.response.ListLikeResponse;
 import com.ygs.android.yigongshe.bean.response.PublishCommunityResponse;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
 import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
+import com.ygs.android.yigongshe.bean.response.ShareClickResponse;
 import com.ygs.android.yigongshe.bean.response.ShoucangResponse;
 import com.ygs.android.yigongshe.bean.response.SigninResponse;
 import com.ygs.android.yigongshe.bean.response.SignupResponse;
@@ -445,5 +446,12 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/association/getactivities")
   LinkCall<BaseResultDataInfo<ActivityListResponse>> getMeCorporationActivities(
       @Field("token") String token);
+
+  /**
+   * 添加分享
+   */
+  @FormUrlEncoded @POST("app/api/share/add")
+  LinkCall<BaseResultDataInfo<ShareClickResponse>> onShareClick(@Field("token") String token,
+      @Field("title") String title, @Field("pic") String pic, @Field("link") String link);
 }
 

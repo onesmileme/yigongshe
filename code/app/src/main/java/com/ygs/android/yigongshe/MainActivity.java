@@ -4,13 +4,16 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +34,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
+import com.ygs.android.yigongshe.ui.dynamic.DynamicDetailActivity;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
 import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
@@ -56,9 +60,42 @@ public class MainActivity extends BaseActivity {
   private PinyinComparator pinyinComparator;
   private final int BAIDU_READ_PHONE_STATE = 0;
 
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    if (Intent.ACTION_VIEW.equals(action)) {
+      Uri uri = intent.getData();
+      if (uri != null) {
+        String detailId = uri.getQueryParameter("detailId");
+        if (!TextUtils.isEmpty(detailId)) {
+          try {
+            int mId = Integer.parseInt(detailId);
+            Bundle bundle = new Bundle();
+            bundle.putInt("news_id", mId);
+            goToOthers(DynamicDetailActivity.class, bundle);
+          }catch (Exception e){
+            e.printStackTrace();
+          }
+        }
+      }
+    }
+  }
+
   @Override protected void initIntent(Bundle bundle) {
 
+    Uri uri = getIntent().getData();
+    if (uri != null){
+      //check host
+      Log.e("MAIN", "initIntent: "+uri);
+      String host = uri.getHost();
+      //jump after page start
+      //host = dynamicdetail
+    }
+
   }
+
+
 
   @Override protected void initView() {
     BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);

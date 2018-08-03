@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.webview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 
@@ -30,6 +31,7 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.webview)
     WebView mWebView;
 
+    @Override
     protected void initIntent(Bundle bundle){
 
         String title = bundle.getString(TITLE_KEY);
@@ -56,6 +58,7 @@ public class WebViewActivity extends BaseActivity {
 
                 bufferedReader.close();
 
+                Log.e("WEB", "initIntent: html is: "+sb );
                 mWebView.loadData(sb.toString(),"text/html","utf-8");
 
             }catch (IOException ioe){
@@ -66,6 +69,7 @@ public class WebViewActivity extends BaseActivity {
         }
     }
 
+    @Override
     protected void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -78,7 +82,7 @@ public class WebViewActivity extends BaseActivity {
         });
     }
 
-
+    @Override
     protected int getLayoutResId(){
         return R.layout.activity_webiew;
     }
