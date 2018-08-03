@@ -4,9 +4,11 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
@@ -31,6 +33,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
+import com.ygs.android.yigongshe.ui.dynamic.DynamicDetailActivity;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
 import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
@@ -55,6 +58,21 @@ public class MainActivity extends BaseActivity {
   private ArrayList<SortModel> sourceDateList;
   private PinyinComparator pinyinComparator;
   private final int BAIDU_READ_PHONE_STATE = 0;
+
+  @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Intent intent = getIntent();
+    String action = intent.getAction();
+    if (Intent.ACTION_VIEW.equals(action)) {
+      Uri uri = intent.getData();
+      if (uri != null) {
+        int mId = Integer.parseInt(uri.getQueryParameter("detailId"));
+        Bundle bundle = new Bundle();
+        bundle.putInt("news_id", mId);
+        goToOthers(DynamicDetailActivity.class, bundle);
+      }
+    }
+  }
 
   @Override protected void initIntent(Bundle bundle) {
 

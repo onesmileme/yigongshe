@@ -21,7 +21,13 @@ import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.ShareBean;
+import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
+import com.ygs.android.yigongshe.bean.response.ShareClickResponse;
+import com.ygs.android.yigongshe.net.LinkCallHelper;
+import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.utils.StringUtil;
 
 /**
@@ -35,6 +41,8 @@ public class ShareUtils {
   private IWXAPI mIWXAPI;
   private Context mContext;
   private WbShareHandler shareHandler;
+  private LinkCall<BaseResultDataInfo<ShareClickResponse>> mCall;
+  private AccountManager mAccountManager = YGApplication.accountManager;
 
   public ShareUtils() {
     mContext = YGApplication.mApplication;
@@ -61,14 +69,32 @@ public class ShareUtils {
   public void shareTo(final Context context, final ShareBean shareBean) {
     ShareDialog dialog = new ShareDialog(context, new ShareListener() {
       @Override public void shareToWechat() {
+        if (mCall != null && !mCall.isCanceled()) {
+          mCall.cancel();
+        }
+        mCall = LinkCallHelper.getApiService()
+            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareWebpageToWechat(shareBean, false);
       }
 
       @Override public void shareToWechatCircle() {
+        if (mCall != null && !mCall.isCanceled()) {
+          mCall.cancel();
+        }
+        mCall = LinkCallHelper.getApiService()
+            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareWebpageToWechat(shareBean, true);
       }
 
       @Override public void shareToWeibo() {
+        if (mCall != null && !mCall.isCanceled()) {
+          mCall.cancel();
+        }
+        mCall = LinkCallHelper.getApiService()
+            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareToWeiBo(context, shareBean);
       }
     });
