@@ -6,7 +6,7 @@ package com.weikan.app.push;
  * Date: 2015/2/3
  * Time: 13:36
  */
-public class PushDefine {
+public class PushDefine{
     /**
      * 信息流红点
      */
