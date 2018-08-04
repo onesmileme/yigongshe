@@ -39,7 +39,6 @@
           android:host="dynamicdetail"
           android:scheme="yigongshe" />
       </intent-filter>
-
     </activity>
     <activity
       android:name=".ui.login.LoginActivity"

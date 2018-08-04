@@ -83,16 +83,7 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override protected void initIntent(Bundle bundle) {
-
-    Uri uri = getIntent().getData();
-    if (uri != null){
-      //check host
-      Log.e("MAIN", "initIntent: "+uri);
-      String host = uri.getHost();
-      //jump after page start
-      //host = dynamicdetail
-    }
-
+    
   }
 
 
