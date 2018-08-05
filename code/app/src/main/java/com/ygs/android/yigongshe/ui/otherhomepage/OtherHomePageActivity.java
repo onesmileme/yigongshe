@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.net.ApiStatusInterface;
@@ -16,6 +17,10 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.profile.activity.OtherActivitiesActivity;
+import com.ygs.android.yigongshe.ui.profile.community.OtherCommunityActivity;
+import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
+import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.view.CircleImageView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
@@ -54,7 +59,8 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
 
     private String userId;
 
-    LinkCall<BaseResultDataInfo<OtherUserInfoBean>> mCall;
+    private LinkCall<BaseResultDataInfo<OtherUserInfoBean>> mCall;
+    private OtherUserInfoBean userInfoBean;
 
     @Override
     protected void initIntent(Bundle bundle){
@@ -101,6 +107,7 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity != null && entity.error == ApiStatusInterface.OK){
+                    userInfoBean = entity.data;
                     updateUI(entity.data);
                 }else{
                     String msg = "请求用户信息失败";
@@ -127,8 +134,54 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
 
     }
 
+    private void doFollow(){
+        String token = YGApplication.accountManager.getToken();
+        LinkCall<BaseResultDataInfo<EmptyBean>> followCall = LinkCallHelper.getApiService().doFollow(token,userId);
+        followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+            @Override
+            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == ApiStatusInterface.OK){
+                    userInfoBean.is_followed = "1";
+                    updateUI(userInfoBean);
+                }else{
+                    String msg = "关注失败";
+                    if (entity != null && entity.msg != null){
+                        msg += "("+entity.msg+")";
+                    }
+                    Toast.makeText(OtherHomePageActivity.this,msg,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+
+
     @Override
     public void onClick(View view){
+
+        if (view == activityView){
+
+            Bundle bundle = new Bundle();
+            bundle.putString("otherUid",userId);
+            goToOthers(OtherActivitiesActivity.class,bundle);
+
+        }else if(view == circleView){
+
+            Bundle bundle = new Bundle();
+            bundle.putString("otherUid",userId);
+            goToOthers(OtherCommunityActivity.class,bundle);
+
+        }else if(view == followBtn){
+            doFollow();
+        }else if(view == sendBtn){
+
+            Bundle bundle = new Bundle();
+            bundle.putString("otherUid",userId);
+            bundle.putString("type","message");
+            bundle.putString("name",userInfoBean.username);
+            goToOthers(MsgTalkActivity.class,bundle);
+        }
 
     }
 }

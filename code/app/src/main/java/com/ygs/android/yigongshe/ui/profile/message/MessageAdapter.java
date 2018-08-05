@@ -20,7 +20,7 @@ public class MessageAdapter extends BaseQuickAdapter<MsgItemBean,BaseViewHolder>
 
     private int segmentIndex;
 
-    private Drawable placeholder;
+    private int placeholder;
 
     public MessageAdapter(Context context){
         super(R.layout.item_message_msg,null);
@@ -37,9 +37,9 @@ public class MessageAdapter extends BaseQuickAdapter<MsgItemBean,BaseViewHolder>
     protected void updateData(List<MsgItemBean> datas , boolean isNotice){
 
         if (isNotice){
-            placeholder = mContext.getResources().getDrawable(R.drawable.notice_icon);
+            placeholder = R.drawable.notice_icon;// mContext.getResources().getDrawable(R.drawable.notice_icon);
         }else{
-            placeholder = mContext.getResources().getDrawable(R.drawable.message_icon);
+            placeholder = R.drawable.message_icon;//mContext.getResources().getDrawable(R.drawable.message_icon);
         }
 
         super.setNewData(datas);

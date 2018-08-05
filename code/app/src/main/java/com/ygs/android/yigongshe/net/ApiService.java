@@ -159,7 +159,7 @@ public interface ApiService {
    */
   @FormUrlEncoded @POST("app/api/duration/add")
   LinkCall<BaseResultDataInfo<EmptyBean>> addCharityDuration(@Field("duration") float duration,
-      @Field("content") String content);
+      @Field("content") String content , @Field("token") String token);
 
   /**
    * 获取公益时长列表
@@ -201,6 +201,13 @@ public interface ApiService {
   LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(@Field("token") String token);
 
   /**
+   * 获取我报名参加的活动
+   */
+  @FormUrlEncoded @POST("app/api/activity/getotheractivity")
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getOtherActivity(@Field("token") String token , @Field("other_id") String otherId,
+                                                                @Field("activity_type") String type);
+
+  /**
    * 获取我的益公圈列表
    */
   @GET("app/api/pubcircle/getmylist")
@@ -213,6 +220,8 @@ public interface ApiService {
   @GET("app/api/pubcircle/getuserlist")
   LinkCall<BaseResultDataInfo<CommunityListResponse>> getUserCommunityList(
       @Query("token") String token, @Query("other_id") String userId);
+
+
 
   /**
    * 获取消息列表

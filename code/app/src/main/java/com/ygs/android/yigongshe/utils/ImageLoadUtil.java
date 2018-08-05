@@ -14,11 +14,11 @@ public class ImageLoadUtil {
     }
 
     public static void loadImage(ImageView imageView , String imgUrl , Drawable placeHolder){
-        Glide.with(imageView.getContext()).load(imgUrl).error(placeHolder).fallback(placeHolder).into(imageView);
+        Glide.with(imageView.getContext()).load(imgUrl).dontAnimate().placeholder(placeHolder).error(placeHolder).fallback(placeHolder).into(imageView);
     }
 
     public static void loadImage(ImageView imageView , String imgUrl , int placeHolder){
-        Glide.with(imageView.getContext()).load(imgUrl).error(placeHolder).fallback(placeHolder).into(imageView);
+        Glide.with(imageView.getContext()).load(imgUrl).dontAnimate().placeholder(placeHolder).error(placeHolder).fallback(placeHolder).into(imageView);
 
         /*
         * Glide.with(mContext)

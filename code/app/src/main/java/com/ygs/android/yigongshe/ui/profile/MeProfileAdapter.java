@@ -109,7 +109,6 @@ public class MeProfileAdapter extends BaseQuickAdapter<MeItemBean, BaseViewHolde
 
     switch (postion) {
       case 0: {//message
-        //return MeApplyActivity.class;
         return MessageActivity.class;
       }
       case 1://我的关注

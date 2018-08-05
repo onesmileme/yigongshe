@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override protected void initIntent(Bundle bundle) {
-    
+
   }
 
 
