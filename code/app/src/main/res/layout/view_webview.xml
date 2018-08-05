@@ -47,7 +47,7 @@
   <LinearLayout
     android:id="@+id/status_on"
     android:layout_width="wrap_content"
-    android:layout_height="20dp"
+    android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_marginRight="14dp"
     android:layout_marginTop="10dp"
@@ -57,7 +57,7 @@
     <TextView
       android:id="@+id/signup"
       android:layout_width="50dp"
-      android:layout_height="20dp"
+      android:layout_height="25dp"
       android:background="@drawable/bg_signup"
       android:gravity="center"
       android:text="报名"
@@ -67,7 +67,7 @@
     <TextView
       android:id="@+id/signin"
       android:layout_width="50dp"
-      android:layout_height="20dp"
+      android:layout_height="25dp"
       android:layout_marginLeft="10dp"
       android:background="@drawable/bg_signup"
       android:gravity="center"

@@ -1,7 +1,11 @@
 package com.ygs.android.yigongshe.ui.community;
 
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -34,7 +38,6 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
         .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
         .into((ImageView) helper.getView(R.id.createAvatar));
     helper.setText(R.id.createName, item.create_name);
-    helper.setText(R.id.content, item.content);
     if (TextUtils.isEmpty(item.pic)) {
       helper.setGone(R.id.pic, false);
     } else {
@@ -47,10 +50,18 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into((ImageView) helper.getView(R.id.pic));
     }
+    String strContent = "";
     if (!TextUtils.isEmpty(item.topic)) {
-      helper.setText(R.id.topic1, "#" + item.topic + "#");
+      //helper.setText(R.id.topic1, "#" + item.topic + "#");
       helper.setText(R.id.topic, "#" + item.topic + "#");
+      //strContent = "<font color = '#7cc576'> " + "#" + item.topic + "#" + "</font>";
+      strContent = "#" + item.topic + "#";
     }
+    SpannableString spannableString = new SpannableString(strContent + item.content);
+    spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#7cc576")), 0,
+        strContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    helper.setText(R.id.content, spannableString);
+
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.markgood, item.like_num + "");
     helper.addOnClickListener(R.id.attention);

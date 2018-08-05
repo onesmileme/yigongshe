@@ -48,25 +48,23 @@
         android:text=""
         android:textSize="10dp" />
 
-      <TextView
-        android:id="@+id/topic1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/createName"
-        android:layout_marginTop="8dp"
-        android:text="#公益每一天#"
-        android:textColor="@color/green"
-        android:textSize="12dp" />
+      <!--<TextView-->
+      <!--android:id="@+id/topic1"-->
+      <!--android:layout_width="wrap_content"-->
+      <!--android:layout_height="wrap_content"-->
+      <!--android:layout_below="@id/createName"-->
+      <!--android:layout_marginTop="8dp"-->
+      <!--android:text="#公益每一天#"-->
+      <!--android:textColor="@color/green"-->
+      <!--android:textSize="12dp" />-->
 
       <TextView
         android:id="@+id/content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/createName"
-        android:layout_marginLeft="5dp"
         android:layout_marginTop="8dp"
-        android:layout_toRightOf="@id/topic1"
-        android:text="通过活动育人，建立图书馆的心灵书屋"
+        android:text="通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋"
         android:textColor="@color/gray1"
         android:textSize="12dp" />
     </RelativeLayout>
@@ -100,7 +98,7 @@
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/createDate"
         android:background="@drawable/bg_topic"
-        android:text="#公益每一天#"
+        android:text=""
         android:textColor="@color/gray1"
         android:textSize="10dp" />
 
