@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.profile.set;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +15,10 @@ import com.ygs.android.yigongshe.MainActivity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+import com.ygs.android.yigongshe.view.MyDecoration;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.webview.WebViewActivity;
 
 import butterknife.BindView;
@@ -41,6 +45,9 @@ public class MeSetAcitivity extends BaseActivity implements View.OnClickListener
         MeSetAdapter adapter = new MeSetAdapter(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(adapter);
+        MyDividerItemDecoration itemDecoration = new MyDividerItemDecoration(this,MyDividerItemDecoration.VERTICAL);
+        mRecyclerView.addItemDecoration(itemDecoration);
+
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

@@ -108,6 +108,7 @@
     <activity android:name=".ui.activity.HelpVideoDetailActivity" />
     <activity android:name=".ui.community.PublishCommunityActivity" />
     <activity android:name=".ui.community.PicSelectActivity" />
+    <activity android:name=".webview.WebViewActivity"/>
     <!--<receiver android:name=".receiver.LoginReceiver">-->
     <!--<intent-filter>-->
     <!--<action android:name="com.ygs.android.yigongshe.login">-->

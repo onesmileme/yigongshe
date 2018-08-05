@@ -1,38 +1,34 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
+import android.widget.RelativeLayout;
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.YGApplication;
-import com.ygs.android.yigongshe.bean.EmptyBean;
-import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
-import com.ygs.android.yigongshe.net.LinkCallHelper;
-import com.ygs.android.yigongshe.net.adapter.LinkCall;
-import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-
 import butterknife.BindView;
 import retrofit2.Response;
 
-public class ResetPasswordActivity extends BaseActivity {
+public class ResetPasswordActivity extends BaseActivity implements SwitcherListener{
 
-    @BindView(R.id.titlebar)
-    CommonTitleBar titleBar;
+    @BindView(R.id.reset_password_layout) RelativeLayout mRelativeLayout;
 
-    @BindView(R.id.change_password_et)
-    EditText mPasswordEditText;
+    private InputPhoneFragment inputPhoneFragment;
+    private InputCaptchaFragment inputCaptchaFragment;
+    private ChangePasswordFragment changePasswordFragment;
 
-    @BindView(R.id.re_password_et)
-    EditText mReinputPasswordEditText;
+    static final String PHONE_TAG = "input_phone";
+    static final String CAPTCHA_TAG = "input_captcha";
+    static final String PASSWORD_TAG = "change_password";
 
-    @BindView(R.id.change_password_btn)
-    Button submitButton;
+    FragmentManager fragmentManager;
+    FragmentTransaction fragmentTransaction;
+
+    private String phone;
+    private String captcha;
+
 
     @Override
     protected void initIntent(Bundle bundle){
@@ -42,22 +38,22 @@ public class ResetPasswordActivity extends BaseActivity {
     @Override
     protected void initView(){
 
-        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-            @Override
-            public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
-                    finish();
-                }
-            }
-        });
+        fragmentManager = getSupportFragmentManager();
+        fragmentTransaction = fragmentManager.beginTransaction();
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                submit();
-            }
-        });
+        inputPhoneFragment  = new InputPhoneFragment();
+        inputCaptchaFragment = new InputCaptchaFragment();
+        changePasswordFragment = new ChangePasswordFragment();
 
+        inputPhoneFragment.switcherListener = this;
+        changePasswordFragment.switcherListener = this;
+        inputCaptchaFragment.switcherListener = this;
+
+        fragmentTransaction.add(R.id.reset_password_layout,inputPhoneFragment,PHONE_TAG);
+        fragmentTransaction.add(R.id.reset_password_layout,inputCaptchaFragment,CAPTCHA_TAG);
+        fragmentTransaction.add(R.id.reset_password_layout,changePasswordFragment,PASSWORD_TAG);
+
+        fragmentTransaction.replace(R.id.reset_password_layout,inputPhoneFragment,PHONE_TAG).commit();
     }
 
     @Override
@@ -65,36 +61,49 @@ public class ResetPasswordActivity extends BaseActivity {
         return R.layout.activity_reset_password;
     }
 
-    private void submit(){
+    @Override
+    public void goBack(BaseFragment fragment){
 
-        String password = mPasswordEditText.getText().toString();
-        String repassword = mReinputPasswordEditText.getText().toString();
+        BaseFragment nextFragment = null;
+        String tag = null;
 
-        String tip = null;
-        if (password.length() == 0){
-            tip = "请输入密码";
-        }else if(!password.equals(repassword)){
-            tip = "两次密码不一致";
-        }
-        if (tip != null){
-            Toast.makeText(this,tip,Toast.LENGTH_SHORT);
+        if (fragment instanceof  ChangePasswordFragment){
+            nextFragment = inputCaptchaFragment;
+            tag = CAPTCHA_TAG;
+        }else if(fragment instanceof InputCaptchaFragment){
+            nextFragment = inputPhoneFragment;
+            tag = PHONE_TAG;
+        }else if(fragment instanceof InputPhoneFragment){
+            finish();
             return;
         }
+        if (nextFragment != null){
+            fragmentManager.beginTransaction().replace(R.id.reset_password_layout,nextFragment,tag).commit();
+        }
 
-        String token = YGApplication.accountManager.getToken();
-        LinkCall<BaseResultDataInfo<EmptyBean>>call = LinkCallHelper.getApiService().modifyPassword(token,password,repassword);
-        call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
-            @Override
-            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
-                    setResult(1,null);
-                    finish();
-                }else {
-                    Toast.makeText(ResetPasswordActivity.this,entity.msg,Toast.LENGTH_SHORT);
-                }
-            }
-        });
+    }
 
+    @Override
+    public void goNex(BaseFragment fragment){
+
+        BaseFragment nextFragment = null;
+        String tag = null;
+        if (fragment instanceof  InputPhoneFragment){
+            InputPhoneFragment inputPhoneFragment1 = (InputPhoneFragment)fragment;
+            phone = inputPhoneFragment1.getPhone();
+            inputCaptchaFragment.updatPhone(phone);
+            nextFragment = inputCaptchaFragment;
+            tag = CAPTCHA_TAG;
+        }else if(fragment instanceof  InputCaptchaFragment){
+            InputCaptchaFragment inputCaptchaFragment1 = (InputCaptchaFragment)fragment;
+            captcha = inputCaptchaFragment1.getCaptcha();
+            changePasswordFragment.phone = phone;
+            changePasswordFragment.captcha = captcha;
+            nextFragment = changePasswordFragment;
+            tag = PASSWORD_TAG;
+        }
+        if (nextFragment != null){
+            fragmentManager.beginTransaction().replace(R.id.reset_password_layout,nextFragment,tag).commit();
+        }
     }
 }

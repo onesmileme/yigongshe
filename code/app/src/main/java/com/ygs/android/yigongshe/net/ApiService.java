@@ -122,6 +122,12 @@ public interface ApiService {
   LinkCall<BaseResultDataInfo<EmptyBean>> modifyPassword(@Field("token") String token,
       @Field("new_password") String newPassword, @Field("confirm_password") String confirmPassword);
 
+  @FormUrlEncoded @POST("app/api/user/modifypassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> resetPassword(@Field("verifycode") String verifycode,
+                                                        @Field("phone") String phone ,
+                                                        @Field("new_password") String newPassword,
+                                                        @Field("confirm_password") String confirmPassword);
+
   @FormUrlEncoded @POST("app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolList(@Field("token") String token);
 

@@ -37,7 +37,13 @@ public abstract class BaseFragment extends Fragment {
 
   @Override public void onDestroy() {
     super.onDestroy();
-    unbinder.unbind();
+    if (unbinder != null) {
+      try {
+        unbinder.unbind();
+      }catch (Exception e){
+        e.printStackTrace();
+      }
+    }
   }
 
   protected abstract void initView();

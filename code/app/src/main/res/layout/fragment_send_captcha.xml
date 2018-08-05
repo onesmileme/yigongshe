@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.ygs.android.yigongshe.view.CommonTitleBar
+        android:id="@+id/titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        titlebar:centerText="验证手机号"
+        titlebar:centerType="textView"
+        titlebar:fillStatusBar="true"
+        titlebar:leftDrawable="@drawable/arrow_back"
+        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/phone_tip_tv"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:textSize="14dp"
+        android:textColor="@color/gray1"
+        android:text="" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:text="@string/captcha"
+            android:textAlignment="textEnd"
+            android:textColor="@color/gray2"
+            android:textSize="12dp" />
+
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp">
+
+            <EditText
+                android:id="@+id/captcha_et"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/register_round_bg"
+                android:hint="@string/input_captcha_hint"
+                android:inputType="number"
+                android:paddingStart="10dp"
+                android:textColor="@color/black1"
+                android:textColorHint="@color/gray4"
+                android:textSize="12dp" />
+
+            <Button
+                android:id="@+id/send_captcha_btn"
+                android:layout_width="70dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/round_btn_shape"
+                android:text="@string/send_captcha"
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="@id/captcha_et"
+                app:layout_constraintEnd_toEndOf="@id/captcha_et"
+                app:layout_constraintTop_toTopOf="@id/captcha_et" />
+        </android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/bg_round_send"
+        android:id="@+id/next_btn"
+        android:text="下一步"
+        android:textColor="@color/white"/>
+
+
+</LinearLayout>

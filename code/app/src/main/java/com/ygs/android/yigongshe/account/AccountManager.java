@@ -124,9 +124,13 @@ public class AccountManager {
   public void logout(){
     userInfoBean = new UserInfoBean();
 
+    token = null;
+    userid = 0;
+
     SharedPreferences.Editor editor =
         mContext.getSharedPreferences("info", Context.MODE_PRIVATE).edit();
 
+    editor.remove(TOKEN_KEY);
     editor.remove(USER_NAME_KEY);
     editor.remove(AVATAR_KEY);
     editor.remove(SCHOOL_KEY);
@@ -136,5 +140,7 @@ public class AccountManager {
     editor.remove(QQ_KEY);
     editor.remove(PHONE_KEY);
     editor.remove(DESC_KEY);
+
+    editor.apply();
   }
 }
