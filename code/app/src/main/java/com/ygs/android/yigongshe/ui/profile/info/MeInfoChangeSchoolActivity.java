@@ -133,7 +133,7 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (!mChangeCall.isCanceled()){
+        if (mChangeCall != null && !mChangeCall.isCanceled()){
             mChangeCall.cancel();
         }
     }

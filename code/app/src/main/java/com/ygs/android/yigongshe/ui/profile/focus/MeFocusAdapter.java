@@ -29,8 +29,8 @@ public class MeFocusAdapter extends BaseQuickAdapter<FollowPersonItemBean,BaseVi
     protected void convert(BaseViewHolder helper, final FollowPersonItemBean item) {
 
         ImageView avatarImgView = helper.getView(R.id.me_focus_icon);
-        Drawable placeholder = avatarImgView.getContext().getResources().getDrawable(R.drawable.defalutavar);
-        ImageLoadUtil.loadImage(avatarImgView,item.avatar,placeholder);
+        //Drawable placeholder = avatarImgView.getContext().getResources().getDrawable(R.drawable.defalutavar);
+        ImageLoadUtil.loadImage(avatarImgView,item.avatar,R.drawable.defalutavar);
 
         helper.setText(R.id.me_focus_name_tv,item.name);
         Button button = helper.getView(R.id.me_focus_follow_btn);
@@ -40,6 +40,7 @@ public class MeFocusAdapter extends BaseQuickAdapter<FollowPersonItemBean,BaseVi
         }else{
 
         }
+
         button.setBackground(mContext.getResources().getDrawable(R.drawable.focus_normal_round_btn_shape));
         button.setText(item.unfollowed?R.string.followed:R.string.unfollow);
 

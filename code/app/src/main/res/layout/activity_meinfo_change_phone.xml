@@ -44,7 +44,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/apply_round_bg"
             >
 
@@ -98,7 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/captcha_code"
-            android:textColor="@color/black1"/>
+            android:textColor="@color/black1"
+            android:textSize="13dp"/>
 
         <EditText
             android:layout_width="match_parent"

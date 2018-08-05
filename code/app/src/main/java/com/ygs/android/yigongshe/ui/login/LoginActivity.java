@@ -115,6 +115,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   private void forgetPassword() {
 
+    Intent intent = new Intent(this,ResetPasswordActivity.class);
+    startActivity(intent);
+
   }
 
   private void loginAction() {

@@ -3,12 +3,15 @@ package com.ygs.android.yigongshe.ui.share;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -22,6 +25,7 @@ import com.ygs.android.yigongshe.R;
 public class ShareDialog extends Dialog {
   @BindView(R.id.rl_container) RelativeLayout mRelativeLayout;
   @BindView(R.id.shareView) LinearLayout mShareView;
+  @BindView(R.id.share_to_title_tv) TextView mTitleTextView;
   private ShareListener shareListener;
 
   public ShareDialog(@NonNull Context context, ShareListener shareListener) {
@@ -58,6 +62,14 @@ public class ShareDialog extends Dialog {
     }
     return false;
   }
+
+  public ShareDialog withTitle(String title){
+    if (!TextUtils.isEmpty(title)){
+      mTitleTextView.setText(title);
+    }
+    return this;
+  }
+
 
   private boolean isTouchPointInView(View view, float x, float y) {
     if (view == null) {

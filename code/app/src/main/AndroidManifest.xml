@@ -31,8 +31,8 @@
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
-        <!--</intent-filter>-->
-        <!--<intent-filter>-->
+      </intent-filter>
+      <intent-filter>
         <category android:name="android.intent.category.BROWSABLE" />
 
         <action android:name="android.intent.action.VIEW" />
@@ -44,6 +44,12 @@
         <data
           android:host="activitydetail"
           android:scheme="yigongshe" />
+        <data
+          android:host="message"
+          android:scheme="yigongshe" />
+        <data
+          android:host="notice"
+          android:scheme="yigongshe" />
       </intent-filter>
     </activity>
     <activity
@@ -53,6 +59,7 @@
     </activity>
 
     <activity android:name=".ui.login.RegisterActivity" />
+    <activity android:name=".ui.login.ResetPasswordActivity" />
     <activity android:name=".ui.profile.set.MeSetAcitivity" />
 
     <activity android:name=".ui.profile.apply.MeApplyActivity" />
@@ -87,6 +94,8 @@
     <activity android:name=".ui.profile.message.MessageActivity" />
     <activity android:name=".ui.profile.message.MsgTalkActivity" />
     <activity android:name=".ui.otherhomepage.OtherHomePageActivity" />
+    <activity android:name=".ui.profile.activity.OtherActivitiesActivity" />
+    <activity android:name=".ui.profile.community.OtherCommunityActivity" />
     <activity android:name=".ui.profile.app.MeMyAppActivity" />
     <activity android:name=".ui.dynamic.DynamicDetailActivity">
 

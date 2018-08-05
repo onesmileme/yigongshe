@@ -18,6 +18,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.profile.apply.MeApplyActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -82,7 +83,9 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if (view == charityConfirmButton) {
-
+            Bundle bundle = new Bundle();
+            bundle.putInt("duration",mCharityDurationBean.duration);
+            goToOthers(MeApplyActivity.class,bundle);
         }
     }
 

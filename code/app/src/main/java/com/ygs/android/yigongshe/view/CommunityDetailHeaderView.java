@@ -190,7 +190,7 @@ public class CommunityDetailHeaderView {
               if (entity != null) {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "删除成功", Toast.LENGTH_SHORT).show();
-                  mListener.onItemClicked();
+                  mListener.onItemClicked(ItemClickType.DELTE);
                 } else {
                   Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
                 }
@@ -204,13 +204,25 @@ public class CommunityDetailHeaderView {
     {
       mDelete.setVisibility(View.GONE);
     }
+
+    mAvatar.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        mListener.onItemClicked(ItemClickType.AVATAR);
+      }
+    });
   }
 
   public View getView() {
     return this.mView;
   }
 
+  public enum ItemClickType{
+    DELTE,
+    AVATAR,
+  }
+
   public interface ItemClickListener {
-    void onItemClicked();
+    void onItemClicked(ItemClickType itemClickType);
   }
 }

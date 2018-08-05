@@ -99,6 +99,9 @@ public class ShareUtils {
       }
     });
     //dialog.setCanceledOnTouchOutside(true);
+    if (!TextUtils.isEmpty(shareBean.shareDialogTitle)){
+      dialog.withTitle(shareBean.shareDialogTitle);
+    }
     dialog.show();
   }
 

@@ -10,6 +10,7 @@ public class ShareBean implements Serializable {
   public String title;
   public String description;
   public String url;
+  public String shareDialogTitle;
 
   public ShareBean(String title, String description, String url) {
     this.title = title;

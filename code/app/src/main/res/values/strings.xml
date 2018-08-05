@@ -1,111 +1,114 @@
 <resources>
-  <string name="app_name">青年益工社</string>
-  <string name="nav_dynamic">动态</string>
-  <string name="nav_activity">活动</string>
-  <string name="nav_community">益工圈</string>
-  <string name="nav_me">我</string>
-  <string name="share_to">分享文章至</string>
-  <string name="wechat">微信好友</string>
-  <string name="wechat_circle">朋友圈</string>
-  <string name="sinaweibo">新浪微博</string>
+    <string name="app_name">青年益工社</string>
+    <string name="nav_dynamic">动态</string>
+    <string name="nav_activity">活动</string>
+    <string name="nav_community">益工圈</string>
+    <string name="nav_me">我</string>
+    <string name="share_to">分享文章至</string>
+    <string name="wechat">微信好友</string>
+    <string name="wechat_circle">朋友圈</string>
+    <string name="sinaweibo">新浪微博</string>
 
-  <string name="login">登录</string>
-  <string name="phone_num">手机号</string>
-  <string name="password">密 码</string>
-  <string name="input_phone_hint">请输入手机号</string>
-  <string name="input_password_hint">请输入密码</string>
+    <string name="login">登录</string>
+    <string name="phone_num">手机号</string>
+    <string name="password">密 码</string>
+    <string name="input_phone_hint">请输入手机号</string>
+    <string name="input_password_hint">请输入密码</string>
 
-  <string name="forget_password_tip">忘记密码？去重新设置密码</string>
-  <string name="use_official_account">使用官方认证号登录</string>
+    <string name="forget_password_tip">忘记密码？去重新设置密码</string>
+    <string name="use_official_account">使用官方认证号登录</string>
+    <string name="reset_password">设置新密码</string>
 
-  <string name="register">注册</string>
+    <string name="register">注册</string>
 
-  <string name="user_type">用户类型</string>
-  <string name="school">学校</string>
-  <string name="academy">院系</string>
-  <string name="enroll_year">入学年份</string>
-  <string name="captcha">验证码</string>
-  <string name="invite_code">邀请码</string>
-  <string name="send_captcha">发送验证码</string>
+    <string name="user_type">用户类型</string>
+    <string name="school">学校</string>
+    <string name="academy">院系</string>
+    <string name="enroll_year">入学年份</string>
+    <string name="captcha">验证码</string>
+    <string name="invite_code">邀请码</string>
+    <string name="send_captcha">发送验证码</string>
 
-  <string name="input_school_hint">请输入所属学校</string>
-  <string name="input_academy_hint">请输入所属院系</string>
-  <string name="input_enroll_year_hint">选择年份</string>
-  <string name="input_captcha_hint">请输入验证码</string>
-  <string name="input_optional_hint">选填</string>
+    <string name="input_school_hint">请输入所属学校</string>
+    <string name="input_academy_hint">请输入所属院系</string>
+    <string name="input_enroll_year_hint">选择年份</string>
+    <string name="input_captcha_hint">请输入验证码</string>
+    <string name="input_optional_hint">选填</string>
 
-  <string name="logout">退出登录</string>
-  <string name="set">设置</string>
-
-
-  <string name="apply_duration">申请时长</string>
-  <string name="apply_reason">申请理由</string>
-  <string name="apply_reason_hint">请描述您的申请理由</string>a
+    <string name="logout">退出登录</string>
+    <string name="set">设置</string>
 
 
-  <string name="submit">提交</string>
-  <string name="charity_record">公益记录</string>
+    <string name="apply_duration">申请时长</string>
+    <string name="apply_reason">申请理由</string>
+    <string name="apply_reason_hint">请描述您的申请理由</string>a
 
-  <string name="association">社团</string>
-  <string name="association_info">社团信息</string>
-  <string name="association_name">社团名称:</string>
-  <string name="association_member">社员信息</string>
-  <string name="association_activity">社团活动</string>
-  <string name="name">姓名</string>
-  <string name="job_position">职位</string>
 
-  <string name="this_year_charity_time">本年度公益时长</string>
-  <string name="charity_time_rule">公益时间规划</string>
-  <string name="confirm_approve_charity_time">申请确认公益时长</string>
-  <string name="charity_medal">公益勋章</string>
-  <string name="my_charity_time">我的公益时间</string>
-  <string name="hour">小时</string>
+    <string name="submit">提交</string>
+    <string name="charity_record">公益记录</string>
 
-  <string name="my_focus">我的关注</string>
-  <string name="my_activity">我的活动</string>
-  <string name="run_list">益行走</string>
+    <string name="association">社团</string>
+    <string name="association_info">社团信息</string>
+    <string name="association_name">社团名称:</string>
+    <string name="association_member">社员信息</string>
+    <string name="association_activity">社团活动</string>
+    <string name="name">姓名</string>
+    <string name="job_position">职位</string>
 
-  <string name="ziliao">资料</string>
-  <string name="avatar">头像</string>
-  <string name="nickname">昵称</string>
-  <string name="cellphone">手机号</string>
-  <string name="password2">密码</string>
-  <string name="school_info">学校资料</string>
+    <string name="this_year_charity_time">本年度公益时长</string>
+    <string name="charity_time_rule">公益时间规划</string>
+    <string name="confirm_approve_charity_time">申请确认公益时长</string>
+    <string name="charity_medal">公益勋章</string>
+    <string name="my_charity_time">我的公益时间</string>
+    <string name="hour">小时</string>
 
-  <string name="followed">已关注</string>
-  <string name="unfollow">取消关注</string>
+    <string name="my_focus">我的关注</string>
+    <string name="my_activity">我的活动</string>
+    <string name="run_list">益行走</string>
+    <string name="other_activity">TA的活动</string>
+    <string name="other_community">TA的以供圈</string>
 
-  <string name="my_community">我的益工圈</string>
-  <string name="my_app">我的应用</string>
+    <string name="ziliao">资料</string>
+    <string name="avatar">头像</string>
+    <string name="nickname">昵称</string>
+    <string name="cellphone">手机号</string>
+    <string name="password2">密码</string>
+    <string name="school_info">学校资料</string>
 
-  <string name="change_nickname">修改昵称</string>
-  <string name="nickname2">昵      称</string>
-  <string name="input_nickname">请输入昵称</string>
-  <string name="change_password">修改密码</string>
-  <string name="password3">密      码</string>
-  <string name="reinput_password">重复密码</string>
-  <string name="reinput_password_hint">请再次输入密码</string>
-  <string name="cell_phone_2">手 机 号</string>
-  <string name="captcha_code">验 证 码</string>
-  <string name="input_captcha_2_hint">请再次输入验证码</string>
-  <string name="change_phone">修改手机号</string>
-  <string name="change_avatar">修改头像</string>
-  <string name="modify">修改</string>
-  <string name="change_school">修改学校</string>
-  <string name="city1">城   市</string>
-  <string name="school1">学   校</string>
-  <string name="other_home">个人主页</string>
-  <string name="ta_activity">TA的活动</string>
-  <string name="ta_yidong_circle">TA的益工圈</string>
-  <string name="send_msg">发消息</string>
-  <string name="follow">关注</string>
-  <string name="message">消息</string>
-  <string name="operate">操作</string>
+    <string name="followed">已关注</string>
+    <string name="unfollow">取消关注</string>
 
-  <string name="done">完成</string>
-  <string name="topicSelect">#%1s#</string>
-  <string name="topicItem">#%1s#</string>
-  <string name="dacallstatus">目前call值：%1$s   当前%2$s人为该项目应援</string>
-  <string name="publishtime">%1$s 发布</string>
-  <string name="weibosdk_demo_share_text_template">我正在使用微博客户端发博器分享文字</string>
+    <string name="my_community">我的益工圈</string>
+    <string name="my_app">我的应用</string>
+
+    <string name="change_nickname">修改昵称</string>
+    <string name="nickname2">昵      称</string>
+    <string name="input_nickname">请输入昵称</string>
+    <string name="change_password">修改密码</string>
+    <string name="password3">密      码</string>
+    <string name="reinput_password">重复密码</string>
+    <string name="reinput_password_hint">请再次输入密码</string>
+    <string name="cell_phone_2">手 机 号</string>
+    <string name="captcha_code">验 证 码</string>
+    <string name="input_captcha_2_hint">请再次输入验证码</string>
+    <string name="change_phone">修改手机号</string>
+    <string name="change_avatar">修改头像</string>
+    <string name="modify">修改</string>
+    <string name="change_school">修改学校</string>
+    <string name="city1">城   市</string>
+    <string name="school1">学   校</string>
+    <string name="other_home">个人主页</string>
+    <string name="ta_activity">TA的活动</string>
+    <string name="ta_yidong_circle">TA的益工圈</string>
+    <string name="send_msg">发消息</string>
+    <string name="follow">关注</string>
+    <string name="message">消息</string>
+    <string name="operate">操作</string>
+
+    <string name="done">完成</string>
+    <string name="topicSelect">#%1s#</string>
+    <string name="topicItem">#%1s#</string>
+    <string name="dacallstatus">目前call值：%1$s   当前%2$s人为该项目应援</string>
+    <string name="publishtime">%1$s 发布</string>
+    <string name="weibosdk_demo_share_text_template">我正在使用微博客户端发博器分享文字</string>
 </resources>

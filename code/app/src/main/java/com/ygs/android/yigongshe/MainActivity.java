@@ -38,6 +38,7 @@ import com.ygs.android.yigongshe.ui.dynamic.DynamicDetailActivity;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
 import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
+import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import com.ygs.android.yigongshe.utils.LocationService;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity {
       String detailId = "";
       if (uri != null) {
         //1..........
-        detailId = uri.getQueryParameter("dynamicdetailId");
+        detailId = uri.getQueryParameter("dynamicdetailid");
         if (!TextUtils.isEmpty(detailId)) {
           try {
             int mId = Integer.parseInt(detailId);
@@ -81,17 +82,41 @@ public class MainActivity extends BaseActivity {
           }
         }
         //2.............
-        detailId = uri.getQueryParameter("activitydetailId");
-        if (TextUtils.isEmpty(detailId)) {
-          if (!TextUtils.isEmpty(detailId)) {
-            try {
-              int mId = Integer.parseInt(detailId);
-              Bundle bundle = new Bundle();
-              bundle.putInt("activity_id", mId);
-              goToOthers(ActivityDetailActivity.class, bundle);
-            } catch (Exception e) {
-              e.printStackTrace();
-            }
+        detailId = uri.getQueryParameter("activitydetailid");
+        if (!TextUtils.isEmpty(detailId)) {
+          try {
+            int mId = Integer.parseInt(detailId);
+            Bundle bundle = new Bundle();
+            bundle.putInt("activity_id", mId);
+            goToOthers(ActivityDetailActivity.class, bundle);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+
+        //3.............
+        detailId = uri.getQueryParameter("messageid");
+        if (!TextUtils.isEmpty(detailId)) {
+          try {
+            Bundle bundle = new Bundle();
+            bundle.putString("otherUid", detailId);
+            bundle.putString("type", "message");
+            goToOthers(MsgTalkActivity.class, bundle);
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+
+        //4.............
+        detailId = uri.getQueryParameter("noticeid");
+        if (!TextUtils.isEmpty(detailId)) {
+          try {
+            Bundle bundle = new Bundle();
+            bundle.putString("otherUid", detailId);
+            bundle.putString("type", "notice");
+            goToOthers(MsgTalkActivity.class, bundle);
+          } catch (Exception e) {
+            e.printStackTrace();
           }
         }
       }

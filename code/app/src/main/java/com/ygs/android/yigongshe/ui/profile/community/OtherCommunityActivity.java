@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -30,9 +31,9 @@ import retrofit2.Response;
 /**
  * 我的益工圈
  */
-public class MeCommunityActivity extends BaseActivity {
+public class OtherCommunityActivity extends BaseActivity {
 
-    @BindView(R.id.me_community_recycleview)
+    @BindView(R.id.other_community_recycleview)
     RecyclerView mRecycleView;
 
     @BindView(R.id.layout_titlebar)
@@ -44,9 +45,16 @@ public class MeCommunityActivity extends BaseActivity {
 
     LinkCall<BaseResultDataInfo<CommunityListResponse>> mCall;
 
+    private String otherUid;
+
     @Override
     protected void initIntent(Bundle bundle){
 
+        otherUid = bundle.getString("otherUid");
+        if (TextUtils.isEmpty(otherUid)){
+            Toast.makeText(this,"未获得用户ID",Toast.LENGTH_SHORT).show();
+            finish();
+        }
     }
 
     @Override
@@ -56,7 +64,7 @@ public class MeCommunityActivity extends BaseActivity {
             @Override
             public void onClicked(View v, int action, String extra) {
                 if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
-                    MeCommunityActivity.this.finish();
+                    OtherCommunityActivity.this.finish();
                 }
             }
         });
@@ -87,7 +95,7 @@ public class MeCommunityActivity extends BaseActivity {
 
     @Override
     protected  int getLayoutResId(){
-        return R.layout.activity_me_community;
+        return R.layout.activity_other_community;
     }
 
     @Override
@@ -105,8 +113,7 @@ public class MeCommunityActivity extends BaseActivity {
         mAdapter.setEnableLoadMore(false);
         mAdapter.setEnableLoadMore(false);
         String token = YGApplication.accountManager.getToken();
-        String uid = ""+YGApplication.accountManager.getUserid();
-        mCall = LinkCallHelper.getApiService().getUserCommunityList(token,uid);
+        mCall = LinkCallHelper.getApiService().getUserCommunityList(token,otherUid);
         mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CommunityListResponse>>() {
             @Override
             public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
@@ -117,14 +124,14 @@ public class MeCommunityActivity extends BaseActivity {
                     CommunityListResponse data = entity.data;
                    mAdapter.setNewData(data.list);
                    if (data.list == null || data.list.size() == 0){
-                       Toast.makeText(MeCommunityActivity.this,"我的益工圈沒有",Toast.LENGTH_SHORT).show();
+                       Toast.makeText(OtherCommunityActivity.this,"我的益工圈沒有数据",Toast.LENGTH_SHORT).show();
                    }
                 }else{
                     String msg = "请求益工圈失败";
                     if (entity != null){
                         msg += "("+entity.msg+")";
                     }
-                    Toast.makeText(MeCommunityActivity.this,msg,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(OtherCommunityActivity.this,msg,Toast.LENGTH_SHORT).show();
                 }
                 swipeRefreshLayout.setRefreshing(false);
             }

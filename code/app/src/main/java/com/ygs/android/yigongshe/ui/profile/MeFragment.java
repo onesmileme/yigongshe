@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.net.ApiStatusInterface;
@@ -27,6 +28,7 @@ import com.ygs.android.yigongshe.ui.profile.MeProfileAdapter;
 import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
 import com.ygs.android.yigongshe.ui.profile.info.MeInfoActivity;
 import com.ygs.android.yigongshe.ui.profile.set.MeSetAcitivity;
+import com.ygs.android.yigongshe.ui.share.ShareUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.LinkedList;
 import java.util.List;
@@ -112,6 +114,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     if (clazz != null) {
       Intent intent = new Intent(this.getActivity(), clazz);
       startActivity(intent);
+    }else if(position == 7){
+      ShareBean shareBean = new ShareBean("邀请伙伴","邀请伙伴参加益工社","https://www.baidu.com");
+      shareBean.shareDialogTitle = "邀请伙伴";
+      ShareUtils.getInstance().shareTo(this.getActivity(),shareBean);
     }
   }
 
