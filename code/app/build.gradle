@@ -11,16 +11,17 @@ android {
     versionCode 1
     versionName "1.0"
 
-//    ndk {
-//      //选择要添加的对应cpu类型的.so库。
-//      abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-//      // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
-//    }
-//    manifestPlaceholders = [
-//            JPUSH_PKGNAME : applicationId,
-//            JPUSH_APPKEY : "你的appkey", //JPush上注册的包名对应的appkey.
-//            JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
-//    ]
+    ndk {
+      //选择要添加的对应cpu类型的.so库。
+      abiFilters 'armeabi'
+      //, 'armeabi-v7a', 'arm64-v8a'
+      // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+    }
+    manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "你的appkey", //JPush上注册的包名对应的appkey.
+            JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+    ]
 
   }
   signingConfigs {
@@ -76,8 +77,8 @@ dependencies {
 
   implementation 'com.github.codbking:PickTime:v1.0.1'
   //极光
-//  implementation 'cn.jiguang.sdk:jpush:3.1.5'
-//  implementation 'cn.jiguang.sdk:jcore:1.2.3'
+  implementation 'cn.jiguang.sdk:jpush:3.1.5'
+  implementation 'cn.jiguang.sdk:jcore:1.2.3'
 
   implementation 'com.alibaba:fastjson:1.1.52.android'
 }

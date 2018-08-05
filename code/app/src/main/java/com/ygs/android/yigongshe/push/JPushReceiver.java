@@ -7,9 +7,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
-//import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.JPushInterface;
 
-/*
+//*
 public class JPushReceiver extends BroadcastReceiver {
     private final String TAG = "JPushReceiver";
 
@@ -86,4 +86,4 @@ public class JPushReceiver extends BroadcastReceiver {
             return sb.toString();
         }
 }
-*/
+//*/
