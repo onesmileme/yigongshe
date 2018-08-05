@@ -13,7 +13,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -31,6 +30,7 @@ import com.ygs.android.yigongshe.bean.response.CityListResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
@@ -66,16 +66,32 @@ public class MainActivity extends BaseActivity {
     String action = intent.getAction();
     if (Intent.ACTION_VIEW.equals(action)) {
       Uri uri = intent.getData();
+      String detailId = "";
       if (uri != null) {
-        String detailId = uri.getQueryParameter("detailId");
+        //1..........
+        detailId = uri.getQueryParameter("dynamicdetailId");
         if (!TextUtils.isEmpty(detailId)) {
           try {
             int mId = Integer.parseInt(detailId);
             Bundle bundle = new Bundle();
             bundle.putInt("news_id", mId);
             goToOthers(DynamicDetailActivity.class, bundle);
-          }catch (Exception e){
+          } catch (Exception e) {
             e.printStackTrace();
+          }
+        }
+        //2.............
+        detailId = uri.getQueryParameter("activitydetailId");
+        if (TextUtils.isEmpty(detailId)) {
+          if (!TextUtils.isEmpty(detailId)) {
+            try {
+              int mId = Integer.parseInt(detailId);
+              Bundle bundle = new Bundle();
+              bundle.putInt("activity_id", mId);
+              goToOthers(ActivityDetailActivity.class, bundle);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
           }
         }
       }
@@ -83,10 +99,8 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override protected void initIntent(Bundle bundle) {
-    
+
   }
-
-
 
   @Override protected void initView() {
     BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
