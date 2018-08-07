@@ -14,11 +14,10 @@ import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
-import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.TalkItemBean;
 import com.ygs.android.yigongshe.bean.TalkListItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -157,7 +156,7 @@ public class MsgTalkActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<TalkListItemBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
 
                     if (entity.getData().list != null){
                         talkItemBeans = new LinkedList<>();
@@ -197,7 +196,7 @@ public class MsgTalkActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<TalkItemBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
                     //append to last
                     if (entity.data != null) {
                         talkItemBeans.add(entity.getData());

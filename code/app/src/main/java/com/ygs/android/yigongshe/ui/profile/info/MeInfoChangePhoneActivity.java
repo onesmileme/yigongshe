@@ -14,7 +14,7 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -148,7 +148,7 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     YGApplication.accountManager.updatePhone(phone);
                     Intent intent = new Intent();
                     intent.putExtra("phone",phone);
@@ -176,7 +176,7 @@ public class MeInfoChangePhoneActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     startCountdown();
                     updateTip();
                 }else{

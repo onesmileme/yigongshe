@@ -3,7 +3,6 @@ package com.ygs.android.yigongshe.ui.otherhomepage;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,21 +11,19 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.activity.OtherActivitiesActivity;
 import com.ygs.android.yigongshe.ui.profile.community.OtherCommunityActivity;
-import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
 import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.view.CircleImageView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 import retrofit2.Response;
 
 public class OtherHomePageActivity extends BaseActivity implements View.OnClickListener{
@@ -106,7 +103,7 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
             public void onResponse(BaseResultDataInfo<OtherUserInfoBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
                     userInfoBean = entity.data;
                     updateUI(entity.data);
                 }else{
@@ -141,7 +138,7 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
                     userInfoBean.is_followed = "1";
                     updateUI(userInfoBean);
                 }else{

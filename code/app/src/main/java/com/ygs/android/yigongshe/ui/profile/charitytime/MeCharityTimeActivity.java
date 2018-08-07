@@ -1,6 +1,5 @@
 package com.ygs.android.yigongshe.ui.profile.charitytime;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +12,7 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CharityDurationBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -98,7 +97,7 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
             public void onResponse(BaseResultDataInfo<CharityDurationBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK) {
+                if (entity != null && entity.error == ApiStatus.OK) {
                     mCharityDurationBean = entity.data;
                     charityTimeTextView.setText(mCharityDurationBean.duration + "");
                     medalAdapter.setNewData(mCharityDurationBean.achievements);

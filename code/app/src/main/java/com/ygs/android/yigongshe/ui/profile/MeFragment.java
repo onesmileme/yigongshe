@@ -4,8 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +17,7 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -168,7 +166,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
           Log.e(TAG, "onResponse: load user info failed " + response);
           return;
         }
-        if (entity.error == ApiStatusInterface.OK) {
+        if (entity.error == ApiStatus.OK) {
           AccountManager accountManager = YGApplication.accountManager;
           Log.e("ME", "onResponse: " + entity.data);
           if (accountManager != null) {

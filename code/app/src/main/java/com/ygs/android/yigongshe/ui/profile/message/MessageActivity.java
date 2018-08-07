@@ -17,7 +17,7 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.MsgItemBean;
 import com.ygs.android.yigongshe.bean.MsgListBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -139,7 +139,7 @@ public class MessageActivity extends BaseActivity {
       @Override
       public void onResponse(BaseResultDataInfo<MsgListBean> entity, Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == ApiStatusInterface.OK){
+        if (entity != null && entity.error == ApiStatus.OK){
 
           if (isPrivateMsg){
             privateMsgList = entity.data.list;

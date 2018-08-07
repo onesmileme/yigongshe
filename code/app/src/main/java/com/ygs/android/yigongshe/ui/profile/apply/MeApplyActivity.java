@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -20,7 +19,7 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -28,7 +27,6 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.io.IOException;
-import java.util.zip.Inflater;
 
 /**
  * 申请时长
@@ -145,7 +143,7 @@ public class MeApplyActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK) {
+                if (entity != null && entity.error == ApiStatus.OK) {
                     Toast.makeText(MeApplyActivity.this, "申请成功", Toast.LENGTH_SHORT).show();
                     mDurationEditText.setText("");
                     mReasonEditText.setText("");

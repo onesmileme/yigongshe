@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -27,6 +28,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.comment.CommentAdapter;
+import com.ygs.android.yigongshe.ui.otherhomepage.OtherHomePageActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import java.util.List;
@@ -36,7 +38,7 @@ import retrofit2.Response;
  * Created by ruichao on 2018/6/27.
  */
 
-public abstract class BaseDetailActivity extends BaseActivity {
+public abstract class BaseDetailActivity extends BaseActivity implements View.OnClickListener{
   protected static final int TYPE_DYNAMIC = 1;
   protected static final int TYPE_ACTIVITY = 2;
   protected static final int TYPE_COMMUNITY = 3;
@@ -81,7 +83,7 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   private void initAdapter() {
-    mAdapter = new CommentAdapter();
+    mAdapter = new CommentAdapter(this);
     mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
         requestCommentData(mType, false);
@@ -119,7 +121,6 @@ public abstract class BaseDetailActivity extends BaseActivity {
   }
 
   //添加很多个headerview
-
   protected void addHeaderView() {
   }
 
@@ -243,6 +244,20 @@ public abstract class BaseDetailActivity extends BaseActivity {
     }
 
     postCommentData();
+  }
+
+  @Override
+  public void onClick(View view){
+    if (view.getTag() instanceof CommentItemBean){
+      CommentItemBean itemBean = (CommentItemBean)view.getTag();
+      String uid = itemBean.create_id+"";
+      if (uid.equals(YGApplication.accountManager.getUserid())){
+        return;
+      }
+      Bundle bundle = new Bundle();
+      bundle.putString("userid",uid);
+      goToOthers(OtherHomePageActivity.class,bundle);
+    }
   }
 
   private void postCommentData() {

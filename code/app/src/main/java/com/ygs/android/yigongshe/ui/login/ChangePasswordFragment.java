@@ -6,15 +6,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
-import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
-import com.ygs.android.yigongshe.ui.profile.info.MeInfoChangePasswordActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -85,7 +83,7 @@ public class ChangePasswordFragment extends BaseFragment {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     //setResult(1,null);
                     //finish();
                 }else {

@@ -15,7 +15,7 @@ import com.ygs.android.yigongshe.bean.ActivityItemBean;
 import com.ygs.android.yigongshe.bean.MyActivityBean;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -23,7 +23,6 @@ import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
-import com.ygs.android.yigongshe.view.SegmentControlView;
 
 import java.util.List;
 
@@ -118,7 +117,7 @@ public class OtherActivitiesActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<MyActivityBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
                     mActivities = entity.data.activities;
                         mActivityAdapter.setNewData(mActivities);
                 }else {

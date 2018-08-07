@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,20 +14,16 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.FollowPersonDataBean;
 import com.ygs.android.yigongshe.bean.FollowPersonItemBean;
-import com.ygs.android.yigongshe.bean.MeFocusBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiService;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
-import com.ygs.android.yigongshe.ui.profile.message.MessageActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 
-import org.w3c.dom.Text;
-
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,7 +32,7 @@ import retrofit2.Response;
 /**
  * 我的关注
  */
-public class MeFocusActivity extends BaseActivity implements MeFocusFollowListener{
+public class MeFocusActivity extends BaseActivity implements MeFocusFollowListener {
 
     @BindView(R.id.me_focus_recycleview)
     RecyclerView recyclerView;
@@ -55,17 +50,17 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
     private LinkCall<BaseResultDataInfo<FollowPersonDataBean>> mCall;
 
     @Override
-    protected  void initIntent(Bundle bundle){
+    protected void initIntent(Bundle bundle) {
 
     }
 
     @Override
-    protected  void initView(){
+    protected void initView() {
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
             @Override
             public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                     finish();
                 }
             }
@@ -73,21 +68,24 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        focusAdapter = new MeFocusAdapter(this,this);
+        focusAdapter = new MeFocusAdapter(this, this);
         recyclerView.setAdapter(focusAdapter);
 
         recyclerView.addItemDecoration(
             new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
 
-        //focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
-        //                                       @Override
-        //                                       public void onLoadMoreRequested() {
-        //                                           loadMore();
-        //                                       }
-        //                                   }
-        //,recyclerView);
 
-        //focusAdapter.disableLoadMoreIfNotFullPage();
+        focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+                                               @Override
+                                               public void onLoadMoreRequested() {
+                                                   Log.e("FOLLOW", "onLoadMoreRequested: >>>>>>" );
+                                                   loadMore();
+                                               }
+                                           }
+            , recyclerView);
+        focusAdapter.disableLoadMoreIfNotFullPage();
+        focusAdapter.setEnableLoadMore(false);
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -99,69 +97,76 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
     }
 
     @Override
-    protected  int getLayoutResId(){
+    protected int getLayoutResId() {
         return R.layout.activity_me_focus;
     }
 
-    private void loadData(final boolean isRefresh){
+    private void loadData(final boolean isRefresh) {
 
-        if (isRefresh){
-            mPageIndex= 0;
+        int pageIndex = mPageIndex+1;
+        if (isRefresh) {
+            pageIndex = 0;
         }
         String token = YGApplication.accountManager.getToken();
-        mCall = LinkCallHelper.getApiService().getFolloPersonList(token,++mPageIndex );
-        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<FollowPersonDataBean>>(){
+        mCall = LinkCallHelper.getApiService().getFolloPersonList(token, pageIndex);
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<FollowPersonDataBean>>() {
             @Override
-            public void onResponse(BaseResultDataInfo<FollowPersonDataBean> entity, Response<?> response, Throwable throwable) {
+            public void onResponse(BaseResultDataInfo<FollowPersonDataBean> entity, Response<?> response,
+                                   Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
-                    addData(isRefresh,entity.data);
+                if (entity.error == ApiStatus.OK) {
+                    List<FollowPersonItemBean> itemBeans = new LinkedList<>();
+                    addData(isRefresh, entity.data);
+                    mPageIndex++;
                 }
-                if (isRefresh){
+                if (isRefresh) {
                     refreshLayout.setRefreshing(false);
-                }else{
+                } else {
                     focusAdapter.setEnableLoadMore(false);
+                    focusAdapter.loadMoreComplete();
                 }
             }
         });
 
     }
 
-    private void loadMore(){
+    private void loadMore() {
         loadData(false);
     }
 
-    private void addData(boolean isRefresh , FollowPersonDataBean followPersonDataBean){
+    private void addData(boolean isRefresh, FollowPersonDataBean followPersonDataBean) {
 
-        if (isRefresh){
+        if (isRefresh) {
             focusAdapter.setNewData(followPersonDataBean.list);
-        }else{
+        } else {
             focusAdapter.addData(followPersonDataBean.list);
+            focusAdapter.notifyDataSetChanged();
         }
-
+        focusAdapter.disableLoadMoreIfNotFullPage();
     }
 
     @Override
     public void unfollow(final FollowPersonItemBean focusBean) {
 
         String token = YGApplication.accountManager.getToken();
-        LinkCall<BaseResultDataInfo<EmptyBean>>unfollowCall = LinkCallHelper.getApiService().unFollow(token,focusBean.userid);
-        unfollowCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+        LinkCall<BaseResultDataInfo<EmptyBean>> unfollowCall = LinkCallHelper.getApiService().unFollow(token,
+            focusBean.userid);
+        unfollowCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK) {
                     focusBean.unfollowed = true;
                     List<FollowPersonItemBean> list = focusAdapter.getData();
                     list.remove(focusBean);
                     focusAdapter.setNewData(list);
-                    Toast.makeText(MeFocusActivity.this,"取消关注成功",Toast.LENGTH_SHORT).show();
-                }else{
+                    Toast.makeText(MeFocusActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
+                } else {
                     String msg = "取消关注失败";
-                    if (entity != null && entity.msg != null){
-                        msg += "("+entity.msg+")";
+                    if (entity != null && entity.msg != null) {
+                        msg += "(" + entity.msg + ")";
                     }
-                    Toast.makeText(MeFocusActivity.this,msg,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MeFocusActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -171,20 +176,21 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
     public void follow(final FollowPersonItemBean focusBean) {
 
         String token = YGApplication.accountManager.getToken();
-        LinkCall<BaseResultDataInfo<EmptyBean>> followCall = LinkCallHelper.getApiService().doFollow(token,focusBean.userid);
-        followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+        LinkCall<BaseResultDataInfo<EmptyBean>> followCall = LinkCallHelper.getApiService().doFollow(token,
+            focusBean.userid);
+        followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK) {
                     focusBean.unfollowed = false;
                     focusAdapter.notifyDataSetChanged();
-                }else{
+                } else {
                     String msg = "关注失败";
-                    if (entity != null && entity.msg != null){
-                        msg += "("+entity.msg+")";
+                    if (entity != null && entity.msg != null) {
+                        msg += "(" + entity.msg + ")";
                     }
-                    Toast.makeText(MeFocusActivity.this,msg,Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MeFocusActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });

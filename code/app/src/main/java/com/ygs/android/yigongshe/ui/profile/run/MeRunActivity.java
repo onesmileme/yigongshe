@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
@@ -13,7 +12,7 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.RunItemBean;
 import com.ygs.android.yigongshe.bean.RunListBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -127,7 +126,7 @@ public class MeRunActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<RunListBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     currentPage = page;
                     List<RunItemBean> lists = null;
                     if (currentPage == 0){

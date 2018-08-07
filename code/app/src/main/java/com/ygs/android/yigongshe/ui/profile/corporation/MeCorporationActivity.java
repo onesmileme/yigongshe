@@ -28,6 +28,7 @@ import retrofit2.Response;
 
 /**
  * Created by ruichao on 2018/7/26.
+ * 我的社团
  */
 
 public class MeCorporationActivity extends BaseActivity {
@@ -131,7 +132,7 @@ public class MeCorporationActivity extends BaseActivity {
   }
 
   @Override protected void onStop() {
-    if (!mCall.isCanceled()) {
+    if (mCall != null && !mCall.isCanceled()) {
       mCall.cancel();
     }
     super.onStop();

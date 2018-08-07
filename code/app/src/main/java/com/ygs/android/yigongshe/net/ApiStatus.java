@@ -1,6 +1,6 @@
 package com.ygs.android.yigongshe.net;
 
-public interface ApiStatusInterface {
+public interface ApiStatus {
 
     public static int OK = 2000;
 
@@ -19,4 +19,6 @@ public interface ApiStatusInterface {
     public static int TOKEN_ERROR = 6002;
 
     public static int USER_DELTED = 6003;
+
+    public static int COUNT_PER_PAGE = 20;
 }

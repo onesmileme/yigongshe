@@ -10,7 +10,7 @@ import android.widget.Toast;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -139,7 +139,7 @@ public class InputCaptchaFragment extends BaseFragment implements View.OnClickLi
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     startCountdown();
                     updateTip();
                 }else{

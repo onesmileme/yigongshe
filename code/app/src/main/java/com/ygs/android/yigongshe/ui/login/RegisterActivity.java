@@ -16,25 +16,19 @@ import android.widget.NumberPicker;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 
-import com.codbking.widget.DatePickDialog;
-import com.codbking.widget.OnSureLisener;
-import com.codbking.widget.bean.DateType;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.SchoolInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.SchoolInfoListResponse;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-
-import org.w3c.dom.Text;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -205,7 +199,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
       @Override public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == ApiStatusInterface.OK){
+        if (entity != null && entity.error == ApiStatus.OK){
 
           showLogin();
           Toast.makeText(RegisterActivity.this,"注册成功，请登录",Toast.LENGTH_SHORT).show();
@@ -229,7 +223,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
       @Override public void onResponse(BaseResultDataInfo<SchoolInfoListResponse> entity,
           Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == ApiStatusInterface.OK) {
+        if (entity != null && entity.error == ApiStatus.OK) {
           schoolRoleBeanList = entity.data.schools;
         }
       }

@@ -192,22 +192,25 @@ public interface ApiService {
    * 获取我报名参加的活动
    */
   @FormUrlEncoded @POST("app/api/activity/getmyregisteractivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyRegisterActivity(@Field("token") String token);
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyRegisterActivity(@Field("token") String token ,
+                                                                     @Field("page") int pageIndex);
 
   /**
    * 获取我收藏的活动
    */
   @FormUrlEncoded @POST("app/api/activity/getmystoreactivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyStoreActivity(@Field("token") String token);
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMyStoreActivity(@Field("token") String token,
+                                                                  @Field("page") int pageIndex);
 
   /**
    * 获取我签到的活动
    */
   @FormUrlEncoded @POST("app/api/activity/getmysigninactivity")
-  LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(@Field("token") String token);
+  LinkCall<BaseResultDataInfo<MyActivityBean>> getMySigninActivity(@Field("token") String token,
+                                                                   @Field("page") int pageIndex);
 
   /**
-   * 获取我报名参加的活动
+   * 获取他人报名参加的活动
    */
   @FormUrlEncoded @POST("app/api/activity/getotheractivity")
   LinkCall<BaseResultDataInfo<MyActivityBean>> getOtherActivity(@Field("token") String token , @Field("other_id") String otherId,

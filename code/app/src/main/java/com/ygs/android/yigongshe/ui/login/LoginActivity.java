@@ -2,7 +2,6 @@ package com.ygs.android.yigongshe.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -17,12 +16,11 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.LoginBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
-import com.ygs.android.yigongshe.ui.share.ShareUtils;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import retrofit2.Response;
@@ -137,7 +135,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       @Override public void onResponse(BaseResultDataInfo<LoginBean> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity != null && entity.error == ApiStatusInterface.OK) {
+        if (entity != null && entity.error == ApiStatus.OK) {
           Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
           AccountManager accountManager = YGApplication.accountManager;
           if (accountManager != null) {
@@ -177,7 +175,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        if (entity.error == ApiStatusInterface.OK) {
+        if (entity.error == ApiStatus.OK) {
           AccountManager accountManager = YGApplication.accountManager;
           if (accountManager != null) {
             accountManager.updateUserInfo(entity.data);

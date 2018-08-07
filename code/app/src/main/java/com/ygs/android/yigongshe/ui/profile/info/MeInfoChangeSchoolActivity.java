@@ -1,13 +1,10 @@
 package com.ygs.android.yigongshe.ui.profile.info;
 
-import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.ygs.android.yigongshe.R;
@@ -16,17 +13,12 @@ import com.ygs.android.yigongshe.bean.SchoolInfoBean;
 import com.ygs.android.yigongshe.bean.SchoolListBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.bean.response.CityListResponse;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Response;
@@ -147,7 +139,7 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<SchoolListBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     schoolListBean = entity.getData();
                     provinces = new String[schoolListBean.school_list.size()];
 
@@ -185,7 +177,7 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校成功",Toast.LENGTH_SHORT).show();
                     YGApplication.accountManager.updateSchool(chooseSchool);
                 }else{

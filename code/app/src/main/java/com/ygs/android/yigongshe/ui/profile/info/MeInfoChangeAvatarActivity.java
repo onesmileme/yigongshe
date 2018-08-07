@@ -9,19 +9,16 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.UploadImageBean;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -125,7 +122,6 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
             case SELECT_PICS:
                 if (data != null) {
                     String selectPic = data.getBundleExtra(BaseActivity.PARAM_INTENT).getString("imageurl");
-                    Log.e("AVATAR", "onActivityResult: select pic"+selectPic );
                     if (!TextUtils.isEmpty(selectPic)) {
                         Bitmap bitmap = BitmapFactory.decodeFile(selectPic);
                         avatarImageView.setImageBitmap(bitmap);
@@ -136,7 +132,6 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
                 break;
             case TAKE_PHOTOS:
                 if (mPhotograph != null && mPhotograph.exists()) {
-                    Log.e("AVATAR", "onActivityResult: take photo "+mPhotograph );
                     scanPhotos(mPhotograph.getAbsolutePath(), this);
                     Bitmap bitmap = BitmapFactory.decodeFile(mPhotograph.getAbsolutePath());
                     avatarImageView.setImageBitmap(bitmap);
@@ -237,7 +232,7 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
             @Override
             public void onResponse(BaseResultDataInfo<UploadImageBean> entity, Response<?> response,
                                    Throwable throwable) {
-                if (entity != null && entity.error == ApiStatusInterface.OK) {
+                if (entity != null && entity.error == ApiStatus.OK) {
                     mUploadImageUrl = entity.data.site_url;
                 }else{
                     Toast.makeText(MeInfoChangeAvatarActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
@@ -250,7 +245,7 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
     private void changeAvatar(){
 
         if (mUploadImageUrl == null || mUploadImageUrl.length() == 0){
-            Toast.makeText(this,"请选择图片",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"请点击头像选择图片",Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -260,7 +255,7 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
             @Override
             public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatusInterface.OK){
+                if (entity.error == ApiStatus.OK){
                     Toast.makeText(MeInfoChangeAvatarActivity.this,"头像修改成功",Toast.LENGTH_SHORT).show();
                     YGApplication.accountManager.updateAvatar(mUploadImageUrl);
                 }

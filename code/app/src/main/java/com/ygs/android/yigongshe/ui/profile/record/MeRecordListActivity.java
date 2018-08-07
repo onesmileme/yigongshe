@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -13,9 +12,8 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.CharityRecordBean;
 import com.ygs.android.yigongshe.bean.CharityRecordItemBean;
-import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
@@ -25,7 +23,6 @@ import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.LinkedList;
 import java.util.List;
 
-import butterknife.BindInt;
 import butterknife.BindView;
 import retrofit2.Response;
 
@@ -114,7 +111,7 @@ public class MeRecordListActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<CharityRecordBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK){
+                if (entity != null && entity.error == ApiStatus.OK){
 
                     if (refresh){
                         recordBeanList.clear();

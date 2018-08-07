@@ -16,12 +16,11 @@ import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.CommunityListResponse;
-import com.ygs.android.yigongshe.net.ApiStatusInterface;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
-import com.ygs.android.yigongshe.ui.community.CommunityDetailActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -112,7 +111,7 @@ public class MeCommunityActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<CommunityListResponse> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatusInterface.OK) {
+                if (entity != null && entity.error == ApiStatus.OK) {
                     ((FrameLayout)mAdapter.getEmptyView()).removeAllViews();
                     CommunityListResponse data = entity.data;
                    mAdapter.setNewData(data.list);
