@@ -75,10 +75,8 @@
 
     </activity>
     <activity
-      android:name=".ui.profile.run.MeRunActivity"
-      android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+      android:name=".ui.profile.run.MeRunActivity" />
 
-    </activity>
     <activity
       android:name=".ui.profile.charitytime.MeCharityTimeActivity"
       android:theme="@android:style/Theme.Holo.Light.NoActionBar">

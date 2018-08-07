@@ -162,6 +162,8 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                 break;
         }
 
+        mActivityAdapter.disableLoadMoreIfNotFullPage();
+
     }
 
     private void loadData(boolean isRefresh) {

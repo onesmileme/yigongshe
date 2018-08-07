@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.MyAppItemBean;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.profile.run.MeRunActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.util.LinkedList;
@@ -28,10 +29,12 @@ public class MeMyAppActivity extends BaseActivity {
 
     List<MyAppItemBean> apps ;
 
+    @Override
     protected void initIntent(Bundle bundle){
 
     }
 
+    @Override
     protected void initView(){
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
@@ -51,7 +54,14 @@ public class MeMyAppActivity extends BaseActivity {
         meMyAppActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                switch (position){
+                    case 0:{
+                        goToOthers(MeRunActivity.class,null);
+                        break;
+                    }
+                    default:
+                        break;
+                }
             }
         });
 
@@ -67,6 +77,7 @@ public class MeMyAppActivity extends BaseActivity {
         meMyAppActivityAdapter.setNewData(apps);
     }
 
+    @Override
     protected int getLayoutResId(){
         return R.layout.activity_me_myapp;
     }

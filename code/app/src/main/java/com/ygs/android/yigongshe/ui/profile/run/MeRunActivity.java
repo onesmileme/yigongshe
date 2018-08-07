@@ -2,7 +2,9 @@ package com.ygs.android.yigongshe.ui.profile.run;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,22 +35,14 @@ import retrofit2.Response;
  */
 public class MeRunActivity extends BaseActivity {
 
-
-//    @BindView(R.id.titlebar_text_title)
-//    TextView titleView;
-
-    @BindView(R.id.titleBar)
+    @BindView(R.id.layout_titlebar)
     CommonTitleBar titleBar;
-
-    @BindView(R.id.titlebar_backward_btn)
-    Button backButton;
 
     @BindView(R.id.me_run_recycleview)
     RecyclerView recyclerView;
 
     @BindView(R.id.run_refresh_layout)
     SwipeRefreshLayout refreshLayout;
-
 
     MeRunAdapter runAdapter;
 
@@ -57,18 +51,17 @@ public class MeRunActivity extends BaseActivity {
     private static final int PER_PAGE = 20;
 
     @Override
-    protected void initIntent(Bundle bundle){
+    protected void initIntent(Bundle bundle) {
 
     }
 
     @Override
-    protected void initView(){
-
+    protected void initView() {
 
         titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
             @Override
             public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                     finish();
                 }
             }
@@ -76,20 +69,13 @@ public class MeRunActivity extends BaseActivity {
 
         List<Integer> showList = new LinkedList<>();
         showList.add(1);
-        MeSectionDecoration decoration = new MeSectionDecoration(showList,this);
+        MeSectionDecoration decoration = new MeSectionDecoration(showList, this);
         decoration.setHintHight(10);
         recyclerView.addItemDecoration(decoration);
 
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
         runAdapter = new MeRunAdapter(this);
         recyclerView.setAdapter(runAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -98,61 +84,70 @@ public class MeRunActivity extends BaseActivity {
             }
         });
 
-        runAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener(){
+        runAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
                 loadData(false);
             }
-        },recyclerView);
+        }, recyclerView);
         runAdapter.setEnableLoadMore(true);
+        loadData(true);
     }
 
     @Override
-    protected int getLayoutResId(){
+    protected int getLayoutResId() {
         return R.layout.activity_me_run;
     }
 
-    private void loadData(final boolean isRefresh){
+    private void loadData(final boolean isRefresh) {
 
         String token = YGApplication.accountManager.getToken();
-        final  int page ;
-        if (isRefresh){
+        final int page;
+        if (isRefresh) {
             page = 0;
-        }else{
-            page = currentPage+1;
+        } else {
+            page = currentPage + 1;
         }
-        mCall = LinkCallHelper.getApiService().getRankList(token,page,PER_PAGE);
-        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<RunListBean>>(){
+        mCall = LinkCallHelper.getApiService().getRankList(token, page, PER_PAGE);
+        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<RunListBean>>() {
             @Override
             public void onResponse(BaseResultDataInfo<RunListBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatus.OK){
+                if (entity.error == ApiStatus.OK) {
                     currentPage = page;
                     List<RunItemBean> lists = null;
-                    if (currentPage == 0){
-                        lists = new ArrayList<>(entity.getData().rank_list.size()+1);
-                        lists.add(0,entity.getData().user_info);
-                        lists.addAll(entity.getData().rank_list);
-                    }else{
+                    if (currentPage == 0) {
+                        lists = new ArrayList<>(entity.getData().rank_list.size() + 1);
+                        if (entity.getData().user_info != null) {
+                            lists.add(0, entity.getData().user_info);
+                        }
+                        if (entity.getData().rank_list != null) {
+                            lists.addAll(entity.getData().rank_list);
+                        }
+                        runAdapter.setNewData(lists);
+                    } else {
                         lists = entity.getData().rank_list;
+                        runAdapter.addData(lists);
+                        runAdapter.notifyDataSetChanged();
                     }
-                    runAdapter.addRunItemList(lists);
                 }
-                if (isRefresh){
-                    runAdapter.setEnableLoadMore(true);
+
+                if (isRefresh) {
+                    refreshLayout.setRefreshing(false);
+                }else {
+                    runAdapter.loadMoreComplete();
                 }
-                runAdapter.loadMoreComplete();
+                runAdapter.disableLoadMoreIfNotFullPage();
             }
 
             @Override
             public void networkError(IOException e, LinkCall call) {
                 super.networkError(e, call);
+                refreshLayout.setRefreshing(false);
                 runAdapter.loadMoreComplete();
+                runAdapter.disableLoadMoreIfNotFullPage();
             }
         });
-
-
     }
-
 
 }

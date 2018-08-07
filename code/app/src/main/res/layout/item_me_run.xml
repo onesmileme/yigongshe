@@ -1,62 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="50dp"
-  android:orientation="vertical">
-
-  <TextView
-    android:id="@+id/me_run_index_tv"
-    android:layout_width="20dp"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-    android:layout_marginLeft="5dp"
-    android:background="@color/red"
-    android:gravity="right"
-    android:text="1"
-    android:textColor="@color/black1" />
-
-  <ImageView
-    android:id="@+id/me_run_avatar_iv"
-    android:layout_width="30dp"
-    android:layout_height="30dp"
-    android:layout_centerVertical="true"
-    android:layout_marginLeft="12dp"
-    android:layout_toRightOf="@id/me_run_index_tv"
-    android:background="@drawable/circle_imageview" />
-
-  <LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="20dp"
-    android:layout_toLeftOf="@id/me_run_steps_tv"
-    android:layout_toRightOf="@id/me_run_avatar_iv"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <TextView
-      android:id="@+id/me_run_name_tv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="Sara"
-      android:textColor="@color/black1"
-      android:textSize="12dp" />
+        android:id="@+id/me_run_index_tv"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:gravity="right"
+        android:text="1"
+        android:textColor="@color/black1" />
+
+    <com.ygs.android.yigongshe.view.CircleImageView
+        android:id="@+id/me_run_avatar_iv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@id/me_run_index_tv"
+        android:background="@drawable/circle_imageview" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_toLeftOf="@id/me_run_steps_tv"
+        android:layout_toRightOf="@id/me_run_avatar_iv"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/me_run_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sara"
+            android:textColor="@color/black1"
+            android:textSize="12dp" />
+
+        <TextView
+            android:id="@+id/me_run_me_index_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10th"
+            android:textColor="@color/gray2"
+            android:textSize="10dp" />
+    </LinearLayout>
 
     <TextView
-      android:id="@+id/me_run_me_index_tv"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="10th"
-      android:textColor="@color/gray2"
-      android:textSize="10dp" />
-  </LinearLayout>
-
-  <TextView
-    android:id="@+id/me_run_steps_tv"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentRight="true"
-    android:layout_centerVertical="true"
-    android:layout_marginRight="15dp"
-    android:textColor="@color/green" />
+        android:id="@+id/me_run_steps_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="15dp"
+        android:textColor="@color/green"
+        android:text="123"/>
 </RelativeLayout>
