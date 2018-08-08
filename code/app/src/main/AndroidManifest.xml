@@ -137,6 +137,21 @@
     <meta-data
       android:name="WEIBO_CHANNEL"
       android:value="weibo" />
+
+    <receiver
+        android:name=".push.JPushReceiver"
+        android:enabled="true"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="cn.jpush.android.intent.REGISTRATION" />
+        <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+        <action android:name="cn.jpush.android.intent.NOTIFICATION_CLICK_ACTION" />
+        <action android:name="cn.jpush.android.intent.CONNECTION" />
+        <category android:name="com.ygs.android.yigongshe" />
+      </intent-filter>
+    </receiver>
   </application>
 
 </manifest>

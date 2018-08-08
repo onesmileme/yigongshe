@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe;
 
 import android.app.Application;
+import android.os.Debug;
+
 import com.baidu.mapapi.SDKInitializer;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.utils.LocationService;
@@ -26,5 +28,7 @@ public class YGApplication extends Application {
     SDKInitializer.initialize(getApplicationContext());
 
     JPushInterface.init(this);
+
+    JPushInterface.setDebugMode(true);
   }
 }

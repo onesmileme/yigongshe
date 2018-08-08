@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.webview;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
@@ -65,6 +66,11 @@ public class WebViewActivity extends BaseActivity {
                 ioe.printStackTrace();
             }catch (Exception e){
                 e.printStackTrace();
+            }
+        }else{
+            String url = bundle.getString(URL_KEY);
+            if (!TextUtils.isEmpty(url)){
+                mWebView.loadUrl(url);
             }
         }
     }

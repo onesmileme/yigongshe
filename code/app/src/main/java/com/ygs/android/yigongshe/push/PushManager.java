@@ -46,8 +46,9 @@ public class PushManager {
     protected void onPushMessage(PushObject obj) {
         // 保存推送红点的cache，便于其他界面取
         if (obj != null) {
-            if (obj.t != PushDefine.PUSH_TYPE_NOTIFICATION)
+            if (obj.t != PushDefine.PUSH_TYPE_NOTIFICATION) {
                 addPushObject(obj);
+            }
         }
         EventBus.getDefault().post(new PushEventObject(obj));
     }
@@ -82,7 +83,7 @@ public class PushManager {
      * @param schema
      */
     public void executePushJump(Context context, String schema) {
-        executePushJump(context, schema, false, "蓝鲸", "", null);
+        executePushJump(context, schema, false, "青年益工社", "", null);
     }
 
     /**
