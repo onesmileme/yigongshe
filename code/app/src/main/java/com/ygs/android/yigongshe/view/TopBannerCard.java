@@ -51,6 +51,7 @@ public class TopBannerCard extends BaseCard {
 
   public void initViewWithData(final List<String> list) {
     BannerPagerAdapter adapter = new BannerPagerAdapter(mContext, list);
+    mViewPager.removeAllViews();
     mViewPager.setAdapter(adapter);
     mViewPager.setHandleSlipConflict(true);
     mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -69,6 +70,7 @@ public class TopBannerCard extends BaseCard {
 
       }
     });
+    mRg.removeAllViews();
     int n = list.size();
     if (n > 1) {
       for (int i = 0; i < n; i++) {

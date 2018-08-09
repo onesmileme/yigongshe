@@ -68,7 +68,7 @@ public class DynamicFragment extends BaseFragment {
     addHeadView();
     initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
-    mSwipeRefreshLayout.setEnabled(false);
+    mSwipeRefreshLayout.setEnabled(true);
     refresh();
   }
 
@@ -115,8 +115,12 @@ public class DynamicFragment extends BaseFragment {
       mAdapter.setEmptyView(errorView);
       return;
     }
+    pageCnt = 1;
     mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     mAdapter.setEnableLoadMore(false);
+    if (mScrollPicCall != null) {
+      mScrollPicCall.cancel();
+    }
     mScrollPicCall = LinkCallHelper.getApiService().getScrollPicList("动态");
     mScrollPicCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ScrollPicResponse>>() {
       public void onResponse(BaseResultDataInfo<ScrollPicResponse> entity, Response<?> response,
@@ -132,7 +136,7 @@ public class DynamicFragment extends BaseFragment {
           }
           setTopBanner(urls);
         } else {
-          mAdapter.setEmptyView(errorView);
+          //mAdapter.setEmptyView(errorView);
         }
       }
     });
@@ -140,8 +144,13 @@ public class DynamicFragment extends BaseFragment {
     if (TextUtils.isEmpty(accountManager.getToken())) {
       return;
     }
+
+    if (mCall != null) {
+      mCall.cancel();
+    }
     mCall =
         LinkCallHelper.getApiService().getDynamicLists(pageCnt, _COUNT, accountManager.getToken());
+
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<DynamicListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<DynamicListResponse> entity, Response<?> response,
@@ -156,6 +165,7 @@ public class DynamicFragment extends BaseFragment {
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {
+          mAdapter.setEmptyView(errorView);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -185,6 +195,7 @@ public class DynamicFragment extends BaseFragment {
 
   private void setTopBanner(List<String> list) {
     if (null != mBannerCard) {
+
       mBannerCard.initViewWithData(list);
     }
   }
@@ -206,7 +217,7 @@ public class DynamicFragment extends BaseFragment {
     }
   }
 
-  @Override public void onDestroyView() {
+  @Override public void onStop() {
 
     if (mCall != null) {
       mCall.cancel();
@@ -214,6 +225,7 @@ public class DynamicFragment extends BaseFragment {
     if (mScrollPicCall != null) {
       mScrollPicCall.cancel();
     }
-    super.onDestroyView();
+    mSwipeRefreshLayout.setRefreshing(false);
+    super.onStop();
   }
 }

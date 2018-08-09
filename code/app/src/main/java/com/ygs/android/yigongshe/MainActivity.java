@@ -31,15 +31,12 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.push.OpenUrlManager;
-import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
-import com.ygs.android.yigongshe.ui.dynamic.DynamicDetailActivity;
 import com.ygs.android.yigongshe.ui.dynamic.DynamicFragment;
 import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
-import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
 import com.ygs.android.yigongshe.utils.LocationService;
@@ -61,6 +58,9 @@ public class MainActivity extends BaseActivity {
   private ArrayList<SortModel> sourceDateList;
   private PinyinComparator pinyinComparator;
   private final int BAIDU_READ_PHONE_STATE = 0;
+  private DynamicFragment mDynamicFragment;
+  private ActivityFragment mActivityFragment;
+  private CommunityFragment mCommunityFragment;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -200,10 +200,14 @@ public class MainActivity extends BaseActivity {
 
     //把Fragment添加到List集合里面
     List list = new ArrayList<>();
+    mDynamicFragment = new DynamicFragment();
+
     //        list.add(new LotteryFrag());
-    list.add(new DynamicFragment());
-    list.add(new ActivityFragment());
-    list.add(new CommunityFragment());
+    list.add(mDynamicFragment);
+    mActivityFragment = new ActivityFragment();
+    list.add(mActivityFragment);
+    mCommunityFragment = new CommunityFragment();
+    list.add(mCommunityFragment);
     //list.add(new DynamicFragment());
     list.add(new MeFragment());
     TabFragmentPagerAdapter adapter =
@@ -252,6 +256,9 @@ public class MainActivity extends BaseActivity {
   @Override protected void onStop() {
     locationService.unregisterListener(mLocationListener); //注销掉监听
     locationService.stop(); //停止定位服务
+    mDynamicFragment.onStop();
+    mActivityFragment.onStop();
+    mCommunityFragment.onStop();
     super.onStop();
   }
 
@@ -343,7 +350,7 @@ public class MainActivity extends BaseActivity {
         mCityName = "全国";
         EventBus.getDefault().post(new LocationEvent(mCityName));
         return;
-      } else if (mCityName.equals(sortModel.getName())) {
+      } else if (mCityName.contains(sortModel.getName())) {
         EventBus.getDefault().post(new LocationEvent(mCityName));
         return;
       }

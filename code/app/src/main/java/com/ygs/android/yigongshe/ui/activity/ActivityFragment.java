@@ -79,7 +79,7 @@ public class ActivityFragment extends BaseFragment
     addHeadView();
     initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
-    mSwipeRefreshLayout.setEnabled(false);
+    mSwipeRefreshLayout.setEnabled(true);
     requestBannerData();
     refresh();
   }
@@ -224,12 +224,12 @@ public class ActivityFragment extends BaseFragment
     }
   }
 
-  @Override public void onDestroyView() {
+  @Override public void onStop() {
 
     if (mCall != null) {
       mCall.cancel();
     }
-    super.onDestroyView();
+    super.onStop();
     if (EventBus.getDefault().isRegistered(this)) {
       EventBus.getDefault().unregister(this);
     }

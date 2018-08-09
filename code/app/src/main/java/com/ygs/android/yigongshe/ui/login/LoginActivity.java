@@ -4,12 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import butterknife.BindView;
+import com.ygs.android.yigongshe.MainActivity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
@@ -22,7 +24,6 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-
 import retrofit2.Response;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
@@ -37,36 +38,35 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @BindView(R.id.login_password_et) EditText mPasswordEditText;
 
-  @BindView(R.id.titlebar)
-  CommonTitleBar titleBar;
-
+  @BindView(R.id.titlebar) CommonTitleBar titleBar;
+  private AccountManager accountManager = YGApplication.accountManager;
 
   private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
 
-  @Override
-  protected void initIntent(Bundle bundle) {
+  @Override protected void initIntent(Bundle bundle) {
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     //ShareUtils.getInstance().regToWx();
     //ShareUtils.getInstance().regToWeibo();
+    if (!TextUtils.isEmpty(accountManager.getToken())) {
+      goToOthers(MainActivity.class, null);
+    }
   }
 
-  @Override
-  protected void initView() {
+  @Override protected void initView() {
 
     titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-      @Override
-      public void onClicked(View v, int action, String extra) {
-        if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
           finish();
-        }else if(action == CommonTitleBar.ACTION_RIGHT_TEXT || action == CommonTitleBar.ACTION_RIGHT_BUTTON){
+        } else if (action == CommonTitleBar.ACTION_RIGHT_TEXT
+            || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
           doRegister();
         }
       }
     });
-
 
     mLoginButton.setOnClickListener(this);
     mOfficialLoginButton.setOnClickListener(this);
@@ -79,8 +79,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     mPasswordEditText.setText("admin");
   }
 
-  @Override
-  protected int getLayoutResId() {
+  @Override protected int getLayoutResId() {
     return R.layout.activity_login;
   }
 
@@ -113,9 +112,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   private void forgetPassword() {
 
-    Intent intent = new Intent(this,ResetPasswordActivity.class);
+    Intent intent = new Intent(this, ResetPasswordActivity.class);
     startActivity(intent);
-
   }
 
   private void loginAction() {
@@ -137,7 +135,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == ApiStatus.OK) {
           Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
-          AccountManager accountManager = YGApplication.accountManager;
           if (accountManager != null) {
             accountManager.updateToken(entity.data.token, entity.data.token_expire);
             accountManager.updateUserId(entity.data.userid);
@@ -151,8 +148,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
           LoginActivity.this.finish();
         } else {
           String msg = "登录失败";
-          if (entity != null && entity.msg != null){
-            msg += "("+entity.msg+")";
+          if (entity != null && entity.msg != null) {
+            msg += "(" + entity.msg + ")";
           }
           Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
         }

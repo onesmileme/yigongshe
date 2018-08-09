@@ -87,7 +87,7 @@ public class CommunityFragment extends BaseFragment {
     addHeadView();
     initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
-    mSwipeRefreshLayout.setEnabled(false);
+    mSwipeRefreshLayout.setEnabled(true);
     refresh();
   }
 
@@ -389,5 +389,12 @@ public class CommunityFragment extends BaseFragment {
 
   @OnClick(R.id.publish) public void onBtnClicked() {
     goToOthersForResult(PublishCommunityActivity.class, null, PUBLISH_COMMUNITY);
+  }
+
+  @Override public void onStop() {
+    if (mCall != null) {
+      mCall.cancel();
+    }
+    super.onStop();
   }
 }
