@@ -69,10 +69,10 @@ public class PushManager {
 
     public void addPushObject(PushObject object) {
         if (!pushCacheMap.containsKey(object.t)) {
-            pushCacheMap.put(object.t, object.p.n);
+           // pushCacheMap.put(object.t, object.p.n);
         } else {
             int i = pushCacheMap.get(object.t);
-            pushCacheMap.put(object.t, object.p.n + i);
+           // pushCacheMap.put(object.t, object.p.n + i);
         }
     }
 

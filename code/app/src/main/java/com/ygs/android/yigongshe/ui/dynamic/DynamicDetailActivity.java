@@ -102,7 +102,15 @@ public class DynamicDetailActivity extends BaseDetailActivity {
           if (data != null && data.news_info != null && !TextUtils.isEmpty(
               data.news_info.content)) {
             requestCommentData(TYPE_DYNAMIC, true);
-            mWebView.loadDataWithBaseURL(null, data.news_info.content, "text/html", "utf-8", null);
+            //String htmlText = "<html>"
+            //    + "<head>"
+            //    + "<style type=\"text/css\">"
+            //    + "body{padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;}"
+            //    + "</style>"
+            //    + "</head>";
+
+            mWebView.loadDataWithBaseURL(null, /**htmlText + **/data.news_info.content, "text/html",
+                "utf-8", null);
           }
         }
       }

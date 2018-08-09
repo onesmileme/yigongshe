@@ -77,11 +77,19 @@ public class ActivityFragment extends BaseFragment
         new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
     initAdapter();
     addHeadView();
-    //initRefreshLayout();
+    initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     requestBannerData();
     refresh();
+  }
+
+  private void initRefreshLayout() {
+    mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh() {
+        refresh();
+      }
+    });
   }
 
   @Override public int getLayoutResId() {

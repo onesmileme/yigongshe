@@ -85,6 +85,7 @@ public class CommunityFragment extends BaseFragment {
     initAdapter();
     initTitleBarTabView();
     addHeadView();
+    initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     refresh();
@@ -116,6 +117,14 @@ public class CommunityFragment extends BaseFragment {
           mType = typeList[position];
           refresh();
         }
+      }
+    });
+  }
+
+  private void initRefreshLayout() {
+    mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh() {
+        refresh();
       }
     });
   }

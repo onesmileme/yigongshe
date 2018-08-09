@@ -66,7 +66,7 @@ public class DynamicFragment extends BaseFragment {
         new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
     initAdapter();
     addHeadView();
-    //initRefreshLayout();
+    initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(false);
     refresh();
