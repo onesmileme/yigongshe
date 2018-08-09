@@ -22,6 +22,7 @@ import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import retrofit2.Response;
@@ -127,7 +128,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
     }
 
-    mLoginCall = LinkCallHelper.getApiService().doLogin(phone, password);
+    String token = PushManager.getInstance().getToken(this);
+    if (token == null){
+      token = "";
+    }
+    mLoginCall = LinkCallHelper.getApiService().doLogin(phone, password,token);
     mLoginCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<LoginBean>>() {
 
       @Override public void onResponse(BaseResultDataInfo<LoginBean> entity, Response<?> response,

@@ -87,7 +87,7 @@ public interface ApiService {
       @Field("invite_code") String inviteCode, @Field("verify_code") String verifyCode);
 
   @GET("app/api/login") LinkCall<BaseResultDataInfo<LoginBean>> doLogin(
-      @Query("phone") String phone, @Query("password") String password);
+      @Query("phone") String phone, @Query("password") String password , @Query("registration_id") String registrationId);
 
   @FormUrlEncoded @POST("app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
       @Field("token") String token);
