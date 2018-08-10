@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.ygs.android.yigongshe.MainActivity;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
@@ -69,8 +70,10 @@ public class MeSetAcitivity extends BaseActivity implements View.OnClickListener
     if (view == mLogoutButton) {
       YGApplication.accountManager.logout();
       Intent intent = new Intent(this, LoginActivity.class);
-      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
       this.startActivity(intent);
+      MeSetAcitivity.this.finish();
     }
   }
 

@@ -105,6 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
       return;
     }
+    
     loginAction();
   }
 
