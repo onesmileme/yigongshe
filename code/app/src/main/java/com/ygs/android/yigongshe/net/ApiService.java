@@ -92,6 +92,9 @@ public interface ApiService {
   @FormUrlEncoded @POST("app/api/login/out") LinkCall<BaseResultDataInfo<EmptyBean>> doLogout(
       @Field("token") String token);
 
+  @FormUrlEncoded @POST("app/api/user/pushbind")
+  LinkCall<BaseResultDataInfo<EmptyBean>> pushBind(@Field("token") String token , @Field("registration_id") String registrationId);
+
   @GET("app/api/user/base") LinkCall<BaseResultDataInfo<UserInfoBean>> getUserInfo(
       @Query("token") String token);
 

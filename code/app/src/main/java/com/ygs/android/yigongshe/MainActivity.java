@@ -22,15 +22,19 @@ import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CityItemBean;
+import com.ygs.android.yigongshe.bean.EmptyBean;
 import com.ygs.android.yigongshe.bean.LocationEvent;
 import com.ygs.android.yigongshe.bean.SortModel;
 import com.ygs.android.yigongshe.bean.UpdateEvent;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
+import com.ygs.android.yigongshe.net.ApiService;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.push.OpenUrlManager;
+import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityFragment;
@@ -61,6 +65,7 @@ public class MainActivity extends BaseActivity {
   private DynamicFragment mDynamicFragment;
   private ActivityFragment mActivityFragment;
   private CommunityFragment mCommunityFragment;
+  private boolean mPushBinded ;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -251,6 +256,11 @@ public class MainActivity extends BaseActivity {
     if (accountManager.getToken() == null) {
       showLogin();
     }
+
+    if (!mPushBinded){
+      pushBind();
+    }
+
   }
 
   @Override protected void onStop() {
@@ -296,6 +306,23 @@ public class MainActivity extends BaseActivity {
 
     Intent intent = new Intent(this, LoginActivity.class);
     startActivity(intent);
+  }
+
+  private void pushBind(){
+    String token = YGApplication.accountManager.getToken();
+    String registerId = PushManager.getInstance().getToken(this);
+    LinkCall<BaseResultDataInfo<EmptyBean>> call = LinkCallHelper.getApiService().pushBind(token,registerId);
+    call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+
+      @Override
+      public void success(BaseResultDataInfo<EmptyBean> entity, LinkCall call) {
+        super.success(entity, call);
+        if (entity != null && entity.error == ApiStatus.OK){
+          mPushBinded = true;
+        }
+      }
+    });
+
   }
 
   //for different fragments
