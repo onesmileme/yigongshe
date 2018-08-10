@@ -15,4 +15,5 @@ public class DynamicItemBean implements Serializable {
   public String create_at;//"2018-05-01",
   public int create_id;//10000,
   public String create_name;//"admin"
+  public String share_url;//跳转链接
 }

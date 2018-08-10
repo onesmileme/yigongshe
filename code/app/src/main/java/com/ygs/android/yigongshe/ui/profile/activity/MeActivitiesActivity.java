@@ -101,7 +101,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                     Bundle bundle = new Bundle();
                     bundle.putInt("activity_id", itemBean.activityid);
                     bundle.putString("activity_title", itemBean.title);
-                    ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
+                    ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.share_url);
                     bundle.putSerializable("shareBean", shareBean);
                     goToOthers(ActivityDetailActivity.class, bundle);
                 }

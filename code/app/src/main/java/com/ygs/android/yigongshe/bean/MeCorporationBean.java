@@ -92,7 +92,7 @@ public class MeCorporationBean implements Serializable {
       this.desc = bean.desc;
       this.pic = bean.pic;
       this.create_at = bean.create_at;
-      this.link = bean.link;
+      this.link = bean.share_url;
     }
 
     @Override public int getItemType() {

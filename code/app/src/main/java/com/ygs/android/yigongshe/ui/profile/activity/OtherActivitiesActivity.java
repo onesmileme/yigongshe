@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
-
+import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
@@ -23,114 +23,100 @@ import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
-
 import java.util.List;
-
-import butterknife.BindView;
 import retrofit2.Response;
 
 public class OtherActivitiesActivity extends BaseActivity {
 
-    @BindView(R.id.titlebar)
-    CommonTitleBar titleBar;
+  @BindView(R.id.titlebar) CommonTitleBar titleBar;
 
-    @BindView(R.id.other_activities_recycleview)
-    RecyclerView recyclerView;
+  @BindView(R.id.other_activities_recycleview) RecyclerView recyclerView;
 
-    @BindView(R.id.swipeLayout)
-    SwipeRefreshLayout swipeRefreshLayout;
+  @BindView(R.id.swipeLayout) SwipeRefreshLayout swipeRefreshLayout;
 
-    List<ActivityItemBean> mActivities;
+  List<ActivityItemBean> mActivities;
 
-    MeAcitivityAdapter mActivityAdapter;
+  MeAcitivityAdapter mActivityAdapter;
 
-    private String otherUid;
+  private String otherUid;
 
-    @Override
-    protected void initIntent(Bundle bundle){
+  @Override protected void initIntent(Bundle bundle) {
 
-        otherUid = bundle.getString("otherUid");
-        if (TextUtils.isEmpty(otherUid)){
-            Toast.makeText(this,"未获得用户ID",Toast.LENGTH_SHORT).show();
-            finish();
+    otherUid = bundle.getString("otherUid");
+    if (TextUtils.isEmpty(otherUid)) {
+      Toast.makeText(this, "未获得用户ID", Toast.LENGTH_SHORT).show();
+      finish();
+    }
+  }
+
+  @Override protected void initView() {
+
+    titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
         }
-    }
+      }
+    });
 
-    @Override
-    protected void initView(){
+    recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    recyclerView.addItemDecoration(
+        new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
 
-        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-            @Override
-            public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
-                    finish();
-                }
-            }
-        });
+    mActivityAdapter = new MeAcitivityAdapter();
+    recyclerView.setAdapter(mActivityAdapter);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(
-            new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
+    mActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+      @Override public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ActivityItemBean itemBean = mActivities.get(position);
 
-        mActivityAdapter = new MeAcitivityAdapter();
-        recyclerView.setAdapter(mActivityAdapter);
+        if (itemBean != null) {
+          Bundle bundle = new Bundle();
+          bundle.putInt("activity_id", itemBean.activityid);
+          bundle.putString("activity_title", itemBean.title);
+          ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.share_url);
+          bundle.putSerializable("shareBean", shareBean);
+          goToOthers(ActivityDetailActivity.class, bundle);
+        }
+      }
+    });
 
-        mActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ActivityItemBean itemBean = mActivities.get(position);
-
-                if (itemBean != null){
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("activity_id", itemBean.activityid);
-                    bundle.putString("activity_title", itemBean.title);
-                    ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
-                    bundle.putSerializable("shareBean", shareBean);
-                    goToOthers(ActivityDetailActivity.class, bundle);
-                }
-            }
-        });
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadAcitivities();
-            }
-        });
-
+    swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+      @Override public void onRefresh() {
         loadAcitivities();
-        
-    }
+      }
+    });
 
-    @Override
-    protected  int getLayoutResId(){
-        return R.layout.activity_other_activities;
-    }
+    loadAcitivities();
+  }
 
+  @Override protected int getLayoutResId() {
+    return R.layout.activity_other_activities;
+  }
 
-    public void loadAcitivities(){
+  public void loadAcitivities() {
 
-        String token = YGApplication.accountManager.getToken();
+    String token = YGApplication.accountManager.getToken();
 
-        LinkCall<BaseResultDataInfo<MyActivityBean>> activityCall = LinkCallHelper.getApiService().getOtherActivity(token,otherUid,"all");
-        activityCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MyActivityBean>>(){
-            @Override
-            public void onResponse(BaseResultDataInfo<MyActivityBean> entity, Response<?> response, Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatus.OK){
-                    mActivities = entity.data.activities;
-                        mActivityAdapter.setNewData(mActivities);
-                }else {
-                    String msg = "加载失败";
-                    if (entity != null){
-                        msg += "("+entity.msg+")";
-                    }
-                    Toast.makeText(OtherActivitiesActivity.this,msg,Toast.LENGTH_SHORT).show();
-                }
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-    }
-    
+    LinkCall<BaseResultDataInfo<MyActivityBean>> activityCall =
+        LinkCallHelper.getApiService().getOtherActivity(token, otherUid, "all");
+    activityCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MyActivityBean>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<MyActivityBean> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == ApiStatus.OK) {
+          mActivities = entity.data.activities;
+          mActivityAdapter.setNewData(mActivities);
+        } else {
+          String msg = "加载失败";
+          if (entity != null) {
+            msg += "(" + entity.msg + ")";
+          }
+          Toast.makeText(OtherActivitiesActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+        swipeRefreshLayout.setRefreshing(false);
+      }
+    });
+  }
 }

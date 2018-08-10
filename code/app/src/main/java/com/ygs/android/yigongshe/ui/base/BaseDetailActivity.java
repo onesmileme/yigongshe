@@ -1,10 +1,8 @@
 package com.ygs.android.yigongshe.ui.base;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -38,7 +36,7 @@ import retrofit2.Response;
  * Created by ruichao on 2018/6/27.
  */
 
-public abstract class BaseDetailActivity extends BaseActivity implements View.OnClickListener{
+public abstract class BaseDetailActivity extends BaseActivity implements View.OnClickListener {
   protected static final int TYPE_DYNAMIC = 1;
   protected static final int TYPE_ACTIVITY = 2;
   protected static final int TYPE_COMMUNITY = 3;
@@ -52,6 +50,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
   protected CommentAdapter mAdapter;
   private LinkCall<BaseResultDataInfo<CommentListResponse>> mCommentCall;
   private LinkCall<BaseResultInfo> mAddCommendCall;
+  private LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteComment;
 
   protected int mId; //newsId, activityId
   protected String mTitle;
@@ -96,9 +95,23 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
         AccountManager accountManager = YGApplication.accountManager;
         if (view.getId() == R.id.delete) {
           CommentItemBean itemBean = (CommentItemBean) adapter.getItem(position);
-          LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteComment =
-              LinkCallHelper.getApiService()
-                  .deleteMyComment(mId, accountManager.getToken(), itemBean.commentid);
+          switch (mType) {
+            case TYPE_DYNAMIC:
+              deleteComment = LinkCallHelper.getApiService()
+                  .deleteMyDynamicComment(mId, accountManager.getToken(), itemBean.commentid);
+              break;
+            case TYPE_ACTIVITY:
+              deleteComment = LinkCallHelper.getApiService()
+                  .deleteMyActivityComment(mId, accountManager.getToken(), itemBean.commentid);
+              break;
+            case TYPE_COMMUNITY:
+              deleteComment = LinkCallHelper.getApiService()
+                  .deleteMyCommunityComment(mId, accountManager.getToken(), itemBean.commentid);
+              break;
+            default:
+              break;
+          }
+
           deleteComment.enqueue(
               new LinkCallbackAdapter<BaseResultDataInfo<CommentDeleteResponse>>() {
                 @Override public void onResponse(BaseResultDataInfo<CommentDeleteResponse> entity,
@@ -138,14 +151,16 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
     }
     switch (type) {
       case TYPE_DYNAMIC:
-        mCommentCall = LinkCallHelper.getApiService().getDynamicCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
+        mCommentCall = LinkCallHelper.getApiService()
+            .getDynamicCommentLists(mId, pageCnt, _COUNT, mAccountManager.getToken());
         break;
       case TYPE_ACTIVITY:
-        mCommentCall = LinkCallHelper.getApiService().getActivityCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
+        mCommentCall = LinkCallHelper.getApiService()
+            .getActivityCommentLists(mId, pageCnt, _COUNT, mAccountManager.getToken());
         break;
       case TYPE_COMMUNITY:
-        mCommentCall =
-            LinkCallHelper.getApiService().getCommunityCommentLists(mId, pageCnt, _COUNT,mAccountManager.getToken());
+        mCommentCall = LinkCallHelper.getApiService()
+            .getCommunityCommentLists(mId, pageCnt, _COUNT, mAccountManager.getToken());
         break;
       default:
         break;
@@ -246,17 +261,16 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
     postCommentData();
   }
 
-  @Override
-  public void onClick(View view){
-    if (view.getTag() instanceof CommentItemBean){
-      CommentItemBean itemBean = (CommentItemBean)view.getTag();
-      String uid = itemBean.create_id+"";
-      if (uid.equals(YGApplication.accountManager.getUserid())){
+  @Override public void onClick(View view) {
+    if (view.getTag() instanceof CommentItemBean) {
+      CommentItemBean itemBean = (CommentItemBean) view.getTag();
+      String uid = itemBean.create_id + "";
+      if (uid.equals(YGApplication.accountManager.getUserid())) {
         return;
       }
       Bundle bundle = new Bundle();
-      bundle.putString("userid",uid);
-      goToOthers(OtherHomePageActivity.class,bundle);
+      bundle.putString("userid", uid);
+      goToOthers(OtherHomePageActivity.class, bundle);
     }
   }
 

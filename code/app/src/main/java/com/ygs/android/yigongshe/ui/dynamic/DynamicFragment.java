@@ -89,7 +89,7 @@ public class DynamicFragment extends BaseFragment {
         DynamicItemBean itemBean = ((DynamicItemBean) adapter.getItem(position));
         bundle.putInt("news_id", itemBean.newsid);
         bundle.putString("news_title", itemBean.title);
-        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
+        ShareBean shareBean = new ShareBean(itemBean.title, itemBean.desc, itemBean.share_url);
         bundle.putSerializable("shareBean", shareBean);
         goToOthers(DynamicDetailActivity.class, bundle);
       }

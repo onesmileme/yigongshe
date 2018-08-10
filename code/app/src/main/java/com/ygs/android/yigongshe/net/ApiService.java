@@ -430,10 +430,21 @@ public interface ApiService {
   /**
    * 删除评论
    */
-  @FormUrlEncoded @POST("app/api/pubcircle/del")
-  LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyComment(@Field("id") int id,
+  @FormUrlEncoded @POST("app/api/news/delcomment")
+  LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyDynamicComment(@Field("news_id") int id,
       @Field("token") String token, @Field("comment_id") int comment_id);
-
+  /**
+   * 删除评论
+   */
+  @FormUrlEncoded @POST("app/api/activity/delcomment")
+  LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyActivityComment(@Field("activity_id") int id,
+      @Field("token") String token, @Field("comment_id") int comment_id);
+  /**
+   * 删除评论
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/delcomment")
+  LinkCall<BaseResultDataInfo<CommentDeleteResponse>> deleteMyCommunityComment(@Field("pubcircle_id") int id,
+      @Field("token") String token, @Field("comment_id") int comment_id);
   /**
    * 删除视频
    */
