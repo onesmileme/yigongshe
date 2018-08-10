@@ -224,7 +224,9 @@ public class DynamicFragment extends BaseFragment {
     if (mScrollPicCall != null) {
       mScrollPicCall.cancel();
     }
-    mSwipeRefreshLayout.setRefreshing(false);
+    if (mSwipeRefreshLayout != null) {
+      mSwipeRefreshLayout.setRefreshing(false);
+    }
     super.onStop();
   }
 }
