@@ -106,6 +106,7 @@ public class DynamicDetailActivity extends BaseDetailActivity {
           DynamicDetailResponse data = entity.data;
           if (data != null && data.news_info != null && !TextUtils.isEmpty(
               data.news_info.content)) {
+            mShareBean.url = data.news_info.share_url;
             requestCommentData(TYPE_DYNAMIC, true);
             //String htmlText = "<html>"
             //    + "<head>"

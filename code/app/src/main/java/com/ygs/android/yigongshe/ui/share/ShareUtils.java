@@ -66,9 +66,12 @@ public class ShareUtils {
         new AuthInfo(mContext, WeiBo_APP_ID, "https://api.weibo.com/oauth2/default.html", null));
   }
 
+  ShareDialog dialog;
+
   public void shareTo(final Context context, final ShareBean shareBean) {
-    ShareDialog dialog = new ShareDialog(context, new ShareListener() {
+    dialog = new ShareDialog(context, new ShareListener() {
       @Override public void shareToWechat() {
+
         if (mCall != null && !mCall.isCanceled()) {
           mCall.cancel();
         }
@@ -99,7 +102,7 @@ public class ShareUtils {
       }
     });
     //dialog.setCanceledOnTouchOutside(true);
-    if (!TextUtils.isEmpty(shareBean.shareDialogTitle)){
+    if (!TextUtils.isEmpty(shareBean.shareDialogTitle)) {
       dialog.withTitle(shareBean.shareDialogTitle);
     }
     dialog.show();
@@ -149,6 +152,9 @@ public class ShareUtils {
       req.message = msg;
       req.scene = isCircle ? 1 : 0;
       mIWXAPI.sendReq(req);
+      if (dialog != null && dialog.isShowing()) {
+        dialog.dismiss();
+      }
     } else {
       Toast.makeText(mContext, "没有安装微信", Toast.LENGTH_SHORT).show();
     }
@@ -174,6 +180,9 @@ public class ShareUtils {
     ///weiboMessage.imageObject = getImageObj();
     weiboMessage.mediaObject = getWebpageObj(shareBean);
     shareHandler.shareMessage(weiboMessage, false);
+    if (dialog != null && dialog.isShowing()) {
+      dialog.dismiss();
+    }
   }
 
   /**

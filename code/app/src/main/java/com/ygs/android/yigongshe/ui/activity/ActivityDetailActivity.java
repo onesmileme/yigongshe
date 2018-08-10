@@ -107,10 +107,11 @@ public class ActivityDetailActivity extends BaseDetailActivity {
           showLoading(false);
           ActivityDetailResponse data = entity.data;
           if (data != null) {
+            mShareBean.url = data.share_url;
             requestCommentData(TYPE_ACTIVITY, true);
             createtitle.setText(data.title);
             createName.setText("发起方:" + data.create_name);
-            createDate.setText(data.create_at+ " 发布");
+            createDate.setText(data.create_at + " 发布");
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mDaCallView.setDacallViewData(data);

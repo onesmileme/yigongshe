@@ -30,4 +30,5 @@ public class ActivityDetailResponse implements Serializable {
   public int is_end;//活动是否结束
   public List<String> videos;//应援小视频
   public int participate_count;
+  public String share_url;
 }

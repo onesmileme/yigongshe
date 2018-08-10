@@ -14,5 +14,6 @@ public class DynamicDetailResponse implements Serializable {
     public String create_at;//"2018-05-01",创建时间
     public String create_name;//"admin",创建者姓名
     public String content;
+    public String share_url;
   }
 }
