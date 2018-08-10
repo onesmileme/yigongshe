@@ -191,17 +191,17 @@ public class ActivityFragment extends BaseFragment
         if (entity != null && entity.error == 2000) {
           ScrollPicResponse data = entity.data;
           List<ScrollPicBean> list = data.slide_list;
-          List<String> urls = new ArrayList<>();
-          for (ScrollPicBean item : list) {
-            urls.add(item.pic);
-          }
-          setTopBanner(urls);
+          //List<String> urls = new ArrayList<>();
+          //for (ScrollPicBean item : list) {
+          //  urls.add(item.pic);
+          //}
+          setTopBanner(list);
         }
       }
     });
   }
 
-  private void setTopBanner(List<String> list) {
+  private void setTopBanner(List<ScrollPicBean> list) {
     if (null != mBannerCard) {
       mBannerCard.initViewWithData(list);
     }

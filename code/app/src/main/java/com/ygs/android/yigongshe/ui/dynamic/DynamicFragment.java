@@ -27,7 +27,6 @@ import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TopBannerCard;
-import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Response;
 
@@ -130,11 +129,11 @@ public class DynamicFragment extends BaseFragment {
           ((FrameLayout) mAdapter.getEmptyView()).removeAllViews();
           ScrollPicResponse data = entity.data;
           List<ScrollPicBean> list = data.slide_list;
-          List<String> urls = new ArrayList<>();
-          for (ScrollPicBean item : list) {
-            urls.add(item.pic);
-          }
-          setTopBanner(urls);
+          //List<String> urls = new ArrayList<>();
+          //for (ScrollPicBean item : list) {
+          //  urls.add(item.pic);
+          //}
+          setTopBanner(list);
         } else {
           //mAdapter.setEmptyView(errorView);
         }
@@ -193,7 +192,7 @@ public class DynamicFragment extends BaseFragment {
     });
   }
 
-  private void setTopBanner(List<String> list) {
+  private void setTopBanner(List<ScrollPicBean> list) {
     if (null != mBannerCard) {
 
       mBannerCard.initViewWithData(list);

@@ -1,6 +1,9 @@
 package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -15,8 +18,12 @@ import butterknife.ButterKnife;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
+import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
+import com.ygs.android.yigongshe.push.OpenUrlManager;
+import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseCard;
 import com.ygs.android.yigongshe.utils.DensityUtil;
+import com.ygs.android.yigongshe.webview.WebViewActivity;
 import java.util.List;
 
 /**
@@ -49,7 +56,7 @@ public class TopBannerCard extends BaseCard {
     }
   }
 
-  public void initViewWithData(final List<String> list) {
+  public void initViewWithData(final List<ScrollPicBean> list) {
     BannerPagerAdapter adapter = new BannerPagerAdapter(mContext, list);
     mViewPager.removeAllViews();
     mViewPager.setAdapter(adapter);
@@ -97,20 +104,30 @@ public class TopBannerCard extends BaseCard {
   }
 
   private class BannerPagerAdapter extends PagerAdapter {
-    private List<String> mList; //ImageUrls
+    private List<ScrollPicBean> mList; //ImageUrls
     private Context mContext;
 
-    BannerPagerAdapter(Context context, List<String> list) {
+    BannerPagerAdapter(Context context, List<ScrollPicBean> list) {
       mContext = context;
       mList = list;
     }
 
-    @Override public Object instantiateItem(ViewGroup container, int position) {
+    @Override public Object instantiateItem(ViewGroup container, final int position) {
       ImageView iv = new ImageView(container.getContext());
+      iv.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View view) {
+          //Intent intent = new Intent(mContext, WebViewActivity.class);
+          //Bundle bundle = new Bundle();
+          //bundle.putString(WebViewActivity.URL_KEY, mList.get(position).hope_url);
+          //intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
+          //mContext.startActivity(intent);
+          OpenUrlManager.handle(Uri.parse(mList.get(position).hope_url));
+        }
+      });
       iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
       if (mType == 0) {
         Glide.with(mContext)
-            .load(mList.get(position))
+            .load(mList.get(position).pic)
             .placeholder(R.drawable.loading2)
             .error(R.drawable.loading2)
             .fallback(R.drawable.loading2)
@@ -118,7 +135,7 @@ public class TopBannerCard extends BaseCard {
             .into(iv);
       } else {
         Glide.with(mContext)
-            .load(mList.get(position))
+            .load(mList.get(position).pic)
             .placeholder(R.drawable.loading2)
             .error(R.drawable.loading2)
             .fallback(R.drawable.loading2)

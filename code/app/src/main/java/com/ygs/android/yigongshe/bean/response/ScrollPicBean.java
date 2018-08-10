@@ -11,4 +11,5 @@ public class ScrollPicBean implements Serializable {
   public String desc;//轮播图说明
   public String pic; //轮播图片
   public String create_at;//添加时间
+  public String hope_url;
 }
