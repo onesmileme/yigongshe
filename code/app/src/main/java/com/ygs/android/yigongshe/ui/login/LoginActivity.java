@@ -53,6 +53,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     //ShareUtils.getInstance().regToWeibo();
     if (!TextUtils.isEmpty(accountManager.getToken())) {
       goToOthers(MainActivity.class, null);
+      LoginActivity.this.finish();
     }
   }
 
@@ -150,8 +151,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 LocalBroadcastManager.getInstance(LoginActivity.this);
             broadcastManager.sendBroadcast(intent);
           }
-          //LoginActivity.this.finish();
           goToOthers(MainActivity.class, null);
+          LoginActivity.this.finish();
         } else {
           String msg = "登录失败";
           if (entity != null && entity.msg != null) {
