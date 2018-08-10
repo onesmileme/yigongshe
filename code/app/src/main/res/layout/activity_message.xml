@@ -5,7 +5,8 @@
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/gray3">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/titlebar"
@@ -39,7 +40,8 @@
         app:scv_TextNormalColor="@color/gray2"
         app:scv_TextSelectedColor="@color/white"
         app:scv_TextSize="12dp"
-        app:scv_TextArray="@array/message_segs"/>
+        app:scv_TextArray="@array/message_segs"
+        android:background="@color/gray3"/>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/message_refresh_layout"
@@ -49,9 +51,8 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/message_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:background="@color/gray3"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

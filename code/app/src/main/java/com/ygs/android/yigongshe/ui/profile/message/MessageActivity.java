@@ -3,6 +3,7 @@ package com.ygs.android.yigongshe.ui.profile.message;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -23,6 +24,8 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+import com.ygs.android.yigongshe.view.MyDecoration;
+import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.SegmentControlView;
 
 import java.util.List;
@@ -49,8 +52,6 @@ public class MessageActivity extends BaseActivity {
 
   @Override
   protected void initIntent(Bundle bundle) {
-
-
   }
 
   @Override
@@ -82,6 +83,8 @@ public class MessageActivity extends BaseActivity {
     messageAdapter = new MessageAdapter(this);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(messageAdapter);
+    DividerItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+    recyclerView.addItemDecoration(itemDecoration);
     messageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -103,15 +106,14 @@ public class MessageActivity extends BaseActivity {
         if (privateMsgList == null || privateMsgList.size() == 0){
           loadMessage(true , true);
         }
-        messageAdapter.setNewData(privateMsgList);
-
+        messageAdapter.updateData(privateMsgList,false);
         break;
       }
       case 1:{
         if (noticeMsgList == null || noticeMsgList.size() == 0){
           loadMessage(true,false);
         }
-        messageAdapter.setNewData(noticeMsgList);
+        messageAdapter.updateData(noticeMsgList,true);
         break;
       }
     }
@@ -146,7 +148,7 @@ public class MessageActivity extends BaseActivity {
           }else{
             noticeMsgList = entity.data.list;
           }
-          messageAdapter.setNewData(entity.data.list);
+          messageAdapter.updateData(entity.data.list,!isPrivateMsg);
 
         }else{
           String msg = "请求消息失败";

@@ -50,7 +50,8 @@
             android:hint="@string/talk_input_hint"
             android:maxLines="3"
             android:paddingLeft="10dp"
-            android:paddingRight="10dp"/>
+            android:paddingRight="10dp"
+            android:textSize="13dp"/>
 
         <Button
             android:id="@+id/send"

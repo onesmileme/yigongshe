@@ -2,6 +2,7 @@ package com.ygs.android.yigongshe.ui.profile.focus;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -70,9 +71,8 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
         recyclerView.setLayoutManager(layoutManager);
         focusAdapter = new MeFocusAdapter(this, this);
         recyclerView.setAdapter(focusAdapter);
-
-        recyclerView.addItemDecoration(
-            new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
 
         focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -160,6 +160,7 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                     List<FollowPersonItemBean> list = focusAdapter.getData();
                     list.remove(focusBean);
                     focusAdapter.setNewData(list);
+                    focusAdapter.disableLoadMoreIfNotFullPage();
                     Toast.makeText(MeFocusActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
                 } else {
                     String msg = "取消关注失败";
@@ -185,6 +186,7 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 if (entity != null && entity.error == ApiStatus.OK) {
                     focusBean.unfollowed = false;
                     focusAdapter.notifyDataSetChanged();
+                    focusAdapter.disableLoadMoreIfNotFullPage();
                 } else {
                     String msg = "关注失败";
                     if (entity != null && entity.msg != null) {
