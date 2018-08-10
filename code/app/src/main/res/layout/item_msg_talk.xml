@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/talk_his_bg"
+            android:background="@drawable/talk_his_2_bg"
             android:autoLink="web"/>
 
     </RelativeLayout>
@@ -86,7 +86,7 @@
             android:textAppearance="@android:style/TextAppearance.DeviceDefault"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/talk_mine_bg"
+            android:background="@drawable/talk_mine_2_bg"
             tools:text="asdfsadf"
             android:autoLink="web"/>
 

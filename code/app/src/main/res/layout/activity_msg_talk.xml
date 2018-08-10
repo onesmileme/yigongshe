@@ -14,52 +14,55 @@
         titlebar:centerText="@string/message"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
-        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+        titlebar:leftType="imageButton"/>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1" >
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/talk_recyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/talk_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
 
         <EditText
             android:id="@+id/input_text"
             android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:hint="请输入~"
-            android:maxLines="1"
-            android:background="@drawable/bg_round_input"
-            android:layout_marginLeft="15dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingHorizontal="10dp"/>
+            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:background="@drawable/bg_round_input"
+            android:inputType="textMultiLine"
+            android:hint="@string/talk_input_hint"
+            android:maxLines="3"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"/>
 
         <Button
             android:id="@+id/send"
             android:layout_width="50dp"
             android:layout_height="30dp"
-            android:background="@drawable/bg_round_send"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:textSize="12dp"
+            android:background="@drawable/bg_round_send"
+            android:text="发送"
             android:textColor="@color/white"
-            android:text="发送" />
+            android:textSize="12dp" />
     </LinearLayout>
 
 
