@@ -129,10 +129,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     String token = PushManager.getInstance().getToken(this);
-    if (token == null){
+    if (token == null) {
       token = "";
     }
-    mLoginCall = LinkCallHelper.getApiService().doLogin(phone, password,token);
+    mLoginCall = LinkCallHelper.getApiService().doLogin(phone, password, token);
     mLoginCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<LoginBean>>() {
 
       @Override public void onResponse(BaseResultDataInfo<LoginBean> entity, Response<?> response,
@@ -150,7 +150,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 LocalBroadcastManager.getInstance(LoginActivity.this);
             broadcastManager.sendBroadcast(intent);
           }
-          LoginActivity.this.finish();
+          //LoginActivity.this.finish();
+          goToOthers(MainActivity.class, null);
         } else {
           String msg = "登录失败";
           if (entity != null && entity.msg != null) {

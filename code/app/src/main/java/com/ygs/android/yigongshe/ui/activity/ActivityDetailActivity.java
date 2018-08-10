@@ -46,7 +46,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   private HelpVideoView mHelpVideoView;
   private MyWebView mWebView;
   private MyWebView mWebview2;
-  private RelativeLayout mRlWebview1;
+  private LinearLayout mRlWebview1;
   //private RelativeLayout mRlWebview2;
   private TextView mSeeFull;
   private LinkCall<BaseResultDataInfo<HelpVideoListResponse>> mHelpVideoCall;
@@ -62,6 +62,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
   LinearLayout mStatusOn;
   RelativeLayout mStatusFinish;
   TextView mPeopleNum;
+  TextView createtitle, createName, createDate;
   AccountManager accountManager = YGApplication.accountManager;
   private TextView signup;
   private TextView signin;
@@ -107,6 +108,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
           ActivityDetailResponse data = entity.data;
           if (data != null) {
             requestCommentData(TYPE_ACTIVITY, true);
+            createtitle.setText(data.title);
+            createName.setText("发起方:" + data.create_name);
+            createDate.setText(data.create_at+ " 发布");
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mDaCallView.setDacallViewData(data);
@@ -171,7 +175,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
 
   protected void addHeaderView() {
     //fg
-    mRlWebview1 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
+    mRlWebview1 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
     mAdapter.addHeaderView(mRlWebview1);
     mWebView = mRlWebview1.findViewById(R.id.webview1);
     mWebView.setMaxHeight(DensityUtil.dp2px(this, 360));
@@ -180,6 +184,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
     mStatusOn = mRlWebview1.findViewById(R.id.status_on);
     mStatusFinish = mRlWebview1.findViewById(R.id.status_finish);
     mPeopleNum = mRlWebview1.findViewById(R.id.people_num);
+    createtitle = mRlWebview1.findViewById(R.id.createtitle);
+    createName = mRlWebview1.findViewById(R.id.createName);
+    createDate = mRlWebview1.findViewById(R.id.createDate);
     signup = mRlWebview1.findViewById(R.id.signup);
     signin = mRlWebview1.findViewById(R.id.signin);
     signup.setOnClickListener(new View.OnClickListener() {

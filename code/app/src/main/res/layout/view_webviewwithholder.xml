@@ -2,7 +2,42 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="@color/white"
   android:orientation="vertical">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="14dp">
+
+    <TextView
+      android:id="@+id/createtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textColor="@color/black1"
+      android:textSize="20dp" />
+
+    <TextView
+      android:id="@+id/createName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/createtitle"
+      android:layout_marginTop="10dp"
+      android:textColor="@color/gray2"
+      android:textSize="10dp" />
+
+    <TextView
+      android:id="@+id/createDate"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/createName"
+      android:layout_alignParentRight="true"
+      android:textColor="@color/gray2"
+      android:textSize="10dp" />
+
+  </RelativeLayout>
 
   <WebView
     android:id="@+id/webview"

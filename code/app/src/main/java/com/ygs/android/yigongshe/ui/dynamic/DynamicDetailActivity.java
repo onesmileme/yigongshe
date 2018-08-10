@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.ShareBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
@@ -28,6 +29,7 @@ public class DynamicDetailActivity extends BaseDetailActivity {
   private WebView mWebView;
   private LinkCall<BaseResultDataInfo<DynamicDetailResponse>> mCall;
   private ShareBean mShareBean;
+  private TextView createtitle, createName, createDate;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -77,6 +79,9 @@ public class DynamicDetailActivity extends BaseDetailActivity {
     LinearLayout linearLayout =
         (LinearLayout) LayoutInflater.from(this).inflate(R.layout.view_webviewwithholder, null);
     mWebView = linearLayout.findViewById(R.id.webview);
+    createtitle = linearLayout.findViewById(R.id.createtitle);
+    createName = linearLayout.findViewById(R.id.createName);
+    createDate = linearLayout.findViewById(R.id.createDate);
     mAdapter.addHeaderView(linearLayout);
   }
 
@@ -108,7 +113,9 @@ public class DynamicDetailActivity extends BaseDetailActivity {
             //    + "body{padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;}"
             //    + "</style>"
             //    + "</head>";
-
+            createtitle.setText(data.news_info.title);
+            createName.setText("发布机构 " + data.news_info.create_name);
+            createDate.setText(data.news_info.create_at + " 发布");
             mWebView.loadDataWithBaseURL(null, /**htmlText + **/data.news_info.content, "text/html",
                 "utf-8", null);
           }
