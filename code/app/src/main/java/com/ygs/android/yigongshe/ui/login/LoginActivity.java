@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -105,7 +106,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
       return;
     }
-    
+
     loginAction();
   }
 
@@ -120,6 +121,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
   }
 
   private void loginAction() {
+    showDialog();
 
     String phone = mPhoneEditText.getText().toString();
     String password = mPasswordEditText.getText().toString();
@@ -141,6 +143,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == ApiStatus.OK) {
+          dismissDialog();
           Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
           if (accountManager != null) {
             accountManager.updateToken(entity.data.token, entity.data.token_expire);
@@ -155,6 +158,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
           goToOthers(MainActivity.class, null);
           LoginActivity.this.finish();
         } else {
+          dismissDialog();
           String msg = "登录失败";
           if (entity != null && entity.msg != null) {
             msg += "(" + entity.msg + ")";
@@ -163,6 +167,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
       }
     });
+  }
+
+  AlertDialog dialog;
+
+  private void showDialog() {
+    dialog = new AlertDialog.Builder(this).setMessage("登录中...").setCancelable(false).show();
+  }
+
+  private void dismissDialog() {
+    if (dialog != null) {
+      dialog.dismiss();
+    }
   }
 
   private void doRegister() {
