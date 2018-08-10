@@ -21,6 +21,7 @@ import com.ygs.android.yigongshe.view.GlideCircleTransform;
 
 public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHolder> {
   private View.OnClickListener mAvatarListener;
+
   public CommentAdapter(View.OnClickListener avatarListener) {
     super(R.layout.item_comment, null);
     mAvatarListener = avatarListener;
@@ -28,17 +29,20 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
 
   @Override protected void convert(final BaseViewHolder helper, CommentItemBean item) {
     AccountManager accountManager = YGApplication.accountManager;
-    Glide.with(mContext)
-        .load(item.create_avatar)
-        .placeholder(R.drawable.defalutavar)
-        .error(R.drawable.defalutavar)
-        .fallback(R.drawable.defalutavar)
-        .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
-        .into((ImageView) helper.getView(R.id.createAvatar));
     ImageView avatar = helper.getView(R.id.createAvatar);
-    avatar.setTag(item);
-    avatar.setOnClickListener(mAvatarListener);
+    if (!item.equals(avatar.getTag())) {
+      avatar.setTag(null);
+      Glide.with(mContext)
+          .load(item.create_avatar)
+          .placeholder(R.drawable.defalutavar)
+          .error(R.drawable.defalutavar)
+          .fallback(R.drawable.defalutavar)
+          .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
+          .into(avatar);
 
+      avatar.setTag(item);
+      avatar.setOnClickListener(mAvatarListener);
+    }
     helper.setText(R.id.createName, item.create_name);
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.content, item.content);
@@ -48,7 +52,6 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
       TextView tv = helper.getView(R.id.delete);
       tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
       helper.addOnClickListener(R.id.delete);
-
     } else {
       helper.setGone(R.id.delete, false);
     }
