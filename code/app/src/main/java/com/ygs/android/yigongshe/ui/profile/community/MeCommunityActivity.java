@@ -20,7 +20,6 @@ import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
-import com.ygs.android.yigongshe.push.OpenUrlManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.community.CommunityDetailActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;

@@ -105,7 +105,9 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
         });
 
         if (avatar != null){
-            ImageLoadUtil.loadImage(avatarImageView,avatar);
+            ImageLoadUtil.loadImage(avatarImageView,avatar,R.drawable.defalutavar);
+        }else {
+            avatarImageView.setImageResource(R.drawable.defalutavar);
         }
 
     }
@@ -246,6 +248,7 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
 
         if (mUploadImageUrl == null || mUploadImageUrl.length() == 0){
             Toast.makeText(this,"请点击头像选择图片",Toast.LENGTH_SHORT).show();
+            chooseAvatar();
             return;
         }
 

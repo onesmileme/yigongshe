@@ -32,12 +32,17 @@ public class MeInfoChangeSchoolAdapter extends ArrayAdapter {
         }
         TextView text = (TextView) convertView
             .findViewById(textViewResourceId);
-        text.setText(items[position]);
+        if (items != null ) {
+            text.setText(items[position]);
+        }
         return convertView;
     }
 
     @Override
     public int getCount() {
+        if (items == null){
+            return 0;
+        }
         return items.length;
     }
 

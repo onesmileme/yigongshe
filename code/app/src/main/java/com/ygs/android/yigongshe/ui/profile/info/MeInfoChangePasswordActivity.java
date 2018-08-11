@@ -77,7 +77,7 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
             tip = "两次密码不一致";
         }
         if (tip != null){
-            Toast.makeText(this,tip,Toast.LENGTH_SHORT);
+            Toast.makeText(this,tip,Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -89,9 +89,10 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatus.OK){
                     setResult(1,null);
+                    Toast.makeText(MeInfoChangePasswordActivity.this,"密码修改成功",Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
-                    Toast.makeText(MeInfoChangePasswordActivity.this,entity.msg,Toast.LENGTH_SHORT);
+                    Toast.makeText(MeInfoChangePasswordActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });

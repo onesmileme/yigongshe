@@ -28,12 +28,10 @@ import com.ygs.android.yigongshe.bean.SortModel;
 import com.ygs.android.yigongshe.bean.UpdateEvent;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.response.CityListResponse;
-import com.ygs.android.yigongshe.net.ApiService;
 import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
-import com.ygs.android.yigongshe.push.OpenUrlManager;
 import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.activity.ActivityFragment;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
@@ -76,7 +74,7 @@ public class MainActivity extends BaseActivity {
       Uri uri = intent.getData();
       String detailId = "";
       if (uri != null) {
-        OpenUrlManager.handle(uri);
+        PushManager.handle(uri);
       }
     }
   }
@@ -261,7 +259,14 @@ public class MainActivity extends BaseActivity {
 
   private void pushBind(){
     String token = YGApplication.accountManager.getToken();
+    if (TextUtils.isEmpty(token)){
+      return;
+    }
     String registerId = PushManager.getInstance().getToken(this);
+    if (TextUtils.isEmpty(registerId)){
+      return;
+    }
+    PushManager.getInstance().setToken(registerId);
     LinkCall<BaseResultDataInfo<EmptyBean>> call = LinkCallHelper.getApiService().pushBind(token,registerId);
     call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
 
@@ -276,7 +281,7 @@ public class MainActivity extends BaseActivity {
 
   }
 
-  //for different fragments
+  @Override
   protected boolean openTranslucentStatus() {
     return true;
   }

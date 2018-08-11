@@ -7,7 +7,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,10 +21,9 @@ import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
-import com.ygs.android.yigongshe.push.OpenUrlManager;
+import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -211,9 +209,9 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
         if(!TextUtils.isEmpty(dataBean.userid)){
 
-            Uri uri = OpenUrlManager.makeUri(OpenUrlManager.GOTO_OTHER_HOMEPAGE,"uid="+dataBean.userid);
+            Uri uri = PushManager.makeUri(PushManager.GOTO_OTHER_HOMEPAGE,"uid="+dataBean.userid);
             if (uri != null) {
-                OpenUrlManager.handle(uri);
+                PushManager.handle(uri);
             }
         }
 
