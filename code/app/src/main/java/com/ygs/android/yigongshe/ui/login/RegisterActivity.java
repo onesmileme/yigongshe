@@ -129,8 +129,7 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         mSchoolEditText.setFocusableInTouchMode(false);
         loadSchoolInfo();
 
-        mockData();
-
+        //mockData();
     }
 
     private void updateRoles() {

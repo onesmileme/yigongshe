@@ -76,8 +76,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     //setTranslucentStatus(true);
 
     //for test
-    mPhoneEditText.setText("18993368867");
-    mPasswordEditText.setText("admin");
+    //mPhoneEditText.setText("18993368867");
+    //mPasswordEditText.setText("admin");
   }
 
   @Override protected int getLayoutResId() {
