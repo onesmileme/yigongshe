@@ -33,14 +33,6 @@ public class DynamicDetailActivity extends BaseDetailActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //Intent intent = getIntent();
-    //String action = intent.getAction();
-    //if (Intent.ACTION_VIEW.equals(action)) {
-    //  Uri uri = intent.getData();
-    //  if (uri != null) {
-    //    mId = Integer.parseInt(uri.getQueryParameter("detailId"));
-    //  }
-    //}
   }
 
   @Override protected void initIntent(Bundle bundle) {

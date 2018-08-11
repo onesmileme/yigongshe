@@ -1,10 +1,12 @@
 package com.ygs.android.yigongshe.ui.profile.focus;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -20,6 +22,7 @@ import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.push.OpenUrlManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
@@ -78,13 +81,19 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
         focusAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
                                                @Override
                                                public void onLoadMoreRequested() {
-                                                   Log.e("FOLLOW", "onLoadMoreRequested: >>>>>>" );
                                                    loadMore();
                                                }
                                            }
             , recyclerView);
         focusAdapter.disableLoadMoreIfNotFullPage();
         focusAdapter.setEnableLoadMore(false);
+        focusAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                FollowPersonItemBean dataBean = focusAdapter.getData().get(position);
+                gotoOtherHomePage(dataBean);
+            }
+        });
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -196,6 +205,17 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 }
             }
         });
+
+    }
+    private void gotoOtherHomePage(FollowPersonItemBean dataBean){
+
+        if(!TextUtils.isEmpty(dataBean.userid)){
+
+            Uri uri = OpenUrlManager.makeUri(OpenUrlManager.GOTO_OTHER_HOMEPAGE,"uid="+dataBean.userid);
+            if (uri != null) {
+                OpenUrlManager.handle(uri);
+            }
+        }
 
     }
 }

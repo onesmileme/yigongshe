@@ -69,6 +69,7 @@ public class MainActivity extends BaseActivity {
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    YGApplication.mMainActivity = this;
     Intent intent = getIntent();
     String action = intent.getAction();
     if (Intent.ACTION_VIEW.equals(action)) {
@@ -76,56 +77,6 @@ public class MainActivity extends BaseActivity {
       String detailId = "";
       if (uri != null) {
         OpenUrlManager.handle(uri);
-        //1..........
-        //detailId = uri.getQueryParameter("dynamicdetailid");
-        //if (!TextUtils.isEmpty(detailId)) {
-        //  try {
-        //    int mId = Integer.parseInt(detailId);
-        //    Bundle bundle = new Bundle();
-        //    bundle.putInt("news_id", mId);
-        //    goToOthers(DynamicDetailActivity.class, bundle);
-        //  } catch (Exception e) {
-        //    e.printStackTrace();
-        //  }
-        //}
-        ////2.............
-        //detailId = uri.getQueryParameter("activitydetailid");
-        //if (!TextUtils.isEmpty(detailId)) {
-        //  try {
-        //    int mId = Integer.parseInt(detailId);
-        //    Bundle bundle = new Bundle();
-        //    bundle.putInt("activity_id", mId);
-        //    goToOthers(ActivityDetailActivity.class, bundle);
-        //  } catch (Exception e) {
-        //    e.printStackTrace();
-        //  }
-        //}
-        //
-        ////3.............
-        //detailId = uri.getQueryParameter("messageid");
-        //if (!TextUtils.isEmpty(detailId)) {
-        //  try {
-        //    Bundle bundle = new Bundle();
-        //    bundle.putString("otherUid", detailId);
-        //    bundle.putString("type", "message");
-        //    goToOthers(MsgTalkActivity.class, bundle);
-        //  } catch (Exception e) {
-        //    e.printStackTrace();
-        //  }
-        //}
-        //
-        ////4.............
-        //detailId = uri.getQueryParameter("noticeid");
-        //if (!TextUtils.isEmpty(detailId)) {
-        //  try {
-        //    Bundle bundle = new Bundle();
-        //    bundle.putString("otherUid", detailId);
-        //    bundle.putString("type", "notice");
-        //    goToOthers(MsgTalkActivity.class, bundle);
-        //  } catch (Exception e) {
-        //    e.printStackTrace();
-        //  }
-        //}
       }
     }
   }
