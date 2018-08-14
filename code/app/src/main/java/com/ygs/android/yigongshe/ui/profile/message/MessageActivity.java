@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.ui.profile.message;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
@@ -23,10 +25,12 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.SegmentControlView;
+import com.ygs.android.yigongshe.view.SpaceItemDecoration;
 
 import java.util.List;
 
@@ -83,7 +87,9 @@ public class MessageActivity extends BaseActivity {
     messageAdapter = new MessageAdapter(this);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
     recyclerView.setAdapter(messageAdapter);
-    DividerItemDecoration itemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+    CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this,
+        CDividerItemDecoration.VERTICAL_LIST,new ColorDrawable(Color.parseColor("#e0e0e0")));//
+    itemDecoration.setHeight(1);
     recyclerView.addItemDecoration(itemDecoration);
     messageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
       @Override
@@ -130,8 +136,6 @@ public class MessageActivity extends BaseActivity {
       swipeRefreshLayout.setRefreshing(true);
     }
 
-
-    //final boolean isPrivateMsg = segmentControlView.getSelectedIndex() == 0;
     String type = isPrivateMsg ? "message" : "notice";
 
     String token = YGApplication.accountManager.getToken();

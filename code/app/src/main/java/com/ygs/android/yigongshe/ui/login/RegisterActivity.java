@@ -44,44 +44,35 @@ import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-    @BindView(R.id.titlebar)
-    CommonTitleBar titleBar;
+    @BindView(R.id.titlebar) CommonTitleBar titleBar;
 
-    @BindView(R.id.register_phone_et)
-    EditText mPhoneEditText;
+    @BindView(R.id.register_phone_et) EditText mPhoneEditText;
 
-    @BindView(R.id.register_usertype_sp)
-    Spinner mUserTypeSpinner;
+    @BindView(R.id.register_usertype_sp) Spinner mUserTypeSpinner;
 
-    @BindView(R.id.register_school_et)
-    EditText mSchoolEditText;
+    @BindView(R.id.register_school_et) EditText mSchoolEditText;
 
-    @BindView(R.id.register_academy_et)
-    EditText mAcademyEditText;
+    @BindView(R.id.register_academy_et) EditText mAcademyEditText;
 
-    @BindView(R.id.register_enroll_year_et)
-    EditText mEnrollEditText;
+    @BindView(R.id.register_enroll_year_et) EditText mEnrollEditText;
 
-    @BindView(R.id.register_calendar_btn)
-    Button mCalendarBtn;
+    @BindView(R.id.register_calendar_btn) Button mCalendarBtn;
 
-    @BindView(R.id.register_captcha_et)
-    EditText mCaptchaEditText;
+    @BindView(R.id.register_captcha_et) EditText mCaptchaEditText;
 
-    @BindView(R.id.register_password_et)
-    EditText mPasswordEditText;
+    @BindView(R.id.register_password_et) EditText mPasswordEditText;
 
-    @BindView(R.id.register_reinput_password_et)
-    EditText mConfirmPasswordEditText;
+    @BindView(R.id.register_reinput_password_et) EditText mConfirmPasswordEditText;
 
-    @BindView(R.id.send_captcha_btn)
-    Button mCaptchaButton;
+    @BindView(R.id.send_captcha_btn) Button mCaptchaButton;
 
-    @BindView(R.id.register_invite_et)
-    EditText mInviteEditText;
+    @BindView(R.id.register_invite_et) EditText mInviteEditText;
 
-    @BindView(R.id.register_register_btn)
-    Button mRegisterButton;
+    @BindView(R.id.register_register_btn) Button mRegisterButton;
+
+    @BindView(R.id.register_school_layout) LinearLayout mSchoolLayout;
+    @BindView(R.id.register_academy_layout) LinearLayout mAcademyLayout;
+    @BindView(R.id.register_enroll_year_layout) LinearLayout mEnroolYearLayout;
 
     private CountDownTimer countDownTimer;
 
@@ -98,6 +89,7 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
 
 
     private static final int SCHOOL_CHOOSE_CODE = 2;
+    private static final String SOCIETY_PEOPLE = "社会爱心人士";
 
     @Override
     public void initView() {
@@ -117,7 +109,8 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 RoleInfoBean bean = RegisterActivity.this.mRoleBeanList.get(position);
-                mUserType = bean.id;
+                updateUserType(bean);
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -154,6 +147,19 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         mCaptchaEditText.setText("1234");
         mPasswordEditText.setText("123456");
         mConfirmPasswordEditText.setText("123456");
+    }
+
+    private void updateUserType(RoleInfoBean bean){
+        mUserType = bean.id;
+        if (SOCIETY_PEOPLE.equals(bean.title)){
+            mSchoolLayout.setVisibility(View.GONE);
+            mAcademyLayout.setVisibility(View.GONE);
+            mEnroolYearLayout.setVisibility(View.GONE);
+        }else{
+            mSchoolLayout.setVisibility(View.VISIBLE);
+            mAcademyLayout.setVisibility(View.VISIBLE);
+            mEnroolYearLayout.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -201,13 +207,7 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         String msg = null;
         if (TextUtils.isEmpty(phone)) {
             msg = "请输入手机号";
-        } else if ((TextUtils.isEmpty(school))) {
-            msg = "请选择学校";
-        } else if (TextUtils.isEmpty(academy)) {
-            msg = "请选择专业";
-        } else if (TextUtils.isEmpty(year)) {
-            msg = "请选择入学年份";
-        } else if (TextUtils.isEmpty(verifyCode)) {
+        }  else if (TextUtils.isEmpty(verifyCode)) {
             msg = "请输入验证码";
         } else if (TextUtils.isEmpty(password)) {
             msg = "请输入密码";
@@ -215,6 +215,19 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
             msg = "请输入确认密码";
         } else if (!password.equals(confirmPassword)) {
             msg = "两次密码不一致";
+        }
+        if (SOCIETY_PEOPLE.equals(mUserType)){
+            school = "";
+            academy = "";
+            year= "";
+        }else{
+            if ((TextUtils.isEmpty(school))) {
+                msg = "请选择学校";
+            } else if (TextUtils.isEmpty(academy)) {
+                msg = "请选择专业";
+            } else if (TextUtils.isEmpty(year)) {
+                msg = "请选择入学年份";
+            }
         }
 
         if (msg != null) {

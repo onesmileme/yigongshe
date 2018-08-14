@@ -4,8 +4,8 @@
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/gray3">
+    android:background="@color/gray3"
+    android:orientation="vertical">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/titlebar"
@@ -14,7 +14,7 @@
         titlebar:centerText="@string/my_activity"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
-        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+        titlebar:leftType="imageButton" />
 
 
     <com.ygs.android.yigongshe.view.SegmentControlView
@@ -25,9 +25,10 @@
         android:layout_marginBottom="10dp"
         android:layout_marginHorizontal="45dp"
         android:layout_marginTop="10dp"
+        android:background="@color/gray3"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        app:scv_BackgroundNormalColor="@color/gray4"
+        app:scv_BackgroundNormalColor="@color/gray3"
         app:scv_BackgroundSelectedColor="@color/green"
         app:scv_FrameColor="#c1c1c1"
         app:scv_FrameCornerRadius="2dp"
@@ -37,6 +38,7 @@
         app:scv_TextArray="@array/activities_segs"
         app:scv_TextNormalColor="@color/gray2"
         app:scv_TextSelectedColor="@color/white"
+
         app:scv_TextSize="12dp" />
 
     <android.support.v4.widget.SwipeRefreshLayout

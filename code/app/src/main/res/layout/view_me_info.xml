@@ -1,52 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="90dp"
-  android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="90dp"
+    android:background="@color/white">
 
-  <com.ygs.android.yigongshe.view.CircleImageView
-    android:id="@+id/me_avatar"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:layout_marginLeft="14dp"
-    android:layout_marginTop="13dp"
-    app:layout_constraintLeft_toLeftOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <com.ygs.android.yigongshe.view.CircleImageView
+        android:id="@+id/me_avatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="13dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-    android:id="@+id/me_name_tv"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="23dp"
-    android:textColor="@color/black1"
-    android:textSize="15dp"
-    app:layout_constraintLeft_toRightOf="@id/me_avatar"
-    app:layout_constraintRight_toLeftOf="@id/me_info_indicator"
-    app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/me_name_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="23dp"
+        android:textColor="@color/black1"
+        android:textSize="15dp"
+        app:layout_constraintLeft_toRightOf="@id/me_avatar"
+        app:layout_constraintRight_toLeftOf="@id/me_info_indicator"
+        app:layout_constraintTop_toTopOf="parent" />
 
-  <TextView
-    android:id="@+id/me_phone_tv"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_marginRight="20dp"
-    android:layout_marginTop="8dp"
-    android:textColor="@color/gray2"
-    android:textSize="12dp"
-    app:layout_constraintLeft_toLeftOf="@id/me_name_tv"
-    app:layout_constraintRight_toLeftOf="@id/me_info_indicator"
-    app:layout_constraintTop_toBottomOf="@id/me_name_tv" />
+    <TextView
+        android:id="@+id/me_phone_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/gray2"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toLeftOf="@id/me_name_tv"
+        app:layout_constraintRight_toLeftOf="@id/me_info_indicator"
+        app:layout_constraintTop_toBottomOf="@id/me_name_tv" />
 
-  <ImageView
-    android:id="@+id/me_info_indicator"
-    android:layout_width="20dp"
-    android:layout_height="20dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="33dp"
-    android:src="@drawable/arrow_next"
-    app:layout_constraintRight_toRightOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/me_info_indicator"
+        android:layout_width="10dp"
+        android:layout_height="15dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="33dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/arrow_next"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

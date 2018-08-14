@@ -198,7 +198,7 @@ import com.ygs.android.yigongshe.utils.ScreenUtils;
 
     showBottomLine = array.getBoolean(R.styleable.CommonTitleBar_showBottomLine, true);
     bottomLineColor =
-        array.getColor(R.styleable.CommonTitleBar_bottomLineColor, Color.parseColor("#acacac"));
+        array.getColor(R.styleable.CommonTitleBar_bottomLineColor, Color.parseColor("#b1b1b1"));
     bottomShadowHeight = array.getDimension(R.styleable.CommonTitleBar_bottomShadowHeight,
         DensityUtil.dp2px(context, 0));
 

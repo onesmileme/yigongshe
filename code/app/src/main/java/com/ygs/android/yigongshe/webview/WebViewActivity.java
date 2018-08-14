@@ -56,10 +56,8 @@ public class WebViewActivity extends BaseActivity {
                        sb.append(line);
                    }
                 }while (line != null);
-
                 bufferedReader.close();
 
-                Log.e("WEB", "initIntent: html is: "+sb );
                 mWebView.loadData(sb.toString(),"text/html","utf-8");
 
             }catch (IOException ioe){

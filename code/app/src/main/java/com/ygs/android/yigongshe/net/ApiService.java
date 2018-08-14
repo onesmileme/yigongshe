@@ -133,6 +133,11 @@ public interface ApiService {
                                                         @Field("new_password") String newPassword,
                                                         @Field("confirm_password") String confirmPassword);
 
+  @FormUrlEncoded @POST("app/api/user/forgetpassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> forgetpassword(@Field("verif_code") String verifycode,
+                                                        @Field("phone") String phone ,
+                                                        @Field("password") String password);
+
   @FormUrlEncoded @POST("app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolList(@Field("token") String token);
 

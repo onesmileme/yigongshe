@@ -15,11 +15,7 @@
         titlebar:centerText="@string/message"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
-        titlebar:rightType="textView"
-        titlebar:rightText="@string/operate"
-        titlebar:rightTextColor="@color/gray2"
-        titlebar:rightTextSize="12dp"
-        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+        titlebar:leftType="imageButton"/>
 
     <com.ygs.android.yigongshe.view.SegmentControlView
         android:id="@+id/message_segment"

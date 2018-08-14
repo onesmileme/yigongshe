@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.ui.profile.info;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +17,7 @@ import com.ygs.android.yigongshe.bean.MeInfoItemBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
 
@@ -63,10 +66,10 @@ public class MeInfoActivity extends BaseActivity {
         List<Integer> showList = new LinkedList<>();
         showList.add(1);
         int color = getResources().getColor(R.color.gray5);
-        MyDecoration decoration = new MyDecoration(this,MyDecoration.VERTICAL_LIST,1,color);
-        //MeSectionDecoration decoration = new MeSectionDecoration(showList,this);
-        //decoration.setHintHight(1);
-        mRecycleView.addItemDecoration(decoration);
+        CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this,
+            CDividerItemDecoration.VERTICAL_LIST,new ColorDrawable(Color.parseColor("#e0e0e0")));//
+        itemDecoration.setHeight(1);
+        mRecycleView.addItemDecoration(itemDecoration);
 
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
         infoAdapter = new MeInfoAdapter();

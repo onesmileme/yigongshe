@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="@string/school"
+            android:text="@string/school1"
             android:textColor="@color/gray1"
             android:textSize="13dp" />
 
