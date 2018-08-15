@@ -5,11 +5,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import butterknife.BindView;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
-import com.ygs.android.yigongshe.bean.FollowPersonItemBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.net.ApiStatus;
@@ -19,199 +18,170 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.activity.OtherActivitiesActivity;
 import com.ygs.android.yigongshe.ui.profile.community.OtherCommunityActivity;
-import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
 import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.view.CircleImageView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-
-import java.util.List;
-
-import butterknife.BindView;
 import retrofit2.Response;
 
-public class OtherHomePageActivity extends BaseActivity implements View.OnClickListener{
+public class OtherHomePageActivity extends BaseActivity implements View.OnClickListener {
 
+  @BindView(R.id.titlebar) CommonTitleBar titleBar;
 
-    @BindView(R.id.titlebar)
-    CommonTitleBar titleBar;
+  @BindView(R.id.avatar_iv) CircleImageView avatarImageView;
 
-    @BindView(R.id.avatar_iv)
-    CircleImageView avatarImageView;
+  @BindView(R.id.name_tv) TextView nameTextView;
 
-    @BindView(R.id.name_tv)
-    TextView nameTextView;
+  @BindView(R.id.phone_tv) TextView phoneTextView;
 
-    @BindView(R.id.phone_tv)
-    TextView phoneTextView;
+  @BindView(R.id.activity_layout) View activityView;
 
-    @BindView(R.id.activity_layout)
-    View activityView;
+  @BindView(R.id.circle_layout) View circleView;
 
-    @BindView(R.id.circle_layout)
-    View circleView;
+  @BindView(R.id.send_msg_btn) Button sendBtn;
 
+  @BindView(R.id.follow_btn) Button followBtn;
 
-    @BindView(R.id.send_msg_btn)
-    Button sendBtn;
+  private String userId;
 
-    @BindView(R.id.follow_btn)
-    Button followBtn;
+  private LinkCall<BaseResultDataInfo<OtherUserInfoBean>> mCall;
+  private OtherUserInfoBean userInfoBean;
 
-    private String userId;
+  @Override protected void initIntent(Bundle bundle) {
 
-    private LinkCall<BaseResultDataInfo<OtherUserInfoBean>> mCall;
-    private OtherUserInfoBean userInfoBean;
+    this.userId = bundle.getString("userid");
+  }
 
-    @Override
-    protected void initIntent(Bundle bundle){
+  @Override protected void initView() {
 
-        this.userId = bundle.getString("userid");
-    }
-
-
-    @Override
-    protected  void initView(){
-
-        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-            @Override
-            public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON){
-                    finish();
-                }
-            }
-        });
-
-
-        activityView.setOnClickListener(this);
-        circleView.setOnClickListener(this);
-        sendBtn.setOnClickListener(this);
-        followBtn.setOnClickListener(this);
-
-        loadUserInfo();
-
-    }
-
-    @Override
-    protected  int getLayoutResId(){
-        return R.layout.activity_other_homepage;
-    }
-
-    private void loadUserInfo(){
-
-        String token = YGApplication.accountManager.getToken();
-
-        mCall = LinkCallHelper.getApiService().getOtherInfo(token,userId);
-        mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<OtherUserInfoBean>>(){
-            @Override
-            public void onResponse(BaseResultDataInfo<OtherUserInfoBean> entity, Response<?> response,
-                                   Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatus.OK){
-                    userInfoBean = entity.data;
-                    updateUI(entity.data);
-                }else{
-                    String msg = "请求用户信息失败";
-                    if (entity != null ){
-                        msg += "("+entity.msg+")";
-                    }
-                    Toast.makeText(OtherHomePageActivity.this,msg,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-
-    }
-
-    private void updateUI(OtherUserInfoBean otherUserInfoBean){
-
-        ImageLoadUtil.loadImage(avatarImageView,otherUserInfoBean.avatar);
-        nameTextView.setText(otherUserInfoBean.username);
-        phoneTextView.setText(otherUserInfoBean.phone);
-
-        Boolean followed = "1".equals(otherUserInfoBean.is_followed);
-        followBtn.setText(followed?R.string.unfollow:R.string.follow);
-    }
-
-    private void doFollow(){
-
-        Boolean followed = "1".equals(userInfoBean.is_followed);
-        if (followed){
-            unfollow();
-            return;
+    titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+      @Override public void onClicked(View v, int action, String extra) {
+        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+          finish();
         }
+      }
+    });
 
-        String token = YGApplication.accountManager.getToken();
-        LinkCall<BaseResultDataInfo<EmptyBean>> followCall = LinkCallHelper.getApiService().doFollow(token,userId);
-        followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
-            @Override
-            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatus.OK){
-                    userInfoBean.is_followed = "1";
-                    updateUI(userInfoBean);
-                }else{
-                    String msg = "关注失败";
-                    if (entity != null && entity.msg != null){
-                        msg += "("+entity.msg+")";
-                    }
-                    Toast.makeText(OtherHomePageActivity.this,msg,Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+    activityView.setOnClickListener(this);
+    circleView.setOnClickListener(this);
+    sendBtn.setOnClickListener(this);
+    followBtn.setOnClickListener(this);
 
-    public void unfollow() {
+    loadUserInfo();
+  }
 
-        String token = YGApplication.accountManager.getToken();
-        LinkCall<BaseResultDataInfo<EmptyBean>> unfollowCall = LinkCallHelper.getApiService().unFollow(token,
-            userInfoBean.userId);
-        unfollowCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
-            @Override
-            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity != null && entity.error == ApiStatus.OK) {
-                    userInfoBean.is_followed = "0";
-                    followBtn.setText(R.string.follow);
-                    Toast.makeText(OtherHomePageActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
-                } else {
-                    String msg = "取消关注失败";
-                    if (entity != null && entity.msg != null) {
-                        msg += "(" + entity.msg + ")";
-                    }
-                    Toast.makeText(OtherHomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+  @Override protected int getLayoutResId() {
+    return R.layout.activity_other_homepage;
+  }
 
+  private void loadUserInfo() {
 
+    String token = YGApplication.accountManager.getToken();
 
-    @Override
-    public void onClick(View view){
-
-        if (view == activityView){
-
-            Bundle bundle = new Bundle();
-            bundle.putString("otherUid",userId);
-            goToOthers(OtherActivitiesActivity.class,bundle);
-
-        }else if(view == circleView){
-
-            Bundle bundle = new Bundle();
-            bundle.putString("otherUid",userId);
-            goToOthers(OtherCommunityActivity.class,bundle);
-
-        }else if(view == followBtn){
-            doFollow();
-        }else if(view == sendBtn){
-
-            Bundle bundle = new Bundle();
-            bundle.putString("otherUid",userId);
-            bundle.putString("type","message");
-            bundle.putString("name",userInfoBean.username);
-            goToOthers(MsgTalkActivity.class,bundle);
+    mCall = LinkCallHelper.getApiService().getOtherInfo(token, userId);
+    mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<OtherUserInfoBean>>() {
+      @Override
+      public void onResponse(BaseResultDataInfo<OtherUserInfoBean> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == ApiStatus.OK) {
+          userInfoBean = entity.data;
+          updateUI(entity.data);
+        } else {
+          String msg = "请求用户信息失败";
+          if (entity != null) {
+            msg += "(" + entity.msg + ")";
+          }
+          Toast.makeText(OtherHomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
         }
+      }
+    });
+  }
 
+  private void updateUI(OtherUserInfoBean otherUserInfoBean) {
+
+    ImageLoadUtil.loadImage(avatarImageView, otherUserInfoBean.avatar);
+    nameTextView.setText(otherUserInfoBean.username);
+    phoneTextView.setText(otherUserInfoBean.phone);
+
+    Boolean followed = "1".equals(otherUserInfoBean.is_followed);
+    followBtn.setText(followed ? R.string.unfollow : R.string.follow);
+  }
+
+  private void doFollow() {
+
+    Boolean followed = "1".equals(userInfoBean.is_followed);
+    if (followed) {
+      unfollow();
+      return;
     }
+
+    String token = YGApplication.accountManager.getToken();
+    LinkCall<BaseResultDataInfo<EmptyBean>> followCall =
+        LinkCallHelper.getApiService().doFollow(token, userId);
+    followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
+      @Override public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == ApiStatus.OK) {
+          userInfoBean.is_followed = "1";
+          updateUI(userInfoBean);
+        } else {
+          String msg = "关注失败";
+          if (entity != null && entity.msg != null) {
+            msg += "(" + entity.msg + ")";
+          }
+          Toast.makeText(OtherHomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
+  }
+
+  public void unfollow() {
+
+    String token = YGApplication.accountManager.getToken();
+    LinkCall<BaseResultDataInfo<EmptyBean>> unfollowCall =
+        LinkCallHelper.getApiService().unFollow(token, userId);
+    unfollowCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
+      @Override public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response,
+          Throwable throwable) {
+        super.onResponse(entity, response, throwable);
+        if (entity != null && entity.error == ApiStatus.OK) {
+          userInfoBean.is_followed = "0";
+          followBtn.setText(R.string.follow);
+          Toast.makeText(OtherHomePageActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
+        } else {
+          String msg = "取消关注失败";
+          if (entity != null && entity.msg != null) {
+            msg += "(" + entity.msg + ")";
+          }
+          Toast.makeText(OtherHomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
+        }
+      }
+    });
+  }
+
+  @Override public void onClick(View view) {
+
+    if (view == activityView) {
+
+      Bundle bundle = new Bundle();
+      bundle.putString("otherUid", userId);
+      goToOthers(OtherActivitiesActivity.class, bundle);
+    } else if (view == circleView) {
+
+      Bundle bundle = new Bundle();
+      bundle.putString("otherUid", userId);
+      goToOthers(OtherCommunityActivity.class, bundle);
+    } else if (view == followBtn) {
+      doFollow();
+    } else if (view == sendBtn) {
+
+      Bundle bundle = new Bundle();
+      bundle.putString("otherUid", userId);
+      bundle.putString("type", "message");
+      bundle.putString("name", userInfoBean.username);
+      goToOthers(MsgTalkActivity.class, bundle);
+    }
+  }
 }
