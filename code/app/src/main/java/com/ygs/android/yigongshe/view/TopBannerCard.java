@@ -1,9 +1,7 @@
 package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -19,11 +17,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
-import com.ygs.android.yigongshe.push.OpenUrlManager;
-import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.base.BaseCard;
 import com.ygs.android.yigongshe.utils.DensityUtil;
-import com.ygs.android.yigongshe.webview.WebViewActivity;
+
 import java.util.List;
 
 /**
@@ -121,7 +118,7 @@ public class TopBannerCard extends BaseCard {
           //bundle.putString(WebViewActivity.URL_KEY, mList.get(position).hope_url);
           //intent.putExtra(BaseActivity.PARAM_INTENT, bundle);
           //mContext.startActivity(intent);
-          OpenUrlManager.handle(Uri.parse(mList.get(position).hope_url));
+          PushManager.handle(Uri.parse(mList.get(position).hope_url));
         }
       });
       iv.setScaleType(ImageView.ScaleType.CENTER_CROP);

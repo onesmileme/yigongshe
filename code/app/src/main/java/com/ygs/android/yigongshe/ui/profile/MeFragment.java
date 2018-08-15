@@ -83,7 +83,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
       mProfileAdapter.updateUserInfo(accountManager.getUserInfoBean());
     }
 
-      Log.e(TAG, "loadUserInfo: token is: "+accountManager.getToken() );
   }
 
   @Override public int getLayoutResId() {

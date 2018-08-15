@@ -32,20 +32,20 @@
         android:text="@string/user_type"
         />
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="10dp"
+        android:layout_height="15dp"
         android:id="@+id/me_item_indicator"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="10dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="20dp"
+        android:layout_marginRight="16dp"
         android:src="@drawable/arrow_next"
         />
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:id="@+id/me_item_splitline"
-        android:background="@color/gray2"
+        android:background="@color/gray5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/me_item_title"
         android:layout_marginLeft="41dp"

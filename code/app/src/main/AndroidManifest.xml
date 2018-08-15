@@ -62,7 +62,9 @@
 
     <activity android:name=".ui.login.RegisterActivity" />
     <activity android:name=".ui.login.ResetPasswordActivity" />
+    <activity android:name=".ui.login.ResetPasswdActivity"/>
     <activity android:name=".ui.profile.set.MeSetAcitivity" />
+    <activity android:name=".ui.login.SchoolSelectActivity"/>
 
     <activity android:name=".ui.profile.apply.MeApplyActivity" />
     <activity android:name=".ui.profile.association.MeAssociationActivity" />

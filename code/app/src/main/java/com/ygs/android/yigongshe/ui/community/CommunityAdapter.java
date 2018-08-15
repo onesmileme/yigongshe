@@ -6,6 +6,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -67,15 +68,20 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     helper.addOnClickListener(R.id.attention);
     helper.addOnClickListener(R.id.iv_markgood);
 
-    if (item.is_follow == 0) {
-      helper.setBackgroundRes(R.id.attention, R.drawable.bg_unattention);
-      helper.setText(R.id.attention, "+关注");
-      helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.green));
-    } else {
-      helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
+    if (accountManager.getUserid() == item.create_id){
+      helper.setVisible(R.id.attention, false);
+    }else {
+      helper.setVisible(R.id.attention, true);
+      if (item.is_follow == 0) {
+        helper.setBackgroundRes(R.id.attention, R.drawable.bg_unattention);
+        helper.setText(R.id.attention, "+关注");
+        helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.green));
+      } else {
+        helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
 
-      helper.setText(R.id.attention, "已关注");
-      helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.white));
+        helper.setText(R.id.attention, "已关注");
+        helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.white));
+      }
     }
     if (item.is_like == 0) {
       helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.gray2));

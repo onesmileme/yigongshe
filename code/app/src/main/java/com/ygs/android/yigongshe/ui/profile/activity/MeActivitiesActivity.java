@@ -1,7 +1,10 @@
 package com.ygs.android.yigongshe.ui.profile.activity;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -20,8 +23,8 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.activity.ActivityDetailActivity;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
-import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.SegmentControlView;
 
 import java.util.List;
@@ -71,11 +74,13 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(
-            new MyDividerItemDecoration(this, MyDividerItemDecoration.VERTICAL));
-
         mActivityAdapter = new MeAcitivityAdapter();
         recyclerView.setAdapter(mActivityAdapter);
+        CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this,
+            CDividerItemDecoration.VERTICAL_LIST,new ColorDrawable(Color.parseColor("#e0e0e0")));//
+        itemDecoration.setHeight(1);
+        recyclerView.addItemDecoration(itemDecoration);
+
 
         mActivityAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override

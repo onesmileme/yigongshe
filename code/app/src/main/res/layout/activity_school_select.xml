@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:titlebar="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@color/white"
+  android:orientation="vertical">
+
+  <com.ygs.android.yigongshe.view.CommonTitleBar
+    android:id="@+id/titleBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    titlebar:centerText="学校筛选"
+    titlebar:centerType="textView"
+    titlebar:leftType="imageButton" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp">
+
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="@drawable/layer_line"
+      android:focusable="true"
+      android:focusableInTouchMode="true"
+      android:gravity="center_vertical"
+      android:orientation="vertical">
+
+      <EditText
+        android:id="@+id/et_city_search"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@drawable/selector_edittext"
+        android:drawableEnd="@drawable/city_select_delect"
+        android:drawablePadding="7dp"
+        android:drawableStart="@drawable/search_bar_icon_normal"
+        android:gravity="center_vertical"
+        android:hint="请输入学校名称或拼音查询"
+        android:padding="7dp"
+        android:textColor="@color/black1"
+        android:textColorHint="@color/gray4"
+        android:textSize="12dp" />
+
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/search"
+      android:layout_width="60dp"
+      android:layout_height="30dp"
+      android:layout_marginLeft="10dp"
+      android:background="@drawable/bg_status_checked"
+      android:gravity="center"
+      android:text="查询"
+      android:textColor="@color/white"
+      android:textSize="12dp" />
+  </LinearLayout>
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+      android:id="@+id/lv_chool_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:divider="@color/divider"
+      android:dividerHeight="1px"
+      android:overScrollMode="never" />
+
+    <com.ygs.android.yigongshe.view.SideBar
+      android:id="@+id/sidebar"
+      android:layout_width="30dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="end|center" />
+  </FrameLayout>
+</LinearLayout>

@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.profile.info;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -79,7 +80,7 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
                     schools[i] = schoolInfoBean.schools.get(i);
                 }
                 schoolAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
-                    android.R.layout.simple_list_item_1, android.R.id.text1,schools);
+                    R.layout.item_register_spinner, R.id.name_tv,schools);
                 schoolSpinner.setAdapter(schoolAdapter);
             }
 
@@ -149,10 +150,10 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
                     }
 
                     cityAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
-                        android.R.layout.simple_list_item_1, android.R.id.text1,provinces);
+                        R.layout.item_register_spinner, R.id.name_tv,provinces);
                     String[] schools = {schoolListBean.cur_school};
                     schoolAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
-                        android.R.layout.simple_list_item_1, android.R.id.text1,schools);
+                        R.layout.item_register_spinner, R.id.name_tv,schools);
 
                     citySpinner.setAdapter(cityAdapter);
                     schoolSpinner.setAdapter(schoolAdapter);
@@ -180,6 +181,10 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
                 if (entity.error == ApiStatus.OK){
                     Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校成功",Toast.LENGTH_SHORT).show();
                     YGApplication.accountManager.updateSchool(chooseSchool);
+                    Intent intent = new Intent();
+                    intent.putExtra("school",chooseSchool);
+                    setResult(1,intent);
+                    finish();
                 }else{
                     Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校失败("+entity.msg+")",Toast.LENGTH_SHORT).show();
                 }

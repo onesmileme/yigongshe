@@ -16,8 +16,10 @@
     <string name="input_password_hint">请输入密码</string>
 
     <string name="forget_password_tip">忘记密码？去重新设置密码</string>
-    <string name="use_official_account">使用官方认证号登录</string>
+    <string name="use_official_account">使用手机号登录</string>
     <string name="reset_password">设置新密码</string>
+    <string name="forget_password">忘记密码</string>
+    <string name="new_password">新密码</string>
 
     <string name="register">注册</string>
 

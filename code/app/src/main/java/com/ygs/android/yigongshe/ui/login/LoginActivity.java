@@ -50,8 +50,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    //ShareUtils.getInstance().regToWx();
-    //ShareUtils.getInstance().regToWeibo();
     if (!TextUtils.isEmpty(accountManager.getToken())) {
       goToOthers(MainActivity.class, null);
       LoginActivity.this.finish();
@@ -111,12 +109,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
   }
 
   private void tryOfficialLogin() {
-
+      tryLogin();
   }
 
   private void forgetPassword() {
 
-    Intent intent = new Intent(this, ResetPasswordActivity.class);
+    Intent intent = new Intent(this, ResetPasswdActivity.class);
     startActivity(intent);
   }
 

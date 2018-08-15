@@ -81,10 +81,12 @@ public interface ApiService {
       @Query("news_id") int news_id, @Query("page") int page, @Query("perpage") int perpage,
       @Query("token") String token);
 
-  @FormUrlEncoded @POST("app/api/register") LinkCall<BaseResultDataInfo<EmptyBean>> postRegsiter(
-      @Field("phone") String name, @Field("role") String role, @Field("school") String school,
+  @FormUrlEncoded @POST("app/api/register/registe") LinkCall<BaseResultDataInfo<EmptyBean>> postRegsiter(
+      @Field("phone") String name, @Field("role") int role, @Field("school") String school,
       @Field("college") String college, @Field("admission_year") String adYear,
-      @Field("invite_code") String inviteCode, @Field("verify_code") String verifyCode);
+      @Field("invite_code") String inviteCode, @Field("verify_code") String verifyCode ,
+      @Field("password") String password, @Field("confirm_password") String confirmPassword ,
+      @Field("registration_id") String registrationId);
 
   @GET("app/api/login") LinkCall<BaseResultDataInfo<LoginBean>> doLogin(
       @Query("phone") String phone, @Query("password") String password , @Query("registration_id") String registrationId);
@@ -130,6 +132,11 @@ public interface ApiService {
                                                         @Field("phone") String phone ,
                                                         @Field("new_password") String newPassword,
                                                         @Field("confirm_password") String confirmPassword);
+
+  @FormUrlEncoded @POST("app/api/user/forgetpassword")
+  LinkCall<BaseResultDataInfo<EmptyBean>> forgetpassword(@Field("verif_code") String verifycode,
+                                                        @Field("phone") String phone ,
+                                                        @Field("password") String password);
 
   @FormUrlEncoded @POST("app/api/user/beforemodifyschool")
   LinkCall<BaseResultDataInfo<SchoolListBean>> getSchoolList(@Field("token") String token);

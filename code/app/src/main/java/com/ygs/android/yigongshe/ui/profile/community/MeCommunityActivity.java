@@ -21,6 +21,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.community.CommunityDetailActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -70,7 +71,7 @@ public class MeCommunityActivity extends BaseActivity {
                 CommunityItemBean itemBean = ((CommunityItemBean) adapter.getItem(position));
                 bundle.putInt("pubcircle_id", itemBean.pubcircleid);
                 bundle.putSerializable("item", itemBean);
-                goToOthersForResult(MeCommunityActivity.class, bundle, 2);
+                goToOthersForResult(CommunityDetailActivity.class, bundle, 2);
             }
         });
 
