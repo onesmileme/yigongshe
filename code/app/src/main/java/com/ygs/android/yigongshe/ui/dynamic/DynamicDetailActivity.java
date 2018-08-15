@@ -41,6 +41,9 @@ public class DynamicDetailActivity extends BaseDetailActivity {
     mTitle = bundle.getString("news_title");
     mType = TYPE_DYNAMIC;
     mShareBean = (ShareBean) bundle.getSerializable("shareBean");
+    if (mShareBean == null){
+      mShareBean = new ShareBean("",null,null);
+    }
   }
 
   @Override protected void initView() {
