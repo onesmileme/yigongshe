@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,13 +26,14 @@ import com.ygs.android.yigongshe.bean.response.ScrollPicResponse;
 import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
+import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
+import com.ygs.android.yigongshe.ui.community.CitySelectActivity;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
 import com.ygs.android.yigongshe.view.ActivityStatusTypeView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TopBannerCard;
-import java.util.ArrayList;
 import java.util.List;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -62,6 +64,15 @@ public class ActivityFragment extends BaseFragment
 
   @Override protected void initView() {
     EventBus.getDefault().register(this);
+    mTitleBar.getLeftCustomView().setOnClickListener(new View.OnClickListener() {
+      @Override public void onClick(View view) {
+        Bundle bundle = new Bundle();
+        Intent intent = new Intent(getActivity(), CitySelectActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, 0);
+      }
+    });
+
     errorView =
         getLayoutInflater().inflate(R.layout.error_view, (ViewGroup) mRecyclerView.getParent(),
             false);
@@ -254,5 +265,20 @@ public class ActivityFragment extends BaseFragment
     //else if (event instanceof UpdateEvent && ((UpdateEvent) event).getPage() == 1) {
     //  refresh();
     //}
+  }
+
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      case 0:
+        if (null != data) {
+          Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+          String key = bundle.getString("key");
+          TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
+
+          view.setText(key);
+          refresh();
+        }
+        break;
+    }
   }
 }

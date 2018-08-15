@@ -111,7 +111,12 @@ public class MyDecoration extends RecyclerView.ItemDecoration {
   //由于Divider也有长宽高，每一个Item需要向下或者向右偏移
   @Override public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
       RecyclerView.State state) {
-    if (mOrientation == HORIZONTAL_LIST) {
+    //int childAdapterPosition = parent.getChildAdapterPosition(view);
+    //if (childAdapterPosition == 0) {
+    //  outRect.set(0, 0, 0, 0);
+    //  return;
+    //}
+    if (mOrientation == VERTICAL_LIST) {
       //画横线，就是往下偏移一个分割线的高度
       outRect.set(0, 0, 0, mDivider.getIntrinsicHeight());
     } else {

@@ -130,18 +130,22 @@ public class ActivityDetailActivity extends BaseDetailActivity {
               mStatusOn.setVisibility(View.VISIBLE);
               mStatusFinish.setVisibility(View.GONE);
               if (data.is_register == 1) {//报名
-                signup.setTextColor(getResources().getColor(R.color.black1));
-                signup.setBackgroundResource(R.drawable.bg_hassignup);
+                //signup.setTextColor(getResources().getColor(R.color.black1));
+                //signup.setBackgroundResource(R.drawable.bg_hassignup);
+                signup.setText("已报名");
               } else {
-                signup.setTextColor(getResources().getColor(R.color.white));
-                signup.setBackgroundResource(R.drawable.bg_signup);
+                //signup.setTextColor(getResources().getColor(R.color.white));
+                //signup.setBackgroundResource(R.drawable.bg_signup);
+                signup.setText("报名");
               }
               if (data.is_signin == 1) {
-                signin.setTextColor(getResources().getColor(R.color.black1));
-                signin.setBackgroundResource(R.drawable.bg_hassignin);
+                //signin.setTextColor(getResources().getColor(R.color.black1));
+                //signin.setBackgroundResource(R.drawable.bg_hassignin);
+                signin.setText("已签到");
               } else {
-                signin.setTextColor(getResources().getColor(R.color.white));
-                signin.setBackgroundResource(R.drawable.bg_signup);
+                //signin.setTextColor(getResources().getColor(R.color.white));
+                //signin.setBackgroundResource(R.drawable.bg_signup);
+                signin.setText("签到");
               }
             }
           }
@@ -202,8 +206,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             if (entity != null) {
               if (entity.error == 2000) {
                 Toast.makeText(ActivityDetailActivity.this, "报名成功", Toast.LENGTH_SHORT).show();
-                ((TextView) view).setTextColor(getResources().getColor(R.color.black1));
-                view.setBackgroundResource(R.drawable.bg_hassignup);
+                //((TextView) view).setTextColor(getResources().getColor(R.color.black1));
+                //view.setBackgroundResource(R.drawable.bg_hassignup);
+                ((TextView) view).setText("已报名");
               } else {
                 Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
               }
@@ -224,8 +229,9 @@ public class ActivityDetailActivity extends BaseDetailActivity {
             if (entity != null) {
               if (entity.error == 2000) {
                 Toast.makeText(ActivityDetailActivity.this, "签到成功", Toast.LENGTH_SHORT).show();
-                ((TextView) view).setTextColor(getResources().getColor(R.color.black1));
-                view.setBackgroundResource(R.drawable.bg_hassignin);
+                //((TextView) view).setTextColor(getResources().getColor(R.color.black1));
+                //view.setBackgroundResource(R.drawable.bg_hassignin);
+                ((TextView) view).setText("已签到");
               } else {
                 Toast.makeText(ActivityDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
               }

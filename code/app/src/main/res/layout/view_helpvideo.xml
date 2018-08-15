@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_margin="15dp"
   android:background="@color/white"
   android:orientation="vertical"
-  android:padding="15dp">
+  android:paddingTop="15dp">
 
   <TextView
     android:layout_width="wrap_content"
@@ -15,17 +14,17 @@
     android:textColor="@color/black1"
     android:textSize="14dp" />
 
-  <TextView
-    android:id="@+id/whatsvideo"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
-    android:drawableLeft="@drawable/whatscall"
-    android:drawablePadding="8dp"
-    android:text="什么是视频"
-    android:textColor="@color/gray2"
-    android:textSize="10dp" />
+  <!--<TextView-->
+  <!--android:id="@+id/whatsvideo"-->
+  <!--android:layout_width="wrap_content"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:layout_gravity="center_horizontal"-->
+  <!--android:layout_marginTop="10dp"-->
+  <!--android:drawableLeft="@drawable/whatscall"-->
+  <!--android:drawablePadding="8dp"-->
+  <!--android:text="什么是视频"-->
+  <!--android:textColor="@color/gray2"-->
+  <!--android:textSize="10dp" />-->
 
   <!--<android.support.v7.widget.RecyclerView-->
   <!--android:id="@+id/video_list"-->
@@ -34,7 +33,10 @@
   <!--android:layout_gravity="center_horizontal" />-->
   <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="60dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginTop="10dp">
 
     <ImageView
       android:id="@+id/videoView"
@@ -53,6 +55,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     android:layout_marginTop="10dp"
     android:background="@drawable/bg_helpvideo"
     android:gravity="center"
@@ -61,4 +65,10 @@
     android:text="更多视频"
     android:textColor="@color/white"
     android:textSize="14dp" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:layout_marginTop="15dp"
+    android:background="#e6e6e6" />
 </LinearLayout>

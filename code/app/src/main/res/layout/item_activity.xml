@@ -32,9 +32,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="title"
-        android:textSize="16dp"
-
-        />
+        android:textColor="@color/black1"
+        android:textSize="14dp" />
 
       <TextView
         android:id="@+id/time"
@@ -44,14 +43,14 @@
         android:layout_alignParentRight="true"
         android:text="2017-11-11"
         android:textColor="#999999"
-        android:textSize="12dp" />
+        android:textSize="10dp" />
 
       <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="通过活动育人，建立图书室的心灵书屋，培养潜能，开发通过活动育人，建立图书室的心灵书屋，培养潜能，开发"
@@ -72,7 +71,6 @@
       android:layout_height="8dp"
       android:layout_marginTop="8dp"
       android:max="100"
-      android:progress="10"
       android:progressDrawable="@drawable/progressbar" />
 
     <TextView

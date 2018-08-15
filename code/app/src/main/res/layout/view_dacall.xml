@@ -2,9 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:background="#f4f4f4"
+  android:background="@color/white"
   android:orientation="vertical"
-  android:padding="15dp">
+  android:paddingTop="15dp">
 
   <TextView
     android:layout_width="wrap_content"
@@ -14,21 +14,22 @@
     android:textColor="@color/black1"
     android:textSize="14dp" />
 
-  <TextView
-    android:id="@+id/whatscall"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:layout_marginTop="8dp"
-    android:drawableLeft="@drawable/whatscall"
-    android:drawablePadding="8dp"
-    android:text="什么是打call"
-    android:textColor="@color/gray2"
-    android:textSize="10dp" />
+  <!--<TextView-->
+  <!--android:id="@+id/whatscall"-->
+  <!--android:layout_width="wrap_content"-->
+  <!--android:layout_height="wrap_content"-->
+  <!--android:layout_gravity="center_horizontal"-->
+  <!--android:layout_marginTop="8dp"-->
+  <!--android:drawableLeft="@drawable/whatscall"-->
+  <!--android:drawablePadding="8dp"-->
+  <!--android:text="什么是打call"-->
+  <!--android:textColor="@color/gray2"-->
+  <!--android:textSize="10dp" />-->
 
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
     android:gravity="center">
 
     <ImageView
@@ -55,8 +56,13 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:layout_marginTop="10dp"
+    android:layout_marginTop="5dp"
     android:text="@string/dacallstatus"
     android:textColor="@color/gray2"
     android:textSize="10dp" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:layout_marginTop="15dp"
+    android:background="#e6e6e6" />
 </LinearLayout>

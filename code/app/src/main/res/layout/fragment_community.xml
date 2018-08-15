@@ -23,8 +23,8 @@
       android:layout_marginRight="15dp"
       android:gravity="center"
       android:text="+"
-      android:textColor="@color/gray2"
-      android:textSize="20dp" />
+      android:textColor="@color/green"
+      android:textSize="25dp" />
   </RelativeLayout>
 
   <android.support.v4.widget.SwipeRefreshLayout

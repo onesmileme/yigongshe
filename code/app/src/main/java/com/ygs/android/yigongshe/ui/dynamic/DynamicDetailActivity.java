@@ -103,7 +103,7 @@ public class DynamicDetailActivity extends BaseDetailActivity {
             //String htmlText = "<html>"
             //    + "<head>"
             //    + "<style type=\"text/css\">"
-            //    + "body{padding-left: 10px;padding-right: 10px;padding-top: 10px;padding-bottom: 10px;}"
+            //    + "body{padding-left: 14px;padding-right: 14px;}"
             //    + "</style>"
             //    + "</head>";
             createtitle.setText(data.news_info.title);

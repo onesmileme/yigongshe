@@ -57,7 +57,7 @@ public class CommunityFragment extends BaseFragment {
   private static final String T_ASSO = "association";
   private static final String T_FOLLOW = "follow";
   private String[] typeList = new String[] { "", T_ASSO, T_FOLLOW };
-  private final int TOPIC_CITY_SELECT = 0;
+  public final int TOPIC_CITY_SELECT = 0;
   private final int PUBLISH_COMMUNITY = 1;
   private final int COMMUNITY_DETAIL = 2;
   private View errorView;
