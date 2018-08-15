@@ -290,7 +290,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
                 (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             // 隐藏软键盘
             imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
-            mRecyclerView.smoothScrollToPosition(2);
+            mRecyclerView.smoothScrollToPosition(1);
             requestCommentData(mType, true);
           } else {
             Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();
