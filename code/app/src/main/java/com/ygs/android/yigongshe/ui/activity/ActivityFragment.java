@@ -61,6 +61,7 @@ public class ActivityFragment extends BaseFragment
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   AccountManager mAccountManager = YGApplication.accountManager;
   //private View noDataView;
+  private String mCity;
 
   @Override protected void initView() {
     EventBus.getDefault().register(this);
@@ -146,7 +147,7 @@ public class ActivityFragment extends BaseFragment
     mAdapter.setEnableLoadMore(false);
 
     mCall = LinkCallHelper.getApiService()
-        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken());
+        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken(), mCity);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,
@@ -175,7 +176,7 @@ public class ActivityFragment extends BaseFragment
 
   private void loadMore() {
     mCall = LinkCallHelper.getApiService()
-        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken());
+        .getActivityLists(pageCnt, _COUNT, cate, progress, mAccountManager.getToken(), mCity);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ActivityListResponse>>() {
       @Override
       public void onResponse(BaseResultDataInfo<ActivityListResponse> entity, Response<?> response,
@@ -261,6 +262,7 @@ public class ActivityFragment extends BaseFragment
       TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
 
       view.setText(((LocationEvent) event).getCityname());
+      mCity = ((LocationEvent) event).getCityname();
     }
     //else if (event instanceof UpdateEvent && ((UpdateEvent) event).getPage() == 1) {
     //  refresh();
@@ -276,6 +278,7 @@ public class ActivityFragment extends BaseFragment
           TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
 
           view.setText(key);
+          mCity = key;
           refresh();
         }
         break;
