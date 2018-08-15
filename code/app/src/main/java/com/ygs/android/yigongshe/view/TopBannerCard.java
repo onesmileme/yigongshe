@@ -125,9 +125,9 @@ public class TopBannerCard extends BaseCard {
       if (mType == 0) {
         Glide.with(mContext)
             .load(mList.get(position).pic)
-            .placeholder(R.drawable.loading2)
-            .error(R.drawable.loading2)
-            .fallback(R.drawable.loading2)
+            //.placeholder(R.drawable.loading2)
+            //.error(R.drawable.loading2)
+            //.fallback(R.drawable.loading2)
             .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
             .into(iv);
       } else {

@@ -6,7 +6,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -45,9 +44,10 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
       helper.setVisible(R.id.pic, true);
       Glide.with(mContext)
           .load(item.pic)
-          .placeholder(R.drawable.loading2)
-          .error(R.drawable.loading2)
-          .fallback(R.drawable.loading2)
+          //.placeholder(R.drawable.loading2)
+          //.error(R.drawable.loading2)
+          //.fallback(R.drawable.loading2)
+          .thumbnail(0.1f)
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into((ImageView) helper.getView(R.id.pic));
     }
@@ -68,9 +68,9 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     helper.addOnClickListener(R.id.attention);
     helper.addOnClickListener(R.id.iv_markgood);
 
-    if (accountManager.getUserid() == item.create_id){
+    if (accountManager.getUserid() == item.create_id) {
       helper.setVisible(R.id.attention, false);
-    }else {
+    } else {
       helper.setVisible(R.id.attention, true);
       if (item.is_follow == 0) {
         helper.setBackgroundRes(R.id.attention, R.drawable.bg_unattention);

@@ -2,11 +2,9 @@ package com.ygs.android.yigongshe.ui.dynamic;
 
 import android.widget.ImageView;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.DynamicItemBean;
 import com.ygs.android.yigongshe.view.GlideRoundTransform;
 
@@ -25,11 +23,11 @@ public class DynamicAdapter extends BaseQuickAdapter<DynamicItemBean, BaseViewHo
   @Override protected void convert(final BaseViewHolder helper, DynamicItemBean item) {
     Glide.with(mContext)
         .load(item.pic)
-        .placeholder(R.drawable.loading2)
-        .error(R.drawable.loading2)
-        .fallback(R.drawable.loading2)
+        //.placeholder(R.drawable.loading2)
+        //.error(R.drawable.loading2)
+        //.fallback(R.drawable.loading2)
         .thumbnail(0.1f)
-        .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
+        .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext, 4))
         .into((ImageView) helper.getView(id.img));
 
     helper.setText(id.title, item.title);

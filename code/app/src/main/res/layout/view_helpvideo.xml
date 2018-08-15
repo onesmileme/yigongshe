@@ -41,7 +41,8 @@
     <ImageView
       android:id="@+id/videoView"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"
+      android:background="@drawable/loading2" />
 
     <ImageView
       android:layout_width="15dp"

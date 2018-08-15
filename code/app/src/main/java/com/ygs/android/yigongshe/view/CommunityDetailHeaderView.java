@@ -74,9 +74,9 @@ public class CommunityDetailHeaderView {
       mPic.setVisibility(View.VISIBLE);
       Glide.with(mContext)
           .load(item.pic)
-          .placeholder(R.drawable.loading2)
-          .error(R.drawable.loading2)
-          .fallback(R.drawable.loading2)
+          //.placeholder(R.drawable.loading2)
+          //.error(R.drawable.loading2)
+          //.fallback(R.drawable.loading2)
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into(mPic);
     }

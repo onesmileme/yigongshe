@@ -21,9 +21,10 @@ public class ActivityAdapter extends BaseQuickAdapter<ActivityItemBean, BaseView
   @Override protected void convert(final BaseViewHolder helper, ActivityItemBean item) {
     Glide.with(mContext)
         .load(item.pic)
-        .placeholder(R.drawable.loading2)
-        .error(R.drawable.loading2)
-        .fallback(R.drawable.loading2)
+        //.placeholder(R.drawable.loading2)
+        //.error(R.drawable.loading2)
+        //.fallback(R.drawable.loading2)
+        .thumbnail(0.1f)
         .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
         .into((ImageView) helper.getView(R.id.img));
 

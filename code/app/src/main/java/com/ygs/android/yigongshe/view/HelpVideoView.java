@@ -64,9 +64,9 @@ public class HelpVideoView {
     if (data != null) {
       Glide.with(context)
           .load(data.thumbnail)
-          .placeholder(R.drawable.loading2)
-          .error(R.drawable.loading2)
-          .fallback(R.drawable.loading2)
+          //.placeholder(R.drawable.loading2)
+          //.error(R.drawable.loading2)
+          //.fallback(R.drawable.loading2)
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into(mVideoView);
     } else {
