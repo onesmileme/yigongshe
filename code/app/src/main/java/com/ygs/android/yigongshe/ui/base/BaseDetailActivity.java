@@ -182,6 +182,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == 2000) {
+          //showLoading(false);
           CommentListResponse data = entity.data;
           pageCnt = data.page;
           ++pageCnt;
@@ -190,6 +191,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         } else {
+          //showLoading(false);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
         }
@@ -288,6 +290,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
                 (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             // 隐藏软键盘
             imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+            mRecyclerView.smoothScrollToPosition(2);
             requestCommentData(mType, true);
           } else {
             Toast.makeText(BaseDetailActivity.this, entity.msg, Toast.LENGTH_SHORT).show();

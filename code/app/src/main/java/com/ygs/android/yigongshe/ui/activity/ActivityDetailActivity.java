@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -102,53 +104,64 @@ public class ActivityDetailActivity extends BaseDetailActivity {
       @Override public void onResponse(BaseResultDataInfo<ActivityDetailResponse> entity,
           Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        showLoading(false);
         if (entity != null && entity.error == 2000) {
-          showLoading(false);
-          ActivityDetailResponse data = entity.data;
+          //showLoading(false);
+          final ActivityDetailResponse data = entity.data;
           if (data != null) {
             mShareBean.url = data.share_url;
-            requestCommentData(TYPE_ACTIVITY, true);
-            createtitle.setText(data.title);
-            createName.setText("发起方:" + data.create_name);
-            createDate.setText(data.create_at + " 发布");
+
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
-            mDaCallView.setDacallViewData(data);
-            if (data.is_store == 1) {
-              isStore = true;
-              mShoucang.setImageResource(R.drawable.yishoucang);
-            } else {
-              isStore = false;
-              mShoucang.setImageResource(R.drawable.shoucang);
-            }
-            if (data.is_end == 1) {
-              mStatusOn.setVisibility(View.GONE);
-              mStatusFinish.setVisibility(View.VISIBLE);
-              mPeopleNum.setText(data.participate_count + "");
-            } else {
-              mStatusOn.setVisibility(View.VISIBLE);
-              mStatusFinish.setVisibility(View.GONE);
-              if (data.is_register == 1) {//报名
-                //signup.setTextColor(getResources().getColor(R.color.black1));
-                //signup.setBackgroundResource(R.drawable.bg_hassignup);
-                signup.setText("已报名");
-              } else {
-                //signup.setTextColor(getResources().getColor(R.color.white));
-                //signup.setBackgroundResource(R.drawable.bg_signup);
-                signup.setText("报名");
+
+            mWebView.setWebChromeClient(new WebChromeClient() {
+              public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                  showLoading(false);
+                  requestCommentData(TYPE_ACTIVITY, true);
+                  createtitle.setText(data.title);
+                  createName.setText("发起方:" + data.create_name);
+                  createDate.setText(data.create_at + " 发布");
+
+                  mDaCallView.setDacallViewData(data);
+                  if (data.is_store == 1) {
+                    isStore = true;
+                    mShoucang.setImageResource(R.drawable.yishoucang);
+                  } else {
+                    isStore = false;
+                    mShoucang.setImageResource(R.drawable.shoucang);
+                  }
+                  if (data.is_end == 1) {
+                    mStatusOn.setVisibility(View.GONE);
+                    mStatusFinish.setVisibility(View.VISIBLE);
+                    mPeopleNum.setText(data.participate_count + "");
+                  } else {
+                    mStatusOn.setVisibility(View.VISIBLE);
+                    mStatusFinish.setVisibility(View.GONE);
+                    if (data.is_register == 1) {//报名
+                      //signup.setTextColor(getResources().getColor(R.color.black1));
+                      //signup.setBackgroundResource(R.drawable.bg_hassignup);
+                      signup.setText("已报名");
+                    } else {
+                      //signup.setTextColor(getResources().getColor(R.color.white));
+                      //signup.setBackgroundResource(R.drawable.bg_signup);
+                      signup.setText("报名");
+                    }
+                    if (data.is_signin == 1) {
+                      //signin.setTextColor(getResources().getColor(R.color.black1));
+                      //signin.setBackgroundResource(R.drawable.bg_hassignin);
+                      signin.setText("已签到");
+                    } else {
+                      //signin.setTextColor(getResources().getColor(R.color.white));
+                      //signin.setBackgroundResource(R.drawable.bg_signup);
+                      signin.setText("签到");
+                    }
+                  }
+                }
               }
-              if (data.is_signin == 1) {
-                //signin.setTextColor(getResources().getColor(R.color.black1));
-                //signin.setBackgroundResource(R.drawable.bg_hassignin);
-                signin.setText("已签到");
-              } else {
-                //signin.setTextColor(getResources().getColor(R.color.white));
-                //signin.setBackgroundResource(R.drawable.bg_signup);
-                signin.setText("签到");
-              }
-            }
+            });
           }
+        } else {
+          showLoading(false);
         }
       }
     });

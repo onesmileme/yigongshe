@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -92,26 +93,37 @@ public class DynamicDetailActivity extends BaseDetailActivity {
       public void onResponse(BaseResultDataInfo<DynamicDetailResponse> entity, Response<?> response,
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
-        showLoading(false);
         if (entity != null && entity.error == 2000) {
-          showLoading(false);
-          DynamicDetailResponse data = entity.data;
+          final DynamicDetailResponse data = entity.data;
           if (data != null && data.news_info != null && !TextUtils.isEmpty(
               data.news_info.content)) {
             mShareBean.url = data.news_info.share_url;
-            requestCommentData(TYPE_DYNAMIC, true);
             //String htmlText = "<html>"
             //    + "<head>"
             //    + "<style type=\"text/css\">"
             //    + "body{padding-left: 14px;padding-right: 14px;}"
             //    + "</style>"
             //    + "</head>";
-            createtitle.setText(data.news_info.title);
-            createName.setText("发布机构 " + data.news_info.create_name);
-            createDate.setText(data.news_info.create_at + " 发布");
+
             mWebView.loadDataWithBaseURL(null, /**htmlText + **/data.news_info.content, "text/html",
                 "utf-8", null);
+
+            mWebView.setWebChromeClient(new WebChromeClient() {
+              public void onProgressChanged(WebView view, int newProgress) {
+                if (newProgress == 100) {
+                  showLoading(false);
+                  createtitle.setText(data.news_info.title);
+                  createName.setText("发布机构 " + data.news_info.create_name);
+                  createDate.setText(data.news_info.create_at + " 发布");
+                  requestCommentData(TYPE_DYNAMIC, true);
+                }
+              }
+            });
           }
+        } else
+
+        {
+          showLoading(false);
         }
       }
     });
