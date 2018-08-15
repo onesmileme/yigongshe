@@ -72,13 +72,11 @@ public class CommunityDetailHeaderView {
       mPic.setVisibility(View.GONE);
     } else {
       mPic.setVisibility(View.VISIBLE);
-      Glide.with(mContext)
-          .load(item.pic)
+      Glide.with(mContext).load(item.pic)
           //.placeholder(R.drawable.loading2)
           //.error(R.drawable.loading2)
           //.fallback(R.drawable.loading2)
-          .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
-          .into(mPic);
+          .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext)).into(mPic);
     }
 
     mCreateDate.setText(item.create_at);
@@ -91,8 +89,17 @@ public class CommunityDetailHeaderView {
         mAttention.setBackgroundResource(R.drawable.bg_unattention);
         mAttention.setTextColor(mContext.getResources().getColor(R.color.green));
         mAttention.setText("+关注");
-        mAttention.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View view) {
+      } else {
+        mAttention.setBackgroundResource(R.drawable.bg_attention);
+        mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
+        mAttention.setText("取消关注");
+      }
+      mAttention.setOnClickListener(new View.OnClickListener() {
+        @Override public void onClick(View view) {
+          if (item.is_follow == 0) {
+            //mAttention.setBackgroundResource(R.drawable.bg_unattention);
+            //mAttention.setTextColor(mContext.getResources().getColor(R.color.green));
+            //mAttention.setText("+关注");
             LinkCall<BaseResultDataInfo<AttentionResponse>> attention =
                 LinkCallHelper.getApiService()
                     .attentionUser(item.create_id, accountManager.getToken());
@@ -113,14 +120,10 @@ public class CommunityDetailHeaderView {
                 }
               }
             });
-          }
-        });
-      } else {
-        mAttention.setBackgroundResource(R.drawable.bg_attention);
-        mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
-        mAttention.setText("取消关注");
-        mAttention.setOnClickListener(new View.OnClickListener() {
-          @Override public void onClick(View view) {
+          } else {
+            //mAttention.setBackgroundResource(R.drawable.bg_attention);
+            //mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
+            //mAttention.setText("取消关注");
             LinkCall<BaseResultDataInfo<UnAttentionResponse>> unattention =
                 LinkCallHelper.getApiService()
                     .unAttentionUser(item.create_id, accountManager.getToken());
@@ -138,8 +141,8 @@ public class CommunityDetailHeaderView {
               }
             });
           }
-        });
-      }
+        }
+      });
     }
     mMarkGood.setText(item.like_num + "");
 
@@ -165,7 +168,7 @@ public class CommunityDetailHeaderView {
                 if (entity.error == 2000) {
                   Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
                   mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
-                  mMarkGood.setText(item.like_num + "");
+                  mMarkGood.setText(item.like_num + 1);
                   mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
                   item.is_like = 1;
                 } else {
