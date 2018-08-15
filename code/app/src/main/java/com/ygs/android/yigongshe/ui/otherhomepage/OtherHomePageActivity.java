@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.bean.EmptyBean;
+import com.ygs.android.yigongshe.bean.FollowPersonItemBean;
 import com.ygs.android.yigongshe.bean.OtherUserInfoBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.net.ApiStatus;
@@ -18,10 +19,13 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.activity.OtherActivitiesActivity;
 import com.ygs.android.yigongshe.ui.profile.community.OtherCommunityActivity;
+import com.ygs.android.yigongshe.ui.profile.focus.MeFocusActivity;
 import com.ygs.android.yigongshe.ui.profile.message.MsgTalkActivity;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.view.CircleImageView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
+
+import java.util.List;
 
 import butterknife.BindView;
 import retrofit2.Response;
@@ -126,12 +130,17 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
         phoneTextView.setText(otherUserInfoBean.phone);
 
         Boolean followed = "1".equals(otherUserInfoBean.is_followed);
-        followBtn.setText(followed?R.string.followed:R.string.follow);
-        followBtn.setEnabled(!followed);
-
+        followBtn.setText(followed?R.string.unfollow:R.string.follow);
     }
 
     private void doFollow(){
+
+        Boolean followed = "1".equals(userInfoBean.is_followed);
+        if (followed){
+            unfollow();
+            return;
+        }
+
         String token = YGApplication.accountManager.getToken();
         LinkCall<BaseResultDataInfo<EmptyBean>> followCall = LinkCallHelper.getApiService().doFollow(token,userId);
         followCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
@@ -147,6 +156,30 @@ public class OtherHomePageActivity extends BaseActivity implements View.OnClickL
                         msg += "("+entity.msg+")";
                     }
                     Toast.makeText(OtherHomePageActivity.this,msg,Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void unfollow() {
+
+        String token = YGApplication.accountManager.getToken();
+        LinkCall<BaseResultDataInfo<EmptyBean>> unfollowCall = LinkCallHelper.getApiService().unFollow(token,
+            userInfoBean.userId);
+        unfollowCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
+            @Override
+            public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
+                super.onResponse(entity, response, throwable);
+                if (entity != null && entity.error == ApiStatus.OK) {
+                    userInfoBean.is_followed = "0";
+                    followBtn.setText(R.string.follow);
+                    Toast.makeText(OtherHomePageActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
+                } else {
+                    String msg = "取消关注失败";
+                    if (entity != null && entity.msg != null) {
+                        msg += "(" + entity.msg + ")";
+                    }
+                    Toast.makeText(OtherHomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
