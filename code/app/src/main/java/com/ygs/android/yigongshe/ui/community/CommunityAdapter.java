@@ -79,7 +79,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
       } else {
         helper.setBackgroundRes(R.id.attention, R.drawable.bg_attention);
 
-        helper.setText(R.id.attention, "已关注");
+        helper.setText(R.id.attention, "取消关注");
         helper.setTextColor(R.id.attention, mContext.getResources().getColor(R.color.white));
       }
     }

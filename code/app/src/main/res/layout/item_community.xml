@@ -4,15 +4,14 @@
   android:layout_height="wrap_content"
   android:background="@color/white"
   android:orientation="horizontal"
-  android:paddingBottom="14dp"
-  android:paddingTop="14dp">
+  android:paddingBottom="14dp">
 
   <ImageView
     android:id="@+id/createAvatar"
     android:layout_width="30dp"
     android:layout_height="30dp"
     android:layout_marginLeft="14dp"
-    android:layout_marginTop="14dp"
+    android:layout_marginTop="6dp"
     android:scaleType="centerCrop" />
 
   <LinearLayout
@@ -25,13 +24,13 @@
 
     <RelativeLayout
       android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="14dp">
+      android:layout_height="wrap_content">
 
       <TextView
         android:id="@+id/createName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         android:text="清华大学益工社"
         android:textColor="@color/black1"
         android:textSize="13dp"
