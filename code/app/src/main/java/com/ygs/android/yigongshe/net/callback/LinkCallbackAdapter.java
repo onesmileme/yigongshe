@@ -1,10 +1,19 @@
 package com.ygs.android.yigongshe.net.callback;
 
+import android.content.Intent;
 import android.support.annotation.CallSuper;
 import android.util.Log;
+import android.widget.Toast;
+import com.ygs.android.yigongshe.YGApplication;
+import com.ygs.android.yigongshe.account.AccountManager;
+import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
+import com.ygs.android.yigongshe.net.ApiStatus;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
+import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import java.io.IOException;
 import retrofit2.Response;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 /**
  * Created by Joker on 2016/2/19.
@@ -14,6 +23,18 @@ public class LinkCallbackAdapter<T> implements LinkCallback<T> {
   private static final String TAG = LinkCallbackAdapter.class.getSimpleName();
 
   @Override public void onResponse(T entity, Response<?> response, Throwable throwable) {
+    if (entity != null
+        && entity instanceof BaseResultInfo
+        && ((BaseResultInfo) entity).error == ApiStatus.TOKEN_ERROR) {
+      {
+        AccountManager accountManager = YGApplication.accountManager;
+        accountManager.updateToken(null, null);
+        Toast.makeText(YGApplication.mApplication, "token失效，重新登录", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(YGApplication.mApplication, LoginActivity.class);
+        intent.addFlags(FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        YGApplication.mApplication.startActivity(intent);
+      }
+    }
   }
 
   @Override public void success(T entity, LinkCall call) {

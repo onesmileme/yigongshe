@@ -9,11 +9,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Converter;
 import retrofit2.Retrofit;
 
-/**
- * 创建时间: 2016/09/22 18:29 <br>
- * 作者: panwei <br>
- * 描述:
- */
 
 public class TextResponseBodyConverter extends Converter.Factory {
 
