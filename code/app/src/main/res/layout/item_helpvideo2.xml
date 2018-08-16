@@ -57,46 +57,46 @@
         android:textColor="@color/black1"
         android:textSize="13dp" />
 
-      <TextView
-        android:id="@+id/createDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/createName"
-        android:layout_alignParentRight="true"
-        android:text="2017-02-04"
-        android:textColor="@color/gray2"
-        android:textSize="10dp" />
+        <TextView
+            android:id="@+id/markgood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/createName"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/gray2"
+            android:textSize="10dp"
+            android:text="1"/>
 
+        <ImageView
+            android:id="@+id/iv_markgood"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_alignBottom="@id/createName"
+            android:layout_marginRight="4dp"
+            android:layout_toLeftOf="@id/markgood"
+            android:src="@drawable/markgood" />
 
-      <TextView
-        android:id="@+id/markgood"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/createName"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/createDate"
-        android:textColor="@color/gray2"
-        android:textSize="10dp" />
+        <TextView
+            android:id="@+id/createDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/createName"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/iv_markgood"
+            android:text="2017-02-04"
+            android:textColor="@color/gray2"
+            android:textSize="10dp" />
 
-      <ImageView
-        android:id="@+id/iv_markgood"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:layout_alignBottom="@id/createName"
-        android:layout_marginRight="4dp"
-        android:layout_toLeftOf="@id/markgood"
-        android:src="@drawable/markgood" />
-
-      <TextView
-        android:id="@+id/delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/createName"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@id/iv_markgood"
-        android:text="删除"
-        android:textColor="@color/dark_red"
-        android:textSize="10dp" />
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/createName"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/createDate"
+            android:text="删除"
+            android:textColor="@color/dark_red"
+            android:textSize="10dp" />
     </RelativeLayout>
   </LinearLayout>
 
