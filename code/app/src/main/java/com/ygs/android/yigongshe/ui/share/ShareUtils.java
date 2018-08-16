@@ -35,7 +35,7 @@ import com.ygs.android.yigongshe.utils.StringUtil;
  */
 
 public class ShareUtils {
-  public static final String WX_APP_ID = "wx397a918840390b93";
+  public static final String WX_APP_ID = "wxb191f1bdb8fb4ca0";
   public static final String WeiBo_APP_ID = "3718455954"; //App Key
   public static final String WeiBo_APP_SECRET = "5474c77225cfb99fadc866a2eb5e59b0";
   private IWXAPI mIWXAPI;

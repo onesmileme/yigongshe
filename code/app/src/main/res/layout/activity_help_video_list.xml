@@ -13,6 +13,7 @@
     titlebar:centerType="textView"
     titlebar:leftType="imageButton"
     titlebar:rightText="+"
+    titlebar:rightTextSize="25dp"
     titlebar:rightType="textView" />
 
   <com.ygs.android.yigongshe.view.TitleBarTabView
