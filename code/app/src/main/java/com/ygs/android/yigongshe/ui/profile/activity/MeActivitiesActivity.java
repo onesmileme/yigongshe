@@ -8,6 +8,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -45,6 +46,9 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
 
     @BindView(R.id.swipeLayout)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.my_no_acitvity_tv)
+    TextView noActivityTextView;
 
     private List<ActivityItemBean> mRegisterActivities;
     private List<ActivityItemBean> mStoredActivities;
@@ -141,6 +145,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     @Override
     public void onSegmentChanged(int newSelectedIndex) {
 
+        noActivityTextView.setVisibility(View.GONE);
         switch (newSelectedIndex) {
             case 0: {
                 if (mRegisterActivities == null) {
@@ -172,6 +177,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     }
 
     private void loadData(boolean isRefresh) {
+        noActivityTextView.setVisibility(View.GONE);
         switch (segmentControlView.getSelectedIndex()) {
             case 0: {
                 loadRestisterAcitivities(isRefresh);
@@ -218,6 +224,9 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                         }
 
                         mRegisterPage = pageIndex;
+                        noActivityTextView.setVisibility(View.GONE);
+                    }else{
+                        noActivityTextView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     String msg = "加载失败";
@@ -259,6 +268,10 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                                 mActivityAdapter.notifyDataSetChanged();
                             }
                         }
+                        mStoredPage = pageIndex;
+                        noActivityTextView.setVisibility(View.GONE);
+                    }else{
+                        noActivityTextView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     String msg = "加载失败";
@@ -276,7 +289,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
 
     private void loadSignedActivities(final boolean isRefresh) {
         String token = YGApplication.accountManager.getToken();
-        int pageIndex = isRefresh?0: mSignedPage+1;
+        final int pageIndex = isRefresh?0: mSignedPage+1;
         LinkCall<BaseResultDataInfo<MyActivityBean>> activityCall = LinkCallHelper.getApiService().getMySigninActivity(
             token, pageIndex);
         activityCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MyActivityBean>>() {
@@ -299,6 +312,10 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
                                 mActivityAdapter.notifyDataSetChanged();
                             }
                         }
+                        mSignedPage = pageIndex;
+                        noActivityTextView.setVisibility(View.GONE);
+                    }else{
+                        noActivityTextView.setVisibility(View.VISIBLE);
                     }
                 } else {
                     String msg = "加载失败";

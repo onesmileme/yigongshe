@@ -38,8 +38,19 @@
         app:scv_TextArray="@array/activities_segs"
         app:scv_TextNormalColor="@color/gray2"
         app:scv_TextSelectedColor="@color/white"
-
         app:scv_TextSize="12dp" />
+
+    <TextView
+        android:id="@+id/my_no_acitvity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        android:text="@string/no_acitivity"
+        android:textColor="@color/gray1"
+        android:padding="10dp"
+        android:visibility="gone"
+        />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"

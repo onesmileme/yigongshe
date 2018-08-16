@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -198,7 +199,7 @@ public class MsgTalkActivity extends BaseActivity {
 
     private void sendTalk(String content) {
 
-        if (content == null || content.length() == 0) {
+        if (TextUtils.isEmpty(content)) {
             return;
         }
 

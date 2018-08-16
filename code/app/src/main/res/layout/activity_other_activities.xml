@@ -16,6 +16,41 @@
         titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
 
+    <com.ygs.android.yigongshe.view.SegmentControlView
+        android:id="@+id/other_activity_segment"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="45dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/gray3"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:scv_BackgroundNormalColor="@color/gray3"
+        app:scv_BackgroundSelectedColor="@color/green"
+        app:scv_FrameColor="#c1c1c1"
+        app:scv_FrameCornerRadius="2dp"
+        app:scv_FrameWidth="1dp"
+        app:scv_SegmentPaddingHorizontal="50dp"
+        app:scv_SegmentPaddingVertical="10dp"
+        app:scv_TextArray="@array/activities_segs"
+        app:scv_TextNormalColor="@color/gray2"
+        app:scv_TextSelectedColor="@color/white"
+        app:scv_TextSize="12dp" />
+
+    <TextView
+        android:id="@+id/other_no_acitvity_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        android:text="@string/no_acitivity"
+        android:textColor="@color/gray1"
+        android:padding="10dp"
+        android:visibility="gone"
+        />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
         android:layout_width="match_parent"

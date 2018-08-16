@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/titlebar"
@@ -37,7 +38,7 @@
         android:layout_marginTop="30dp"
         android:inputType="phone"
         android:text="@string/phone_num"
-        android:textColor="@color/gray1"
+        android:textColor="@color/gray2"
         android:textSize="12dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_login_tip">
@@ -53,7 +54,8 @@
         android:background="@drawable/register_round_bg"
         android:hint="@string/input_phone_hint"
         android:paddingLeft="10dp"
-        android:textColor="@color/gray1"
+        android:textColor="@color/black1"
+        android:textColorHint="@color/gray4"
         android:textSize="12dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_phone_tip"
         app:layout_constraintLeft_toRightOf="@+id/login_phone_tip"
@@ -65,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/password"
-        android:textColor="@color/gray1"
+        android:textColor="@color/gray2"
         android:textSize="12dp"
         app:layout_constraintLeft_toLeftOf="@+id/login_phone_tip"
         app:layout_constraintRight_toRightOf="@+id/login_phone_tip"
@@ -80,6 +82,8 @@
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:textSize="12dp"
+        android:textColor="@color/black1"
+        android:textColorHint="@color/gray4"
         app:layout_constraintBaseline_toBaselineOf="@+id/login_password_tip"
         app:layout_constraintLeft_toLeftOf="@+id/login_phone_et"
         app:layout_constraintRight_toRightOf="@+id/login_phone_et"
@@ -121,9 +125,7 @@
         android:textColor="@color/green"
         app:layout_constraintLeft_toLeftOf="@+id/login_login_btn"
         app:layout_constraintRight_toRightOf="@+id/login_login_btn"
-        app:layout_constraintTop_toBottomOf="@+id/login_login_btn"
-
-        />
+        app:layout_constraintTop_toBottomOf="@+id/login_login_btn" />
 
 
 </android.support.constraint.ConstraintLayout>
