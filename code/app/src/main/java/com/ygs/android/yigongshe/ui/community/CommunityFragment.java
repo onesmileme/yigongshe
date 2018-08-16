@@ -218,7 +218,7 @@ public class CommunityFragment extends BaseFragment {
               }
             });
           }
-        } else if (view.getId() == R.id.iv_markgood) {
+        } else if (view.getId() == R.id.ll_markgood) {
           final CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
           //if (itemBean.is_like == 0) {
           LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
@@ -232,11 +232,16 @@ public class CommunityFragment extends BaseFragment {
                   Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
                   mList.get(position).is_like = 1;
                   mList.get(position).like_num = itemBean.like_num + 1;
-                  ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
-                  TextView tv =
-                      (TextView) adapter.getViewByPosition(mRecyclerView, position, R.id.markgood);
-                  tv.setTextColor(getResources().getColor(R.color.green));
-                  tv.setText(mList.get(position).like_num + "");
+                  ((ImageView) view.findViewById(R.id.iv_markgood)).setImageResource(
+                      R.drawable.hasmarkgood);
+
+                  // ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
+                  // TextView tv1 = (TextView) adapter.getViewByPosition(mRecyclerView, position,
+                  //     R.id.tv_markgood);
+
+                  TextView tv1 = view.findViewById(R.id.tv_markgood);
+                  tv1.setTextColor(getResources().getColor(R.color.green));
+                  tv1.setText(mList.get(position).like_num + "");
                 } else {
                   Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                 }

@@ -64,9 +64,9 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     helper.setText(R.id.content, spannableString);
 
     helper.setText(R.id.createDate, item.create_at);
-    helper.setText(R.id.markgood, item.like_num + "");
+    helper.setText(R.id.tv_markgood, item.like_num + "");
     helper.addOnClickListener(R.id.attention);
-    helper.addOnClickListener(R.id.iv_markgood);
+    helper.addOnClickListener(R.id.ll_markgood);
 
     if (accountManager.getUserid() == item.create_id) {
       helper.setVisible(R.id.attention, false);
@@ -84,13 +84,12 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
       }
     }
     if (item.is_like == 0) {
-      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.gray2));
+      helper.setTextColor(R.id.tv_markgood, mContext.getResources().getColor(R.color.gray2));
       helper.setImageResource(R.id.iv_markgood, R.drawable.markgood);
     } else {
-      helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.green));
+      helper.setTextColor(R.id.tv_markgood, mContext.getResources().getColor(R.color.green));
       helper.setImageResource(R.id.iv_markgood, R.drawable.hasmarkgood);
     }
-    helper.addOnClickListener(R.id.iv_markgood);
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
       helper.setVisible(R.id.delete, true);

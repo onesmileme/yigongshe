@@ -106,29 +106,37 @@
       android:textColor="@color/gray1"
       android:textSize="10dp" />
 
-    <ImageView
-      android:id="@+id/iv_markgood"
-      android:layout_width="12dp"
-      android:layout_height="12dp"
-      android:layout_marginRight="4dp"
-      android:layout_toLeftOf="@+id/markgood"
-      android:src="@drawable/markgood" />
 
-    <TextView
-      android:id="@+id/markgood"
+    <LinearLayout
+      android:id="@+id/ll_markgood"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:text="233"
-      android:textColor="@color/gray2"
-      android:textSize="10dp" />
+      android:layout_alignParentRight="true">
+
+      <ImageView
+        android:id="@+id/iv_markgood"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:src="@drawable/markgood" />
+
+      <TextView
+        android:id="@+id/tv_markgood"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+
+        android:textColor="@color/gray2"
+        android:textSize="10dp" />
+
+
+    </LinearLayout>
 
     <TextView
       android:id="@+id/delete"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginRight="5dp"
-      android:layout_toLeftOf="@id/iv_markgood"
+      android:layout_toLeftOf="@id/ll_markgood"
       android:background="@color/transparent"
       android:paddingLeft="5dp"
       android:paddingRight="5dp"
