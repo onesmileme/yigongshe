@@ -1,8 +1,12 @@
 package com.ygs.android.yigongshe.view;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +71,16 @@ public class CommunityDetailHeaderView {
         .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
         .into(mAvatar);
     mCreateName.setText(item.create_name);
-    mContent.setText(item.topic + item.content);
+    String strContent = "";
+    if (!TextUtils.isEmpty(item.topic)) {
+      mTopic.setText("#" + item.topic + "#");
+      //strContent = "<font color = '#7cc576'> " + "#" + item.topic + "#" + "</font>";
+      strContent = "#" + item.topic + "#";
+    }
+    SpannableString spannableString = new SpannableString(strContent + item.content);
+    spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#7cc576")), 0,
+        strContent.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+    mContent.setText(spannableString);
     if (TextUtils.isEmpty(item.pic)) {
       mPic.setVisibility(View.GONE);
     } else {
@@ -80,7 +93,6 @@ public class CommunityDetailHeaderView {
     }
 
     mCreateDate.setText(item.create_at);
-    mTopic.setText(item.topic);
     if (YGApplication.accountManager.getUserid() == item.create_id) {
       mAttention.setVisibility(View.INVISIBLE);
     } else {
