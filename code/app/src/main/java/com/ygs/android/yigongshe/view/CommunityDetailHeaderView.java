@@ -157,27 +157,28 @@ public class CommunityDetailHeaderView {
 
     {
       @Override public void onClick(View view) {
-        if (item.is_like == 0) {
-          LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
-              .likeCircle(item.pubcircleid, accountManager.getToken());
-          like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
-            @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
-                Response<?> response, Throwable throwable) {
-              super.onResponse(entity, response, throwable);
-              if (entity != null) {
-                if (entity.error == 2000) {
-                  Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
-                  mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
-                  mMarkGood.setText(item.like_num + 1);
-                  mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
-                  item.is_like = 1;
-                } else {
-                  Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
-                }
+        //if (item.is_like == 0) {
+        LinkCall<BaseResultDataInfo<ListLikeResponse>> like =
+            LinkCallHelper.getApiService().likeCircle(item.pubcircleid, accountManager.getToken());
+        like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
+          @Override
+          public void onResponse(BaseResultDataInfo<ListLikeResponse> entity, Response<?> response,
+              Throwable throwable) {
+            super.onResponse(entity, response, throwable);
+            if (entity != null) {
+              if (entity.error == 2000) {
+                Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
+                mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
+                mMarkGood.setText(item.like_num + 1);
+                mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
+                item.is_like = 1;
+              } else {
+                Toast.makeText(mContext, entity.msg, Toast.LENGTH_SHORT).show();
               }
             }
-          });
-        }
+          }
+        });
+        //}
       }
     });
 

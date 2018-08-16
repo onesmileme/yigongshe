@@ -44,6 +44,7 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
       avatar.setOnClickListener(mAvatarListener);
     }
     helper.setText(R.id.createName, item.create_name);
+    helper.setText(R.id.createtitle, item.create_vtag);
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.content, item.content);
     if (!TextUtils.isEmpty(accountManager.getToken())

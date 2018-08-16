@@ -93,6 +93,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
     requestHelpVideoData();
   }
 
+  private boolean hasEntered = false;
+
   private void requestDetailData() {
     if (!NetworkUtils.isConnected(this)) {
       showError(true);
@@ -115,7 +117,8 @@ public class ActivityDetailActivity extends BaseDetailActivity {
 
             mWebView.setWebChromeClient(new WebChromeClient() {
               public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
+                if (newProgress == 100 && !hasEntered) {
+                  hasEntered = true;
                   showLoading(false);
                   requestCommentData(TYPE_ACTIVITY, true);
                   createtitle.setText(data.title);

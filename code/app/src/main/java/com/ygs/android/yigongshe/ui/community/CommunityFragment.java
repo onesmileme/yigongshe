@@ -220,30 +220,30 @@ public class CommunityFragment extends BaseFragment {
           }
         } else if (view.getId() == R.id.iv_markgood) {
           final CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
-          if (itemBean.is_like == 0) {
-            LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
-                .likeCircle(itemBean.pubcircleid, accountManager.getToken());
-            like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
-              @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
-                  Response<?> response, Throwable throwable) {
-                super.onResponse(entity, response, throwable);
-                if (entity != null) {
-                  if (entity.error == 2000) {
-                    Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
-                    mList.get(position).is_like = 1;
-                    mList.get(position).like_num = itemBean.like_num + 1;
-                    ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
-                    TextView tv = (TextView) adapter.getViewByPosition(mRecyclerView, position,
-                        R.id.markgood);
-                    tv.setTextColor(getResources().getColor(R.color.green));
-                    tv.setText(mList.get(position).like_num + "");
-                  } else {
-                    Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
-                  }
+          //if (itemBean.is_like == 0) {
+          LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
+              .likeCircle(itemBean.pubcircleid, accountManager.getToken());
+          like.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ListLikeResponse>>() {
+            @Override public void onResponse(BaseResultDataInfo<ListLikeResponse> entity,
+                Response<?> response, Throwable throwable) {
+              super.onResponse(entity, response, throwable);
+              if (entity != null) {
+                if (entity.error == 2000) {
+                  Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
+                  mList.get(position).is_like = 1;
+                  mList.get(position).like_num = itemBean.like_num + 1;
+                  ((ImageView) view).setImageResource(R.drawable.hasmarkgood);
+                  TextView tv =
+                      (TextView) adapter.getViewByPosition(mRecyclerView, position, R.id.markgood);
+                  tv.setTextColor(getResources().getColor(R.color.green));
+                  tv.setText(mList.get(position).like_num + "");
+                } else {
+                  Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                 }
               }
-            });
-          }
+            }
+          });
+          //}
         } else if (view.getId() == R.id.delete) {
           CommunityItemBean itemBean = (CommunityItemBean) adapter.getItem(position);
           LinkCall<BaseResultDataInfo<CircleDeleteResponse>> deleteCircle =

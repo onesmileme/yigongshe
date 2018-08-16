@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -37,29 +38,37 @@ public class SlpashActivity extends BaseActivity {
   }
 
   private void iniImage() {
+    //
+    //ScaleAnimation scaleAnim =
+    //    new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f,
+    //        Animation.RELATIVE_TO_SELF, 0.5f);
+    //
+    //scaleAnim.setFillAfter(true);
+    //scaleAnim.setDuration(2000);
+    //scaleAnim.setAnimationListener(new Animation.AnimationListener() {
+    //  @Override public void onAnimationStart(Animation animation) {
+    //
+    //  }
+    //
+    //  @Override public void onAnimationEnd(Animation animation) {
+    //    //在这里做一些初始化的操作
+    //    //跳转到指定的Activity
+    //    goToOthers(LoginActivity.class, null);
+    //    finish();
+    //  }
+    //
+    //  @Override public void onAnimationRepeat(Animation animation) {
+    //
+    //  }
+    //});
+    //mSplash.startAnimation(scaleAnim);
 
-    ScaleAnimation scaleAnim =
-        new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f,
-            Animation.RELATIVE_TO_SELF, 0.5f);
-
-    scaleAnim.setFillAfter(true);
-    scaleAnim.setDuration(1000);
-    scaleAnim.setAnimationListener(new Animation.AnimationListener() {
-      @Override public void onAnimationStart(Animation animation) {
-
-      }
-
-      @Override public void onAnimationEnd(Animation animation) {
-        //在这里做一些初始化的操作
-        //跳转到指定的Activity
+    Handler mHandler = new Handler();
+    mHandler.postDelayed(new Runnable() {
+      @Override public void run() {
         goToOthers(LoginActivity.class, null);
         finish();
       }
-
-      @Override public void onAnimationRepeat(Animation animation) {
-
-      }
-    });
-    mSplash.startAnimation(scaleAnim);
+    }, 2000);
   }
 }

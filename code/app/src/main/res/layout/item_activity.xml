@@ -12,7 +12,6 @@
   <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:orientation="horizontal">
 
     <ImageView
@@ -74,48 +73,59 @@
       android:max="100"
       android:progressDrawable="@drawable/progressbar" />
 
-    <TextView
-      android:id="@+id/current_pro"
+    <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_alignParentLeft="true"
       android:layout_below="@id/progressbar_degree"
-      android:layout_marginLeft="10dp"
       android:layout_marginTop="6dp"
-      android:text="300"
-      android:textColor="@color/black1"
-      android:textSize="12dp" />
+      android:gravity="center_horizontal"
+      android:orientation="vertical">
 
-    <TextView
+      <TextView
+        android:id="@+id/current_pro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:textColor="@color/black1"
+        android:textSize="12dp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/current_pro"
+        android:layout_marginTop="6dp"
+        android:text="当前call值"
+        android:textColor="@color/gray2"
+        android:textSize="10dp" />
+    </LinearLayout>
+
+    <LinearLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_alignParentLeft="true"
-      android:layout_below="@id/current_pro"
-      android:layout_marginTop="6dp"
-      android:text="当前call值"
-      android:textColor="@color/gray2"
-      android:textSize="10dp" />
-
-    <TextView
-      android:id="@+id/totalPro"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:orientation="vertical"
       android:layout_alignParentRight="true"
       android:layout_below="@id/progressbar_degree"
-      android:layout_marginRight="7dp"
       android:layout_marginTop="6dp"
-      android:text="1000"
-      android:textColor="@color/black1"
-      android:textSize="12dp" />
+      android:gravity="center_horizontal"
+      >
 
-    <TextView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true"
-      android:layout_below="@id/totalPro"
-      android:layout_marginTop="6dp"
-      android:text="目标call值"
-      android:textColor="@color/gray2"
-      android:textSize="10dp" />
+      <TextView
+        android:id="@+id/totalPro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1000"
+        android:textColor="@color/black1"
+        android:textSize="12dp" />
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/totalPro"
+        android:layout_marginTop="6dp"
+        android:text="目标call值"
+        android:textColor="@color/gray2"
+        android:textSize="10dp" />
+    </LinearLayout>
   </RelativeLayout>
 </LinearLayout>

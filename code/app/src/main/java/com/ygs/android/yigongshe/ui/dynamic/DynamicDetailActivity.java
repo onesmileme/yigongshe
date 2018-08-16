@@ -41,8 +41,8 @@ public class DynamicDetailActivity extends BaseDetailActivity {
     mTitle = bundle.getString("news_title");
     mType = TYPE_DYNAMIC;
     mShareBean = (ShareBean) bundle.getSerializable("shareBean");
-    if (mShareBean == null){
-      mShareBean = new ShareBean("",null,null);
+    if (mShareBean == null) {
+      mShareBean = new ShareBean("", null, null);
     }
   }
 
@@ -81,6 +81,8 @@ public class DynamicDetailActivity extends BaseDetailActivity {
     mAdapter.addHeaderView(linearLayout);
   }
 
+  private boolean hasEntered = false;
+
   private void requestDetailData() {
     if (!NetworkUtils.isConnected(this)) {
       showError(true);
@@ -113,7 +115,8 @@ public class DynamicDetailActivity extends BaseDetailActivity {
 
             mWebView.setWebChromeClient(new WebChromeClient() {
               public void onProgressChanged(WebView view, int newProgress) {
-                if (newProgress == 100) {
+                if (newProgress == 100 && !hasEntered) {
+                  hasEntered = true;
                   showLoading(false);
                   createtitle.setText(data.news_info.title);
                   createName.setText("发布机构 " + data.news_info.create_name);

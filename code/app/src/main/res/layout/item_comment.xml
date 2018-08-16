@@ -32,6 +32,17 @@
       android:textStyle="bold" />
 
     <TextView
+      android:id="@+id/createtitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/createName"
+      android:layout_marginLeft="5dp"
+      android:layout_toRightOf="@id/createName"
+      android:background="@drawable/bg_createtitle"
+      android:textColor="@color/white"
+      android:textSize="12dp" />
+
+    <TextView
       android:id="@+id/createDate"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

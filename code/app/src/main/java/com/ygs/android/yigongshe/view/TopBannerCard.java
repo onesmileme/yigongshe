@@ -20,7 +20,6 @@ import com.ygs.android.yigongshe.bean.response.ScrollPicBean;
 import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.base.BaseCard;
 import com.ygs.android.yigongshe.utils.DensityUtil;
-
 import java.util.List;
 
 /**
@@ -133,9 +132,9 @@ public class TopBannerCard extends BaseCard {
       } else {
         Glide.with(mContext)
             .load(mList.get(position).pic)
-            .placeholder(R.drawable.loading2)
-            .error(R.drawable.loading2)
-            .fallback(R.drawable.loading2)
+            //.placeholder(R.drawable.loading2)
+            //.error(R.drawable.loading2)
+            //.fallback(R.drawable.loading2)
             .into(iv);
       }
       container.addView(iv);
