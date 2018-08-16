@@ -1,5 +1,7 @@
 package com.ygs.android.yigongshe.ui.profile.run;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,6 +22,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.io.IOException;
@@ -67,11 +70,16 @@ public class MeRunActivity extends BaseActivity {
             }
         });
 
+        CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this,
+            CDividerItemDecoration.VERTICAL_LIST, new ColorDrawable(Color.parseColor("#e0e0e0")));//
+        itemDecoration.setHeight(1);
+        recyclerView.addItemDecoration(itemDecoration);
+
         List<Integer> showList = new LinkedList<>();
         showList.add(1);
         MeSectionDecoration decoration = new MeSectionDecoration(showList, this);
         decoration.setHintHight(10);
-        recyclerView.addItemDecoration(decoration);
+        recyclerView.addItemDecoration(decoration,0);
 
         runAdapter = new MeRunAdapter(this);
         recyclerView.setAdapter(runAdapter);
@@ -124,6 +132,9 @@ public class MeRunActivity extends BaseActivity {
                         if (entity.getData().rank_list != null) {
                             lists.addAll(entity.getData().rank_list);
                         }
+
+                        lists.addAll(entity.getData().rank_list);
+
                         runAdapter.setNewData(lists);
                     } else {
                         lists = entity.getData().rank_list;
