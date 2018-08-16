@@ -4,7 +4,8 @@
     xmlns:titlebar="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <com.ygs.android.yigongshe.view.CommonTitleBar
         android:id="@+id/titlebar"
@@ -26,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:textColor="@color/black1"
+            android:textColor="@color/gray2"
             android:text="@string/nickname2"
             android:textSize="12dp"
             />
@@ -37,6 +38,8 @@
             android:id="@+id/change_nickname_et"
             android:hint="@string/input_nickname"
             android:textSize="12dp"
+            android:textColor="@color/black1"
+            android:textColorHint="@color/gray4"
             android:layout_marginLeft="13dp"
             android:paddingHorizontal="10dp"
             android:background="@drawable/apply_round_bg"/>

@@ -60,6 +60,7 @@
     <string name="this_year_charity_time">本年度公益时长</string>
     <string name="charity_time_rule">公益时间规划</string>
     <string name="confirm_approve_charity_time">申请确认公益时长</string>
+    <string name="confirm_apply_charity_time">申请公益时长</string>
     <string name="charity_medal">公益勋章</string>
     <string name="my_charity_time">我的公益时间</string>
     <string name="hour">小时</string>
@@ -68,7 +69,7 @@
     <string name="my_activity">我的活动</string>
     <string name="run_list">益行走</string>
     <string name="other_activity">TA的活动</string>
-    <string name="other_community">TA的以供圈</string>
+    <string name="other_community">TA的益工圈</string>
 
     <string name="ziliao">资料</string>
     <string name="avatar">头像</string>
@@ -92,7 +93,7 @@
     <string name="reinput_password_hint">请再次输入密码</string>
     <string name="cell_phone_2">手 机 号</string>
     <string name="captcha_code">验 证 码</string>
-    <string name="input_captcha_2_hint">请再次输入验证码</string>
+    <string name="input_captcha_2_hint">点击发送验证码</string>
     <string name="change_phone">修改手机号</string>
     <string name="change_avatar">修改头像</string>
     <string name="modify">修改</string>

@@ -23,9 +23,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/gray5">
+            android:background="@color/gray6">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -104,7 +104,7 @@
                     android:layout_marginTop="17dp"
                     android:background="@drawable/borderline_buttonstyle"
                     android:textSize="14dp"
-                    android:text="@string/confirm_approve_charity_time"
+                    android:text="@string/confirm_apply_charity_time"
                     android:textColor="@color/green"
                     android:id="@+id/me_charity_confirm_btn"/>
 

@@ -141,22 +141,26 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatus.OK){
-                    schoolListBean = entity.getData();
-                    provinces = new String[schoolListBean.school_list.size()];
+                    try {
+                        schoolListBean = entity.getData();
+                        provinces = new String[schoolListBean.school_list.size()];
 
-                    for (int i = 0 ; i < schoolListBean.school_list.size();i++){
-                        SchoolInfoBean schoolInfoBean = entity.getData().school_list.get(i);
-                        provinces[i] = schoolInfoBean.province;
+                        for (int i = 0; i < schoolListBean.school_list.size(); i++) {
+                            SchoolInfoBean schoolInfoBean = entity.getData().school_list.get(i);
+                            provinces[i] = schoolInfoBean.province;
+                        }
+
+                        cityAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
+                            R.layout.item_register_spinner, R.id.name_tv, provinces);
+                        String[] schools = {schoolListBean.cur_school};
+                        schoolAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
+                            R.layout.item_register_spinner, R.id.name_tv, schools);
+
+                        citySpinner.setAdapter(cityAdapter);
+                        schoolSpinner.setAdapter(schoolAdapter);
+                    }catch (Exception e){
+
                     }
-
-                    cityAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
-                        R.layout.item_register_spinner, R.id.name_tv,provinces);
-                    String[] schools = {schoolListBean.cur_school};
-                    schoolAdapter = new MeInfoChangeSchoolAdapter(MeInfoChangeSchoolActivity.this,
-                        R.layout.item_register_spinner, R.id.name_tv,schools);
-
-                    citySpinner.setAdapter(cityAdapter);
-                    schoolSpinner.setAdapter(schoolAdapter);
 
                 }else{
                     Toast.makeText(MeInfoChangeSchoolActivity.this,entity.msg,Toast.LENGTH_SHORT).show();

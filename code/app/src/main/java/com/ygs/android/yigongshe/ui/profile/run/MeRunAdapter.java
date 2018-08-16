@@ -45,7 +45,7 @@ public class MeRunAdapter extends BaseQuickAdapter<RunItemBean, BaseViewHolder> 
         nameTv.setText(item.username);
 
         ImageView avatarImageView = helper.getView(R.id.me_run_avatar_iv);
-        ImageLoadUtil.loadImage(avatarImageView, item.avatar);
+        ImageLoadUtil.loadImage(avatarImageView, item.avatar,R.drawable.defalutavar);
         helper.setText(R.id.me_run_steps_tv, item.step_count + "");
     }
 

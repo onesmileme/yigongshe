@@ -133,8 +133,6 @@ public class MeRunActivity extends BaseActivity {
                             lists.addAll(entity.getData().rank_list);
                         }
 
-                        lists.addAll(entity.getData().rank_list);
-
                         runAdapter.setNewData(lists);
                     } else {
                         lists = entity.getData().rank_list;
