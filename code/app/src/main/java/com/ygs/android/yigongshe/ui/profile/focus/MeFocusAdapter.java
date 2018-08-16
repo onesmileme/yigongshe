@@ -2,15 +2,19 @@ package com.ygs.android.yigongshe.ui.profile.focus;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.bean.FollowPersonItemBean;
 import com.ygs.android.yigongshe.bean.MeFocusBean;
+import com.ygs.android.yigongshe.ui.otherhomepage.OtherHomePageActivity;
 import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 
 public class MeFocusAdapter extends BaseQuickAdapter<FollowPersonItemBean,BaseViewHolder> {
@@ -29,7 +33,6 @@ public class MeFocusAdapter extends BaseQuickAdapter<FollowPersonItemBean,BaseVi
     protected void convert(BaseViewHolder helper, final FollowPersonItemBean item) {
 
         ImageView avatarImgView = helper.getView(R.id.me_focus_icon);
-        //Drawable placeholder = avatarImgView.getContext().getResources().getDrawable(R.drawable.defalutavar);
         ImageLoadUtil.loadImage(avatarImgView,item.avatar,R.drawable.defalutavar);
 
         helper.setText(R.id.me_focus_name_tv,item.name);
@@ -56,7 +59,6 @@ public class MeFocusAdapter extends BaseQuickAdapter<FollowPersonItemBean,BaseVi
                 }
             }
         });
-
     }
 
 }

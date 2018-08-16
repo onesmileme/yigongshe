@@ -5,7 +5,7 @@ import com.ygs.android.yigongshe.bean.MeFocusBean;
 
 public interface MeFocusFollowListener {
 
-    public void unfollow(FollowPersonItemBean focusBean);
+    void unfollow(FollowPersonItemBean focusBean);
 
-    public void follow(FollowPersonItemBean focusBean);
+    void follow(FollowPersonItemBean focusBean);
 }

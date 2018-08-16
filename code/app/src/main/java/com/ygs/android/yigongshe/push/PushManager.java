@@ -82,7 +82,7 @@ public class PushManager {
 
     public static Uri makeUri(String host, String query) {
 
-        if (!TextUtils.isEmpty(host)) {
+        if (TextUtils.isEmpty(host)) {
             return null;
         }
 
