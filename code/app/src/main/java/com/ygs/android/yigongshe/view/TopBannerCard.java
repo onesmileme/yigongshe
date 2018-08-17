@@ -83,8 +83,8 @@ public class TopBannerCard extends BaseCard {
         rb.setEnabled(false);
         mRg.addView(rb);
         LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(DensityUtil.dp2px(mContext, 8),
-                DensityUtil.dp2px(mContext, 8));
+            new LinearLayout.LayoutParams(DensityUtil.dp2px(mContext, 6),
+                DensityUtil.dp2px(mContext, 6));
         params.leftMargin = DensityUtil.dp2px(mContext, 10);
         params.bottomMargin = DensityUtil.dp2px(mContext, 10);
         rb.setLayoutParams(params);
