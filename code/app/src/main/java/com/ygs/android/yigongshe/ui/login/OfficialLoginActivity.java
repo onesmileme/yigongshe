@@ -28,7 +28,7 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import retrofit2.Response;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class OfficialLoginActivity extends BaseActivity implements View.OnClickListener {
 
   @BindView(R.id.login_login_btn) Button mLoginButton;
 
@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     super.onCreate(savedInstanceState);
     if (!TextUtils.isEmpty(accountManager.getToken())) {
       goToOthers(MainActivity.class, null);
-      LoginActivity.this.finish();
+      OfficialLoginActivity.this.finish();
     }
   }
 
@@ -73,15 +73,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     mOfficialLoginButton.setOnClickListener(this);
     mForgetButton.setOnClickListener(this);
 
-    //setTranslucentStatus(true);
-
-    ////for test
-    //mPhoneEditText.setText("18993368867");
-    //mPasswordEditText.setText("admin");
   }
 
   @Override protected int getLayoutResId() {
-    return R.layout.activity_login;
+    return R.layout.activity_official_login;
   }
 
   @Override public void onClick(View view) {
@@ -98,7 +93,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
   private void tryLogin() {
 
     if (mPhoneEditText.getText().length() == 0) {
-      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, "请输入用户名", Toast.LENGTH_LONG).show();
       return;
     } else if (mPasswordEditText.getText().length() == 0) {
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
@@ -109,10 +104,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
   }
 
   private void tryOfficialLogin() {
-
-    Bundle bundle = new Bundle();
-    goToOthers(OfficialLoginActivity.class,bundle);
-
+      Intent intent = new Intent(this,LoginActivity.class);
+      intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+      startActivity(intent);
   }
 
   private void forgetPassword() {
@@ -128,7 +122,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     String password = mPasswordEditText.getText().toString();
 
     if (phone.length() == 0) {
-      Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
+      Toast.makeText(this, "请输入用户名", Toast.LENGTH_LONG).show();
     } else if (password.length() == 0) {
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
     }
@@ -145,7 +139,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == ApiStatus.OK) {
           dismissDialog();
-          //Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
+          Log.e("LOGIN", "onResponse: login data is" + entity.msg + " " + entity.data.token);
           if (accountManager != null) {
             accountManager.updateToken(entity.data.token, entity.data.token_expire);
             accountManager.updateUserId(entity.data.userid);
@@ -153,18 +147,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             intent.setAction("com.ygs.android.yigongshe.login");
             intent.putExtra("token", entity.data.token);
             LocalBroadcastManager broadcastManager =
-                LocalBroadcastManager.getInstance(LoginActivity.this);
+                LocalBroadcastManager.getInstance(OfficialLoginActivity.this);
             broadcastManager.sendBroadcast(intent);
           }
           goToOthers(MainActivity.class, null);
-          LoginActivity.this.finish();
+          OfficialLoginActivity.this.finish();
         } else {
           dismissDialog();
           String msg = "登录失败";
           if (entity != null && entity.msg != null) {
             msg += "(" + entity.msg + ")";
           }
-          Toast.makeText(LoginActivity.this, msg, Toast.LENGTH_LONG).show();
+          Toast.makeText(OfficialLoginActivity.this, msg, Toast.LENGTH_LONG).show();
         }
       }
     });
