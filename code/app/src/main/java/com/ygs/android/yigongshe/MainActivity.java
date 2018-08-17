@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
   private DynamicFragment mDynamicFragment;
   private ActivityFragment mActivityFragment;
   private CommunityFragment mCommunityFragment;
-  private boolean mPushBinded ;
+  private boolean mPushBinded;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -206,10 +206,9 @@ public class MainActivity extends BaseActivity {
       showLogin();
     }
 
-    if (!mPushBinded){
+    if (!mPushBinded) {
       pushBind();
     }
-
   }
 
   @Override protected void onStop() {
@@ -257,32 +256,30 @@ public class MainActivity extends BaseActivity {
     startActivity(intent);
   }
 
-  private void pushBind(){
+  private void pushBind() {
     String token = YGApplication.accountManager.getToken();
-    if (TextUtils.isEmpty(token)){
+    if (TextUtils.isEmpty(token)) {
       return;
     }
     String registerId = PushManager.getInstance().getToken(this);
-    if (TextUtils.isEmpty(registerId)){
+    if (TextUtils.isEmpty(registerId)) {
       return;
     }
     PushManager.getInstance().setToken(registerId);
-    LinkCall<BaseResultDataInfo<EmptyBean>> call = LinkCallHelper.getApiService().pushBind(token,registerId);
-    call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
+    LinkCall<BaseResultDataInfo<EmptyBean>> call =
+        LinkCallHelper.getApiService().pushBind(token, registerId);
+    call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
 
-      @Override
-      public void success(BaseResultDataInfo<EmptyBean> entity, LinkCall call) {
+      @Override public void success(BaseResultDataInfo<EmptyBean> entity, LinkCall call) {
         super.success(entity, call);
-        if (entity != null && entity.error == ApiStatus.OK){
+        if (entity != null && entity.error == ApiStatus.OK) {
           mPushBinded = true;
         }
       }
     });
-
   }
 
-  @Override
-  protected boolean openTranslucentStatus() {
+  @Override protected boolean openTranslucentStatus() {
     return true;
   }
 
@@ -330,7 +327,7 @@ public class MainActivity extends BaseActivity {
     while (iterator.hasNext()) {
       SortModel sortModel = (SortModel) iterator.next();
       if (TextUtils.isEmpty(mCityName)) {
-        mCityName = "全国";
+        mCityName = "全部";
         EventBus.getDefault().post(new LocationEvent(mCityName));
         return;
       } else if (mCityName.contains(sortModel.getName())) {

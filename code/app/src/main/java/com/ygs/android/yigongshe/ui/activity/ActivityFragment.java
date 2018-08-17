@@ -260,9 +260,13 @@ public class ActivityFragment extends BaseFragment
   @Subscribe(threadMode = ThreadMode.MAIN) public void Event(BaseEvent event) {
     if (event instanceof LocationEvent) {
       TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
-
-      view.setText(((LocationEvent) event).getCityname());
-      mCity = ((LocationEvent) event).getCityname();
+      String name = ((LocationEvent) event).getCityname();
+      view.setText(name);
+      if ("全部".equals(name)) {
+        mCity = "";
+      } else {
+        mCity = name;
+      }
     }
     //else if (event instanceof UpdateEvent && ((UpdateEvent) event).getPage() == 1) {
     //  refresh();
@@ -278,7 +282,11 @@ public class ActivityFragment extends BaseFragment
           TextView view = mTitleBar.getLeftCustomView().findViewById(R.id.tv_location);
 
           view.setText(key);
-          mCity = key;
+          if ("全部".equals(key)) {
+            mCity = "";
+          } else {
+            mCity = key;
+          }
           refresh();
         }
         break;

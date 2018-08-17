@@ -47,7 +47,7 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
           //.placeholder(R.drawable.loading2)
           //.error(R.drawable.loading2)
           //.fallback(R.drawable.loading2)
-          .thumbnail(0.1f)
+          //.thumbnail(0.1f)
           .transform(new CenterCrop(mContext), new GlideRoundTransform(mContext))
           .into((ImageView) helper.getView(R.id.pic));
     }
