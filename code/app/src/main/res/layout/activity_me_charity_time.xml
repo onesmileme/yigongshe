@@ -48,30 +48,6 @@
                     android:background="@color/gray5"/>
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp">
-
-                    <ImageView
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/me_charity_time_rule_tv"
-                        android:src="@drawable/whatscall"
-                        />
-
-                    <TextView
-                        android:id="@+id/me_charity_time_rule_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/charity_time_rule"
-                        android:textColor="@color/gray2"
-                        android:textSize="10dp" />
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">

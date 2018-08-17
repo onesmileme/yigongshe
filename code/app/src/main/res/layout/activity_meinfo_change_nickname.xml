@@ -42,7 +42,7 @@
             android:textColorHint="@color/gray4"
             android:layout_marginLeft="13dp"
             android:paddingHorizontal="10dp"
-            android:background="@drawable/apply_round_bg"/>
+            android:background="@drawable/register_round_bg"/>
     </LinearLayout>
     
     <Button

@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/apply_round_bg">
+            android:background="@drawable/register_round_bg">
 
             <EditText
                 android:id="@+id/phone_et"
@@ -55,7 +55,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="10dp"
-                android:background="@color/gray5"
+                android:background="@color/gray6"
                 android:hint="@string/input_phone_hint"
                 android:inputType="number"
                 android:paddingLeft="5dp"
@@ -104,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/apply_round_bg"
+            android:background="@drawable/register_round_bg"
             android:hint="@string/input_captcha_hint"
             android:inputType="number"
             android:paddingLeft="10dp"
