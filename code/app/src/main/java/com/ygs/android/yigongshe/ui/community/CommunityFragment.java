@@ -33,6 +33,7 @@ import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommunityListHeader;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TitleBarTabView;
@@ -66,6 +67,7 @@ public class CommunityFragment extends BaseFragment {
   private String mTopicStr, mCityStr;
   AccountManager accountManager = YGApplication.accountManager;
   private View noDataView;
+  private ZProgressHUD hud;
 
   @Override protected void initView() {
     errorView =
@@ -76,7 +78,7 @@ public class CommunityFragment extends BaseFragment {
             false);
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
-        refresh();
+        refresh(true);
       }
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -88,7 +90,7 @@ public class CommunityFragment extends BaseFragment {
     initRefreshLayout();
     mSwipeRefreshLayout.setRefreshing(true);
     mSwipeRefreshLayout.setEnabled(true);
-    refresh();
+    refresh(false);
   }
 
   private void initTitleBarTabView() {
@@ -115,7 +117,7 @@ public class CommunityFragment extends BaseFragment {
       @Override public void onTabChecked(int position) {
         if (position == mTitleBarTabView.getCurrentTabPos()) {
           mType = typeList[position];
-          refresh();
+          refresh(true);
         }
       }
     });
@@ -124,7 +126,7 @@ public class CommunityFragment extends BaseFragment {
   private void initRefreshLayout() {
     mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
       @Override public void onRefresh() {
-        refresh();
+        refresh(false);
       }
     });
   }
@@ -261,7 +263,7 @@ public class CommunityFragment extends BaseFragment {
               if (entity != null) {
                 if (entity.error == 2000) {
                   Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
-                  refresh();
+                  refresh(true);
                 } else {
                   Toast.makeText(getActivity(), entity.msg, Toast.LENGTH_SHORT).show();
                 }
@@ -277,11 +279,20 @@ public class CommunityFragment extends BaseFragment {
     return R.layout.fragment_community;
   }
 
-  private void refresh() {
+  private void refresh(final boolean showHud) {
     if (!NetworkUtils.isConnected(getActivity())) {
       mAdapter.setEmptyView(errorView);
       return;
     }
+
+    final ZProgressHUD hud ;
+    if (showHud) {
+      hud = ZProgressHUD.getInstance(this.getContext());
+      hud.show();
+    }else{
+      hud = null;
+    }
+
     mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecyclerView.getParent());
     pageCnt = 1;
     mAdapter.setEnableLoadMore(false);
@@ -309,6 +320,10 @@ public class CommunityFragment extends BaseFragment {
           mAdapter.setEmptyView(errorView);
           mAdapter.setEnableLoadMore(true);
           mSwipeRefreshLayout.setRefreshing(false);
+        }
+
+        if (showHud){
+          hud.dismiss();
         }
       }
     });
@@ -352,6 +367,7 @@ public class CommunityFragment extends BaseFragment {
     }
   }
 
+  @Override
   public void onActivityResult(int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
       case TOPIC_CITY_SELECT:
@@ -373,12 +389,12 @@ public class CommunityFragment extends BaseFragment {
             }
           }
           mCommunityListHeader.setViewData(id, key);
-          refresh();
+          refresh(true);
         }
         break;
       case PUBLISH_COMMUNITY:
       case COMMUNITY_DETAIL:
-        refresh();
+        refresh(true);
         break;
     }
   }
