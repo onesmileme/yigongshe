@@ -44,7 +44,8 @@ import retrofit2.Response;
 
 public class RegisterActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener {
 
-    @BindView(R.id.titlebar) CommonTitleBar titleBar;
+    //@BindView(R.id.titlebar) CommonTitleBar titleBar;
+    @BindView(R.id.login_login_btn) Button mLoginButton;
 
     @BindView(R.id.register_phone_et) EditText mPhoneEditText;
 
@@ -93,18 +94,6 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
 
     @Override
     public void initView() {
-
-        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-            @Override
-            public void onClicked(View v, int action, String extra) {
-                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
-                    finish();
-                } else if (action == CommonTitleBar.ACTION_RIGHT_TEXT || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-                    showLogin();
-                }
-            }
-        });
-
         mUserTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -172,7 +161,8 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         return R.layout.activity_resiter;
     }
 
-    @OnClick({R.id.register_register_btn, R.id.register_calendar_btn, R.id.send_captcha_btn,R.id.register_school_et})
+    @OnClick({R.id.register_register_btn, R.id.register_calendar_btn,
+        R.id.send_captcha_btn,R.id.register_school_et,R.id.login_login_btn})
     public void click(View view) {
 
         if (view == mRegisterButton) {
@@ -183,6 +173,8 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
             sendCaptcha();
         }else if(view == mSchoolEditText){
             chooseSchool();
+        }else if(view == mLoginButton) {
+            showLogin();
         }
     }
 
@@ -191,6 +183,18 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.startActivity(intent);
+    }
+
+    private String phoneTip(String phone){
+        if (TextUtils.isEmpty(phone)){
+            return "请输入手机号";
+        }
+
+        if (phone.length() != 11 || !phone.startsWith("1")){
+            return "请输入正确的手机号";
+        }
+
+        return null;
     }
 
     private void doRegister() {
@@ -204,10 +208,8 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         String password = mPasswordEditText.getText().toString();
         String confirmPassword = mConfirmPasswordEditText.getText().toString();
 
-        String msg = null;
-        if (TextUtils.isEmpty(phone)) {
-            msg = "请输入手机号";
-        }  else if (TextUtils.isEmpty(verifyCode)) {
+        String msg = phoneTip(phone);
+        if (TextUtils.isEmpty(verifyCode)) {
             msg = "请输入验证码";
         } else if (TextUtils.isEmpty(password)) {
             msg = "请输入密码";
@@ -215,7 +217,10 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
             msg = "请输入确认密码";
         } else if (!password.equals(confirmPassword)) {
             msg = "两次密码不一致";
+        } else if (password.length() < 6){
+            msg = "密码至少6位";
         }
+
         if (SOCIETY_PEOPLE.equals(mUserType)){
             school = "";
             academy = "";
@@ -279,14 +284,14 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
                 LinearLayout mSpinners = (LinearLayout)findViewById(
                     getContext().getResources().getIdentifier("android:id/pickers", null, null));
                 if (mSpinners != null) {
-                    NumberPicker mMonthSpinner = (NumberPicker)findViewById(
-                        getContext().getResources().getIdentifier("android:id/month", null, null));
+                    //NumberPicker mMonthSpinner = (NumberPicker)findViewById(
+                    //    getContext().getResources().getIdentifier("android:id/month", null, null));
                     NumberPicker mYearSpinner = (NumberPicker)findViewById(
                         getContext().getResources().getIdentifier("android:id/year", null, null));
                     mSpinners.removeAllViews();
-                    if (mMonthSpinner != null) {
-                        mSpinners.addView(mMonthSpinner);
-                    }
+                    //if (mMonthSpinner != null) {
+                    //    mSpinners.addView(mMonthSpinner);
+                    //}
                     if (mYearSpinner != null) {
                         mSpinners.addView(mYearSpinner);
                     }
@@ -408,11 +413,14 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (SCHOOL_CHOOSE_CODE == requestCode){
+            try {
+                Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
+                String name = bundle.getString("name");
+                if (!TextUtils.isEmpty(name)) {
+                    mSchoolEditText.setText(name);
+                }
+            }catch (Exception e){
 
-            Bundle bundle = data.getBundleExtra(BaseActivity.PARAM_INTENT);
-            String name = bundle.getString("name");
-            if (!TextUtils.isEmpty(name)){
-                mSchoolEditText.setText(name);
             }
 
         }

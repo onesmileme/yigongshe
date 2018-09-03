@@ -13,7 +13,10 @@
         titlebar:centerText="@string/my_charity_time"
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
-        titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
+        titlebar:leftType="imageButton"
+        titlebar:rightType="textView"
+        titlebar:rightText="@string/record"
+        titlebar:rightTextColor="@color/green"/>
 
 
     <ScrollView

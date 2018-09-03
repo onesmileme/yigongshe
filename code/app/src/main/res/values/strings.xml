@@ -112,6 +112,7 @@
     <string name="operate">操作</string>
     <string name="talk_input_hint">说点什么吧~</string>
     <string name="no_acitivity">暂无活动</string>
+    <string name="record">记录</string>
 
     <string name="done">完成</string>
     <string name="topicSelect">#%1s#</string>

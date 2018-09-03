@@ -50,7 +50,17 @@ public class ResetPasswdActivity extends BaseActivity {
     protected void initIntent(Bundle bundle) {}
 
     @Override
-    protected void initView() {}
+    protected void initView() {
+
+        titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
+            @Override
+            public void onClicked(View v, int action, String extra) {
+                if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
+                    finish();
+                }
+            }
+        });
+    }
 
     @Override
     protected int getLayoutResId() {

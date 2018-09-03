@@ -6,24 +6,30 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-    <com.ygs.android.yigongshe.view.CommonTitleBar
+    <RelativeLayout
         android:id="@+id/titlebar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        titlebar:centerType="textView"
-        titlebar:leftDrawable="@drawable/arrow_back"
-        titlebar:leftType="imageButton"
-        titlebar:rightText="@string/register"
-        titlebar:rightTextColor="@color/green"
-        titlebar:rightTextSize="12dp"
-        titlebar:rightType="textView"/>
+        android:layout_height="70dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/login_register_btn"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textColor="@color/colorPrimary"
+            android:background="@color/transparent"
+            android:textSize="14dp"
+            android:text="@string/register"/>
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/login_login_tip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="@string/login"
         android:textAlignment="center"
         android:textColor="@color/gray1"

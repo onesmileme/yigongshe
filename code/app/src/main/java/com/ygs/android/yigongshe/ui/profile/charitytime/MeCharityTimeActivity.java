@@ -18,6 +18,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.profile.apply.MeApplyActivity;
+import com.ygs.android.yigongshe.ui.profile.record.MeRecordListActivity;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -59,6 +60,8 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
             public void onClicked(View v, int action, String extra) {
                 if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
                     finish();
+                }else if (action == CommonTitleBar.ACTION_RIGHT_TEXT){
+                    showRecord();
                 }
             }
         });
@@ -86,6 +89,12 @@ public class MeCharityTimeActivity extends BaseActivity implements View.OnClickL
             bundle.putInt("duration",mCharityDurationBean.duration);
             goToOthers(MeApplyActivity.class,bundle);
         }
+    }
+
+    private void showRecord(){
+
+        goToOthers(MeRecordListActivity.class,null);
+
     }
 
     private void loadData() {

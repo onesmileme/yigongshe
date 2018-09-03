@@ -1,6 +1,7 @@
 package com.ygs.android.yigongshe.ui.login;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -40,7 +41,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @BindView(R.id.login_password_et) EditText mPasswordEditText;
 
-  @BindView(R.id.titlebar) CommonTitleBar titleBar;
+  //@BindView(R.id.titlebar) CommonTitleBar titleBar;
+
+  @BindView(R.id.login_register_btn) Button mRegisterButton;
   private AccountManager accountManager = YGApplication.accountManager;
 
   private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
@@ -58,21 +61,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @Override protected void initView() {
 
-    titleBar.setListener(new CommonTitleBar.OnTitleBarListener() {
-      @Override public void onClicked(View v, int action, String extra) {
-        if (action == CommonTitleBar.ACTION_LEFT_BUTTON) {
-          finish();
-        } else if (action == CommonTitleBar.ACTION_RIGHT_TEXT
-            || action == CommonTitleBar.ACTION_RIGHT_BUTTON) {
-          doRegister();
-        }
-      }
-    });
-
     mLoginButton.setOnClickListener(this);
     mOfficialLoginButton.setOnClickListener(this);
     mForgetButton.setOnClickListener(this);
-
+    mRegisterButton.setOnClickListener(this);
     //setTranslucentStatus(true);
 
     ////for test
@@ -92,6 +84,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
       tryOfficialLogin();
     } else if (view == mForgetButton) {
       forgetPassword();
+    }else if (view == mRegisterButton) {
+      showRegisterAlert();
     }
   }
 
@@ -121,6 +115,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     startActivity(intent);
   }
 
+  private void showRegisterAlert() {
+
+    new AlertDialog.Builder(this)
+        .setMessage("放弃正在注册的信息，前往登录页面？")
+        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+
+          }
+        })
+        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+      @Override
+      public void onClick(DialogInterface dialog, int which) {
+        doRegister();
+      }
+    }).show();
+
+  }
+
   private void loginAction() {
     showDialog();
 
@@ -129,8 +142,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     if (phone.length() == 0) {
       Toast.makeText(this, "请输入手机号", Toast.LENGTH_LONG).show();
+      return;
     } else if (password.length() == 0) {
       Toast.makeText(this, "请输入密码", Toast.LENGTH_LONG).show();
+      return;
+    } else if (password.length() < 6){
+      Toast.makeText(this, "密码至少6位", Toast.LENGTH_LONG).show();
+      return;
     }
 
     String token = PushManager.getInstance().getToken(this);
