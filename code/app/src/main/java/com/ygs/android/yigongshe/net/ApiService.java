@@ -426,6 +426,13 @@ public interface ApiService {
       @Field("token") String token);
 
   /**
+   * 益工圈列表页取消点赞
+   */
+  @FormUrlEncoded @POST("app/api/pubcircle/unlike")
+  LinkCall<BaseResultDataInfo<ListLikeResponse>> unlikeCircle(@Field("id") int id,
+                                                            @Field("token") String token);
+
+  /**
    * 益工圈删除一个自己发的圈子
    */
   @FormUrlEncoded @POST("app/api/pubcircle/del")
