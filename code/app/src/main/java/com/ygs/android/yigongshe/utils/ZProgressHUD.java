@@ -69,16 +69,16 @@ public class ZProgressHUD extends Dialog {
 	public void setSpinnerType(int spinnerType) {
 		switch (spinnerType) {
             case 0:
-                ivProgressSpinner.setImageResource(R.anim.round_spinner_fade);
+                ivProgressSpinner.setImageResource(R.drawable.round_spinner_fade);
                 break;
             case 1:
-                ivProgressSpinner.setImageResource(R.anim.gear_spinner);
+                ivProgressSpinner.setImageResource(R.drawable.gear_spinner);
                 break;
             case 2:
-                ivProgressSpinner.setImageResource(R.anim.round_spinner);
+                ivProgressSpinner.setImageResource(R.drawable.round_spinner);
                 break;
             default:
-                ivProgressSpinner.setImageResource(R.anim.round_spinner_fade);
+                ivProgressSpinner.setImageResource(R.drawable.round_spinner_fade);
 		}
         
 		adProgressSpinner = (AnimationDrawable) ivProgressSpinner.getDrawable();
