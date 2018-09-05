@@ -73,7 +73,7 @@ public class ActivityFragment extends BaseFragment
     CommonTitleBar mTitleBar;
     AccountManager mAccountManager = YGApplication.accountManager;
     //private View noDataView;
-    private String mCity;
+    private String mCity = "";
 
     @Override
     protected void initView() {
@@ -304,6 +304,7 @@ public class ActivityFragment extends BaseFragment
         //}
     }
 
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:

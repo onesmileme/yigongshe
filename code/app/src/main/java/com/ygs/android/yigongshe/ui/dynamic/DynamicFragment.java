@@ -8,6 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -39,6 +41,7 @@ public class DynamicFragment extends BaseFragment {
   private int pageCnt = 1; //第几页
   @BindView(R.id.rv_list) RecyclerView mRecyclerView;
   @BindView(R.id.swipeLayout) SwipeRefreshLayout mSwipeRefreshLayout;
+  @BindView(R.id.dynamic_banner_layout) LinearLayout mBannerLayout;
   private DynamicAdapter mAdapter;
   private TopBannerCard mBannerCard;
   private LinkCall<BaseResultDataInfo<DynamicListResponse>> mCall;
@@ -98,7 +101,10 @@ public class DynamicFragment extends BaseFragment {
 
   private void addHeadView() {
     mBannerCard = new TopBannerCard(getActivity(), mRecyclerView, 0);
-    mAdapter.addHeaderView(mBannerCard.getView());
+    //mAdapter.addHeaderView(mBannerCard.getView());
+    LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.WRAP_CONTENT);
+    mBannerLayout.addView(mBannerCard.getView(),layoutParams);
   }
 
   private void initRefreshLayout() {

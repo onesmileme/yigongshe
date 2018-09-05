@@ -18,8 +18,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Toast;
 import butterknife.BindView;
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
+//import com.baidu.location.BDAbstractLocationListener;
+//import com.baidu.location.BDLocation;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CityItemBean;
 import com.ygs.android.yigongshe.bean.EmptyBean;
@@ -41,7 +41,7 @@ import com.ygs.android.yigongshe.ui.fragment.MeFragment;
 import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import com.ygs.android.yigongshe.utils.AppUtils;
 import com.ygs.android.yigongshe.utils.BottomNavigationViewHelper;
-import com.ygs.android.yigongshe.utils.LocationService;
+//import com.ygs.android.yigongshe.utils.LocationService;
 import com.ygs.android.yigongshe.utils.PinyinComparator;
 import com.ygs.android.yigongshe.utils.PinyinUtils;
 import java.util.ArrayList;
@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity {
   @BindView(R.id.viewpager) ViewPager viewPager;
   private MenuItem menuItem;
   @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavigationView;
-  private LocationService locationService;
+  //private LocationService locationService;
   private LinkCall<BaseResultDataInfo<CityListResponse>> mCityListCall;
   private ArrayList<SortModel> sourceDateList;
   private PinyinComparator pinyinComparator;
@@ -194,11 +194,11 @@ public class MainActivity extends BaseActivity {
 
   @Override protected void onStart() {
     super.onStart();
-    if (Build.VERSION.SDK_INT >= 23) {
-      showContacts();
-    } else {
-      initLocationService();
-    }
+    //if (Build.VERSION.SDK_INT >= 23) {
+    //  showContacts();
+    //} else {
+    //  //initLocationService();
+    //}
 
     //注册监听
     AccountManager accountManager = YGApplication.accountManager;
@@ -212,43 +212,43 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override protected void onStop() {
-    locationService.unregisterListener(mLocationListener); //注销掉监听
-    locationService.stop(); //停止定位服务
+    //locationService.unregisterListener(mLocationListener); //注销掉监听
+    //locationService.stop(); //停止定位服务
     mDynamicFragment.onStop();
     mActivityFragment.onStop();
     mCommunityFragment.onStop();
     super.onStop();
   }
 
-  private void initLocationService() {
-    locationService = ((YGApplication) getApplication()).locationService;
-    //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
-    locationService.registerListener(mLocationListener);
-    locationService.setLocationOption(locationService.getDefaultLocationClientOption());
-    locationService.start();// 定位SDK
-  }
+  //private void initLocationService() {
+  //  //locationService = ((YGApplication) getApplication()).locationService;
+  //  //获取locationservice实例，建议应用中只初始化1个location实例，然后使用，可以参考其他示例的activity，都是通过此种方式获取locationservice实例的
+  //  locationService.registerListener(mLocationListener);
+  //  locationService.setLocationOption(locationService.getDefaultLocationClientOption());
+  //  locationService.start();// 定位SDK
+  //}
 
-  @TargetApi(Build.VERSION_CODES.M) private void showContacts() {
-    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED
-        || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-        != PackageManager.PERMISSION_GRANTED
-        || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
-        != PackageManager.PERMISSION_GRANTED) {
-      //判断是否需要向用户解释为什么需要申请该权限
-      if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-          Manifest.permission.ACCESS_COARSE_LOCATION)) {
-        Toast.makeText(MainActivity.this, "自Android 6.0开始需要打开位置权限", Toast.LENGTH_SHORT).show();
-      }
-      // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
-      ActivityCompat.requestPermissions(MainActivity.this, new String[] {
-          Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
-          Manifest.permission.READ_PHONE_STATE
-      }, BAIDU_READ_PHONE_STATE);
-    } else {
-      initLocationService();
-    }
-  }
+  //@TargetApi(Build.VERSION_CODES.M) private void showContacts() {
+  //  if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+  //      != PackageManager.PERMISSION_GRANTED
+  //      || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+  //      != PackageManager.PERMISSION_GRANTED
+  //      || ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE)
+  //      != PackageManager.PERMISSION_GRANTED) {
+  //    //判断是否需要向用户解释为什么需要申请该权限
+  //    if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+  //        Manifest.permission.ACCESS_COARSE_LOCATION)) {
+  //      Toast.makeText(MainActivity.this, "自Android 6.0开始需要打开位置权限", Toast.LENGTH_SHORT).show();
+  //    }
+  //    // 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义）
+  //    ActivityCompat.requestPermissions(MainActivity.this, new String[] {
+  //        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+  //        Manifest.permission.READ_PHONE_STATE
+  //    }, BAIDU_READ_PHONE_STATE);
+  //  } else {
+  //    initLocationService();
+  //  }
+  //}
 
   private void showLogin() {
 
@@ -284,18 +284,18 @@ public class MainActivity extends BaseActivity {
   }
 
   public static String mCityName = "全国";
-  private BDAbstractLocationListener mLocationListener = new BDAbstractLocationListener() {
-    @Override public void onReceiveLocation(BDLocation bdLocation) {
-      if (null != bdLocation && bdLocation.getLocType() != BDLocation.TypeServerError) {
-        mCityName = bdLocation.getCity();
-        if (sourceDateList != null && sourceDateList.size() > 0) {
-          selectData();
-        } else {
-          initCityListData();
-        }
-      }
-    }
-  };
+  //private BDAbstractLocationListener mLocationListener = new BDAbstractLocationListener() {
+  //  @Override public void onReceiveLocation(BDLocation bdLocation) {
+  //    if (null != bdLocation && bdLocation.getLocType() != BDLocation.TypeServerError) {
+  //      mCityName = bdLocation.getCity();
+  //      if (sourceDateList != null && sourceDateList.size() > 0) {
+  //        selectData();
+  //      } else {
+  //        initCityListData();
+  //      }
+  //    }
+  //  }
+  //};
 
   private void initCityListData() {
     mCityListCall = LinkCallHelper.getApiService().getCityList();
@@ -365,22 +365,22 @@ public class MainActivity extends BaseActivity {
     return mSortList;
   }
 
-  @Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
-      int[] grantResults) {
-    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    switch (requestCode) {
-      // requestCode即所声明的权限获取码，在checkSelfPermission时传入
-      case BAIDU_READ_PHONE_STATE:
-        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-          // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
-          initLocationService();
-        } else {
-          // 没有获取到权限，做特殊处理
-          Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
-        }
-        break;
-      default:
-        break;
-    }
-  }
+  //@Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
+  //    int[] grantResults) {
+  //  super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+  //  switch (requestCode) {
+  //    // requestCode即所声明的权限获取码，在checkSelfPermission时传入
+  //    case BAIDU_READ_PHONE_STATE:
+  //      if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+  //        // 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+  //        initLocationService();
+  //      } else {
+  //        // 没有获取到权限，做特殊处理
+  //        Toast.makeText(getApplicationContext(), "获取位置权限失败，请手动开启", Toast.LENGTH_SHORT).show();
+  //      }
+  //      break;
+  //    default:
+  //      break;
+  //  }
+  //}
 }

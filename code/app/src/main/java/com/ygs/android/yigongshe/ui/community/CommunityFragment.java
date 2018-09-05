@@ -397,7 +397,7 @@ public class CommunityFragment extends BaseFragment {
         break;
       case PUBLISH_COMMUNITY:
       case COMMUNITY_DETAIL:
-        refresh(true);
+        refresh(false);
         break;
     }
   }

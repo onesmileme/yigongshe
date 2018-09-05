@@ -203,9 +203,9 @@ public class MsgTalkActivity extends BaseActivity {
         if (TextUtils.isEmpty(content)) {
             return;
         }
-        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
-        hud.setMessage("发送中...");
-        hud.show();
+        //final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        //hud.setMessage("发送中...");
+        //hud.show();
         String token = YGApplication.accountManager.getToken();
         sendCall = LinkCallHelper.getApiService().sendTalkItem(token, content, otherUid);
         sendCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<TalkItemBean>>() {
@@ -220,14 +220,14 @@ public class MsgTalkActivity extends BaseActivity {
                         recyclerView.scrollToPosition(talkItemBeans.size() - 1);
                         editText.setText(null);
                     }
-                    hud.dismissWithSuccess("");
+                    //hud.dismissWithSuccess("");
                 } else {
                     String msg = "发送失败";
                     if (entity != null && entity.msg != null) {
                         msg +=  entity.msg ;
                     }
-                    hud.dismissWithFailure(msg);
-                    //Toast.makeText(MsgTalkActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    //hud.dismissWithFailure(msg);
+                    Toast.makeText(MsgTalkActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });
