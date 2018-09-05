@@ -19,6 +19,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -175,22 +176,26 @@ public class MeInfoChangeSchoolActivity extends BaseActivity {
             return;
         }
 
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage("");
+        hud.show();
         String token = YGApplication.accountManager.getToken();
-
         mChangeCall = LinkCallHelper.getApiService().modifySchool(token,chooseSchool);
         mChangeCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UserInfoBean>>(){
             @Override
             public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatus.OK){
-                    Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校成功",Toast.LENGTH_SHORT).show();
+                    hud.dismissWithSuccess("更改学校成功");
+                    //Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校成功",Toast.LENGTH_SHORT).show();
                     YGApplication.accountManager.updateSchool(chooseSchool);
                     Intent intent = new Intent();
                     intent.putExtra("school",chooseSchool);
                     setResult(1,intent);
                     finish();
                 }else{
-                    Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校失败("+entity.msg+")",Toast.LENGTH_SHORT).show();
+                    hud.dismissWithFailure(entity.msg);
+                    //Toast.makeText(MeInfoChangeSchoolActivity.this,"更改学校失败("+entity.msg+")",Toast.LENGTH_SHORT).show();
                 }
             }
         });

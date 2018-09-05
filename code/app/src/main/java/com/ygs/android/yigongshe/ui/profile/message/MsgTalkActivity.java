@@ -23,6 +23,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.text.SimpleDateFormat;
@@ -202,7 +203,9 @@ public class MsgTalkActivity extends BaseActivity {
         if (TextUtils.isEmpty(content)) {
             return;
         }
-
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage("发送中...");
+        hud.show();
         String token = YGApplication.accountManager.getToken();
         sendCall = LinkCallHelper.getApiService().sendTalkItem(token, content, otherUid);
         sendCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<TalkItemBean>>() {
@@ -217,13 +220,14 @@ public class MsgTalkActivity extends BaseActivity {
                         recyclerView.scrollToPosition(talkItemBeans.size() - 1);
                         editText.setText(null);
                     }
+                    hud.dismissWithSuccess("");
                 } else {
                     String msg = "发送失败";
                     if (entity != null && entity.msg != null) {
-                        msg += "(" + entity.msg + ")";
+                        msg +=  entity.msg ;
                     }
-                    Toast.makeText(MsgTalkActivity.this, msg, Toast.LENGTH_SHORT).show();
-
+                    hud.dismissWithFailure(msg);
+                    //Toast.makeText(MsgTalkActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
         });

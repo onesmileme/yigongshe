@@ -15,6 +15,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -81,6 +82,9 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
             return;
         }
 
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage("");
+        hud.show();
         String token = YGApplication.accountManager.getToken();
         LinkCall<BaseResultDataInfo<EmptyBean>>call = LinkCallHelper.getApiService().modifyPassword(token,password,repassword);
         call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>(){
@@ -89,10 +93,12 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatus.OK){
                     setResult(1,null);
-                    Toast.makeText(MeInfoChangePasswordActivity.this,"密码修改成功",Toast.LENGTH_SHORT).show();
+                    hud.dismissWithSuccess("密码修改成功");
+                    //Toast.makeText(MeInfoChangePasswordActivity.this,"密码修改成功",Toast.LENGTH_SHORT).show();
                     finish();
                 }else {
-                    Toast.makeText(MeInfoChangePasswordActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
+                    hud.dismissWithFailure(entity.msg);
+                    //Toast.makeText(MeInfoChangePasswordActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });

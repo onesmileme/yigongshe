@@ -25,6 +25,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import com.ygs.android.yigongshe.view.MyDecoration;
@@ -136,17 +137,15 @@ public class MessageActivity extends BaseActivity {
       swipeRefreshLayout.setRefreshing(true);
     }
 
+
     String type = isPrivateMsg ? "message" : "notice";
-
     String token = YGApplication.accountManager.getToken();
-
     mCall =  LinkCallHelper.getApiService().getMessageList(token,type);
     mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<MsgListBean>>(){
       @Override
       public void onResponse(BaseResultDataInfo<MsgListBean> entity, Response<?> response, Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity != null && entity.error == ApiStatus.OK){
-
           if (isPrivateMsg){
             privateMsgList = entity.data.list;
           }else{
@@ -157,7 +156,7 @@ public class MessageActivity extends BaseActivity {
         }else{
           String msg = "请求消息失败";
           if (entity != null){
-            msg += "("+entity.msg+")";
+            msg = entity.msg;
           }
           Toast.makeText(MessageActivity.this,msg,Toast.LENGTH_SHORT).show();
         }

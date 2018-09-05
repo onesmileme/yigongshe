@@ -16,6 +16,7 @@ import com.ygs.android.yigongshe.net.LinkCallHelper;
 import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import butterknife.BindView;
@@ -77,6 +78,9 @@ public class MeInfoChangeNickNameActivity extends BaseActivity {
             Toast.makeText(this,"请输入昵称",Toast.LENGTH_SHORT).show();
             return;
         }
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage(null);
+        hud.show();
         String token = YGApplication.accountManager.getToken();
         LinkCall<BaseResultDataInfo<UserInfoBean>>call = LinkCallHelper.getApiService().modifyUsername(token,nickname);
         call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UserInfoBean>>(){
@@ -85,13 +89,15 @@ public class MeInfoChangeNickNameActivity extends BaseActivity {
                 super.onResponse(entity, response, throwable);
 
                 if (entity.error == ApiStatus.OK){
+                    hud.dismissWithSuccess("");
                     YGApplication.accountManager.updateUserName(nickname);
                     Intent intent = new Intent();
                     intent.putExtra("name",nickname);
                     setResult(1,intent);
                     finish();
                 }else{
-                    Toast.makeText(MeInfoChangeNickNameActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
+                    hud.dismissWithFailure(entity.msg);
+                    //Toast.makeText(MeInfoChangeNickNameActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
 
             }

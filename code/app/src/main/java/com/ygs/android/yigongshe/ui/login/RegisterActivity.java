@@ -31,6 +31,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.push.PushManager;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
 import java.util.ArrayList;
@@ -243,20 +244,23 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         String registrationId = PushManager.getInstance().getToken(this);
         mRegisterCall = LinkCallHelper.getApiService()
             .postRegsiter(phone, mUserType, school, academy, year,inviteCode, verifyCode ,password,confirmPassword, registrationId);
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage("注册中...");
+        hud.show();
         mRegisterCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<EmptyBean>>() {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response,
                                    Throwable throwable) {
                 super.onResponse(entity, response, throwable);
+                hud.dismiss();
                 if (entity != null && entity.error == ApiStatus.OK) {
-
                     showLogin();
                     Toast.makeText(RegisterActivity.this, "注册成功，请登录", Toast.LENGTH_SHORT).show();
 
                 } else {
                     String msg = "注册失败";
                     if (entity != null && entity.msg != null) {
-                        msg += "(" + entity.msg + ")";
+                        msg =  entity.msg ;
                     }
                     Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }

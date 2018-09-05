@@ -29,6 +29,7 @@ import com.ygs.android.yigongshe.utils.ImageLoadUtil;
 import com.ygs.android.yigongshe.utils.ImageUtils;
 import com.ygs.android.yigongshe.utils.PathUtils;
 import com.ygs.android.yigongshe.utils.StringUtil;
+import com.ygs.android.yigongshe.utils.ZProgressHUD;
 import com.ygs.android.yigongshe.view.CircleImageView;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 
@@ -252,12 +253,16 @@ public class MeInfoChangeAvatarActivity extends BaseActivity implements ActionSh
             return;
         }
 
+        final ZProgressHUD hud = ZProgressHUD.getInstance(this);
+        hud.setMessage("上传头像中...");
+        hud.show();
         String token = YGApplication.accountManager.getToken();
         LinkCall<BaseResultDataInfo<UserInfoBean>> call = LinkCallHelper.getApiService().modifyAvatar(token,mUploadImageUrl);
         call.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<UserInfoBean>>(){
             @Override
             public void onResponse(BaseResultDataInfo<UserInfoBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
+                hud.dismiss();
                 if (entity.error == ApiStatus.OK){
                     Toast.makeText(MeInfoChangeAvatarActivity.this,"头像修改成功",Toast.LENGTH_SHORT).show();
                     YGApplication.accountManager.updateAvatar(mUploadImageUrl);

@@ -197,6 +197,9 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     }
 
     public void loadRestisterAcitivities(final boolean isRefresh) {
+        if (isRefresh){
+            swipeRefreshLayout.setRefreshing(true);
+        }
 
         String token = YGApplication.accountManager.getToken();
         final int pageIndex = isRefresh ? 0 : mRegisterPage +1;
@@ -243,6 +246,9 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     }
 
     private void loadStoredActivities(final boolean isRefresh) {
+        if (isRefresh){
+            swipeRefreshLayout.setRefreshing(true);
+        }
 
         String token = YGApplication.accountManager.getToken();
         final int pageIndex = isRefresh? 0: mStoredPage+1;
@@ -288,6 +294,9 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
     }
 
     private void loadSignedActivities(final boolean isRefresh) {
+        if (isRefresh){
+            swipeRefreshLayout.setRefreshing(true);
+        }
         String token = YGApplication.accountManager.getToken();
         final int pageIndex = isRefresh?0: mSignedPage+1;
         LinkCall<BaseResultDataInfo<MyActivityBean>> activityCall = LinkCallHelper.getApiService().getMySigninActivity(
