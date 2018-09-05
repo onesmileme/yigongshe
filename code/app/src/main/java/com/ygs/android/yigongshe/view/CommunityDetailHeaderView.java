@@ -104,7 +104,7 @@ public class CommunityDetailHeaderView {
       } else {
         mAttention.setBackgroundResource(R.drawable.bg_attention);
         mAttention.setTextColor(mContext.getResources().getColor(R.color.white));
-        mAttention.setText("取消关注");
+        mAttention.setText("已关注");
       }
       mAttention.setOnClickListener(new View.OnClickListener() {
         @Override public void onClick(View view) {
@@ -123,7 +123,7 @@ public class CommunityDetailHeaderView {
                   if (entity.error == 2000) {
                     Toast.makeText(mContext, "关注成功", Toast.LENGTH_SHORT).show();
                     mAttention.setBackgroundResource(R.drawable.bg_attention);
-                    mAttention.setText("取消关注");
+                    mAttention.setText("已关注");
                     mAttention.setTextColor(mContent.getResources().getColor(R.color.white));
                     item.is_follow = 1;
                   } else {

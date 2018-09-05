@@ -116,8 +116,11 @@ public class CommunityFragment extends BaseFragment {
     mTitleBarTabView.addTabCheckListener(new TitleBarTabView.TabCheckListener() {
       @Override public void onTabChecked(int position) {
         if (position == mTitleBarTabView.getCurrentTabPos()) {
-          mType = typeList[position];
-          refresh(true);
+          String type = typeList[position];
+          if (!type.equals(mType)) {
+            mType = type;//typeList[position];
+            refresh(true);
+          }
         }
       }
     });
@@ -193,7 +196,7 @@ public class CommunityFragment extends BaseFragment {
                   if (entity.error == 2000) {
                     Toast.makeText(getActivity(), "关注成功", Toast.LENGTH_SHORT).show();
                     view.setBackgroundResource(R.drawable.bg_attention);
-                    ((TextView) view).setText("取消关注");
+                    ((TextView) view).setText("已关注");
                     ((TextView) view).setTextColor(getResources().getColor(R.color.white));
                     updateDataList(itemBean.create_id, 1);
                   } else {
@@ -285,7 +288,7 @@ public class CommunityFragment extends BaseFragment {
       return;
     }
 
-    final ZProgressHUD hud ;
+    //final ZProgressHUD hud ;
     if (showHud) {
       hud = ZProgressHUD.getInstance(this.getContext());
       hud.show();
