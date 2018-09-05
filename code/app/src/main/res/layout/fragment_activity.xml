@@ -15,6 +15,13 @@
     titlebar:leftCustomView="@layout/view_location"
     titlebar:leftType="customView"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/activity_banner_layout"
+      android:orientation="vertical"
+      android:background="@color/green"/>
+
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipeLayout"
     android:layout_width="match_parent"

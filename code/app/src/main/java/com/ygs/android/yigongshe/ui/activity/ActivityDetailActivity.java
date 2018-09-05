@@ -194,6 +194,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
     });
   }
 
+  @Override
   protected void addHeaderView() {
     //fg
     mRlWebview1 = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.view_webview, null);
