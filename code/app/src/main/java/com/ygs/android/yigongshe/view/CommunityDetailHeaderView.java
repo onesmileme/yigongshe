@@ -198,7 +198,7 @@ public class CommunityDetailHeaderView {
                                 if (entity.error == 2000) {
                                     Toast.makeText(mContext, "点赞成功", Toast.LENGTH_SHORT).show();
                                     mIvMarkGoodk.setImageResource(R.drawable.hasmarkgood);
-                                    mMarkGood.setText(item.like_num + 1);
+                                    mMarkGood.setText((item.like_num + 1)+"");
                                     mMarkGood.setTextColor(mContext.getResources().getColor(R.color.green));
                                     item.is_like = 1;
                                 } else {
@@ -223,7 +223,7 @@ public class CommunityDetailHeaderView {
                                     if (likeNum < 0) {
                                         likeNum = 0;
                                     }
-                                    mMarkGood.setText(likeNum);
+                                    mMarkGood.setText(""+likeNum);
                                     mMarkGood.setTextColor(mContext.getResources().getColor(R.color.gray2));
                                     item.is_like = 0;
                                 } else {
