@@ -12,7 +12,7 @@
     android:drawableLeft="@drawable/location"
     android:drawablePadding="6dp"
     android:gravity="center_vertical"
-    android:text="定位中"
+    android:text="全部"
     android:textColor="@color/green"
     android:textSize="12dp" />
 </LinearLayout>

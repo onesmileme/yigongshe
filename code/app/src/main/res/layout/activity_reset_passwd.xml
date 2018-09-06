@@ -14,7 +14,8 @@
         titlebar:centerType="textView"
         titlebar:leftDrawable="@drawable/arrow_back"
         titlebar:leftType="imageButton"
-        titlebar:rightType="textView" />
+        titlebar:rightType="textView"
+        android:visibility="invisible"/>
 
     <TextView
         android:id="@+id/login_login_tip"

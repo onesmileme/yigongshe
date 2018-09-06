@@ -53,6 +53,7 @@ public class HelpVideoListAdapter extends BaseQuickAdapter<HelpVideoItemBean, Ba
       helper.setTextColor(R.id.markgood, mContext.getResources().getColor(R.color.green));
     }
     helper.addOnClickListener(R.id.iv_markgood);
+    helper.addOnClickListener(R.id.markgood);
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
       helper.setVisible(R.id.delete, true);

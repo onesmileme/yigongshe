@@ -73,6 +73,7 @@ public class HelpVideoListActivity extends BaseActivity {
     private String mOrder;//排序规则，升序：ASC，降序：DESC
     AccountManager mAccountManager = YGApplication.accountManager;
 
+    @Override
     protected boolean openTranslucentStatus() {
         return true;
     }
@@ -175,7 +176,7 @@ public class HelpVideoListActivity extends BaseActivity {
                     Toast.makeText(HelpVideoListActivity.this, "没有登录", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (view.getId() == R.id.iv_markgood) {
+                if (view.getId() == R.id.iv_markgood || view.getId() == R.id.markgood) {
                     final HelpVideoItemBean itemBean = (HelpVideoItemBean)adapter.getItem(position);
                     if (itemBean.is_like == 0) {
                         LinkCall<BaseResultDataInfo<ListLikeResponse>> like = LinkCallHelper.getApiService()
@@ -188,7 +189,8 @@ public class HelpVideoListActivity extends BaseActivity {
                                 if (entity != null) {
                                     if (entity.error == 2000) {
                                         Toast.makeText(HelpVideoListActivity.this, "点赞成功", Toast.LENGTH_SHORT).show();
-                                        ((ImageView)view).setImageResource(R.drawable.hasmarkgood);
+                                        ImageView imageView = (ImageView)adapter.getViewByPosition(mRecyclerView,position,R.id.iv_markgood);
+                                        imageView.setImageResource(R.drawable.hasmarkgood);
                                         TextView tv = (TextView)adapter.getViewByPosition(mRecyclerView, position,
                                             R.id.markgood);
                                         tv.setText(itemBean.like_num + 1 + "");

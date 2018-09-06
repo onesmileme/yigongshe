@@ -1,5 +1,6 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -166,12 +167,20 @@ public class ResetPasswdActivity extends BaseActivity {
                 if (entity.error == ApiStatus.OK){
                     //finish();
                     Toast.makeText(ResetPasswdActivity.this,"修改密码成功",Toast.LENGTH_SHORT).show();
+                    showLogin();
                 }else {
                     Toast.makeText(ResetPasswdActivity.this,entity.msg,Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
+    }
+
+    private void showLogin(){
+
+        Intent intent = new Intent(this,LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 
 }

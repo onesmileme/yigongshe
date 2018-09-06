@@ -6,6 +6,8 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.view.TextureView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -67,6 +69,15 @@ public class CommunityAdapter extends BaseQuickAdapter<CommunityItemBean, BaseVi
     helper.setText(R.id.tv_markgood, item.like_num + "");
     helper.addOnClickListener(R.id.attention);
     helper.addOnClickListener(R.id.ll_markgood);
+
+
+    TextView vTagTextView = helper.getView(R.id.vTagTextView);
+    if (!TextUtils.isEmpty(item.v_tag)){
+      vTagTextView.setText(item.v_tag);
+      vTagTextView.setVisibility(View.VISIBLE);
+    }else{
+      vTagTextView.setVisibility(View.INVISIBLE);
+    }
 
     if (accountManager.getUserid() == item.create_id) {
       helper.setVisible(R.id.attention, false);

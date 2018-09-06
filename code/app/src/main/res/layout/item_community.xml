@@ -34,7 +34,20 @@
         android:text="清华大学益工社"
         android:textColor="@color/black1"
         android:textSize="13dp"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
+
+      <TextView
+          android:id="@+id/vTagTextView"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text=" 导师认证 "
+          android:textColor="@color/white"
+          android:textSize="10dp"
+          android:textStyle="normal"
+          android:background="@drawable/bg_v_tag"
+          android:layout_toRightOf="@id/createName"
+          android:layout_marginLeft="5dp"
+          android:padding="3dp"/>
 
       <TextView
         android:id="@+id/attention"

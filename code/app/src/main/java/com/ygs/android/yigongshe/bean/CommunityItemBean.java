@@ -19,4 +19,5 @@ public class CommunityItemBean implements Serializable {
   public int is_follow; //是否关注作者，0：未关注，1，已关注
   public int is_like;
   public int like_num;
+  public String v_tag;
 }

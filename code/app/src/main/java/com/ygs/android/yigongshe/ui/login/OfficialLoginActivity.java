@@ -92,7 +92,8 @@ public class OfficialLoginActivity extends BaseActivity implements View.OnClickL
     } else if (view == mForgetButton) {
       forgetPassword();
     } else if (view == mRegisterButton) {
-      showRegisterAlert();
+      //showRegisterAlert();
+      doRegister();
     }
   }
 

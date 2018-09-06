@@ -1,6 +1,8 @@
 package com.ygs.android.yigongshe.ui.login;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -175,8 +177,25 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
         }else if(view == mSchoolEditText){
             chooseSchool();
         }else if(view == mLoginButton) {
-            showLogin();
+            showLoginAlert();
         }
+    }
+
+    private void showLoginAlert(){
+        new AlertDialog.Builder(this)
+            .setMessage("放弃正在注册的信息，前往登录页面？")
+            .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            })
+            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    showLogin();
+                }
+            }).show();
     }
 
     private void showLogin() {

@@ -30,7 +30,9 @@ public class MeRunAdapter extends BaseQuickAdapter<RunItemBean, BaseViewHolder> 
         TextView myIndexTv = helper.getView(R.id.me_run_me_index_tv);
         TextView indexTv = helper.getView(R.id.me_run_index_tv);
         TextView nameTv = helper.getView(R.id.me_run_name_tv);
-        if (this.getItem(0) == item) {
+        List<RunItemBean>datas = this.getData();
+        int position = datas.indexOf(item);
+        if (position == 0) {//this.getItem(0) == item
             myIndexTv.setVisibility(View.VISIBLE);
             myIndexTv.setText("第"+item.rank+"名");
             indexTv.setVisibility(View.GONE);
@@ -41,6 +43,7 @@ public class MeRunAdapter extends BaseQuickAdapter<RunItemBean, BaseViewHolder> 
             indexTv.setVisibility(View.VISIBLE);
             int color = mContext.getResources().getColor(R.color.gray1);
             nameTv.setTextColor(color);
+            indexTv.setText(""+(position));
         }
         nameTv.setText(item.username);
 

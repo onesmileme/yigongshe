@@ -85,7 +85,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     } else if (view == mForgetButton) {
       forgetPassword();
     }else if (view == mRegisterButton) {
-      showRegisterAlert();
+      //showRegisterAlert();
+      doRegister();
     }
   }
 

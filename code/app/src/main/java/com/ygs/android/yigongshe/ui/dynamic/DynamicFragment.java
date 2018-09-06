@@ -1,5 +1,7 @@
 package com.ygs.android.yigongshe.ui.dynamic;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +29,7 @@ import com.ygs.android.yigongshe.net.adapter.LinkCall;
 import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseFragment;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.MyDividerItemDecoration;
 import com.ygs.android.yigongshe.view.TopBannerCard;
 import java.util.List;
@@ -64,8 +67,14 @@ public class DynamicFragment extends BaseFragment {
     });
     //mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-    mRecyclerView.addItemDecoration(
-        new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
+
+    CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this.getActivity(),
+        CDividerItemDecoration.VERTICAL_LIST, new ColorDrawable(Color.parseColor("#e0e0e0")));//
+    itemDecoration.setHeight(1);
+    mRecyclerView.addItemDecoration(itemDecoration);
+
+    //mRecyclerView.addItemDecoration(
+        //new MyDividerItemDecoration(getActivity(), MyDividerItemDecoration.VERTICAL));
     initAdapter();
     addHeadView();
     initRefreshLayout();
