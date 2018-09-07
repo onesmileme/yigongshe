@@ -47,6 +47,11 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
     helper.setText(R.id.createtitle, item.create_vtag);
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.content, item.content);
+
+    TextView tagTextView = helper.getView(R.id.createtitle);
+    tagTextView.setVisibility(TextUtils.isEmpty(item.create_vtag)?View.INVISIBLE:View.VISIBLE);
+
+
     if (!TextUtils.isEmpty(accountManager.getToken())
         && item.create_id == accountManager.getUserid()) {
       helper.setVisible(R.id.delete, true);

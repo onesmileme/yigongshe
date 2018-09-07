@@ -16,6 +16,7 @@ import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.MeInfoItemBean;
 import com.ygs.android.yigongshe.bean.UserInfoBean;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
+import com.ygs.android.yigongshe.ui.login.LoginActivity;
 import com.ygs.android.yigongshe.ui.profile.MeSectionDecoration;
 import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
@@ -195,7 +196,13 @@ public class MeInfoActivity extends BaseActivity {
             }
             case RET_PASSWORD:{
                 if (resultCode == 1){
-                    Toast.makeText(this,"修改密码成功",Toast.LENGTH_SHORT);
+                    //Toast.makeText(this,"修改密码成功",Toast.LENGTH_SHORT);
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean(LoginActivity.LOGIN_REFRESH,true);
+                    intent.putExtra(BaseActivity.PARAM_INTENT,bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
                 }
                 break;
             }

@@ -7,4 +7,5 @@ import java.io.Serializable;
  */
 
 public class ListLikeResponse implements Serializable {
+    public String like_num;
 }

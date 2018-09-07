@@ -44,6 +44,9 @@ public class CommunityDetailHeaderView {
     ImageView mAvatar;
     @BindView(R.id.createName)
     TextView mCreateName;
+    @BindView(R.id.vTagTextView)
+    TextView mTagView;
+
     @BindView(R.id.content)
     TextView mContent;
     @BindView(R.id.pic)
@@ -84,6 +87,12 @@ public class CommunityDetailHeaderView {
             .transform(new CenterCrop(mContext), new GlideCircleTransform(mContext))
             .into(mAvatar);
         mCreateName.setText(item.create_name);
+        if (TextUtils.isEmpty(item.v_tag)){
+            mTagView.setVisibility(View.INVISIBLE);
+        }else{
+            mTagView.setVisibility(View.VISIBLE);
+            mTagView.setText(item.v_tag);
+        }
         String strContent = "";
         if (!TextUtils.isEmpty(item.topic)) {
             mTopic.setText("#" + item.topic + "#");

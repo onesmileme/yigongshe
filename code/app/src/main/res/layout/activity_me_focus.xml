@@ -15,6 +15,18 @@
         titlebar:leftDrawable="@drawable/arrow_back"
         titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
 
+    <TextView
+        android:id="@+id/my_no_follow_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textSize="14dp"
+        android:text="@string/no_follow"
+        android:textColor="@color/gray1"
+        android:padding="10dp"
+        android:visibility="gone"
+        />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/me_focus_refresh_layout"
         android:layout_width="match_parent"

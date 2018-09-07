@@ -112,6 +112,11 @@
     <string name="operate">操作</string>
     <string name="talk_input_hint">说点什么吧~</string>
     <string name="no_acitivity">暂无活动</string>
+    <string name="no_follow">暂无关注</string>
+    <string name="no_community_data">暂无我的益工圈信息，快去发布一个吧!</string>
+    <string name="no_message">暂无消息</string>
+    <string name="no_record">暂无公益记录</string>
+    <string name="no_corporation">所在学校暂无社团</string>
     <string name="record">记录</string>
 
     <string name="done">完成</string>

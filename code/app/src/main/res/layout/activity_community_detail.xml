@@ -12,8 +12,7 @@
     titlebar:centerText="详情"
     titlebar:centerType="textView"
     titlebar:fillStatusBar="true"
-    titlebar:leftType="imageButton"></com.ygs.android.yigongshe.view.CommonTitleBar>
-
+    titlebar:leftType="imageButton"/>
 
   <android.support.v4.widget.SwipeRefreshLayout
     android:id="@+id/swipeLayout"

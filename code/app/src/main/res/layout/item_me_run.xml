@@ -47,7 +47,8 @@
             android:layout_height="wrap_content"
             android:text="10th"
             android:textColor="@color/gray2"
-            android:textSize="10dp" />
+            android:textSize="10dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <TextView

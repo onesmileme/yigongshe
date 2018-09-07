@@ -1,5 +1,7 @@
 package com.ygs.android.yigongshe.ui.community;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +23,7 @@ import com.ygs.android.yigongshe.net.callback.LinkCallbackAdapter;
 import com.ygs.android.yigongshe.ui.base.BaseActivity;
 import com.ygs.android.yigongshe.ui.base.BaseDetailActivity;
 import com.ygs.android.yigongshe.utils.NetworkUtils;
+import com.ygs.android.yigongshe.view.CDividerItemDecoration;
 import com.ygs.android.yigongshe.view.CommonTitleBar;
 import java.util.List;
 import retrofit2.Response;
@@ -68,8 +71,10 @@ public class TopicSelectActivity extends BaseActivity {
       }
     });
     mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-    mRecyclerView.addItemDecoration(
-        new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    CDividerItemDecoration itemDecoration = new CDividerItemDecoration(this,
+        CDividerItemDecoration.VERTICAL_LIST,new ColorDrawable(Color.parseColor("#e0e0e0")));//
+    itemDecoration.setHeight(1);
+    mRecyclerView.addItemDecoration(itemDecoration);
     initAdapter();
     refresh();
   }

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -49,6 +50,9 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
     @BindView(R.id.me_focus_refresh_layout)
     SwipeRefreshLayout refreshLayout;
+
+    @BindView(R.id.my_no_follow_tv)
+    TextView mNoFollowTextView;
 
     private int mPageIndex = 1;
 
@@ -115,6 +119,7 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
 
     private void loadData(final boolean isRefresh) {
 
+        mNoFollowTextView.setVisibility(View.GONE);
         int pageIndex = mPageIndex+1;
         if (isRefresh) {
             pageIndex = 0;
@@ -136,6 +141,12 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                 } else {
                     focusAdapter.setEnableLoadMore(false);
                     focusAdapter.loadMoreComplete();
+                }
+
+                if (focusAdapter.getData().size() == 0){
+                    mNoFollowTextView.setVisibility(View.VISIBLE);
+                }else{
+                    mNoFollowTextView.setVisibility(View.GONE);
                 }
             }
         });
@@ -174,6 +185,9 @@ public class MeFocusActivity extends BaseActivity implements MeFocusFollowListen
                     focusAdapter.setNewData(list);
                     focusAdapter.disableLoadMoreIfNotFullPage();
                     Toast.makeText(MeFocusActivity.this, "取消关注成功", Toast.LENGTH_SHORT).show();
+                    if (list.size() == 0){
+                        mNoFollowTextView.setVisibility(View.VISIBLE);
+                    }
                 } else {
                     String msg = "取消关注失败";
                     if (entity != null && entity.msg != null) {

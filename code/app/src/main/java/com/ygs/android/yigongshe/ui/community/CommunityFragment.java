@@ -260,7 +260,11 @@ public class CommunityFragment extends BaseFragment {
                                     if (entity.error == 2000) {
                                         Toast.makeText(getActivity(), "点赞成功", Toast.LENGTH_SHORT).show();
                                         mList.get(position).is_like = 1;
-                                        mList.get(position).like_num = itemBean.like_num + 1;
+                                        if (!TextUtils.isEmpty(entity.data.like_num)){
+                                            mList.get(position).like_num = Integer.parseInt(entity.data.like_num);
+                                        }else {
+                                            mList.get(position).like_num = itemBean.like_num + 1;
+                                        }
                                         ((ImageView)view.findViewById(R.id.iv_markgood)).setImageResource(
                                             R.drawable.hasmarkgood);
 
@@ -289,10 +293,16 @@ public class CommunityFragment extends BaseFragment {
                                     if (entity.error == 2000) {
                                         Toast.makeText(getActivity(), "取消点赞成功", Toast.LENGTH_SHORT).show();
                                         mList.get(position).is_like = 0;
+
                                         int likeNum = itemBean.like_num - 1;
                                         if (likeNum < 0) {
                                             likeNum = 0;
                                         }
+
+                                        if (!TextUtils.isEmpty(entity.data.like_num)){
+                                            likeNum = Integer.parseInt(entity.data.like_num);
+                                        }
+
                                         mList.get(position).like_num = likeNum;
                                         ((ImageView)view.findViewById(R.id.iv_markgood)).setImageResource(
                                             R.drawable.markgood);

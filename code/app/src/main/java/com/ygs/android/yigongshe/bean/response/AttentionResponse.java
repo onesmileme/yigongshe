@@ -7,4 +7,5 @@ import java.io.Serializable;
  */
 
 public class AttentionResponse implements Serializable {
+
 }
