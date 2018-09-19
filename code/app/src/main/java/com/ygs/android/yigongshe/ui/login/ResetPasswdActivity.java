@@ -134,7 +134,7 @@ public class ResetPasswdActivity extends BaseActivity {
             @Override
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
-                if (entity.error == ApiStatus.OK) {
+                if (entity != null && entity.error == ApiStatus.OK) {
                     startCountdown();
                     updateTip();
                 } else {
