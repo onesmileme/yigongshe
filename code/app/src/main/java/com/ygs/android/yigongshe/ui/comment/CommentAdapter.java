@@ -13,6 +13,7 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CommentItemBean;
+import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.view.GlideCircleTransform;
 
 /**
@@ -21,10 +22,12 @@ import com.ygs.android.yigongshe.view.GlideCircleTransform;
 
 public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHolder> {
   private View.OnClickListener mAvatarListener;
+  private CommunityItemBean mCommunityItemBean;
 
-  public CommentAdapter(View.OnClickListener avatarListener) {
+  public CommentAdapter(CommunityItemBean communityItemBean, View.OnClickListener avatarListener) {
     super(R.layout.item_comment, null);
     mAvatarListener = avatarListener;
+    mCommunityItemBean = communityItemBean;
   }
 
   @Override protected void convert(final BaseViewHolder helper, CommentItemBean item) {
@@ -48,7 +51,8 @@ public class CommentAdapter extends BaseQuickAdapter<CommentItemBean, BaseViewHo
     helper.setText(R.id.createDate, item.create_at);
     helper.setText(R.id.content, item.content);
     if (!TextUtils.isEmpty(accountManager.getToken())
-        && item.create_id == accountManager.getUserid()) {
+        && item.create_id == accountManager.getUserid() || (mCommunityItemBean != null
+        && mCommunityItemBean.create_id == YGApplication.accountManager.getUserid())) {
       helper.setVisible(R.id.delete, true);
       TextView tv = helper.getView(R.id.delete);
       tv.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);

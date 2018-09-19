@@ -18,6 +18,7 @@ import com.ygs.android.yigongshe.R;
 import com.ygs.android.yigongshe.YGApplication;
 import com.ygs.android.yigongshe.account.AccountManager;
 import com.ygs.android.yigongshe.bean.CommentItemBean;
+import com.ygs.android.yigongshe.bean.CommunityItemBean;
 import com.ygs.android.yigongshe.bean.base.BaseResultDataInfo;
 import com.ygs.android.yigongshe.bean.base.BaseResultInfo;
 import com.ygs.android.yigongshe.bean.response.CommentDeleteResponse;
@@ -55,6 +56,8 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
   protected int mId; //newsId, activityId
   protected String mTitle;
   protected AccountManager mAccountManager = YGApplication.accountManager;
+  protected CommunityItemBean mCommunityItemBean;
+
   @BindView(R.id.errorview) protected LinearLayout mErrorView;
   @BindView(R.id.loadingview) LinearLayout mLoadingView;
 
@@ -84,7 +87,7 @@ public abstract class BaseDetailActivity extends BaseActivity implements View.On
   }
 
   private void initAdapter() {
-    mAdapter = new CommentAdapter(this);
+    mAdapter = new CommentAdapter(mCommunityItemBean, this);
     mAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
       @Override public void onLoadMoreRequested() {
         requestCommentData(mType, false);

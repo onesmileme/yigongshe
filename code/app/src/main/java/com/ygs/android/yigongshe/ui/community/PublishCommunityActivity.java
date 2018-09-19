@@ -63,6 +63,7 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   private PopupWindow pop;
   private LinearLayout ll_popup;
   private TextView btn_cancel;
+  private String mType;
   @BindView(R.id.saySth) EditText mEditText;
   @BindView(R.id.titleBar) CommonTitleBar mTitleBar;
   /**
@@ -72,7 +73,6 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
   private String mUploadImageUrl;
 
   @Override protected void initIntent(Bundle bundle) {
-
   }
 
   @Override protected void initView() {
@@ -95,6 +95,11 @@ public class PublishCommunityActivity extends BaseActivity implements View.OnCli
             Toast.makeText(PublishCommunityActivity.this, "内容不能为空", Toast.LENGTH_SHORT).show();
             return;
           }
+          //if () {
+          //  Toast.makeText(PublishCommunityActivity.this, "只有社团和导师才能发布，请联系管理员升级为对应账号后发布",
+          //      Toast.LENGTH_SHORT).show();
+          //  return;
+          //}
           //else if (TextUtils.isEmpty(mSelectedTopic.getText())) {
           //  Toast.makeText(PublishCommunityActivity.this, "话题不能为空", Toast.LENGTH_SHORT).show();
           //  return;
