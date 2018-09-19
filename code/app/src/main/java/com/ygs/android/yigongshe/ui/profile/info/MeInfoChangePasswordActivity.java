@@ -92,8 +92,8 @@ public class MeInfoChangePasswordActivity extends BaseActivity {
             public void onResponse(BaseResultDataInfo<EmptyBean> entity, Response<?> response, Throwable throwable) {
                 super.onResponse(entity, response, throwable);
                 if (entity.error == ApiStatus.OK){
-                    setResult(1,null);
                     hud.dismissWithSuccess("密码修改成功");
+                    setResult(1,null);
                     //Toast.makeText(MeInfoChangePasswordActivity.this,"密码修改成功",Toast.LENGTH_SHORT).show();
                     finish();
                 }else {

@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -42,6 +43,8 @@ public class MeCommunityActivity extends BaseActivity {
     CommonTitleBar mTitleBar;
 
     @BindView(R.id.swipe_layout) SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.my_no_community_tv) TextView mNoCommunityTextView;
 
     MeCommunityAdapter mAdapter;
 
@@ -108,6 +111,7 @@ public class MeCommunityActivity extends BaseActivity {
 
     private void refresh() {
 
+        mNoCommunityTextView.setVisibility(View.GONE);
         mAdapter.setEmptyView(R.layout.loading_view, (ViewGroup) mRecycleView.getParent());
         mAdapter.setEnableLoadMore(false);
         mAdapter.setEnableLoadMore(false);
@@ -124,7 +128,10 @@ public class MeCommunityActivity extends BaseActivity {
                     CommunityListResponse data = entity.data;
                    mAdapter.setNewData(data.list);
                    if (data.list == null || data.list.size() == 0){
-                       Toast.makeText(MeCommunityActivity.this,"我的益工圈沒有数据",Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(MeCommunityActivity.this,"我的益工圈沒有数据",Toast.LENGTH_SHORT).show();
+                       mNoCommunityTextView.setVisibility(View.VISIBLE);
+                   }else{
+                       mNoCommunityTextView.setVisibility(View.GONE);
                    }
                 }else{
                     String msg = "请求益工圈失败";

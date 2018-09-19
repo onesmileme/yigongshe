@@ -1,162 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:background="@color/white"
-  android:orientation="vertical"
-  android:paddingBottom="6dp"
-  android:paddingLeft="14dp"
-  android:paddingRight="14dp"
-  android:paddingTop="6dp">
-
-  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal">
-
-    <ImageView
-      android:id="@+id/createAvatar"
-      android:layout_width="30dp"
-      android:layout_height="30dp"
-      android:scaleType="centerInside" />
-
-    <RelativeLayout
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:gravity="center_vertical">
-
-      <TextView
-        android:id="@+id/createName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="清华大学益工社"
-        android:textColor="@color/black1"
-        android:textSize="13dp"
-        android:textStyle="normal" />
-
-      <TextView
-          android:id="@+id/vTagTextView"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text=" 导师认证 "
-          android:textColor="@color/white"
-          android:textSize="10dp"
-          android:textStyle="normal"
-          android:background="@drawable/bg_v_tag"
-          android:layout_toRightOf="@id/createName"
-          android:layout_marginLeft="5dp"
-          android:padding="3dp"/>
-
-      <TextView
-        android:id="@+id/attention"
-        android:layout_width="50dp"
-        android:layout_height="18dp"
-        android:layout_alignBottom="@id/createName"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/bg_unattention"
-        android:gravity="center"
-        android:text=""
-        android:textSize="10dp" />
-
-    </RelativeLayout>
-  </LinearLayout>
-
-
-  <!--<TextView-->
-  <!--android:id="@+id/topic1"-->
-  <!--android:layout_width="wrap_content"-->
-  <!--android:layout_height="wrap_content"-->
-  <!--android:layout_below="@id/createName"-->
-  <!--android:layout_marginTop="8dp"-->
-  <!--android:text="#公益每一天#"-->
-  <!--android:textColor="@color/green"-->
-  <!--android:textSize="12dp" />-->
-
-  <TextView
-    android:id="@+id/content"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="40dp"
-    android:text="通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋"
-    android:textColor="@color/gray1"
-    android:textSize="12dp" />
-
-
-  <ImageView
-    android:id="@+id/pic"
-    android:layout_width="match_parent"
-    android:layout_height="180dp"
-    android:layout_marginLeft="40dp"
-    android:layout_marginTop="12dp"
-    android:background="@drawable/loading2"
-    android:scaleType="centerCrop" />
-
-  <RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="40dp"
-    android:layout_marginTop="10dp"
-    android:gravity="center_vertical">
-
-    <TextView
-      android:id="@+id/createDate"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="3月5日"
-      android:textColor="@color/gray2"
-      android:textSize="10dp" />
-
-    <TextView
-      android:id="@+id/topic"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginLeft="10dp"
-      android:layout_toRightOf="@id/createDate"
-      android:background="@drawable/bg_topic"
-      android:text=""
-      android:textColor="@color/gray1"
-      android:textSize="10dp" />
-
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingBottom="6dp"
+    android:paddingLeft="14dp"
+    android:paddingRight="14dp"
+    android:paddingTop="6dp">
 
     <LinearLayout
-      android:id="@+id/ll_markgood"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignParentRight="true">
-
-      <ImageView
-        android:id="@+id/iv_markgood"
-        android:layout_width="12dp"
-        android:layout_height="12dp"
-        android:src="@drawable/markgood" />
-
-      <TextView
-        android:id="@+id/tv_markgood"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="4dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        android:textColor="@color/gray2"
-        android:textSize="10dp" />
+        <ImageView
+            android:id="@+id/createAvatar"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="centerInside" />
 
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical">
 
+            <TextView
+                android:id="@+id/createName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清华大学益工社"
+                android:textColor="@color/black1"
+                android:textSize="13dp"
+                android:textStyle="normal"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/vTagTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/createName"
+                android:background="@drawable/bg_v_tag"
+                android:padding="3dp"
+                android:text=" 导师认证 "
+                android:textColor="@color/white"
+                android:textSize="10dp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/attention"
+                android:layout_width="50dp"
+                android:layout_height="18dp"
+                android:layout_alignBottom="@id/createName"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_unattention"
+                android:gravity="center"
+                android:text=""
+                android:textSize="10dp" />
+
+        </RelativeLayout>
     </LinearLayout>
 
+
+    <!--<TextView-->
+    <!--android:id="@+id/topic1"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_below="@id/createName"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--android:text="#公益每一天#"-->
+    <!--android:textColor="@color/green"-->
+    <!--android:textSize="12dp" />-->
+
     <TextView
-      android:id="@+id/delete"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginRight="5dp"
-      android:layout_toLeftOf="@id/ll_markgood"
-      android:background="@color/transparent"
-      android:paddingLeft="5dp"
-      android:paddingRight="5dp"
-      android:text="删除"
-      android:textColor="@color/dark_red"
-      android:textSize="10dp" />
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:text="通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋通过活动育人，建立图书馆的心灵书屋"
+        android:textColor="@color/gray1"
+        android:textSize="12dp" />
 
 
-  </RelativeLayout>
+    <ImageView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/loading2"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/createDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3月5日"
+            android:textColor="@color/gray2"
+            android:textSize="10dp" />
+
+        <TextView
+            android:id="@+id/topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/createDate"
+            android:background="@drawable/bg_topic"
+            android:text=""
+            android:textColor="@color/gray1"
+            android:textSize="10dp" />
+
+
+        <LinearLayout
+            android:id="@+id/ll_markgood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageView
+                android:id="@+id/iv_markgood"
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:src="@drawable/markgood" />
+
+            <TextView
+                android:id="@+id/tv_markgood"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+
+                android:textColor="@color/gray2"
+                android:textSize="10dp" />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@id/ll_markgood"
+            android:background="@color/transparent"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="删除"
+            android:textColor="@color/dark_red"
+            android:textSize="10dp" />
+
+
+    </RelativeLayout>
 </LinearLayout>

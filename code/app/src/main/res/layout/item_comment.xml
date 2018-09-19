@@ -28,8 +28,7 @@
       android:layout_height="wrap_content"
       android:text="清华大学益工社"
       android:textColor="@color/black1"
-      android:textSize="13dp"
-      android:textStyle="bold" />
+      android:textSize="13dp" />
 
     <TextView
       android:id="@+id/createtitle"
@@ -40,7 +39,7 @@
       android:layout_toRightOf="@id/createName"
       android:background="@drawable/bg_createtitle"
       android:textColor="@color/white"
-      android:textSize="12dp" />
+      android:textSize="10dp" />
 
     <TextView
       android:id="@+id/createDate"

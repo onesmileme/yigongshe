@@ -9,6 +9,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -47,6 +48,8 @@ public class MessageActivity extends BaseActivity {
   @BindView(R.id.message_list) RecyclerView recyclerView;
 
   @BindView(R.id.message_refresh_layout) SwipeRefreshLayout swipeRefreshLayout;
+
+  @BindView(R.id.my_no_message_tv) TextView mNoMessageTextView;
 
   private MessageAdapter messageAdapter;
 
@@ -137,7 +140,7 @@ public class MessageActivity extends BaseActivity {
       swipeRefreshLayout.setRefreshing(true);
     }
 
-
+    mNoMessageTextView.setVisibility(View.GONE);
     String type = isPrivateMsg ? "message" : "notice";
     String token = YGApplication.accountManager.getToken();
     mCall =  LinkCallHelper.getApiService().getMessageList(token,type);
@@ -152,6 +155,12 @@ public class MessageActivity extends BaseActivity {
             noticeMsgList = entity.data.list;
           }
           messageAdapter.updateData(entity.data.list,!isPrivateMsg);
+
+          if (entity.data.list == null || entity.data.list.size() == 0){
+            mNoMessageTextView.setVisibility(View.VISIBLE);
+          }else{
+            mNoMessageTextView.setVisibility(View.GONE);
+          }
 
         }else{
           String msg = "请求消息失败";

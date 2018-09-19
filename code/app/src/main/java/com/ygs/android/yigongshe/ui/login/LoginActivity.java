@@ -41,14 +41,21 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
   @BindView(R.id.login_password_et) EditText mPasswordEditText;
 
-  //@BindView(R.id.titlebar) CommonTitleBar titleBar;
-
   @BindView(R.id.login_register_btn) Button mRegisterButton;
   private AccountManager accountManager = YGApplication.accountManager;
 
   private LinkCall<BaseResultDataInfo<LoginBean>> mLoginCall;
 
+  private boolean refreshLogin = false;
+
+  public static final String LOGIN_REFRESH = "refresh";
+
   @Override protected void initIntent(Bundle bundle) {
+
+    if (bundle != null) {
+      refreshLogin = bundle.getBoolean(LOGIN_REFRESH);
+    }
+
   }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -175,7 +182,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 LocalBroadcastManager.getInstance(LoginActivity.this);
             broadcastManager.sendBroadcast(intent);
           }
-          goToOthers(MainActivity.class, null);
+          if (!refreshLogin) {
+            goToOthers(MainActivity.class, null);
+          }
           LoginActivity.this.finish();
         } else {
           dismissDialog();

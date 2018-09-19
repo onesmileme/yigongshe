@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -45,6 +46,8 @@ public class MeRecordListActivity extends BaseActivity {
 
     @BindView(R.id.message_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    @BindView(R.id.my_no_record_tv) TextView mNoRecordTextView;
 
     LinkCall<BaseResultDataInfo<CharityRecordBean>> mCall;
 
@@ -112,6 +115,7 @@ public class MeRecordListActivity extends BaseActivity {
             page = 0;
         }
 
+        mNoRecordTextView.setVisibility(View.GONE);
         String token = YGApplication.accountManager.getToken();
         mCall = LinkCallHelper.getApiService().getCharityRecrodList(token,page,PER_PAGE);
         mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<CharityRecordBean>>(){
@@ -128,6 +132,10 @@ public class MeRecordListActivity extends BaseActivity {
                         recordAdapter.addData(entity.data.list);
                     }
                     recordBeanList.addAll(entity.data.list);
+
+                    if (recordBeanList.size() == 0){
+                        mNoRecordTextView.setVisibility(View.VISIBLE);
+                    }
 
                 }else{
                     String reason = "请求公益记录失败";

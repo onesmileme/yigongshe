@@ -201,6 +201,7 @@ public class MeActivitiesActivity extends BaseActivity implements SegmentControl
             swipeRefreshLayout.setRefreshing(true);
         }
 
+        noActivityTextView.setVisibility(View.GONE);
         String token = YGApplication.accountManager.getToken();
         final int pageIndex = isRefresh ? 0 : mRegisterPage +1;
         LinkCall<BaseResultDataInfo<MyActivityBean>> activityCall = LinkCallHelper.getApiService()
