@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string-array name="tab_view">
-    <item>全部</item>
     <item>社团</item>
+    <item>导师</item>
     <item>关注的人</item>
 
   </string-array>
