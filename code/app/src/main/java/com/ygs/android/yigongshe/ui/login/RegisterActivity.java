@@ -357,6 +357,12 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
                     Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
                 }
             }
+
+            @Override
+            public void failure(Response<?> response, LinkCall call) {
+                super.failure(response, call);
+
+            }
         });
 
     }
@@ -422,14 +428,25 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
 
     private void chooseSchool(){
 
-        Bundle bundle = new Bundle();
-        ArrayList<String> schools = new ArrayList<>();
-        for (SchoolInfoBean schoolInfoBean : mSchoolRoleBeanList){
-            schools.addAll(schoolInfoBean.schools);
-        }
-        bundle.putStringArrayList("schools",schools);
+        if (mSchoolRoleBeanList != null) {
+            Bundle bundle = new Bundle();
+            ArrayList<String> schools = new ArrayList<>();
+            for (SchoolInfoBean schoolInfoBean : mSchoolRoleBeanList) {
+                schools.addAll(schoolInfoBean.schools);
+            }
+            bundle.putStringArrayList("schools", schools);
 
-        goToOthersForResult(SchoolSelectActivity.class,bundle,SCHOOL_CHOOSE_CODE);
+            goToOthersForResult(SchoolSelectActivity.class, bundle, SCHOOL_CHOOSE_CODE);
+        }else{
+            new AlertDialog.Builder(this)
+                .setMessage("学校信息获取失败，请稍后再试")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        loadSchoolInfo();
+                    }
+                }).show();
+        }
     }
 
     @Override

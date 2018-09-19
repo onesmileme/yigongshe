@@ -12,8 +12,8 @@ public class UriUtils {
       return "http://47.104.211.211/";
       //return "http://47.93.162.87/";
     } else {
-      //return "http://47.104.211.211/";
-      return "http://47.93.162.87/";
+      return "http://47.104.211.211/";
+      //return "http://47.93.162.87/";
     }
   }
 }

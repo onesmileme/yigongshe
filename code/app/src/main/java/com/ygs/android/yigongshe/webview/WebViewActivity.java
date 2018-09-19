@@ -1,8 +1,10 @@
 package com.ygs.android.yigongshe.webview;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import butterknife.BindView;
 import com.ygs.android.yigongshe.R;
@@ -58,6 +60,14 @@ public class WebViewActivity extends BaseActivity {
     } else {
       String url = bundle.getString(URL_KEY);
       if (!TextUtils.isEmpty(url)) {
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+        webSettings.setAllowFileAccess(true);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+          webSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+
         mWebView.loadUrl(url);
       }
     }
