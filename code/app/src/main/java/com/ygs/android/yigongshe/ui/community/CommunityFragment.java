@@ -58,7 +58,8 @@ public class CommunityFragment extends BaseFragment {
   private static final String T_CITY = "社团";
   private static final String T_ASSO = "导师";
   private static final String T_FOLLOW = "关注";
-  private String mType = T_CITY;//type	类型，全部：为空或all; 城市：city; 社团：association, 关注的人：follow
+  private static final String[] REQ_TYPES = {"association","teacher","follow"};
+  private String mType = REQ_TYPES[0];//type	类型，全部：为空或all; 城市：city; 社团：association, 关注的人：follow
 
   private String[] typeList = new String[] { T_CITY, T_ASSO, T_FOLLOW };
   public final int TOPIC_CITY_SELECT = 0;
@@ -123,7 +124,7 @@ public class CommunityFragment extends BaseFragment {
     mTitleBarTabView.addTabCheckListener(new TitleBarTabView.TabCheckListener() {
       @Override public void onTabChecked(int position) {
         if (position == mTitleBarTabView.getCurrentTabPos()) {
-          String type = typeList[position];
+          String type = REQ_TYPES[position];
           if (!type.equals(mType)) {
             mType = type;//typeList[position];
             refresh(true);
