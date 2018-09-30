@@ -10,18 +10,17 @@ android {
     targetSdkVersion config.targetSdkVersion
     versionCode 1
     versionName "1.0"
+    flavorDimensions "versionCode"
 
     ndk {
       //选择要添加的对应cpu类型的.so库。
-      abiFilters 'armeabi' ,'armeabi-v7a', 'arm64-v8a'
+      abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
       // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
     }
-    manifestPlaceholders = [
-            JPUSH_PKGNAME : applicationId,
-            JPUSH_APPKEY : "e8b5f6d0ad020cad274a3171", //JPush上注册的包名对应的appkey.
-            JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+    manifestPlaceholders = [JPUSH_PKGNAME: applicationId,
+                            JPUSH_APPKEY : "e8b5f6d0ad020cad274a3171", //JPush上注册的包名对应的appkey.
+                            JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
     ]
-
   }
   signingConfigs {
     QYSConfig {
@@ -48,10 +47,35 @@ android {
       jniLibs.srcDirs = ['libs']
     }
   }
+  productFlavors {
+    huawei {}
+    baidu {}
+    tencent {}
+    alibaba {}
+    xiaomi {}
+    oppovivo {}
+  }
+  productFlavors.all { flavor -> flavor.manifestPlaceholders = [CHANNEL_ID: name]
+  }
+  applicationVariants.all { variant ->
+    //批量修改Apk名字
+    variant.outputs.all { output ->
+      if (!variant.buildType.isDebuggable()) {
+        def sourceFile = ".apk"
+        def replaceFile = "-${variant.versionName}_${releaseTime()}.apk"
+        outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
+      }
+    }
+  }
+}
+
+//获取日期
+def releaseTime() {
+  return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
-//  compile files('libs/BaiduLBS_Android.jar')
+  //  compile files('libs/BaiduLBS_Android.jar')
   implementation fileTree(dir: 'libs', include: ['*.jar'])
   implementation 'com.android.support:appcompat-v7:26.1.0'
   implementation 'com.android.support.constraint:constraint-layout:1.1.0'
