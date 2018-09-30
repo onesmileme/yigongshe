@@ -19,7 +19,7 @@ android {
     }
     manifestPlaceholders = [JPUSH_PKGNAME: applicationId,
                             JPUSH_APPKEY : "e8b5f6d0ad020cad274a3171", //JPush上注册的包名对应的appkey.
-                            JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
+                            //JPUSH_CHANNEL: name, //暂时填写默认值即可.
     ]
   }
   signingConfigs {
@@ -62,7 +62,8 @@ android {
     variant.outputs.all { output ->
       if (!variant.buildType.isDebuggable()) {
         def sourceFile = ".apk"
-        def replaceFile = "-${variant.versionName}_${releaseTime()}.apk"
+        //        def replaceFile = "-${variant.versionName}_${releaseTime()}.apk"
+        def replaceFile = "-${variant.versionName}.apk"
         outputFileName = output.outputFile.name.replace(sourceFile, replaceFile)
       }
     }
