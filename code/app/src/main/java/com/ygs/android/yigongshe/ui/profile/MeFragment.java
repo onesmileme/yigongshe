@@ -112,7 +112,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
       Intent intent = new Intent(this.getActivity(), clazz);
       startActivity(intent);
     }else if(position == 7){
-      ShareBean shareBean = new ShareBean("邀请伙伴","邀请伙伴参加益工社","https://www.baidu.com");
+      ShareBean shareBean = new ShareBean("邀请伙伴","邀请伙伴参加益工社",
+              "https://mobile.baidu.com/item?docid=24907951&source=s1001&from=singlemessage");
       shareBean.shareDialogTitle = "邀请伙伴";
       ShareUtils.getInstance().shareTo(this.getActivity(),shareBean);
     }
@@ -162,12 +163,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
           Throwable throwable) {
         super.onResponse(entity, response, throwable);
         if (entity == null) {
-          Log.e(TAG, "onResponse: load user info failed " + response);
           return;
         }
         if (entity.error == ApiStatus.OK) {
           AccountManager accountManager = YGApplication.accountManager;
-          Log.e("ME", "onResponse: " + entity.data);
           if (accountManager != null) {
             accountManager.updateUserInfo(entity.data);
           }
