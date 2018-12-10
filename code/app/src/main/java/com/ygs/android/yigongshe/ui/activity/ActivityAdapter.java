@@ -33,6 +33,10 @@ public class ActivityAdapter extends BaseQuickAdapter<ActivityItemBean, BaseView
     helper.setText(R.id.content, item.desc);
     helper.setText(R.id.current_pro, item.cur_call_num + "");
     helper.setText(R.id.totalPro, item.target_call_num + "");
-    helper.setProgress(R.id.progressbar_degree, 100 * item.cur_call_num / item.target_call_num);
+    int progress = 0;
+    if (item.target_call_num > 0){
+      progress = (int)(100.0 * item.cur_call_num / item.target_call_num);
+    }
+    helper.setProgress(R.id.progressbar_degree, progress);
   }
 }
