@@ -241,7 +241,7 @@ public class RegisterActivity extends BaseActivity implements DatePickerDialog.O
             msg = "密码至少6位";
         }
 
-        if (SOCIETY_PEOPLE.equals(mUserType)){
+        if (mSchoolLayout.getVisibility() != View.VISIBLE){
             school = "";
             academy = "";
             year= "";
