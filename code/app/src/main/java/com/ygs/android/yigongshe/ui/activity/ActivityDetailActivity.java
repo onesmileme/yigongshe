@@ -111,6 +111,7 @@ public class ActivityDetailActivity extends BaseDetailActivity {
           final ActivityDetailResponse data = entity.data;
           if (data != null) {
             mShareBean.url = data.share_url;
+            mShareBean.pic = data.pic;
 
             mWebView.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);
             mWebview2.loadDataWithBaseURL(null, data.content, "text/html", "utf-8", null);

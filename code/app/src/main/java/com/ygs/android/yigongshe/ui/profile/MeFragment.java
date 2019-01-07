@@ -115,6 +115,7 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
       ShareBean shareBean = new ShareBean("邀请伙伴","邀请伙伴参加益工社",
               "https://mobile.baidu.com/item?docid=24907951&source=s1001&from=singlemessage");
       shareBean.shareDialogTitle = "邀请伙伴";
+      shareBean.pic = "";
       ShareUtils.getInstance().shareTo(this.getActivity(),shareBean);
     }
   }

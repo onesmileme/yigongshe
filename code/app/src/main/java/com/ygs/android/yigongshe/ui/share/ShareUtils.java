@@ -76,7 +76,7 @@ public class ShareUtils {
           mCall.cancel();
         }
         mCall = LinkCallHelper.getApiService()
-            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+            .onShareClick(mAccountManager.getToken(), shareBean.title, shareBean.pic, shareBean.url);
         mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareWebpageToWechat(shareBean, false);
       }
@@ -86,7 +86,7 @@ public class ShareUtils {
           mCall.cancel();
         }
         mCall = LinkCallHelper.getApiService()
-            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+            .onShareClick(mAccountManager.getToken(), shareBean.title, shareBean.pic, shareBean.url);
         mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareWebpageToWechat(shareBean, true);
       }
@@ -96,7 +96,7 @@ public class ShareUtils {
           mCall.cancel();
         }
         mCall = LinkCallHelper.getApiService()
-            .onShareClick(mAccountManager.getToken(), shareBean.title, null, shareBean.url);
+            .onShareClick(mAccountManager.getToken(), shareBean.title, shareBean.pic, shareBean.url);
         mCall.enqueue(new LinkCallbackAdapter<BaseResultDataInfo<ShareClickResponse>>());
         shareToWeiBo(context, shareBean);
       }

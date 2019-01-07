@@ -111,6 +111,7 @@ public class MeCorporationActivity extends BaseActivity {
                                                 bundle.putString("activity_title", itemBean.title);
                                                 ShareBean shareBean =
                                                     new ShareBean(itemBean.title, itemBean.desc, itemBean.link);
+                                                shareBean.pic = itemBean.pic;
                                                 bundle.putSerializable("shareBean", shareBean);
                                                 goToOthers(ActivityDetailActivity.class, bundle);
                                             }
