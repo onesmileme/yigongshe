@@ -80,7 +80,7 @@ public class DaCallView {
     }
     mCallStatus.setText(
         StringUtil.getReleaseString(mContext.getResources().getString(R.string.dacallstatus),
-            new Object[] { data.cur_call_num, data.aid_num }));
+            new Object[] { data.target_call_num, data.aid_num }));
   }
 
   public View getView() {
